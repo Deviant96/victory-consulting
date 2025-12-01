@@ -9,7 +9,7 @@ class TeamController extends Controller
 {
     public function index()
     {
-        $team = TeamMember::all();
-        return view('frontend.team', compact('team'));
+        $teamMembers = TeamMember::all();
+        return view('frontend.team', compact('teamMembers'));
     }
 }
