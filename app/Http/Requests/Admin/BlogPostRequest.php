@@ -22,7 +22,7 @@ class BlogPostRequest extends FormRequest
             'tags' => ['nullable', 'array'],
             'tags.*' => ['nullable', 'string'],
             'author' => ['nullable', 'string', 'max:255'],
-            'is_published' => ['boolean'],
+            'published' => ['boolean'],
             'published_at' => ['nullable', 'date'],
         ];
     }

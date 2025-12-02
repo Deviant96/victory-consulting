@@ -35,13 +35,14 @@
                 
                 <h1 class="text-5xl font-bold text-gray-900 mb-6">{{ $post->title }}</h1>
                 
+                @php($publishedDate = $post->published_at ?? $post->created_at)
                 <div class="flex items-center text-gray-600 mb-6">
                     @if($post->author)
                     <span class="font-semibold">{{ $post->author }}</span>
                     <span class="mx-3">•</span>
                     @endif
-                    <time datetime="{{ $post->published_at->format('Y-m-d') }}">
-                        {{ $post->published_at->format('F d, Y') }}
+                    <time datetime="{{ $publishedDate->format('Y-m-d') }}">
+                        {{ $publishedDate->format('F d, Y') }}
                     </time>
                     <span class="mx-3">•</span>
                     <span>{{ $post->read_time ?? '5 min read' }}</span>
@@ -125,7 +126,8 @@
                     @endif
                     <h3 class="text-xl font-bold text-gray-900 mb-2 mt-2">{{ $related->title }}</h3>
                     <p class="text-gray-600 line-clamp-2 mb-3">{{ $related->excerpt }}</p>
-                    <span class="text-sm text-gray-500">{{ $related->published_at->format('M d, Y') }}</span>
+                    @php($relatedDate = $related->published_at ?? $related->created_at)
+                    <span class="text-sm text-gray-500">{{ $relatedDate->format('M d, Y') }}</span>
                 </div>
             </a>
             @endforeach

@@ -26,8 +26,8 @@ class FaqController extends Controller
                 });
             })
             ->when($category, fn ($query) => $query->where('category', 'like', "%{$category}%"))
-            ->when($status === 'published', fn ($query) => $query->where('is_published', true))
-            ->when($status === 'draft', fn ($query) => $query->where('is_published', false))
+            ->when($status === 'published', fn ($query) => $query->where('published', true))
+            ->when($status === 'draft', fn ($query) => $query->where('published', false))
             ->ordered()
             ->get();
 
@@ -48,6 +48,7 @@ class FaqController extends Controller
     public function store(FaqRequest $request)
     {
         $validated = $request->validated();
+        $validated['published'] = $request->boolean('published');
 
         Faq::create($validated);
 
@@ -76,6 +77,7 @@ class FaqController extends Controller
     public function update(FaqRequest $request, Faq $faq)
     {
         $validated = $request->validated();
+        $validated['published'] = $request->boolean('published');
 
         $faq->update($validated);
 

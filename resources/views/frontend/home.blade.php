@@ -116,7 +116,8 @@
                     <h3 class="text-xl font-bold text-gray-900 mb-2 mt-2">{{ $post->title }}</h3>
                     <p class="text-gray-600 mb-4 line-clamp-2">{{ $post->excerpt }}</p>
                     <div class="flex items-center text-sm text-gray-500">
-                        <span>{{ $post->published_at->format('M d, Y') }}</span>
+                        @php($publishedDate = $post->published_at ?? $post->created_at)
+                        <span>{{ $publishedDate->format('M d, Y') }}</span>
                         @if($post->author)
                         <span class="mx-2">•</span>
                         <span>{{ $post->author }}</span>

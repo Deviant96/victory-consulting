@@ -43,8 +43,9 @@
                         <span class="text-blue-600 font-semibold">{{ $post->category }}</span>
                         <span class="mx-2">•</span>
                         @endif
-                        <time datetime="{{ $post->published_at->format('Y-m-d') }}">
-                            {{ $post->published_at->format('M d, Y') }}
+                        @php($publishedDate = $post->published_at ?? $post->created_at)
+                        <time datetime="{{ $publishedDate->format('Y-m-d') }}">
+                            {{ $publishedDate->format('M d, Y') }}
                         </time>
                     </div>
 
