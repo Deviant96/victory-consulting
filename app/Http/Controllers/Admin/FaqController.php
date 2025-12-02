@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\FaqRequest;
 use App\Models\Faq;
 use Illuminate\Http\Request;
 
@@ -11,10 +12,26 @@ class FaqController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $faqs = Faq::ordered()->get();
-        return view('admin.faqs.index', compact('faqs'));
+        $search = $request->string('search')->toString();
+        $category = $request->string('category')->toString();
+        $status = $request->string('status')->toString();
+
+        $faqs = Faq::query()
+            ->when($search, function ($query) use ($search) {
+                $query->where(function ($q) use ($search) {
+                    $q->where('question', 'like', "%{$search}%")
+                        ->orWhere('answer', 'like', "%{$search}%");
+                });
+            })
+            ->when($category, fn ($query) => $query->where('category', 'like', "%{$category}%"))
+            ->when($status === 'published', fn ($query) => $query->where('is_published', true))
+            ->when($status === 'draft', fn ($query) => $query->where('is_published', false))
+            ->ordered()
+            ->get();
+
+        return view('admin.faqs.index', compact('faqs', 'search', 'category', 'status'));
     }
 
     /**
@@ -28,15 +45,9 @@ class FaqController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(FaqRequest $request)
     {
-        $validated = $request->validate([
-            'question' => 'required|string',
-            'answer' => 'required|string',
-            'category' => 'nullable|string|max:255',
-            'order' => 'nullable|integer',
-            'is_published' => 'boolean',
-        ]);
+        $validated = $request->validated();
 
         Faq::create($validated);
 
@@ -62,15 +73,9 @@ class FaqController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Faq $faq)
+    public function update(FaqRequest $request, Faq $faq)
     {
-        $validated = $request->validate([
-            'question' => 'required|string',
-            'answer' => 'required|string',
-            'category' => 'nullable|string|max:255',
-            'order' => 'nullable|integer',
-            'is_published' => 'boolean',
-        ]);
+        $validated = $request->validated();
 
         $faq->update($validated);
 

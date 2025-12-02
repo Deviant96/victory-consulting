@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\BlogPostRequest;
 use App\Models\BlogPost;
 use Illuminate\Http\Request;
 
@@ -11,10 +12,27 @@ class BlogPostController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $posts = BlogPost::latest()->get();
-        return view('admin.articles.index', compact('posts'));
+        $search = $request->string('search')->toString();
+        $status = $request->string('status')->toString();
+        $category = $request->string('category')->toString();
+
+        $posts = BlogPost::query()
+            ->when($search, function ($query) use ($search) {
+                $query->where(function ($q) use ($search) {
+                    $q->where('title', 'like', "%{$search}%")
+                        ->orWhere('excerpt', 'like', "%{$search}%")
+                        ->orWhere('content', 'like', "%{$search}%");
+                });
+            })
+            ->when($category, fn ($query) => $query->where('category', 'like', "%{$category}%"))
+            ->when($status === 'published', fn ($query) => $query->where('is_published', true))
+            ->when($status === 'draft', fn ($query) => $query->where('is_published', false))
+            ->latest()
+            ->get();
+
+        return view('admin.articles.index', compact('posts', 'search', 'status', 'category'));
     }
 
     /**
@@ -28,19 +46,9 @@ class BlogPostController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(BlogPostRequest $request)
     {
-        $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'excerpt' => 'nullable|string',
-            'content' => 'required|string',
-            'featured_image' => 'nullable|image|max:2048',
-            'category' => 'nullable|string|max:255',
-            'tags' => 'nullable|array',
-            'author' => 'nullable|string|max:255',
-            'is_published' => 'boolean',
-            'published_at' => 'nullable|date',
-        ]);
+        $validated = $request->validated();
 
         if ($request->hasFile('featured_image')) {
             $validated['featured_image'] = $request->file('featured_image')->store('blog', 'public');
@@ -74,19 +82,9 @@ class BlogPostController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, BlogPost $article)
+    public function update(BlogPostRequest $request, BlogPost $article)
     {
-        $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'excerpt' => 'nullable|string',
-            'content' => 'required|string',
-            'featured_image' => 'nullable|image|max:2048',
-            'category' => 'nullable|string|max:255',
-            'tags' => 'nullable|array',
-            'author' => 'nullable|string|max:255',
-            'is_published' => 'boolean',
-            'published_at' => 'nullable|date',
-        ]);
+        $validated = $request->validated();
 
         if ($request->hasFile('featured_image')) {
             $validated['featured_image'] = $request->file('featured_image')->store('blog', 'public');

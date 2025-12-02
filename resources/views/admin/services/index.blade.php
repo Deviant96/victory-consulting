@@ -6,17 +6,42 @@
 @section('content')
 <div class="space-y-6">
     <!-- Header -->
-    <div class="flex justify-between items-center">
-        <div>
+    <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+        <div class="space-y-1">
             <p class="text-gray-600">Manage your services and offerings</p>
+            <p class="text-sm text-gray-500">Search or filter to quickly find entries</p>
         </div>
-        <a href="{{ route('admin.services.create') }}" 
-           class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
-            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
-            </svg>
-            Add Service
-        </a>
+        <div class="flex flex-col sm:flex-row sm:items-center gap-3">
+            <form method="GET" class="flex flex-col sm:flex-row gap-3">
+                <div class="relative">
+                    <svg class="absolute left-3 top-3 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 105.5 5.5a7.5 7.5 0 0011.15 11.15z" />
+                    </svg>
+                    <input type="text" name="search" value="{{ $search }}" placeholder="Search services..."
+                           class="pl-9 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition">
+                </div>
+                <select name="status" class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition">
+                    <option value="">All Statuses</option>
+                    <option value="published" @selected($status === 'published')>Published</option>
+                    <option value="draft" @selected($status === 'draft')>Draft</option>
+                </select>
+                <div class="flex gap-2">
+                    <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition transform hover:-translate-y-0.5">
+                        Filter
+                    </button>
+                    <a href="{{ route('admin.services.index') }}" class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition">
+                        Reset
+                    </a>
+                </div>
+            </form>
+            <a href="{{ route('admin.services.create') }}"
+               class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition transform hover:-translate-y-0.5">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                </svg>
+                Add Service
+            </a>
+        </div>
     </div>
 
     <!-- Services Table -->
@@ -41,7 +66,7 @@
                 </thead>
                 <tbody class="divide-y divide-gray-200">
                     @forelse($services as $service)
-                        <tr class="hover:bg-gray-50">
+                        <tr class="hover:bg-gray-50 transition">
                             <td class="px-6 py-4">
                                 <div class="flex items-center">
                                     @if($service->featured_image)
