@@ -81,7 +81,7 @@
                     {{ $post->author ?? '-' }}
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">
-                    @if($post->is_published)
+                    @if($post->published)
                     <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
                         Published
                     </span>
@@ -92,10 +92,11 @@
                     @endif
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {{ $post->published_at ? $post->published_at->format('M d, Y') : '-' }}
+                    @php($publishedDate = $post->published_at ?? $post->created_at)
+                    {{ $publishedDate ? $publishedDate->format('M d, Y') : '-' }}
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                    @if($post->is_published)
+                    @if($post->published)
                     <a href="{{ route('blog.show', $post->slug) }}" target="_blank" class="text-gray-600 hover:text-gray-900 mr-3" title="View">
                         <svg class="w-5 h-5 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>

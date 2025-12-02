@@ -14,11 +14,16 @@ class BlogPost extends Model
         'content',
         'featured_image',
         'category',
+        'author',
+        'tags',
         'published',
+        'published_at',
     ];
 
     protected $casts = [
         'published' => 'boolean',
+        'published_at' => 'datetime',
+        'tags' => 'array',
     ];
 
     protected static function boot()

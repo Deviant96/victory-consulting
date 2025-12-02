@@ -27,8 +27,8 @@ class BlogPostController extends Controller
                 });
             })
             ->when($category, fn ($query) => $query->where('category', 'like', "%{$category}%"))
-            ->when($status === 'published', fn ($query) => $query->where('is_published', true))
-            ->when($status === 'draft', fn ($query) => $query->where('is_published', false))
+            ->when($status === 'published', fn ($query) => $query->where('published', true))
+            ->when($status === 'draft', fn ($query) => $query->where('published', false))
             ->latest()
             ->get();
 
@@ -50,13 +50,16 @@ class BlogPostController extends Controller
     {
         $validated = $request->validated();
 
+        if (isset($validated['tags'])) {
+            $validated['tags'] = array_values(array_filter($validated['tags'], fn ($tag) => filled($tag)));
+        }
+
         if ($request->hasFile('featured_image')) {
             $validated['featured_image'] = $request->file('featured_image')->store('blog', 'public');
         }
 
-        if (!isset($validated['published_at']) && $validated['is_published']) {
-            $validated['published_at'] = now();
-        }
+        $validated['published'] = $request->boolean('published');
+        $validated['published_at'] = $validated['published_at'] ?? ($validated['published'] ? now() : null);
 
         BlogPost::create($validated);
 
@@ -86,13 +89,16 @@ class BlogPostController extends Controller
     {
         $validated = $request->validated();
 
+        if (isset($validated['tags'])) {
+            $validated['tags'] = array_values(array_filter($validated['tags'], fn ($tag) => filled($tag)));
+        }
+
         if ($request->hasFile('featured_image')) {
             $validated['featured_image'] = $request->file('featured_image')->store('blog', 'public');
         }
 
-        if (!isset($validated['published_at']) && $validated['is_published']) {
-            $validated['published_at'] = now();
-        }
+        $validated['published'] = $request->boolean('published');
+        $validated['published_at'] = $validated['published_at'] ?? ($validated['published'] ? now() : null);
 
         $article->update($validated);
 
