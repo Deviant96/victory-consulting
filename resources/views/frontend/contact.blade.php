@@ -20,64 +20,8 @@
     <div class="container mx-auto px-4">
         <div class="max-w-6xl mx-auto">
             <div class="grid lg:grid-cols-2 gap-12">
-                <!-- Contact Form -->
-                <div class="bg-white rounded-lg shadow-md p-8">
-                    <h2 class="text-3xl font-bold text-gray-900 mb-6">Send Us a Message</h2>
-                    
-                    @if(session('success'))
-                    <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-6">
-                        {{ session('success') }}
-                    </div>
-                    @endif
-
-                    <form action="{{ route('contact.store') }}" method="POST">
-                        @csrf
-                        
-                        <div class="mb-6">
-                            <label for="name" class="block text-gray-700 font-semibold mb-2">Name *</label>
-                            <input type="text" id="name" name="name" value="{{ old('name') }}" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 @error('name') border-red-500 @enderror">
-                            @error('name')
-                            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                            @enderror
-                        </div>
-
-                        <div class="mb-6">
-                            <label for="email" class="block text-gray-700 font-semibold mb-2">Email *</label>
-                            <input type="email" id="email" name="email" value="{{ old('email') }}" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 @error('email') border-red-500 @enderror">
-                            @error('email')
-                            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                            @enderror
-                        </div>
-
-                        <div class="mb-6">
-                            <label for="phone" class="block text-gray-700 font-semibold mb-2">Phone</label>
-                            <input type="tel" id="phone" name="phone" value="{{ old('phone') }}" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 @error('phone') border-red-500 @enderror">
-                            @error('phone')
-                            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                            @enderror
-                        </div>
-
-                        <div class="mb-6">
-                            <label for="subject" class="block text-gray-700 font-semibold mb-2">Subject *</label>
-                            <input type="text" id="subject" name="subject" value="{{ old('subject') }}" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 @error('subject') border-red-500 @enderror">
-                            @error('subject')
-                            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                            @enderror
-                        </div>
-
-                        <div class="mb-6">
-                            <label for="message" class="block text-gray-700 font-semibold mb-2">Message *</label>
-                            <textarea id="message" name="message" rows="6" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 @error('message') border-red-500 @enderror">{{ old('message') }}</textarea>
-                            @error('message')
-                            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                            @enderror
-                        </div>
-
-                        <button type="submit" class="w-full bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition">
-                            Send Message
-                        </button>
-                    </form>
-                </div>
+                <!-- Booking Form Component -->
+                @include('frontend.partials.booking-form')
 
                 <!-- Contact Information -->
                 <div>

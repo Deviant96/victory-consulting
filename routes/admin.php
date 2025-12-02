@@ -5,11 +5,15 @@ use App\Http\Controllers\Admin\TeamMemberController;
 use App\Http\Controllers\Admin\FaqController;
 use App\Http\Controllers\Admin\BlogPostController;
 use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\Admin\BookingController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('admin.dashboard');
 })->name('dashboard');
+
+// Bookings
+Route::resource('bookings', BookingController::class)->only(['index', 'show', 'update', 'destroy']);
 
 // Services
 Route::resource('services', ServiceController::class);
@@ -33,4 +37,7 @@ Route::prefix('settings')->name('settings.')->group(function () {
     
     Route::get('/branding', [SettingController::class, 'branding'])->name('branding');
     Route::post('/branding', [SettingController::class, 'updateBranding'])->name('branding.update');
+
+    Route::get('/booking', [SettingController::class, 'booking'])->name('booking');
+    Route::post('/booking', [SettingController::class, 'updateBooking'])->name('booking.update');
 });

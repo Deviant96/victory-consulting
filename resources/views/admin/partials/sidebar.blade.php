@@ -21,6 +21,15 @@
                 <div class="px-6 py-2 text-xs font-semibold text-gray-500 uppercase tracking-wider">
                     Content
                 </div>
+
+                <!-- Bookings -->
+                <a href="{{ route('admin.bookings.index') ?? '#' }}"
+                   class="flex items-center px-6 py-3 text-gray-300 hover:bg-gray-800 hover:text-white transition-colors {{ request()->routeIs('admin.bookings.*') ? 'bg-gray-800 text-white border-l-4 border-blue-500' : '' }}">
+                    <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
+                    Bookings
+                </a>
                 
                 <!-- Services -->
                 <a href="{{ route('admin.services.index') ?? '#' }}" 
@@ -75,12 +84,21 @@
                 </a>
 
                 <!-- Social Links -->
-                <a href="{{ route('admin.settings.social') ?? '#' }}" 
+                <a href="{{ route('admin.settings.social') ?? '#' }}"
                    class="flex items-center px-6 py-3 text-gray-300 hover:bg-gray-800 hover:text-white transition-colors {{ request()->routeIs('admin.settings.social') ? 'bg-gray-800 text-white border-l-4 border-blue-500' : '' }}">
                     <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path>
                     </svg>
                     Social Links
+                </a>
+
+                <!-- Booking Notifications -->
+                <a href="{{ route('admin.settings.booking') ?? '#' }}"
+                   class="flex items-center px-6 py-3 text-gray-300 hover:bg-gray-800 hover:text-white transition-colors {{ request()->routeIs('admin.settings.booking') ? 'bg-gray-800 text-white border-l-4 border-blue-500' : '' }}">
+                    <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V4a2 2 0 10-4 0v1.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5" />
+                    </svg>
+                    Booking Notifications
                 </a>
 
                 <!-- Branding -->
