@@ -1,18 +1,30 @@
 @extends('admin.layouts.app')
 
 @section('content')
-<div class="flex justify-between items-center mb-6">
-    <h1 class="text-3xl font-bold text-gray-900">Team Members</h1>
-    <a href="{{ route('admin.team.create') }}" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-semibold transition">
-        Add Team Member
-    </a>
+<div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between mb-6">
+    <div class="space-y-1">
+        <h1 class="text-3xl font-bold text-gray-900">Team Members</h1>
+        <p class="text-sm text-gray-600">Search teammates by name, role, or contact</p>
+    </div>
+    <div class="flex flex-col sm:flex-row gap-3">
+        <form method="GET" class="flex flex-col sm:flex-row gap-3">
+            <div class="relative">
+                <svg class="absolute left-3 top-3 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 105.5 5.5a7.5 7.5 0 0011.15 11.15z" />
+                </svg>
+                <input type="text" name="search" value="{{ $search ?? '' }}" placeholder="Search team..."
+                       class="pl-9 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition">
+            </div>
+            <div class="flex gap-2">
+                <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition transform hover:-translate-y-0.5">Filter</button>
+                <a href="{{ route('admin.team.index') }}" class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition">Reset</a>
+            </div>
+        </form>
+        <a href="{{ route('admin.team.create') }}" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-semibold transition transform hover:-translate-y-0.5">
+            Add Team Member
+        </a>
+    </div>
 </div>
-
-@if(session('success'))
-<div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-6">
-    {{ session('success') }}
-</div>
-@endif
 
 <div class="bg-white rounded-lg shadow overflow-hidden">
     @if($teamMembers->isEmpty())

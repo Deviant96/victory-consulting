@@ -3,16 +3,33 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\ServiceRequest;
 use App\Models\Service;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
 class ServiceController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $services = Service::latest()->paginate(15);
-        return view('admin.services.index', compact('services'));
+        $search = $request->string('search')->toString();
+        $status = $request->string('status')->toString();
+
+        $services = Service::query()
+            ->when($search, function ($query) use ($search) {
+                $query->where(function ($q) use ($search) {
+                    $q->where('title', 'like', "%{$search}%")
+                        ->orWhere('slug', 'like', "%{$search}%")
+                        ->orWhere('summary', 'like', "%{$search}%");
+                });
+            })
+            ->when($status === 'published', fn ($query) => $query->where('published', true))
+            ->when($status === 'draft', fn ($query) => $query->where('published', false))
+            ->latest()
+            ->paginate(15)
+            ->withQueryString();
+
+        return view('admin.services.index', compact('services', 'search', 'status'));
     }
 
     public function create()
@@ -20,20 +37,9 @@ class ServiceController extends Controller
         return view('admin.services.create');
     }
 
-    public function store(Request $request)
+    public function store(ServiceRequest $request)
     {
-        $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'slug' => 'nullable|string|unique:services,slug',
-            'summary' => 'nullable|string',
-            'description' => 'nullable|string',
-            'category_id' => 'nullable|integer',
-            'price_note' => 'nullable|string',
-            'featured_image' => 'nullable|image|max:2048',
-            'published' => 'boolean',
-            'highlights' => 'nullable|array',
-            'highlights.*.label' => 'required|string',
-        ]);
+        $validated = $request->validated();
 
         $validated['slug'] = $validated['slug'] ?? Str::slug($validated['title']);
         $validated['published'] = $request->has('published');
@@ -66,20 +72,9 @@ class ServiceController extends Controller
         return view('admin.services.edit', compact('service'));
     }
 
-    public function update(Request $request, Service $service)
+    public function update(ServiceRequest $request, Service $service)
     {
-        $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'slug' => 'nullable|string|unique:services,slug,' . $service->id,
-            'summary' => 'nullable|string',
-            'description' => 'nullable|string',
-            'category_id' => 'nullable|integer',
-            'price_note' => 'nullable|string',
-            'featured_image' => 'nullable|image|max:2048',
-            'published' => 'boolean',
-            'highlights' => 'nullable|array',
-            'highlights.*.label' => 'required|string',
-        ]);
+        $validated = $request->validated();
 
         $validated['slug'] = $validated['slug'] ?? Str::slug($validated['title']);
         $validated['published'] = $request->has('published');

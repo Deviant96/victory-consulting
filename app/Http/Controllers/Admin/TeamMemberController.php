@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\TeamMemberRequest;
 use App\Models\TeamMember;
 use Illuminate\Http\Request;
 
@@ -11,10 +12,21 @@ class TeamMemberController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $teamMembers = TeamMember::latest()->get();
-        return view('admin.team.index', compact('teamMembers'));
+        $search = $request->string('search')->toString();
+        $teamMembers = TeamMember::query()
+            ->when($search, function ($query) use ($search) {
+                $query->where(function ($q) use ($search) {
+                    $q->where('name', 'like', "%{$search}%")
+                        ->orWhere('role', 'like', "%{$search}%")
+                        ->orWhere('email', 'like', "%{$search}%");
+                });
+            })
+            ->latest()
+            ->get();
+
+        return view('admin.team.index', compact('teamMembers', 'search'));
     }
 
     /**
@@ -28,17 +40,9 @@ class TeamMemberController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(TeamMemberRequest $request)
     {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'role' => 'required|string|max:255',
-            'bio' => 'nullable|string',
-            'photo' => 'nullable|image|max:2048',
-            'linkedin' => 'nullable|url',
-            'email' => 'nullable|email',
-            'expertise' => 'nullable|array',
-        ]);
+        $validated = $request->validated();
 
         if ($request->hasFile('photo')) {
             $validated['photo'] = $request->file('photo')->store('team', 'public');
@@ -68,17 +72,9 @@ class TeamMemberController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, TeamMember $team)
+    public function update(TeamMemberRequest $request, TeamMember $team)
     {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'role' => 'required|string|max:255',
-            'bio' => 'nullable|string',
-            'photo' => 'nullable|image|max:2048',
-            'linkedin' => 'nullable|url',
-            'email' => 'nullable|email',
-            'expertise' => 'nullable|array',
-        ]);
+        $validated = $request->validated();
 
         if ($request->hasFile('photo')) {
             $validated['photo'] = $request->file('photo')->store('team', 'public');
