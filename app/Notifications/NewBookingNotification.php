@@ -27,17 +27,10 @@ class NewBookingNotification extends Notification
      */
     public function via(object $notifiable): array
     {
-        $channels = [];
-
-        if ($this->sendEmail && method_exists($notifiable, 'routeNotificationFor') && $notifiable->routeNotificationFor('mail')) {
-            $channels[] = 'mail';
-        }
-
-        if ($this->sendPush && method_exists($notifiable, 'routeNotificationFor') && $notifiable->routeNotificationFor('database')) {
-            $channels[] = 'database';
-        }
-
-        return $channels;
+        return array_values(array_filter([
+            $this->sendEmail ? 'mail' : null,
+            $this->sendPush ? 'database' : null,
+        ]));
     }
 
     /**
