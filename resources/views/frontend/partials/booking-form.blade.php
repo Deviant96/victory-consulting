@@ -62,10 +62,14 @@
                 <label for="service_interest" class="block text-sm font-medium text-gray-700 mb-1">Service of interest</label>
                 <select name="service_interest" id="service_interest"
                         class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-                    <option value="" disabled selected>Select a service</option>
-                    <option value="Strategy & Advisory" @selected(old('service_interest') === 'Strategy & Advisory')>Strategy & Advisory</option>
-                    <option value="Technology Consulting" @selected(old('service_interest') === 'Technology Consulting')>Technology Consulting</option>
-                    <option value="Managed Services" @selected(old('service_interest') === 'Managed Services')>Managed Services</option>
+                    <option value="" disabled @selected(! old('service_interest'))>Select a service</option>
+                    @forelse(($services ?? collect()) as $service)
+                        <option value="{{ $service->title }}" @selected(old('service_interest') === $service->title)>
+                            {{ $service->title }}
+                        </option>
+                    @empty
+                        <option value="" disabled>No services available</option>
+                    @endforelse
                     <option value="Custom" @selected(old('service_interest') === 'Custom')>Custom</option>
                 </select>
             </div>
