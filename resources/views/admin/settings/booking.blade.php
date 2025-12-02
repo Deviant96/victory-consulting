@@ -22,8 +22,17 @@
                             <p class="text-sm text-gray-600 mt-1">Send booking alerts to a dedicated inbox (not tied to user profiles).</p>
                         </div>
                         <label class="inline-flex items-center cursor-pointer">
-                            <input type="checkbox" name="booking.notifications.email.enabled" value="1" class="sr-only"
-                                   {{ filter_var($settings['booking.notifications.email.enabled'] ?? true, FILTER_VALIDATE_BOOL) ? 'checked' : '' }}>
+                            @php
+                                $emailEnabled = filter_var(old('booking.notifications.email.enabled', $settings['booking.notifications.email.enabled'] ?? true), FILTER_VALIDATE_BOOL);
+                            @endphp
+                            <input type="hidden" name="booking[notifications][email][enabled]" value="0">
+                            <input
+                                type="checkbox"
+                                name="booking[notifications][email][enabled]"
+                                value="1"
+                                class="sr-only"
+                                {{ $emailEnabled ? 'checked' : '' }}
+                            >
                             <span class="relative inline-block w-12 h-6 transition rounded-full bg-gray-300">
                                 <span class="dot absolute left-1 top-1 w-4 h-4 bg-white rounded-full transition translate-x-0" aria-hidden="true"></span>
                             </span>
@@ -33,7 +42,7 @@
                     <div class="mt-4">
                         <label class="block text-sm font-medium text-gray-700 mb-2">Notification email address</label>
                         <input type="email"
-                               name="booking.notifications.email.address"
+                               name="booking[notifications][email][address]"
                                value="{{ old('booking.notifications.email.address', $settings['booking.notifications.email.address'] ?? '') }}"
                                placeholder="alerts@yourcompany.com"
                                class="w-full rounded-md border-gray-300 focus:border-blue-500 focus:ring-blue-500">
@@ -51,8 +60,17 @@
                             <p class="text-sm text-gray-600 mt-1">Send an in-dashboard alert to everyone on the admin team.</p>
                         </div>
                         <label class="inline-flex items-center cursor-pointer">
-                            <input type="checkbox" name="booking.notifications.push.enabled" value="1" class="sr-only"
-                                   {{ filter_var($settings['booking.notifications.push.enabled'] ?? true, FILTER_VALIDATE_BOOL) ? 'checked' : '' }}>
+                            @php
+                                $pushEnabled = filter_var(old('booking.notifications.push.enabled', $settings['booking.notifications.push.enabled'] ?? true), FILTER_VALIDATE_BOOL);
+                            @endphp
+                            <input type="hidden" name="booking[notifications][push][enabled]" value="0">
+                            <input
+                                type="checkbox"
+                                name="booking[notifications][push][enabled]"
+                                value="1"
+                                class="sr-only"
+                                {{ $pushEnabled ? 'checked' : '' }}
+                            >
                             <span class="relative inline-block w-12 h-6 transition rounded-full bg-gray-300">
                                 <span class="dot absolute left-1 top-1 w-4 h-4 bg-white rounded-full transition translate-x-0" aria-hidden="true"></span>
                             </span>

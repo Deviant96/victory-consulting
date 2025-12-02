@@ -119,9 +119,13 @@ class SettingController extends Controller
             'booking.notifications.push.enabled' => 'nullable|boolean',
         ]);
 
-        Setting::set('booking.notifications.email.enabled', $request->boolean('booking.notifications.email.enabled'));
-        Setting::set('booking.notifications.email.address', $validated['booking.notifications.email.address'] ?? '');
-        Setting::set('booking.notifications.push.enabled', $request->boolean('booking.notifications.push.enabled'));
+        $emailEnabled = $request->boolean('booking.notifications.email.enabled');
+        $emailAddress = data_get($validated, 'booking.notifications.email.address', '');
+        $pushEnabled = $request->boolean('booking.notifications.push.enabled');
+
+        Setting::set('booking.notifications.email.enabled', $emailEnabled);
+        Setting::set('booking.notifications.email.address', $emailAddress);
+        Setting::set('booking.notifications.push.enabled', $pushEnabled);
 
         return redirect()
             ->route('admin.settings.booking')
