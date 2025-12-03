@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="vapid-public-key" content="{{ config('services.webpush.vapid_public_key') }}">
 
     <title>@yield('title', 'Welcome') - {{ settings('site.name', 'Victory Business Consulting') }}</title>
     <meta name="description" content="@yield('description', settings('site.description', 'Professional business consulting services'))">

@@ -84,12 +84,20 @@
                 </a>
 
                 <!-- Branding -->
-                <a href="{{ route('admin.settings.branding') ?? '#' }}" 
+                <a href="{{ route('admin.settings.branding') ?? '#' }}"
                    class="flex items-center px-6 py-3 text-gray-300 hover:bg-gray-800 hover:text-white transition-colors {{ request()->routeIs('admin.settings.branding') ? 'bg-gray-800 text-white border-l-4 border-blue-500' : '' }}">
                     <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"></path>
                     </svg>
                     Branding
+                </a>
+
+                <a href="{{ route('admin.settings.booking') ?? '#' }}"
+                   class="flex items-center px-6 py-3 text-gray-300 hover:bg-gray-800 hover:text-white transition-colors {{ request()->routeIs('admin.settings.booking') ? 'bg-gray-800 text-white border-l-4 border-blue-500' : '' }}">
+                    <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 1.343-3 3 0 1.657 1.343 3 3 3s3-1.343 3-3c0-1.657-1.343-3-3-3zm0-6a9 9 0 110 18 9 9 0 010-18zm0 0v4m0 10v4m-8-8h4m10 0h4"></path>
+                    </svg>
+                    Booking Notifications
                 </a>
             </div>
         </nav>

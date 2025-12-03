@@ -99,4 +99,24 @@ class SettingController extends Controller
 
         return redirect()->route('admin.settings.branding')->with('success', 'Branding settings updated successfully.');
     }
+
+    public function booking()
+    {
+        $settings = Setting::whereIn('key', [
+            'booking.notifications.push_enabled',
+        ])->pluck('value', 'key');
+
+        return view('admin.settings.booking', compact('settings'));
+    }
+
+    public function updateBooking(Request $request)
+    {
+        $validated = $request->validate([
+            'booking.notifications.push_enabled' => 'nullable|boolean',
+        ]);
+
+        Setting::set('booking.notifications.push_enabled', $request->boolean('booking.notifications.push_enabled'));
+
+        return redirect()->route('admin.settings.booking')->with('success', 'Booking notification settings updated successfully.');
+    }
 }

@@ -33,4 +33,7 @@ Route::prefix('settings')->name('settings.')->group(function () {
     
     Route::get('/branding', [SettingController::class, 'branding'])->name('branding');
     Route::post('/branding', [SettingController::class, 'updateBranding'])->name('branding.update');
+
+    Route::get('/booking', [SettingController::class, 'booking'])->name('booking');
+    Route::post('/booking', [SettingController::class, 'updateBooking'])->name('booking.update');
 });

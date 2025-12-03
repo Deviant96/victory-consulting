@@ -1,4 +1,5 @@
 import './bootstrap';
+import './booking-notifications';
 
 import Alpine from 'alpinejs';
 

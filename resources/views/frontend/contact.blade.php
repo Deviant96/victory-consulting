@@ -30,7 +30,7 @@
                     </div>
                     @endif
 
-                    <form action="{{ route('contact.store') }}" method="POST">
+                    <form action="{{ route('bookings.store') }}" method="POST" id="booking-contact-form">
                         @csrf
                         
                         <div class="mb-6">
@@ -194,3 +194,13 @@
     </div>
 </section>
 @endsection
+
+@push('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        if (window.bookingNotifications) {
+            window.bookingNotifications.init();
+        }
+    });
+</script>
+@endpush
