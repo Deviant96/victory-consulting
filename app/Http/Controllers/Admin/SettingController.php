@@ -99,4 +99,36 @@ class SettingController extends Controller
 
         return redirect()->route('admin.settings.branding')->with('success', 'Branding settings updated successfully.');
     }
+
+    public function booking()
+    {
+        $settings = Setting::whereIn('key', [
+            'booking.notifications.email.enabled',
+            'booking.notifications.email.address',
+            'booking.notifications.push.enabled',
+        ])->pluck('value', 'key');
+
+        return view('admin.settings.booking', compact('settings'));
+    }
+
+    public function updateBooking(Request $request)
+    {
+        $validated = $request->validate([
+            'booking.notifications.email.enabled' => 'nullable',
+            'booking.notifications.email.address' => 'nullable|email',
+            'booking.notifications.push.enabled' => 'nullable',
+        ]);
+
+        $emailEnabled = $request->input('booking.notifications.email.enabled', 0);
+        $emailAddress = $request->input('booking.notifications.email.address', '');
+        $pushEnabled = $request->input('booking.notifications.push.enabled', 0);
+
+        Setting::set('booking.notifications.email.enabled', (bool) $emailEnabled);
+        Setting::set('booking.notifications.email.address', $emailAddress);
+        Setting::set('booking.notifications.push.enabled', (bool) $pushEnabled);
+
+        return redirect()
+            ->route('admin.settings.booking')
+            ->with('success', 'Booking notification settings updated successfully.');
+    }
 }

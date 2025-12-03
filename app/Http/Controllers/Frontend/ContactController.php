@@ -3,13 +3,16 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Service;
 use Illuminate\Http\Request;
 
 class ContactController extends Controller
 {
     public function index()
     {
-        return view('frontend.contact');
+        $services = Service::published()->orderBy('title')->get();
+
+        return view('frontend.contact', compact('services'));
     }
 
     public function store(Request $request)
