@@ -108,18 +108,49 @@
 
 @push('scripts')
     @auth
+        <div class="mt-8 rounded-lg border border-blue-100 bg-blue-50 p-4 text-sm text-blue-900">
+            <div class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+                <div class="flex items-start gap-3">
+                    <span class="mt-0.5 inline-flex h-6 w-6 items-center justify-center rounded-full bg-blue-600 text-white">🔔</span>
+                    <div>
+                        <p class="font-semibold">Want push alerts when someone books?</p>
+                        <p class="text-blue-800">We'll send browser/OS notifications to this account after you subscribe.</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-3">
+                    <button id="booking-push-subscribe" type="button" class="inline-flex items-center gap-2 rounded-md border border-blue-700 px-4 py-2 font-semibold text-blue-700 transition hover:bg-blue-100">
+                        <svg class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M10 2a6 6 0 00-6 6v2.586l-.707.707A1 1 0 004 13h12a1 1 0 00.707-1.707L16 10.586V8a6 6 0 00-6-6zm0 16a2 2 0 01-2-2h4a2 2 0 01-2 2z" /></svg>
+                        Subscribe to booking alerts
+                    </button>
+                    <span id="booking-push-status" class="text-xs text-blue-800"></span>
+                </div>
+            </div>
+        </div>
+
         <script>
             (() => {
                 const pushEnabled = @json(filter_var(settings('booking.notifications.push.enabled', true), FILTER_VALIDATE_BOOL));
                 const vapidPublicKey = @json(config('webpush.vapid.public_key'));
                 const subscribeUrl = @json(route('push-subscriptions.store'));
                 const csrfToken = document.querySelector('meta[name="csrf-token"]')?.content;
+                const subscribeButton = document.getElementById('booking-push-subscribe');
+                const statusEl = document.getElementById('booking-push-status');
 
-                if (!pushEnabled || !vapidPublicKey || !subscribeUrl || !csrfToken) {
+                if (!subscribeButton || !pushEnabled) {
                     return;
                 }
 
-                if (!('serviceWorker' in navigator) || !('PushManager' in window) || !('Notification' in window)) {
+                const unsupported = !('serviceWorker' in navigator) || !('PushManager' in window) || !('Notification' in window);
+
+                const setStatus = (message, isError = false) => {
+                    if (!statusEl) return;
+                    statusEl.textContent = message;
+                    statusEl.classList.toggle('text-red-600', isError);
+                };
+
+                if (unsupported) {
+                    subscribeButton.disabled = true;
+                    setStatus('Push not supported in this browser.', true);
                     return;
                 }
 
@@ -136,15 +167,21 @@
                     return outputArray;
                 };
 
-                const registerPush = async () => {
-                    if (Notification.permission === 'denied') {
+                const subscribe = async () => {
+                    if (!vapidPublicKey || !subscribeUrl || !csrfToken) {
+                        setStatus('Push keys are missing. Check configuration.', true);
                         return;
                     }
+
+                    subscribeButton.disabled = true;
+                    setStatus('Requesting permission...');
 
                     const registration = await navigator.serviceWorker.register('/service-worker.js');
                     const permission = await Notification.requestPermission();
 
                     if (permission !== 'granted') {
+                        setStatus('Permission was denied.', true);
+                        subscribeButton.disabled = false;
                         return;
                     }
 
@@ -162,11 +199,15 @@
                         },
                         body: JSON.stringify(activeSubscription),
                     });
+
+                    setStatus('Subscribed! You will see booking alerts here.');
                 };
 
-                document.addEventListener('DOMContentLoaded', () => {
-                    registerPush().catch(() => {
-                        // Fail silently; push registration is optional.
+                subscribeButton.addEventListener('click', () => {
+                    subscribe().catch((error) => {
+                        console.error(error);
+                        setStatus('Could not subscribe. Check console for details.', true);
+                        subscribeButton.disabled = false;
                     });
                 });
             })();
