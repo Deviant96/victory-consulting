@@ -1,4 +1,4 @@
-<header class="sticky top-0 z-20 bg-white/80 backdrop-blur-xl border-b border-gray-200 h-16 flex items-center px-4 sm:px-6 justify-between shadow-sm">
+<header class="sticky top-0 z-20 bg-white border-b border-gray-200 h-16 flex items-center px-4 sm:px-6 justify-between shadow-sm">
     <!-- Left side - Breadcrumbs or Page title -->
     <div class="flex items-center gap-3">
         <button class="lg:hidden p-2 rounded-xl text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition" @click="sidebarOpen = true">
