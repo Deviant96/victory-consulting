@@ -105,3 +105,71 @@
         </div>
     </form>
 </div>
+
+@push('scripts')
+    @auth
+        <script>
+            (() => {
+                const pushEnabled = @json(filter_var(settings('booking.notifications.push.enabled', true), FILTER_VALIDATE_BOOL));
+                const vapidPublicKey = @json(config('webpush.vapid.public_key'));
+                const subscribeUrl = @json(route('push-subscriptions.store'));
+                const csrfToken = document.querySelector('meta[name="csrf-token"]')?.content;
+
+                if (!pushEnabled || !vapidPublicKey || !subscribeUrl || !csrfToken) {
+                    return;
+                }
+
+                if (!('serviceWorker' in navigator) || !('PushManager' in window) || !('Notification' in window)) {
+                    return;
+                }
+
+                const urlBase64ToUint8Array = (base64String) => {
+                    const padding = '='.repeat((4 - (base64String.length % 4)) % 4);
+                    const base64 = (base64String + padding).replace(/-/g, '+').replace(/_/g, '/');
+                    const rawData = window.atob(base64);
+                    const outputArray = new Uint8Array(rawData.length);
+
+                    for (let i = 0; i < rawData.length; ++i) {
+                        outputArray[i] = rawData.charCodeAt(i);
+                    }
+
+                    return outputArray;
+                };
+
+                const registerPush = async () => {
+                    if (Notification.permission === 'denied') {
+                        return;
+                    }
+
+                    const registration = await navigator.serviceWorker.register('/service-worker.js');
+                    const permission = await Notification.requestPermission();
+
+                    if (permission !== 'granted') {
+                        return;
+                    }
+
+                    const existingSubscription = await registration.pushManager.getSubscription();
+                    const activeSubscription = existingSubscription ?? await registration.pushManager.subscribe({
+                        userVisibleOnly: true,
+                        applicationServerKey: urlBase64ToUint8Array(vapidPublicKey),
+                    });
+
+                    await fetch(subscribeUrl, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': csrfToken,
+                        },
+                        body: JSON.stringify(activeSubscription),
+                    });
+                };
+
+                document.addEventListener('DOMContentLoaded', () => {
+                    registerPush().catch(() => {
+                        // Fail silently; push registration is optional.
+                    });
+                });
+            })();
+        </script>
+    @endauth
+@endpush

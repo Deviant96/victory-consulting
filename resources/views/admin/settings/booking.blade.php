@@ -57,7 +57,7 @@
                     <div class="flex items-start justify-between">
                         <div>
                             <h2 class="text-lg font-semibold text-gray-900">Push notification</h2>
-                            <p class="text-sm text-gray-600 mt-1">Send an in-dashboard alert to everyone on the admin team.</p>
+                            <p class="text-sm text-gray-600 mt-1">Send a browser/OS notification to everyone on the admin team who has allowed alerts.</p>
                         </div>
                         <label class="inline-flex items-center cursor-pointer">
                             @php
@@ -76,7 +76,7 @@
                             </span>
                         </label>
                     </div>
-                    <p class="text-xs text-gray-500 mt-3">New bookings will appear in the notification center for signed-in admins.</p>
+                    <p class="text-xs text-gray-500 mt-3">Signed-in admins will be prompted by their browser to allow notifications when this is enabled.</p>
                 </div>
 
                 <div class="flex justify-end">

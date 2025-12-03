@@ -6,6 +6,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use App\Models\PushSubscription;
 
 class User extends Authenticatable
 {
@@ -44,5 +46,33 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function pushSubscriptions(): HasMany
+    {
+        return $this->hasMany(PushSubscription::class);
+    }
+
+    public function updatePushSubscription(
+        string $endpoint,
+        string $publicKey,
+        string $authToken,
+        ?string $contentEncoding = null,
+        ?string $expirationTime = null
+    ): void {
+        $this->pushSubscriptions()->updateOrCreate(
+            ['endpoint' => $endpoint],
+            [
+                'public_key' => $publicKey,
+                'auth_token' => $authToken,
+                'content_encoding' => $contentEncoding ?? 'aesgcm',
+                'expiration_time' => $expirationTime,
+            ]
+        );
+    }
+
+    public function deletePushSubscription(string $endpoint): void
+    {
+        $this->pushSubscriptions()->where('endpoint', $endpoint)->delete();
     }
 }

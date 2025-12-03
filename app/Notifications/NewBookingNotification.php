@@ -4,8 +4,11 @@ namespace App\Notifications;
 
 use App\Models\Booking;
 use Illuminate\Bus\Queueable;
+use Illuminate\Notifications\Messages\BroadcastMessage;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use NotificationChannels\WebPush\WebPushChannel;
+use NotificationChannels\WebPush\WebPushMessage;
 
 class NewBookingNotification extends Notification
 {
@@ -27,10 +30,22 @@ class NewBookingNotification extends Notification
      */
     public function via(object $notifiable): array
     {
-        return array_values(array_filter([
-            $this->sendEmail ? 'mail' : null,
-            $this->sendPush ? 'database' : null,
-        ]));
+        $channels = [];
+
+        if ($this->sendEmail) {
+            $channels[] = 'mail';
+        }
+
+        if ($this->sendPush) {
+            $channels[] = 'database';
+            $channels[] = 'broadcast';
+
+            if (class_exists(WebPushChannel::class)) {
+                $channels[] = WebPushChannel::class;
+            }
+        }
+
+        return $channels;
     }
 
     /**
@@ -69,6 +84,46 @@ class NewBookingNotification extends Notification
             'preferred_time' => $this->booking->preferred_time,
             'message' => $this->booking->message,
             'status' => $this->booking->status,
+        ];
+    }
+
+    public function toBroadcast(object $notifiable): BroadcastMessage
+    {
+        return new BroadcastMessage(
+            $this->toArray($notifiable) + [
+                'title' => 'New booking request',
+                'url' => route('admin.bookings.show', $this->booking),
+            ]
+        );
+    }
+
+    public function toWebPush(object $notifiable): ?WebPushMessage
+    {
+        if (!class_exists(WebPushMessage::class)) {
+            return null;
+        }
+
+        $payload = $this->toWebPushPayload();
+
+        return (new WebPushMessage())
+            ->title($payload['title'])
+            ->body($payload['body'])
+            ->icon($payload['icon'])
+            ->action('View booking', $payload['url'])
+            ->tag($payload['tag'])
+            ->data($payload);
+    }
+
+    public function toWebPushPayload(): array
+    {
+        return [
+            'title' => 'New booking from ' . $this->booking->name,
+            'body' => $this->booking->service_interest
+                ? 'Service: ' . $this->booking->service_interest
+                : 'A new consultation request is ready to review.',
+            'url' => route('admin.bookings.show', $this->booking),
+            'icon' => asset('favicon.ico'),
+            'tag' => 'booking-' . $this->booking->id,
         ];
     }
 }

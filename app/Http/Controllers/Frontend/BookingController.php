@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Notifications\NewBookingNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Notification;
+use App\Services\WebPushService;
 
 class BookingController extends Controller
 {
@@ -36,9 +37,19 @@ class BookingController extends Controller
             Notification::route('mail', $notificationEmail)->notify($notification);
         }
 
+        $admins = User::with('pushSubscriptions')->get();
+
         if ($sendPush) {
-            $admins = User::all();
             Notification::send($admins, $notification);
+
+            $webPushPayload = $notification->toWebPushPayload();
+            $webPushService = app(WebPushService::class);
+
+            foreach ($admins as $admin) {
+                foreach ($admin->pushSubscriptions as $subscription) {
+                    $webPushService->send($subscription, $webPushPayload);
+                }
+            }
         }
 
         return redirect()
