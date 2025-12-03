@@ -16,58 +16,64 @@
 
     @stack('styles')
 </head>
-<body class="font-sans antialiased bg-gray-50">
-    <div class="min-h-screen flex">
+<body class="font-sans antialiased bg-slate-50">
+    <div x-data="{ sidebarOpen: window.innerWidth >= 1024 }" class="min-h-screen flex bg-gradient-to-br from-slate-50 via-white to-slate-100">
         <!-- Sidebar -->
         @include('admin.partials.sidebar')
 
         <!-- Main Content -->
-        <div class="flex-1 flex flex-col">
+        <div class="flex-1 flex flex-col min-h-screen">
             <!-- Header -->
             @include('admin.partials.header')
 
             <!-- Page Content -->
-            <main class="flex-1 overflow-y-auto p-6">
-                <!-- Page Heading -->
-                @if (isset($header))
-                    <div class="mb-6">
-                        <h1 class="text-2xl font-bold text-gray-900">
-                            {{ $header }}
-                        </h1>
-                    </div>
-                @endif
+            <main class="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8">
+                <div class="max-w-7xl mx-auto space-y-6">
+                    <!-- Page Heading -->
+                    @if (isset($header))
+                        <div class="flex items-center justify-between flex-wrap gap-3 bg-white/80 backdrop-blur border border-gray-200 shadow-sm rounded-2xl px-5 py-4">
+                            <div>
+                                <h1 class="text-xl sm:text-2xl font-bold text-gray-900">{{ $header }}</h1>
+                                @hasSection('page-description')
+                                    <p class="text-sm text-gray-600">@yield('page-description')</p>
+                                @endif
+                            </div>
+                            @yield('page-actions')
+                        </div>
+                    @endif
 
-                <!-- Flash Messages -->
-                @if (session()->has('success') || session()->has('error'))
-                    <div class="mb-6 space-y-3">
-                        @foreach (['success' => 'green', 'error' => 'red'] as $type => $color)
-                            @if (session($type))
-                                <div
-                                    x-data="{ show: true }"
-                                    x-init="setTimeout(() => show = false, 4000)"
-                                    x-show="show"
-                                    x-transition.opacity.scale.duration.300ms
-                                    class="flex items-start gap-3 bg-{{$color}}-50 border border-{{$color}}-200 text-{{$color}}-800 px-4 py-3 rounded-lg shadow-sm"
-                                >
-                                    <div class="mt-0.5">
-                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                        </svg>
+                    <!-- Flash Messages -->
+                    @if (session()->has('success') || session()->has('error'))
+                        <div class="space-y-3">
+                            @foreach (['success' => 'green', 'error' => 'red'] as $type => $color)
+                                @if (session($type))
+                                    <div
+                                        x-data="{ show: true }"
+                                        x-init="setTimeout(() => show = false, 4000)"
+                                        x-show="show"
+                                        x-transition.opacity.scale.duration.300ms
+                                        class="flex items-start gap-3 bg-{{$color}}-50 border border-{{$color}}-200 text-{{$color}}-800 px-4 py-3 rounded-xl shadow-sm"
+                                    >
+                                        <div class="mt-0.5">
+                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                            </svg>
+                                        </div>
+                                        <p class="flex-1 text-sm">{{ session($type) }}</p>
+                                        <button type="button" @click="show = false" class="text-{{$color}}-700 hover:text-{{$color}}-900 transition-colors">
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                            </svg>
+                                        </button>
                                     </div>
-                                    <p class="flex-1 text-sm">{{ session($type) }}</p>
-                                    <button type="button" @click="show = false" class="text-{{$color}}-700 hover:text-{{$color}}-900 transition-colors">
-                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                                        </svg>
-                                    </button>
-                                </div>
-                            @endif
-                        @endforeach
-                    </div>
-                @endif
+                                @endif
+                            @endforeach
+                        </div>
+                    @endif
 
-                <!-- Main Content -->
-                @yield('content')
+                    <!-- Main Content -->
+                    @yield('content')
+                </div>
             </main>
         </div>
     </div>
