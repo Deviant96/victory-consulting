@@ -130,7 +130,7 @@
             </div>
         </div>
 
-        <div x-data="cardState('today')" class="bg-white/90 border border-gray-200 rounded-3xl shadow-sm p-6 flex flex-col gap-4 backdrop-blur">
+        <div x-data="cardState('today')" class="bg-white border border-gray-200 rounded-3xl shadow-sm p-6 flex flex-col gap-4">
             <div class="flex items-center justify-between">
                 <div>
                     <p class="text-xs uppercase tracking-[0.2em] text-gray-500">Today</p>
@@ -217,7 +217,7 @@
     </section>
 
     <section class="grid grid-cols-1 xl:grid-cols-3 gap-6">
-        <div x-data="cardState('pipeline')" class="xl:col-span-2 bg-white/90 border border-gray-200 rounded-2xl shadow-sm p-6 backdrop-blur">
+        <div x-data="cardState('pipeline')" class="xl:col-span-2 bg-white border border-gray-200 rounded-2xl shadow-sm p-6">
             <div class="flex items-center justify-between gap-3 flex-wrap">
                 <div>
                     <p class="text-xs uppercase tracking-[0.2em] text-gray-500">Bookings</p>
@@ -272,7 +272,7 @@
             </div>
         </div>
 
-        <div x-data="cardState('posts')" class="bg-white/90 border border-gray-200 rounded-2xl shadow-sm p-6 flex flex-col gap-4 backdrop-blur">
+        <div x-data="cardState('posts')" class="bg-white border border-gray-200 rounded-2xl shadow-sm p-6 flex flex-col gap-4">
             <div class="flex items-center justify-between">
                 <div>
                     <p class="text-xs uppercase tracking-[0.2em] text-gray-500">Content</p>
@@ -310,7 +310,7 @@
     </section>
 
     <section class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div x-data="cardState('activity')" class="lg:col-span-2 bg-white/90 border border-gray-200 rounded-2xl shadow-sm p-6 backdrop-blur">
+        <div x-data="cardState('activity')" class="lg:col-span-2 bg-white border border-gray-200 rounded-2xl shadow-sm p-6">
             <div class="flex items-center justify-between">
                 <div>
                     <p class="text-xs uppercase tracking-[0.2em] text-gray-500">Activity</p>
@@ -350,7 +350,7 @@
             </div>
         </div>
 
-        <div x-data="cardState('actions')" class="bg-white/90 border border-gray-200 rounded-2xl shadow-sm p-6 backdrop-blur">
+        <div x-data="cardState('actions')" class="bg-white border border-gray-200 rounded-2xl shadow-sm p-6">
             <div class="flex items-center justify-between">
                 <div>
                     <p class="text-xs uppercase tracking-[0.2em] text-gray-500">Quick actions</p>

@@ -7,7 +7,7 @@
 @section('content')
 <div class="space-y-6">
     <!-- Header -->
-    <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between bg-white/90 border border-gray-200 rounded-2xl p-4 shadow-sm">
+    <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between bg-white border border-gray-200 rounded-2xl p-4 shadow-sm">
         <div class="space-y-1">
             <p class="text-gray-700">Manage your services and offerings</p>
             <p class="text-sm text-gray-500">Search or filter to quickly find entries</p>
@@ -46,7 +46,7 @@
     </div>
 
     <!-- Services Table -->
-    <div class="bg-white/90 rounded-2xl shadow-sm border border-gray-200 overflow-hidden backdrop-blur">
+    <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
         <div class="overflow-x-auto">
             <table class="w-full">
                 <thead class="bg-gray-50 border-b border-gray-200">

@@ -17,7 +17,7 @@
     @stack('styles')
 </head>
 <body class="font-sans antialiased bg-slate-50">
-    <div x-data="{ sidebarOpen: window.innerWidth >= 1024 }" class="min-h-screen flex bg-gradient-to-br from-slate-50 via-white to-slate-100">
+    <div x-data="{ sidebarOpen: window.innerWidth >= 1024 }" class="min-h-screen flex bg-slate-100">
         <!-- Sidebar -->
         @include('admin.partials.sidebar')
 
@@ -31,7 +31,7 @@
                 <div class="max-w-7xl mx-auto space-y-6">
                     <!-- Page Heading -->
                     @if (isset($header))
-                        <div class="flex items-center justify-between flex-wrap gap-3 bg-white/80 backdrop-blur border border-gray-200 shadow-sm rounded-2xl px-5 py-4">
+                        <div class="flex items-center justify-between flex-wrap gap-3 bg-white border border-gray-200 shadow-sm rounded-2xl px-5 py-4">
                             <div>
                                 <h1 class="text-xl sm:text-2xl font-bold text-gray-900">{{ $header }}</h1>
                                 @hasSection('page-description')

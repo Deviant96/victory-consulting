@@ -5,7 +5,7 @@
 @section('page-description', 'Search teammates by name, role, or contact and manage roster updates.')
 
 @section('content')
-<div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between mb-6 bg-white/90 border border-gray-200 rounded-2xl p-4 shadow-sm">
+<div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between mb-6 bg-white border border-gray-200 rounded-2xl p-4 shadow-sm">
     <div class="space-y-1">
         <h1 class="text-xl font-semibold text-gray-900">Team Members</h1>
         <p class="text-sm text-gray-600">Search teammates by name, role, or contact</p>
@@ -30,7 +30,7 @@
     </div>
 </div>
 
-<div class="bg-white/90 rounded-2xl shadow-sm border border-gray-200 overflow-hidden backdrop-blur">
+<div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
     @if($teamMembers->isEmpty())
     <div class="p-12 text-center text-gray-500">
         <svg class="mx-auto h-12 w-12 text-gray-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

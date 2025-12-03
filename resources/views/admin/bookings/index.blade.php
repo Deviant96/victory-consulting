@@ -7,21 +7,21 @@
 @section('content')
     <div class="space-y-6">
         <div class="grid md:grid-cols-3 gap-4">
-            <div class="bg-white/90 border border-gray-200 rounded-2xl p-4 shadow-sm flex items-center justify-between">
+            <div class="bg-white border border-gray-200 rounded-2xl p-4 shadow-sm flex items-center justify-between">
                 <div>
                     <p class="text-sm text-gray-600">Pending</p>
                     <p class="text-3xl font-bold text-amber-600 mt-1">{{ $stats['pending'] }}</p>
                 </div>
                 <span class="text-[11px] px-3 py-1 rounded-full bg-amber-50 text-amber-700 border border-amber-100">Follow up</span>
             </div>
-            <div class="bg-white/90 border border-gray-200 rounded-2xl p-4 shadow-sm flex items-center justify-between">
+            <div class="bg-white border border-gray-200 rounded-2xl p-4 shadow-sm flex items-center justify-between">
                 <div>
                     <p class="text-sm text-gray-600">Confirmed</p>
                     <p class="text-3xl font-bold text-emerald-600 mt-1">{{ $stats['confirmed'] }}</p>
                 </div>
                 <span class="text-[11px] px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-100">Scheduled</span>
             </div>
-            <div class="bg-white/90 border border-gray-200 rounded-2xl p-4 shadow-sm flex items-center justify-between">
+            <div class="bg-white border border-gray-200 rounded-2xl p-4 shadow-sm flex items-center justify-between">
                 <div>
                     <p class="text-sm text-gray-600">Completed</p>
                     <p class="text-3xl font-bold text-blue-600 mt-1">{{ $stats['completed'] }}</p>
@@ -30,7 +30,7 @@
             </div>
         </div>
 
-        <div class="bg-white/90 border border-gray-200 rounded-2xl shadow-sm overflow-hidden backdrop-blur">
+        <div class="bg-white border border-gray-200 rounded-2xl shadow-sm overflow-hidden">
             <div class="p-4 border-b border-gray-200 flex items-center justify-between flex-wrap gap-3">
                 <div>
                     <p class="text-xs uppercase tracking-[0.2em] text-gray-500">Bookings</p>
