@@ -31,23 +31,33 @@ class BookingController extends Controller
         $notificationEmail = settings('booking.notifications.email.address', config('mail.from.address'));
         $sendPush = filter_var(settings('booking.notifications.push.enabled', true), FILTER_VALIDATE_BOOL);
 
-        $notification = new NewBookingNotification($booking, $sendEmail, $sendPush);
-
+        // Send email notification separately to avoid WebPush channel issues
         if ($sendEmail && $notificationEmail) {
-            Notification::route('mail', $notificationEmail)->notify($notification);
+            $emailNotification = new NewBookingNotification($booking, true, false);
+            Notification::route('mail', $notificationEmail)->notify($emailNotification);
         }
 
-        $admins = User::with('pushSubscriptions')->get();
-
+        // Send push notifications to admin users
         if ($sendPush) {
-            Notification::send($admins, $notification);
+            $admins = User::with('pushSubscriptions')->get();
+            
+            // Only send notifications to admins who have push subscriptions
+            $adminsWithSubscriptions = $admins->filter(fn($admin) => $admin->pushSubscriptions->isNotEmpty());
+            
+            if ($adminsWithSubscriptions->isNotEmpty()) {
+                $pushNotification = new NewBookingNotification($booking, false, true);
+                
+                // Send database and broadcast notifications
+                Notification::send($adminsWithSubscriptions, $pushNotification);
 
-            $webPushPayload = $notification->toWebPushPayload();
-            $webPushService = app(WebPushService::class);
+                // Send web push notifications manually
+                $webPushPayload = $pushNotification->toWebPushPayload();
+                $webPushService = app(WebPushService::class);
 
-            foreach ($admins as $admin) {
-                foreach ($admin->pushSubscriptions as $subscription) {
-                    $webPushService->send($subscription, $webPushPayload);
+                foreach ($adminsWithSubscriptions as $admin) {
+                    foreach ($admin->pushSubscriptions as $subscription) {
+                        $webPushService->send($subscription, $webPushPayload);
+                    }
                 }
             }
         }

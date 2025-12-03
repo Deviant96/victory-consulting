@@ -13,6 +13,18 @@ use Illuminate\Support\Facades\Route;
 // Public Frontend Routes
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
+// Service Worker
+Route::get('/service-worker.js', function () {
+    return response()->file(public_path('service-worker.js'), [
+        'Content-Type' => 'application/javascript',
+    ]);
+});
+
+// Push notification diagnostic tool
+Route::get('/push-diagnostic', function () {
+    return view('push-diagnostic');
+})->middleware('auth');
+
 // Services
 Route::get('/services', [ServiceController::class, 'index'])->name('services.index');
 Route::get('/services/{slug}', [ServiceController::class, 'show'])->name('services.show');

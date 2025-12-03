@@ -176,7 +176,7 @@
                     subscribeButton.disabled = true;
                     setStatus('Requesting permission...');
 
-                    const registration = await navigator.serviceWorker.register('/service-worker.js');
+                    const registration = await navigator.serviceWorker.register('{{ asset('service-worker.js') }}');
                     const permission = await Notification.requestPermission();
 
                     if (permission !== 'granted') {

@@ -114,18 +114,18 @@ class SettingController extends Controller
     public function updateBooking(Request $request)
     {
         $validated = $request->validate([
-            'booking.notifications.email.enabled' => 'nullable|boolean',
+            'booking.notifications.email.enabled' => 'nullable',
             'booking.notifications.email.address' => 'nullable|email',
-            'booking.notifications.push.enabled' => 'nullable|boolean',
+            'booking.notifications.push.enabled' => 'nullable',
         ]);
 
-        $emailEnabled = $request->boolean('booking.notifications.email.enabled');
-        $emailAddress = data_get($validated, 'booking.notifications.email.address', '');
-        $pushEnabled = $request->boolean('booking.notifications.push.enabled');
+        $emailEnabled = $request->input('booking.notifications.email.enabled', 0);
+        $emailAddress = $request->input('booking.notifications.email.address', '');
+        $pushEnabled = $request->input('booking.notifications.push.enabled', 0);
 
-        Setting::set('booking.notifications.email.enabled', $emailEnabled);
+        Setting::set('booking.notifications.email.enabled', (bool) $emailEnabled);
         Setting::set('booking.notifications.email.address', $emailAddress);
-        Setting::set('booking.notifications.push.enabled', $pushEnabled);
+        Setting::set('booking.notifications.push.enabled', (bool) $pushEnabled);
 
         return redirect()
             ->route('admin.settings.booking')

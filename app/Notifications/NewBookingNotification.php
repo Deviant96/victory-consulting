@@ -39,10 +39,9 @@ class NewBookingNotification extends Notification
         if ($this->sendPush) {
             $channels[] = 'database';
             $channels[] = 'broadcast';
-
-            if (class_exists(WebPushChannel::class)) {
-                $channels[] = WebPushChannel::class;
-            }
+            
+            // WebPush is handled manually in the controller to avoid issues
+            // with the WebPushChannel trying to access pushSubscriptions collection
         }
 
         return $channels;

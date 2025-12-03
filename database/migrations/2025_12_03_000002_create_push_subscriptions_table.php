@@ -10,12 +10,15 @@ return new class extends Migration {
         Schema::create('push_subscriptions', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
-            $table->string('endpoint')->unique();
+            $table->text('endpoint');
             $table->string('public_key');
             $table->string('auth_token');
             $table->string('content_encoding');
             $table->string('expiration_time')->nullable();
             $table->timestamps();
+            
+            $table->index('user_id');
+            $table->unique(['user_id', 'endpoint'], 'user_endpoint_unique')->length(500);
         });
     }
 
