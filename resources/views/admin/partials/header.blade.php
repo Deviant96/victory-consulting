@@ -25,11 +25,85 @@
         </button>
 
         <!-- Notifications -->
-        <button class="p-2 text-gray-500 hover:text-gray-900 hover:bg-gray-100 rounded-xl transition">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>
-            </svg>
-        </button>
+        <div x-data="{ open: false }" class="relative">
+            <button @click="open = !open"
+                    class="relative p-2 text-gray-500 hover:text-gray-900 hover:bg-gray-100 rounded-xl transition">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>
+                </svg>
+                @if (($adminUnreadNotificationsCount ?? 0) > 0)
+                    <span class="absolute -top-1 -right-1 inline-flex items-center justify-center px-1.5 py-0.5 text-[10px] font-semibold leading-none text-white bg-red-500 rounded-full shadow">
+                        {{ $adminUnreadNotificationsCount > 9 ? '9+' : $adminUnreadNotificationsCount }}
+                    </span>
+                @endif
+            </button>
+
+            <div x-show="open"
+                 @click.away="open = false"
+                 x-transition:enter="transition ease-out duration-100"
+                 x-transition:enter-start="transform opacity-0 scale-95"
+                 x-transition:enter-end="transform opacity-100 scale-100"
+                 x-transition:leave="transition ease-in duration-75"
+                 x-transition:leave-start="transform opacity-100 scale-100"
+                 x-transition:leave-end="transform opacity-0 scale-95"
+                 class="absolute right-0 mt-3 w-96 max-w-[90vw] bg-white rounded-2xl shadow-2xl border border-gray-200 z-50 overflow-hidden"
+                 style="display: none;">
+                <div class="flex items-center justify-between px-4 py-3 border-b border-gray-100 bg-gray-50">
+                    <div>
+                        <p class="text-sm font-semibold text-gray-900">Notifications</p>
+                        <p class="text-xs text-gray-500">
+                            {{ ($adminUnreadNotificationsCount ?? 0) }} unread
+                        </p>
+                    </div>
+                    <form method="POST" action="{{ route('admin.notifications.read') }}">
+                        @csrf
+                        <button type="submit" class="text-xs font-semibold text-blue-600 hover:text-blue-700">
+                            Mark all read
+                        </button>
+                    </form>
+                </div>
+
+                <div class="max-h-96 overflow-y-auto divide-y divide-gray-100">
+                    @forelse ($adminNotifications ?? collect() as $notification)
+                        @php
+                            $data = $notification->data ?? [];
+                            $isUnread = is_null($notification->read_at);
+                            $title = 'New notification';
+                            $description = null;
+                            $url = route('admin.dashboard');
+
+                            if ($notification->type === \App\Notifications\NewBookingNotification::class) {
+                                $title = 'New booking request';
+                                $description = trim(($data['name'] ?? 'Prospect') . ' • ' . ($data['service'] ?? 'Consultation'));
+                                $url = isset($data['booking_id']) ? route('admin.bookings.show', $data['booking_id']) : $url;
+                            }
+                        @endphp
+
+                        <a href="{{ $url }}" class="flex items-start gap-3 px-4 py-3 hover:bg-gray-50 transition">
+                            <span class="mt-0.5">
+                                <span class="flex h-10 w-10 items-center justify-center rounded-xl {{ $isUnread ? 'bg-blue-50 text-blue-600' : 'bg-gray-100 text-gray-500' }}">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>
+                                    </svg>
+                                </span>
+                            </span>
+                            <span class="flex-1 min-w-0">
+                                <p class="text-sm font-semibold text-gray-900">{{ $title }}</p>
+                                @if ($description)
+                                    <p class="text-sm text-gray-600 truncate">{{ $description }}</p>
+                                @endif
+                                <p class="text-xs text-gray-400 mt-1">{{ $notification->created_at->diffForHumans() }}</p>
+                            </span>
+                            @if ($isUnread)
+                                <span class="h-2 w-2 rounded-full bg-blue-500 mt-1"></span>
+                            @endif
+                        </a>
+                    @empty
+                        <div class="px-4 py-6 text-center text-sm text-gray-500">You're all caught up.</div>
+                    @endforelse
+                </div>
+            </div>
+        </div>
 
         <!-- View Site -->
         <a href="{{ url('/') }}"
