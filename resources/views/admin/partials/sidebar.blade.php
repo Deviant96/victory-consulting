@@ -113,6 +113,20 @@
                     </a>
                 </div>
             </div>
+
+            <!-- System Section -->
+            <div class="space-y-2">
+                <p class="px-6 text-xs font-semibold text-slate-500 uppercase tracking-wider">System</p>
+                <div class="space-y-1 px-2">
+                    <a href="{{ route('admin.activity-logs.index') ?? '#' }}"
+                       class="sidebar-link {{ request()->routeIs('admin.activity-logs.*') ? 'active' : 'text-slate-200' }}">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6l4 2m6-2a10 10 0 11-20 0 10 10 0 0120 0z" />
+                        </svg>
+                        <span>Activity Logs</span>
+                    </a>
+                </div>
+            </div>
         </nav>
 
         <!-- User Section -->

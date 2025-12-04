@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\ServiceRequest;
 use App\Models\Service;
+use App\Services\AdminActivityLogger;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -63,6 +64,8 @@ class ServiceController extends Controller
             }
         }
 
+        AdminActivityLogger::log('Created service', $service, "Title: {$service->title}");
+
         return redirect()->route('admin.services.index')
             ->with('success', 'Service created successfully.');
     }
@@ -99,14 +102,17 @@ class ServiceController extends Controller
             }
         }
 
+        AdminActivityLogger::log('Updated service', $service, "Title: {$service->title}");
+
         return redirect()->route('admin.services.index')
             ->with('success', 'Service updated successfully.');
     }
 
     public function destroy(Service $service)
     {
+        AdminActivityLogger::log('Deleted service', $service, "Title: {$service->title}");
         $service->delete();
-        
+
         return redirect()->route('admin.services.index')
             ->with('success', 'Service deleted successfully.');
     }

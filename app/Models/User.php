@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Models\PushSubscription;
+use App\Models\AdminActivityLog;
 
 class User extends Authenticatable
 {
@@ -74,5 +75,10 @@ class User extends Authenticatable
     public function deletePushSubscription(string $endpoint): void
     {
         $this->pushSubscriptions()->where('endpoint', $endpoint)->delete();
+    }
+
+    public function activityLogs(): HasMany
+    {
+        return $this->hasMany(AdminActivityLog::class);
     }
 }

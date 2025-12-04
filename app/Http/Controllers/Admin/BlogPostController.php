@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\BlogPostRequest;
 use App\Models\BlogPost;
+use App\Services\AdminActivityLogger;
 use Illuminate\Http\Request;
 
 class BlogPostController extends Controller
@@ -61,7 +62,9 @@ class BlogPostController extends Controller
         $validated['published'] = $request->boolean('published');
         $validated['published_at'] = $validated['published_at'] ?? ($validated['published'] ? now() : null);
 
-        BlogPost::create($validated);
+        $post = BlogPost::create($validated);
+
+        AdminActivityLogger::log('Created article', $post, "Title: {$post->title}");
 
         return redirect()->route('admin.articles.index')->with('success', 'Article created successfully.');
     }
@@ -102,6 +105,8 @@ class BlogPostController extends Controller
 
         $article->update($validated);
 
+        AdminActivityLogger::log('Updated article', $article, "Title: {$article->title}");
+
         return redirect()->route('admin.articles.index')->with('success', 'Article updated successfully.');
     }
 
@@ -110,6 +115,7 @@ class BlogPostController extends Controller
      */
     public function destroy(BlogPost $article)
     {
+        AdminActivityLogger::log('Deleted article', $article, "Title: {$article->title}");
         $article->delete();
         return redirect()->route('admin.articles.index')->with('success', 'Article deleted successfully.');
     }

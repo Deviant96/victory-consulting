@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\TeamMemberRequest;
 use App\Models\TeamMember;
+use App\Services\AdminActivityLogger;
 use Illuminate\Http\Request;
 
 class TeamMemberController extends Controller
@@ -48,7 +49,9 @@ class TeamMemberController extends Controller
             $validated['photo'] = $request->file('photo')->store('team', 'public');
         }
 
-        TeamMember::create($validated);
+        $teamMember = TeamMember::create($validated);
+
+        AdminActivityLogger::log('Created team member', $teamMember, "Name: {$teamMember->name}");
 
         return redirect()->route('admin.team.index')->with('success', 'Team member created successfully.');
     }
@@ -82,6 +85,8 @@ class TeamMemberController extends Controller
 
         $team->update($validated);
 
+        AdminActivityLogger::log('Updated team member', $team, "Name: {$team->name}");
+
         return redirect()->route('admin.team.index')->with('success', 'Team member updated successfully.');
     }
 
@@ -90,6 +95,7 @@ class TeamMemberController extends Controller
      */
     public function destroy(TeamMember $team)
     {
+        AdminActivityLogger::log('Deleted team member', $team, "Name: {$team->name}");
         $team->delete();
         return redirect()->route('admin.team.index')->with('success', 'Team member deleted successfully.');
     }
