@@ -5,10 +5,13 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\FaqRequest;
 use App\Models\Faq;
+use App\Traits\LogsAdminActivity;
 use Illuminate\Http\Request;
 
 class FaqController extends Controller
 {
+    use LogsAdminActivity;
+
     /**
      * Display a listing of the resource.
      */
@@ -50,7 +53,9 @@ class FaqController extends Controller
         $validated = $request->validated();
         $validated['published'] = $request->boolean('published');
 
-        Faq::create($validated);
+        $faq = Faq::create($validated);
+
+        $this->logAdminActivity('created faq', $faq, "Created FAQ: {$faq->question}");
 
         return redirect()->route('admin.faqs.index')->with('success', 'FAQ created successfully.');
     }
@@ -81,6 +86,8 @@ class FaqController extends Controller
 
         $faq->update($validated);
 
+        $this->logAdminActivity('updated faq', $faq, "Updated FAQ: {$faq->question}");
+
         return redirect()->route('admin.faqs.index')->with('success', 'FAQ updated successfully.');
     }
 
@@ -89,6 +96,7 @@ class FaqController extends Controller
      */
     public function destroy(Faq $faq)
     {
+        $this->logAdminActivity('deleted faq', $faq, "Deleted FAQ: {$faq->question}");
         $faq->delete();
         return redirect()->route('admin.faqs.index')->with('success', 'FAQ deleted successfully.');
     }

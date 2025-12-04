@@ -5,11 +5,14 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\ServiceRequest;
 use App\Models\Service;
+use App\Traits\LogsAdminActivity;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
 class ServiceController extends Controller
 {
+    use LogsAdminActivity;
+
     public function index(Request $request)
     {
         $search = $request->string('search')->toString();
@@ -63,6 +66,8 @@ class ServiceController extends Controller
             }
         }
 
+        $this->logAdminActivity('created service', $service, "Created service: {$service->title}");
+
         return redirect()->route('admin.services.index')
             ->with('success', 'Service created successfully.');
     }
@@ -99,14 +104,17 @@ class ServiceController extends Controller
             }
         }
 
+        $this->logAdminActivity('updated service', $service, "Updated service: {$service->title}");
+
         return redirect()->route('admin.services.index')
             ->with('success', 'Service updated successfully.');
     }
 
     public function destroy(Service $service)
     {
+        $this->logAdminActivity('deleted service', $service, "Deleted service: {$service->title}");
         $service->delete();
-        
+
         return redirect()->route('admin.services.index')
             ->with('success', 'Service deleted successfully.');
     }
