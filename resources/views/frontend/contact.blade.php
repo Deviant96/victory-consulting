@@ -4,7 +4,7 @@
 
 @section('content')
 <!-- Page Header -->
-<section class="py-24">
+<section class="py-20">
     <div class="container mx-auto px-4">
         <div class="max-w-3xl mx-auto text-center">
             <h1 class="text-5xl font-bold mb-4">Contact Us</h1>
@@ -16,74 +16,97 @@
 </section>
 
 <!-- Contact Section -->
-<section class="py-16 bg-gray-50">
+<section class="pb-16 bg-gray-50">
     <div class="container mx-auto px-4">
         <div class="max-w-6xl mx-auto">
             <div class="grid lg:grid-cols-2 gap-12">
 
                 <!-- Contact Information -->
                 <div>
-                    <div class="bg-white rounded-lg shadow-md p-8 mb-8">
-                        <h2 class="text-3xl font-bold text-gray-900 mb-6">Get in Touch</h2>
-                        <p class="text-gray-600 mb-8">
-                            We're here to help and answer any questions you might have. We look forward to hearing from you!
-                        </p>
-
-                        <!-- Contact Details -->
-                        <div class="space-y-6">
-                            @if(settings('site.phone'))
-                            <div class="flex items-start">
-                                <div class="bg-blue-100 rounded-lg p-3 mr-4">
-                                    <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div class="space-y-4 max-w-sm">
+                        <!-- Phone -->
+                        @if(settings('site.phone'))
+                        <div class="bg-white rounded-lg shadow-md p-4">
+                            <div class="flex items-center mb-2">
+                                <div class="bg-blue-100 rounded-lg p-2 mr-3">
+                                    <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
                                     </svg>
                                 </div>
-                                <div>
-                                    <h3 class="font-semibold text-gray-900 mb-1">Phone</h3>
-                                    <a href="tel:{{ settings('site.phone') }}" class="text-gray-600 hover:text-blue-600">
-                                        {{ settings('site.phone') }}
-                                    </a>
-                                </div>
+                                <h3 class="text-lg font-bold text-gray-900">Phone</h3>
                             </div>
-                            @endif
+                            <a href="tel:{{ settings('site.phone') }}" class="text-base hover:text-blue-600 transition">
+                                {{ settings('site.phone') }}
+                            </a>
+                            <p class="text-sm text-gray-500 mt-1">Available on phone and WhatsApp</p>
+                        </div>
+                        @endif
 
-                            @if(settings('site.email'))
-                            <div class="flex items-start">
-                                <div class="bg-blue-100 rounded-lg p-3 mr-4">
-                                    <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <!-- Email -->
+                        @if(settings('site.email'))
+                        <div class="bg-white rounded-lg shadow-md p-4">
+                            <div class="flex items-center mb-2">
+                                <div class="bg-blue-100 rounded-lg p-2 mr-3">
+                                    <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
                                     </svg>
                                 </div>
-                                <div>
-                                    <h3 class="font-semibold text-gray-900 mb-1">Email</h3>
-                                    <a href="mailto:{{ settings('site.email') }}" class="text-gray-600 hover:text-blue-600">
-                                        {{ settings('site.email') }}
-                                    </a>
-                                </div>
+                                <h3 class="text-lg font-bold text-gray-900">Email</h3>
                             </div>
-                            @endif
+                            <a href="mailto:{{ settings('site.email') }}" class="text-base hover:text-blue-600 transition">
+                                {{ settings('site.email') }}
+                            </a>
+                            <p class="text-sm text-gray-500 mt-1">We answer emails promptly</p>
+                        </div>
+                        @endif
 
-                            @if(settings('site.address'))
-                            <div class="flex items-start">
-                                <div class="bg-blue-100 rounded-lg p-3 mr-4">
-                                    <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <!-- Address -->
+                        @if(settings('site.address'))
+                        <div class="bg-white rounded-lg shadow-md p-4">
+                            <div class="flex items-center mb-2">
+                                <div class="bg-blue-100 rounded-lg p-2 mr-3">
+                                    <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
                                     </svg>
                                 </div>
-                                <div>
-                                    <h3 class="font-semibold text-gray-900 mb-1">Address</h3>
-                                    <p class="text-gray-600">{!! nl2br(e(settings('site.address'))) !!}</p>
+                                <h3 class="text-lg font-bold text-gray-900">Address</h3>
+                            </div>
+                            <p class="text-base text-gray-600">{!! nl2br(e(settings('site.address'))) !!}</p>
+                        </div>
+                        @endif
+
+                        <!-- Business Hours -->
+                        <div class="bg-white rounded-lg shadow-md p-4">
+                            <div class="flex items-center mb-2">
+                                <div class="bg-blue-100 rounded-lg p-2 mr-3">
+                                    <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                    </svg>
+                                </div>
+                                <h3 class="text-lg font-bold text-gray-900">Business Hours</h3>
+                            </div>
+                            <div class="space-y-1 text-sm text-gray-600">
+                                <div class="flex justify-between">
+                                    <span>Monday - Friday:</span>
+                                    <span class="font-semibold">9:00 AM - 6:00 PM</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span>Saturday:</span>
+                                    <span class="font-semibold">10:00 AM - 4:00 PM</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span>Sunday:</span>
+                                    <span class="font-semibold">Closed</span>
                                 </div>
                             </div>
-                            @endif
                         </div>
 
                         <!-- Social Links -->
                         @if(settings('social.linkedin') || settings('social.twitter') || settings('social.facebook'))
-                        <div class="mt-8 pt-8 border-t border-gray-200">
-                            <h3 class="font-semibold text-gray-900 mb-4">Follow Us</h3>
-                            <div class="flex gap-4">
+                        <div class="bg-white rounded-lg shadow-md p-4">
+                            <h3 class="text-lg font-bold text-gray-900 mb-3">Follow Us</h3>
+                            <div class="flex gap-3">
                                 @if(settings('social.linkedin'))
                                 <a href="{{ settings('social.linkedin') }}" target="_blank" class="bg-blue-100 p-3 rounded-lg hover:bg-blue-200 transition">
                                     <svg class="w-6 h-6 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
@@ -110,25 +133,6 @@
                             </div>
                         </div>
                         @endif
-                    </div>
-
-                    <!-- Business Hours -->
-                    <div class="bg-blue-600 text-white rounded-lg shadow-md p-8">
-                        <h3 class="text-2xl font-bold mb-4">Business Hours</h3>
-                        <div class="space-y-2">
-                            <div class="flex justify-between">
-                                <span>Monday - Friday:</span>
-                                <span class="font-semibold">9:00 AM - 6:00 PM</span>
-                            </div>
-                            <div class="flex justify-between">
-                                <span>Saturday:</span>
-                                <span class="font-semibold">10:00 AM - 4:00 PM</span>
-                            </div>
-                            <div class="flex justify-between">
-                                <span>Sunday:</span>
-                                <span class="font-semibold">Closed</span>
-                            </div>
-                        </div>
                     </div>
                 </div>
 
