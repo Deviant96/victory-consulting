@@ -22,7 +22,7 @@
 
         <div class="mb-6">
             <label for="social_facebook" class="block text-sm font-medium text-gray-700 mb-2">Facebook URL</label>
-            <input type="url" name="social.facebook" id="social_facebook" value="{{ old('social.facebook', $settings['social.facebook'] ?? '') }}" placeholder="https://facebook.com/yourpage" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-blue-500 focus:border-blue-500">
+            <input type="url" name="social[facebook]" id="social_facebook" value="{{ old('social.facebook', $settings['social.facebook'] ?? '') }}" placeholder="https://facebook.com/yourpage" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-blue-500 focus:border-blue-500">
             @error('social.facebook')
             <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
             @enderror
@@ -30,7 +30,7 @@
 
         <div class="mb-6">
             <label for="social_twitter" class="block text-sm font-medium text-gray-700 mb-2">Twitter/X URL</label>
-            <input type="url" name="social.twitter" id="social_twitter" value="{{ old('social.twitter', $settings['social.twitter'] ?? '') }}" placeholder="https://twitter.com/yourhandle" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-blue-500 focus:border-blue-500">
+            <input type="url" name="social[twitter]" id="social_twitter" value="{{ old('social.twitter', $settings['social.twitter'] ?? '') }}" placeholder="https://twitter.com/yourhandle" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-blue-500 focus:border-blue-500">
             @error('social.twitter')
             <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
             @enderror
@@ -38,7 +38,7 @@
 
         <div class="mb-6">
             <label for="social_linkedin" class="block text-sm font-medium text-gray-700 mb-2">LinkedIn URL</label>
-            <input type="url" name="social.linkedin" id="social_linkedin" value="{{ old('social.linkedin', $settings['social.linkedin'] ?? '') }}" placeholder="https://linkedin.com/company/yourcompany" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-blue-500 focus:border-blue-500">
+            <input type="url" name="social[linkedin]" id="social_linkedin" value="{{ old('social.linkedin', $settings['social.linkedin'] ?? '') }}" placeholder="https://linkedin.com/company/yourcompany" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-blue-500 focus:border-blue-500">
             @error('social.linkedin')
             <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
             @enderror
@@ -46,7 +46,7 @@
 
         <div class="mb-6">
             <label for="social_instagram" class="block text-sm font-medium text-gray-700 mb-2">Instagram URL</label>
-            <input type="url" name="social.instagram" id="social_instagram" value="{{ old('social.instagram', $settings['social.instagram'] ?? '') }}" placeholder="https://instagram.com/yourprofile" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-blue-500 focus:border-blue-500">
+            <input type="url" name="social[instagram]" id="social_instagram" value="{{ old('social.instagram', $settings['social.instagram'] ?? '') }}" placeholder="https://instagram.com/yourprofile" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-blue-500 focus:border-blue-500">
             @error('social.instagram')
             <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
             @enderror

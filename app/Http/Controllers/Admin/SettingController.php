@@ -65,8 +65,11 @@ class SettingController extends Controller
             'social.instagram' => 'nullable|url',
         ]);
 
-        foreach ($validated as $key => $value) {
-            Setting::set($key, $value);
+        // Handle nested array from form submission (social[facebook] becomes social.facebook)
+        $social = $request->input('social', []);
+        foreach ($social as $key => $value) {
+            $settingKey = "social.{$key}";
+            Setting::set($settingKey, $value ?? '');
         }
 
         $this->logAdminActivity('updated settings', null, 'Updated social settings');
