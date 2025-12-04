@@ -19,7 +19,6 @@
 <div class="bg-white rounded-xl shadow p-6">
     <form action="{{ route('admin.settings.social.update') }}" method="POST">
         @csrf
-        @method('PUT')
 
         <div class="mb-6">
             <label for="social_facebook" class="block text-sm font-medium text-gray-700 mb-2">Facebook URL</label>

@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\BookingController;
 use App\Http\Controllers\Admin\SearchController;
 use App\Http\Controllers\Admin\NotificationController;
+use App\Http\Controllers\Admin\AdminLogController;
 use App\Models\BlogPost;
 use App\Models\Booking;
 use App\Models\Faq;
@@ -45,6 +46,9 @@ Route::post('/notifications/read', [NotificationController::class, 'markAllRead'
 
 // Search
 Route::get('/search', [SearchController::class, 'search'])->name('search');
+
+// Activity Logs
+Route::get('/logs', [AdminLogController::class, 'index'])->name('logs.index');
 
 // Bookings
 Route::resource('bookings', BookingController::class)->only(['index', 'show', 'update', 'destroy']);

@@ -5,10 +5,13 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\TeamMemberRequest;
 use App\Models\TeamMember;
+use App\Traits\LogsAdminActivity;
 use Illuminate\Http\Request;
 
 class TeamMemberController extends Controller
 {
+    use LogsAdminActivity;
+
     /**
      * Display a listing of the resource.
      */
@@ -48,7 +51,9 @@ class TeamMemberController extends Controller
             $validated['photo'] = $request->file('photo')->store('team', 'public');
         }
 
-        TeamMember::create($validated);
+        $member = TeamMember::create($validated);
+
+        $this->logAdminActivity('created team member', $member, "Created team member: {$member->name}");
 
         return redirect()->route('admin.team.index')->with('success', 'Team member created successfully.');
     }
@@ -82,6 +87,8 @@ class TeamMemberController extends Controller
 
         $team->update($validated);
 
+        $this->logAdminActivity('updated team member', $team, "Updated team member: {$team->name}");
+
         return redirect()->route('admin.team.index')->with('success', 'Team member updated successfully.');
     }
 
@@ -90,6 +97,7 @@ class TeamMemberController extends Controller
      */
     public function destroy(TeamMember $team)
     {
+        $this->logAdminActivity('deleted team member', $team, "Deleted team member: {$team->name}");
         $team->delete();
         return redirect()->route('admin.team.index')->with('success', 'Team member deleted successfully.');
     }
