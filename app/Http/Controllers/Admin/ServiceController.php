@@ -7,6 +7,7 @@ use App\Http\Requests\Admin\ServiceRequest;
 use App\Models\Service;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use App\Support\ActivityLogger;
 
 class ServiceController extends Controller
 {
@@ -51,6 +52,12 @@ class ServiceController extends Controller
 
         $service = Service::create($validated);
 
+        ActivityLogger::log(
+            'service_created',
+            sprintf('Created service "%s"', $service->title),
+            $service
+        );
+
         // Save highlights
         if ($request->has('highlights')) {
             foreach ($request->highlights as $index => $highlight) {
@@ -86,6 +93,12 @@ class ServiceController extends Controller
 
         $service->update($validated);
 
+        ActivityLogger::log(
+            'service_updated',
+            sprintf('Updated service "%s"', $service->title),
+            $service
+        );
+
         // Update highlights
         $service->highlights()->delete();
         if ($request->has('highlights')) {
@@ -105,7 +118,14 @@ class ServiceController extends Controller
 
     public function destroy(Service $service)
     {
+        $title = $service->title;
         $service->delete();
+
+        ActivityLogger::log(
+            'service_deleted',
+            sprintf('Deleted service "%s"', $title),
+            $service
+        );
         
         return redirect()->route('admin.services.index')
             ->with('success', 'Service deleted successfully.');

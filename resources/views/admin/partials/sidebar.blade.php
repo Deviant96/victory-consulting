@@ -78,6 +78,19 @@
 
             <!-- Settings Section -->
             <div class="space-y-2">
+                <p class="px-6 text-xs font-semibold text-slate-500 uppercase tracking-wider">Monitoring</p>
+                <div class="space-y-1 px-2">
+                    <a href="{{ route('admin.activity-logs.index') ?? '#' }}"
+                       class="sidebar-link {{ request()->routeIs('admin.activity-logs.*') ? 'active' : 'text-slate-200' }}">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 4H7a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v12a2 2 0 01-2 2z"></path>
+                        </svg>
+                        <span>Activity Logs</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="space-y-2">
                 <p class="px-6 text-xs font-semibold text-slate-500 uppercase tracking-wider">Settings</p>
                 <div class="space-y-1 px-2">
                     <a href="{{ route('admin.settings.contact') ?? '#' }}"

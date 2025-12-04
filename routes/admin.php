@@ -7,11 +7,13 @@ use App\Http\Controllers\Admin\BlogPostController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\BookingController;
 use App\Http\Controllers\Admin\SearchController;
+use App\Http\Controllers\Admin\ActivityLogController;
 use App\Models\BlogPost;
 use App\Models\Booking;
 use App\Models\Faq;
 use App\Models\Service;
 use App\Models\TeamMember;
+use App\Models\ActivityLog;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -30,17 +32,22 @@ Route::get('/', function () {
 
     $recentBookings = Booking::latest()->take(5)->get();
     $recentPosts = BlogPost::latest()->take(4)->get();
+    $recentActivityLogs = ActivityLog::with('user')->latest()->take(6)->get();
 
     return view('admin.dashboard', [
         'stats' => $stats,
         'bookingStatusCounts' => $bookingStatusCounts,
         'recentBookings' => $recentBookings,
         'recentPosts' => $recentPosts,
+        'recentActivityLogs' => $recentActivityLogs,
     ]);
 })->name('dashboard');
 
 // Search
 Route::get('/search', [SearchController::class, 'search'])->name('search');
+
+// Activity Logs
+Route::get('/activity-logs', [ActivityLogController::class, 'index'])->name('activity-logs.index');
 
 // Bookings
 Route::resource('bookings', BookingController::class)->only(['index', 'show', 'update', 'destroy']);

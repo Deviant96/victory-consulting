@@ -387,6 +387,50 @@
             </div>
         </div>
     </section>
+
+    <section class="grid grid-cols-1 xl:grid-cols-2 gap-6">
+        <div x-data="cardState('activity-logs')" class="bg-white border border-gray-200 rounded-2xl shadow-sm p-6">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-xs uppercase tracking-[0.2em] text-gray-500">Governance</p>
+                    <h3 class="text-lg font-semibold text-gray-900">Recent admin activity</h3>
+                </div>
+                <div class="flex items-center gap-3">
+                    <a href="{{ route('admin.activity-logs.index') }}" class="text-sm text-blue-600 hover:text-blue-700">View all</a>
+                    <button @click="toggle" class="text-gray-400 hover:text-gray-700 transition" title="Toggle card">
+                        <svg x-show="open" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"></path>
+                        </svg>
+                        <svg x-show="!open" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <div class="mt-4 space-y-3" x-show="open" x-transition.opacity x-cloak>
+                @forelse ($recentActivityLogs as $log)
+                    <div class="flex items-start gap-3 p-3 rounded-xl border border-gray-100 hover:border-indigo-100 hover:bg-indigo-50/40 transition">
+                        <div class="w-10 h-10 rounded-full bg-indigo-100 text-indigo-700 flex items-center justify-center text-xs font-semibold">
+                            {{ substr($log->user->name ?? 'A', 0, 1) }}
+                        </div>
+                        <div class="flex-1 min-w-0 space-y-1">
+                            <div class="flex items-center justify-between gap-2">
+                                <p class="text-sm font-semibold text-gray-900">{{ $log->user->name ?? 'Unknown user' }}</p>
+                                <span class="text-xs text-gray-500">{{ optional($log->created_at)->diffForHumans() ?? 'Just now' }}</span>
+                            </div>
+                            <p class="text-sm text-gray-800">{{ Str::of($log->action)->replace('_', ' ')->title() }}</p>
+                            @if ($log->description)
+                                <p class="text-xs text-gray-500 line-clamp-1">{{ $log->description }}</p>
+                            @endif
+                        </div>
+                    </div>
+                @empty
+                    <p class="text-sm text-gray-500">No admin activity logged yet.</p>
+                @endforelse
+            </div>
+        </div>
+    </section>
 </div>
 @endsection
 

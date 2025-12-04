@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\BlogPostRequest;
 use App\Models\BlogPost;
 use Illuminate\Http\Request;
+use App\Support\ActivityLogger;
 
 class BlogPostController extends Controller
 {
@@ -61,7 +62,13 @@ class BlogPostController extends Controller
         $validated['published'] = $request->boolean('published');
         $validated['published_at'] = $validated['published_at'] ?? ($validated['published'] ? now() : null);
 
-        BlogPost::create($validated);
+        $post = BlogPost::create($validated);
+
+        ActivityLogger::log(
+            'article_created',
+            sprintf('Published article "%s"', $post->title),
+            $post
+        );
 
         return redirect()->route('admin.articles.index')->with('success', 'Article created successfully.');
     }
@@ -102,6 +109,12 @@ class BlogPostController extends Controller
 
         $article->update($validated);
 
+        ActivityLogger::log(
+            'article_updated',
+            sprintf('Updated article "%s"', $article->title),
+            $article
+        );
+
         return redirect()->route('admin.articles.index')->with('success', 'Article updated successfully.');
     }
 
@@ -110,7 +123,15 @@ class BlogPostController extends Controller
      */
     public function destroy(BlogPost $article)
     {
+        $title = $article->title;
         $article->delete();
+
+        ActivityLogger::log(
+            'article_deleted',
+            sprintf('Deleted article "%s"', $title),
+            $article
+        );
+
         return redirect()->route('admin.articles.index')->with('success', 'Article deleted successfully.');
     }
 }

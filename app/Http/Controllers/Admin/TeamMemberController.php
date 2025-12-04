@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\TeamMemberRequest;
 use App\Models\TeamMember;
 use Illuminate\Http\Request;
+use App\Support\ActivityLogger;
 
 class TeamMemberController extends Controller
 {
@@ -48,7 +49,13 @@ class TeamMemberController extends Controller
             $validated['photo'] = $request->file('photo')->store('team', 'public');
         }
 
-        TeamMember::create($validated);
+        $teamMember = TeamMember::create($validated);
+
+        ActivityLogger::log(
+            'team_member_created',
+            sprintf('Added team member "%s"', $teamMember->name),
+            $teamMember
+        );
 
         return redirect()->route('admin.team.index')->with('success', 'Team member created successfully.');
     }
@@ -82,6 +89,12 @@ class TeamMemberController extends Controller
 
         $team->update($validated);
 
+        ActivityLogger::log(
+            'team_member_updated',
+            sprintf('Updated team member "%s"', $team->name),
+            $team
+        );
+
         return redirect()->route('admin.team.index')->with('success', 'Team member updated successfully.');
     }
 
@@ -90,7 +103,14 @@ class TeamMemberController extends Controller
      */
     public function destroy(TeamMember $team)
     {
+        $name = $team->name;
         $team->delete();
+
+        ActivityLogger::log(
+            'team_member_deleted',
+            sprintf('Removed team member "%s"', $name),
+            $team
+        );
         return redirect()->route('admin.team.index')->with('success', 'Team member deleted successfully.');
     }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Booking;
 use Illuminate\Http\Request;
+use App\Support\ActivityLogger;
 
 class BookingController extends Controller
 {
@@ -35,6 +36,12 @@ class BookingController extends Controller
 
         $booking->update($validated);
 
+        ActivityLogger::log(
+            'booking_updated',
+            sprintf('Updated booking #%s status to %s', $booking->id, $booking->status),
+            $booking
+        );
+
         return redirect()
             ->route('admin.bookings.show', $booking)
             ->with('success', 'Booking updated successfully.');
@@ -42,7 +49,14 @@ class BookingController extends Controller
 
     public function destroy(Booking $booking)
     {
+        $bookingId = $booking->id;
         $booking->delete();
+
+        ActivityLogger::log(
+            'booking_deleted',
+            sprintf('Deleted booking #%s', $bookingId),
+            $booking
+        );
 
         return redirect()
             ->route('admin.bookings.index')

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Setting;
 use Illuminate\Http\Request;
+use App\Support\ActivityLogger;
 
 class SettingController extends Controller
 {
@@ -33,6 +34,8 @@ class SettingController extends Controller
             Setting::set($key, $value);
         }
 
+        ActivityLogger::log('settings_contact_updated', 'Updated contact settings');
+
         return redirect()->route('admin.settings.contact')->with('success', 'Contact settings updated successfully.');
     }
 
@@ -60,6 +63,8 @@ class SettingController extends Controller
         foreach ($validated as $key => $value) {
             Setting::set($key, $value);
         }
+
+        ActivityLogger::log('settings_social_updated', 'Updated social media settings');
 
         return redirect()->route('admin.settings.social')->with('success', 'Social media settings updated successfully.');
     }
@@ -97,6 +102,8 @@ class SettingController extends Controller
             Setting::set('site.tagline', $validated['site.tagline']);
         }
 
+        ActivityLogger::log('settings_branding_updated', 'Updated branding settings');
+
         return redirect()->route('admin.settings.branding')->with('success', 'Branding settings updated successfully.');
     }
 
@@ -126,6 +133,8 @@ class SettingController extends Controller
         Setting::set('booking.notifications.email.enabled', (bool) $emailEnabled);
         Setting::set('booking.notifications.email.address', $emailAddress);
         Setting::set('booking.notifications.push.enabled', (bool) $pushEnabled);
+
+        ActivityLogger::log('settings_booking_updated', 'Updated booking notification settings');
 
         return redirect()
             ->route('admin.settings.booking')

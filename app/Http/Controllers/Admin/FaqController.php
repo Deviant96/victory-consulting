@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\FaqRequest;
 use App\Models\Faq;
 use Illuminate\Http\Request;
+use App\Support\ActivityLogger;
 
 class FaqController extends Controller
 {
@@ -50,7 +51,13 @@ class FaqController extends Controller
         $validated = $request->validated();
         $validated['published'] = $request->boolean('published');
 
-        Faq::create($validated);
+        $faq = Faq::create($validated);
+
+        ActivityLogger::log(
+            'faq_created',
+            sprintf('Created FAQ "%s"', $faq->question),
+            $faq
+        );
 
         return redirect()->route('admin.faqs.index')->with('success', 'FAQ created successfully.');
     }
@@ -81,6 +88,12 @@ class FaqController extends Controller
 
         $faq->update($validated);
 
+        ActivityLogger::log(
+            'faq_updated',
+            sprintf('Updated FAQ "%s"', $faq->question),
+            $faq
+        );
+
         return redirect()->route('admin.faqs.index')->with('success', 'FAQ updated successfully.');
     }
 
@@ -89,7 +102,14 @@ class FaqController extends Controller
      */
     public function destroy(Faq $faq)
     {
+        $question = $faq->question;
         $faq->delete();
+
+        ActivityLogger::log(
+            'faq_deleted',
+            sprintf('Deleted FAQ "%s"', $question),
+            $faq
+        );
         return redirect()->route('admin.faqs.index')->with('success', 'FAQ deleted successfully.');
     }
 }
