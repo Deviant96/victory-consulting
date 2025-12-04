@@ -75,13 +75,18 @@ class NewBookingNotification extends Notification
     public function toArray(object $notifiable): array
     {
         return [
+            'title' => 'New booking request',
+            'message' => $this->booking->service_interest
+                ? 'Service: ' . $this->booking->service_interest
+                : 'A new consultation request is ready to review.',
+            'url' => route('admin.bookings.show', $this->booking),
             'booking_id' => $this->booking->id,
             'name' => $this->booking->name,
             'email' => $this->booking->email,
             'service' => $this->booking->service_interest,
             'preferred_date' => optional($this->booking->preferred_date)->toDateString(),
             'preferred_time' => $this->booking->preferred_time,
-            'message' => $this->booking->message,
+            'message_body' => $this->booking->message,
             'status' => $this->booking->status,
         ];
     }

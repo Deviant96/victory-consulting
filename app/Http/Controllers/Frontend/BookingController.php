@@ -40,19 +40,18 @@ class BookingController extends Controller
         // Send push notifications to admin users
         if ($sendPush) {
             $admins = User::with('pushSubscriptions')->get();
-            
-            // Only send notifications to admins who have push subscriptions
-            $adminsWithSubscriptions = $admins->filter(fn($admin) => $admin->pushSubscriptions->isNotEmpty());
-            
-            if ($adminsWithSubscriptions->isNotEmpty()) {
-                $pushNotification = new NewBookingNotification($booking, false, true);
-                
-                // Send database and broadcast notifications
-                Notification::send($adminsWithSubscriptions, $pushNotification);
 
-                // Send web push notifications manually
+            if ($admins->isNotEmpty()) {
+                $pushNotification = new NewBookingNotification($booking, false, true);
+
+                // Always store the notification in the database for all admins
+                Notification::send($admins, $pushNotification);
+
+                // Only send web push notifications to admins who have subscriptions
                 $webPushPayload = $pushNotification->toWebPushPayload();
                 $webPushService = app(WebPushService::class);
+
+                $adminsWithSubscriptions = $admins->filter(fn($admin) => $admin->pushSubscriptions->isNotEmpty());
 
                 foreach ($adminsWithSubscriptions as $admin) {
                     foreach ($admin->pushSubscriptions as $subscription) {
