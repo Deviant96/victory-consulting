@@ -19,7 +19,6 @@
 <div class="bg-white rounded-xl shadow p-6">
     <form action="{{ route('admin.settings.contact.update') }}" method="POST">
         @csrf
-        @method('PUT')
 
         <div class="mb-6">
             <label for="site_name" class="block text-sm font-medium text-gray-700 mb-2">Site Name *</label>

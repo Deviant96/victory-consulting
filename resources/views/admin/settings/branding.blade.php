@@ -19,7 +19,6 @@
 <div class="bg-white rounded-xl shadow p-6">
     <form action="{{ route('admin.settings.branding.update') }}" method="POST" enctype="multipart/form-data">
         @csrf
-        @method('PUT')
 
         <div class="mb-6">
             <label for="branding_logo" class="block text-sm font-medium text-gray-700 mb-2">Logo</label>
