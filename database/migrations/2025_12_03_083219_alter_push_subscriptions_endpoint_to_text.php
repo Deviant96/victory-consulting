@@ -12,11 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('push_subscriptions', function (Blueprint $table) {
-            // Drop the unique constraint first
-            $table->dropUnique(['endpoint']);
+            // Drop the composite unique constraint first
+            $table->dropUnique('user_endpoint_unique');
             
             // Change endpoint to TEXT to support longer URLs (WNS endpoints can be very long)
             $table->text('endpoint')->change();
+            
+            // Re-add the composite unique constraint
+            $table->unique(['user_id', 'endpoint'], 'user_endpoint_unique')->length(500);
         });
     }
 
@@ -26,7 +29,14 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('push_subscriptions', function (Blueprint $table) {
-            $table->string('endpoint')->unique()->change();
+            // Drop the composite unique constraint
+            $table->dropUnique('user_endpoint_unique');
+            
+            // Change endpoint back to string
+            $table->string('endpoint')->change();
+            
+            // Re-add the composite unique constraint with original structure
+            $table->unique(['user_id', 'endpoint'], 'user_endpoint_unique')->length(500);
         });
     }
 };
