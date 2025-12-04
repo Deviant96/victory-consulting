@@ -1,10 +1,12 @@
 @extends('admin.layouts.app')
-
+    
 @section('title', 'Booking Notifications')
+@section('page-title', 'Booking Notifications')
+@section('page-description', 'Control how the team is alerted when a new booking is submitted.')
 
 @section('content')
     <div class="max-w-4xl">
-        <div class="bg-white shadow rounded-lg p-6">
+        <div class="bg-white shadow rounded-xl p-6">
             <div class="flex items-center justify-between mb-6">
                 <div>
                     <h1 class="text-2xl font-bold text-gray-900">Booking Notifications</h1>
@@ -15,7 +17,7 @@
             <form method="POST" action="{{ route('admin.settings.booking.update') }}" class="space-y-8">
                 @csrf
 
-                <div class="border border-gray-200 rounded-lg p-5">
+                <div class="border border-gray-200 rounded-xl p-5">
                     <div class="flex items-start justify-between">
                         <div>
                             <h2 class="text-lg font-semibold text-gray-900">Email notification</h2>
@@ -52,7 +54,7 @@
                     </div>
                 </div>
 
-                <div class="border border-gray-200 rounded-lg p-5 space-y-4">
+                <div class="border border-gray-200 rounded-xl p-5 space-y-4">
                     <div class="flex items-start justify-between">
                         <div>
                             <h2 class="text-lg font-semibold text-gray-900">Push notification</h2>
@@ -94,7 +96,7 @@
                 </div>
 
                 <div class="flex justify-end">
-                    <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-5 py-3 rounded-md shadow-sm transition">
+                    <button type="submit" class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl hover:shadow-md transition transform hover:-translate-y-0.5">
                         Save preferences
                     </button>
                 </div>

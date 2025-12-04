@@ -15,7 +15,7 @@ class TeamMemberRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:255'],
-            'role' => ['required', 'string', 'max:255'],
+            'position' => ['required', 'string', 'max:255'],
             'bio' => ['nullable', 'string'],
             'photo' => ['nullable', 'image', 'max:2048'],
             'linkedin' => ['nullable', 'url'],

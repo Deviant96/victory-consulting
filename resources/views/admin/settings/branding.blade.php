@@ -1,4 +1,8 @@
 @extends('admin.layouts.app')
+    
+@section('title', 'Branding Settings')
+@section('page-title', 'Branding Settings')
+@section('page-description', 'Manage your logo, favicon, and tagline')
 
 @section('content')
 <div class="mb-6">
@@ -12,7 +16,7 @@
 </div>
 @endif
 
-<div class="bg-white rounded-lg shadow p-6">
+<div class="bg-white rounded-xl shadow p-6">
     <form action="{{ route('admin.settings.branding.update') }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
@@ -25,7 +29,7 @@
                 <p class="text-sm text-gray-500 mt-1">Current logo</p>
             </div>
             @endif
-            <input type="file" name="branding.logo" id="branding_logo" accept="image/*" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+            <input type="file" name="branding.logo" id="branding_logo" accept="image/*" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-blue-500 focus:border-blue-500">
             @error('branding.logo')
             <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
             @enderror
@@ -40,7 +44,7 @@
                 <p class="text-sm text-gray-500 mt-1">Current favicon</p>
             </div>
             @endif
-            <input type="file" name="branding.favicon" id="branding_favicon" accept="image/*" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+            <input type="file" name="branding.favicon" id="branding_favicon" accept="image/*" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-blue-500 focus:border-blue-500">
             @error('branding.favicon')
             <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
             @enderror
@@ -49,14 +53,14 @@
 
         <div class="mb-6">
             <label for="site_tagline" class="block text-sm font-medium text-gray-700 mb-2">Site Tagline</label>
-            <input type="text" name="site.tagline" id="site_tagline" value="{{ old('site.tagline', $settings['site.tagline'] ?? '') }}" placeholder="Your company tagline or slogan" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+            <input type="text" name="site.tagline" id="site_tagline" value="{{ old('site.tagline', $settings['site.tagline'] ?? '') }}" placeholder="Your company tagline or slogan" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-blue-500 focus:border-blue-500">
             @error('site.tagline')
             <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
             @enderror
         </div>
 
         <div class="flex gap-4">
-            <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-semibold transition">
+            <button type="submit" class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl hover:shadow-md transition transform hover:-translate-y-0.5">
                 Save Branding Settings
             </button>
         </div>
