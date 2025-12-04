@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\TeamMemberController;
 use App\Http\Controllers\Admin\FaqController;
 use App\Http\Controllers\Admin\BlogPostController;
 use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\Admin\NotificationController;
 use App\Http\Controllers\Admin\BookingController;
 use App\Http\Controllers\Admin\SearchController;
 use App\Models\BlogPost;
@@ -41,6 +42,13 @@ Route::get('/', function () {
 
 // Search
 Route::get('/search', [SearchController::class, 'search'])->name('search');
+
+// Notifications
+Route::prefix('notifications')->name('notifications.')->group(function () {
+    Route::get('/', [NotificationController::class, 'index'])->name('index');
+    Route::post('/mark-all-read', [NotificationController::class, 'markAllRead'])->name('markAllRead');
+    Route::post('/{notification}/read', [NotificationController::class, 'markAsRead'])->name('markAsRead');
+});
 
 // Bookings
 Route::resource('bookings', BookingController::class)->only(['index', 'show', 'update', 'destroy']);

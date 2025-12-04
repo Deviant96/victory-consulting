@@ -75,6 +75,9 @@ class NewBookingNotification extends Notification
     public function toArray(object $notifiable): array
     {
         return [
+            'title' => 'New booking request',
+            'summary' => 'New booking from ' . $this->booking->name,
+            'url' => route('admin.bookings.show', $this->booking),
             'booking_id' => $this->booking->id,
             'name' => $this->booking->name,
             'email' => $this->booking->email,
