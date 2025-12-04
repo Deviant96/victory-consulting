@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminActivityController;
 use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\Admin\TeamMemberController;
 use App\Http\Controllers\Admin\FaqController;
@@ -41,6 +42,9 @@ Route::get('/', function () {
 
 // Search
 Route::get('/search', [SearchController::class, 'search'])->name('search');
+
+// Activity Log
+Route::get('/activity-log', [AdminActivityController::class, 'index'])->name('activity.index');
 
 // Bookings
 Route::resource('bookings', BookingController::class)->only(['index', 'show', 'update', 'destroy']);

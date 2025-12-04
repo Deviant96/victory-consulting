@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\ServiceRequest;
+use App\Models\AdminActivity;
 use App\Models\Service;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -51,6 +52,13 @@ class ServiceController extends Controller
 
         $service = Service::create($validated);
 
+        AdminActivity::record(
+            'Created service',
+            $service,
+            sprintf('Created service "%s"', $service->title),
+            AdminActivity::snapshotFor($service)
+        );
+
         // Save highlights
         if ($request->has('highlights')) {
             foreach ($request->highlights as $index => $highlight) {
@@ -84,7 +92,17 @@ class ServiceController extends Controller
             $validated['featured_image'] = $path;
         }
 
+        $original = $service->getOriginal();
         $service->update($validated);
+
+        $changes = AdminActivity::diffFor($service, $original);
+
+        AdminActivity::record(
+            'Updated service',
+            $service,
+            sprintf('Updated service "%s"', $service->title),
+            $changes
+        );
 
         // Update highlights
         $service->highlights()->delete();
@@ -105,8 +123,15 @@ class ServiceController extends Controller
 
     public function destroy(Service $service)
     {
+        $title = $service->title;
         $service->delete();
-        
+
+        AdminActivity::record(
+            'Deleted service',
+            $service,
+            sprintf('Deleted service "%s"', $title)
+        );
+
         return redirect()->route('admin.services.index')
             ->with('success', 'Service deleted successfully.');
     }

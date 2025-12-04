@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\TeamMemberRequest;
+use App\Models\AdminActivity;
 use App\Models\TeamMember;
 use Illuminate\Http\Request;
 
@@ -48,7 +49,14 @@ class TeamMemberController extends Controller
             $validated['photo'] = $request->file('photo')->store('team', 'public');
         }
 
-        TeamMember::create($validated);
+        $teamMember = TeamMember::create($validated);
+
+        AdminActivity::record(
+            'Created team member',
+            $teamMember,
+            sprintf('Added team member "%s"', $teamMember->name),
+            AdminActivity::snapshotFor($teamMember)
+        );
 
         return redirect()->route('admin.team.index')->with('success', 'Team member created successfully.');
     }
@@ -80,7 +88,17 @@ class TeamMemberController extends Controller
             $validated['photo'] = $request->file('photo')->store('team', 'public');
         }
 
+        $original = $team->getOriginal();
         $team->update($validated);
+
+        $changes = AdminActivity::diffFor($team, $original);
+
+        AdminActivity::record(
+            'Updated team member',
+            $team,
+            sprintf('Updated team member "%s"', $team->name),
+            $changes
+        );
 
         return redirect()->route('admin.team.index')->with('success', 'Team member updated successfully.');
     }
@@ -90,7 +108,14 @@ class TeamMemberController extends Controller
      */
     public function destroy(TeamMember $team)
     {
+        $name = $team->name;
         $team->delete();
+
+        AdminActivity::record(
+            'Deleted team member',
+            $team,
+            sprintf('Removed team member "%s"', $name)
+        );
         return redirect()->route('admin.team.index')->with('success', 'Team member deleted successfully.');
     }
 }

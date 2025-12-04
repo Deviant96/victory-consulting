@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\BlogPostRequest;
+use App\Models\AdminActivity;
 use App\Models\BlogPost;
 use Illuminate\Http\Request;
 
@@ -61,7 +62,14 @@ class BlogPostController extends Controller
         $validated['published'] = $request->boolean('published');
         $validated['published_at'] = $validated['published_at'] ?? ($validated['published'] ? now() : null);
 
-        BlogPost::create($validated);
+        $article = BlogPost::create($validated);
+
+        AdminActivity::record(
+            'Created article',
+            $article,
+            sprintf('Created article "%s"', $article->title),
+            AdminActivity::snapshotFor($article)
+        );
 
         return redirect()->route('admin.articles.index')->with('success', 'Article created successfully.');
     }
@@ -100,7 +108,17 @@ class BlogPostController extends Controller
         $validated['published'] = $request->boolean('published');
         $validated['published_at'] = $validated['published_at'] ?? ($validated['published'] ? now() : null);
 
+        $original = $article->getOriginal();
         $article->update($validated);
+
+        $changes = AdminActivity::diffFor($article, $original);
+
+        AdminActivity::record(
+            'Updated article',
+            $article,
+            sprintf('Updated article "%s"', $article->title),
+            $changes
+        );
 
         return redirect()->route('admin.articles.index')->with('success', 'Article updated successfully.');
     }
@@ -110,7 +128,13 @@ class BlogPostController extends Controller
      */
     public function destroy(BlogPost $article)
     {
+        $title = $article->title;
         $article->delete();
+        AdminActivity::record(
+            'Deleted article',
+            $article,
+            sprintf('Deleted article "%s"', $title)
+        );
         return redirect()->route('admin.articles.index')->with('success', 'Article deleted successfully.');
     }
 }

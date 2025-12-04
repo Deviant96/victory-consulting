@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\AdminActivity;
 use App\Models\Booking;
 use Illuminate\Http\Request;
 
@@ -33,7 +34,17 @@ class BookingController extends Controller
             'admin_notes' => 'nullable|string',
         ]);
 
+        $original = $booking->getOriginal();
         $booking->update($validated);
+
+        $changes = AdminActivity::diffFor($booking, $original);
+
+        AdminActivity::record(
+            'Updated booking',
+            $booking,
+            sprintf('Updated booking for %s', $booking->name),
+            $changes
+        );
 
         return redirect()
             ->route('admin.bookings.show', $booking)
@@ -42,7 +53,14 @@ class BookingController extends Controller
 
     public function destroy(Booking $booking)
     {
+        $name = $booking->name;
         $booking->delete();
+
+        AdminActivity::record(
+            'Deleted booking',
+            $booking,
+            sprintf('Deleted booking for %s', $name)
+        );
 
         return redirect()
             ->route('admin.bookings.index')

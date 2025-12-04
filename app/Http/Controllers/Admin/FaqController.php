@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\FaqRequest;
+use App\Models\AdminActivity;
 use App\Models\Faq;
 use Illuminate\Http\Request;
 
@@ -50,7 +51,14 @@ class FaqController extends Controller
         $validated = $request->validated();
         $validated['published'] = $request->boolean('published');
 
-        Faq::create($validated);
+        $faq = Faq::create($validated);
+
+        AdminActivity::record(
+            'Created FAQ',
+            $faq,
+            sprintf('Created FAQ "%s"', $faq->question),
+            AdminActivity::snapshotFor($faq)
+        );
 
         return redirect()->route('admin.faqs.index')->with('success', 'FAQ created successfully.');
     }
@@ -79,7 +87,17 @@ class FaqController extends Controller
         $validated = $request->validated();
         $validated['published'] = $request->boolean('published');
 
+        $original = $faq->getOriginal();
         $faq->update($validated);
+
+        $changes = AdminActivity::diffFor($faq, $original);
+
+        AdminActivity::record(
+            'Updated FAQ',
+            $faq,
+            sprintf('Updated FAQ "%s"', $faq->question),
+            $changes
+        );
 
         return redirect()->route('admin.faqs.index')->with('success', 'FAQ updated successfully.');
     }
@@ -89,7 +107,13 @@ class FaqController extends Controller
      */
     public function destroy(Faq $faq)
     {
+        $question = $faq->question;
         $faq->delete();
+        AdminActivity::record(
+            'Deleted FAQ',
+            $faq,
+            sprintf('Deleted FAQ "%s"', $question)
+        );
         return redirect()->route('admin.faqs.index')->with('success', 'FAQ deleted successfully.');
     }
 }

@@ -111,6 +111,14 @@
                         </svg>
                         <span>Branding</span>
                     </a>
+
+                    <a href="{{ route('admin.activity.index') ?? '#' }}"
+                       class="sidebar-link {{ request()->routeIs('admin.activity.*') ? 'active' : 'text-slate-200' }}">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-6h6v6m2 4H7a2 2 0 01-2-2V7a2 2 0 012-2h3l2-2 2 2h3a2 2 0 012 2v12a2 2 0 01-2 2z"></path>
+                        </svg>
+                        <span>Activity Log</span>
+                    </a>
                 </div>
             </div>
         </nav>
