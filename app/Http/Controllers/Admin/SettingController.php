@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Setting;
 use App\Traits\LogsAdminActivity;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class SettingController extends Controller
 {
@@ -91,23 +92,35 @@ class SettingController extends Controller
     public function updateBranding(Request $request)
     {
         $validated = $request->validate([
-            'branding.logo' => 'nullable|image|max:2048',
-            'branding.favicon' => 'nullable|image|max:1024',
-            'site.tagline' => 'nullable|string',
+            'logo' => 'nullable|image|max:2048',
+            'favicon' => 'nullable|image|max:1024',
+            'tagline' => 'nullable|string',
         ]);
 
-        if ($request->hasFile('branding.logo')) {
-            $path = $request->file('branding.logo')->store('branding', 'public');
+        if ($request->hasFile('logo')) {
+            // Delete old logo if exists
+            $oldLogo = Setting::get('branding.logo');
+            if ($oldLogo && Storage::disk('public')->exists($oldLogo)) {
+                Storage::disk('public')->delete($oldLogo);
+            }
+            
+            $path = $request->file('logo')->store('branding', 'public');
             Setting::set('branding.logo', $path);
         }
 
-        if ($request->hasFile('branding.favicon')) {
-            $path = $request->file('branding.favicon')->store('branding', 'public');
+        if ($request->hasFile('favicon')) {
+            // Delete old favicon if exists
+            $oldFavicon = Setting::get('branding.favicon');
+            if ($oldFavicon && Storage::disk('public')->exists($oldFavicon)) {
+                Storage::disk('public')->delete($oldFavicon);
+            }
+            
+            $path = $request->file('favicon')->store('branding', 'public');
             Setting::set('branding.favicon', $path);
         }
 
-        if (isset($validated['site.tagline'])) {
-            Setting::set('site.tagline', $validated['site.tagline']);
+        if (isset($validated['tagline'])) {
+            Setting::set('site.tagline', $validated['tagline']);
         }
 
         $this->logAdminActivity('updated settings', null, 'Updated branding settings');

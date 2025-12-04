@@ -28,8 +28,8 @@
                 <p class="text-sm text-gray-500 mt-1">Current logo</p>
             </div>
             @endif
-            <input type="file" name="branding.logo" id="branding_logo" accept="image/*" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-blue-500 focus:border-blue-500">
-            @error('branding.logo')
+            <input type="file" name="logo" id="branding_logo" accept="image/*" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-blue-500 focus:border-blue-500">
+            @error('logo')
             <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
             @enderror
             <p class="text-gray-500 text-sm mt-1">Recommended: PNG with transparent background, max 2MB</p>
@@ -43,8 +43,8 @@
                 <p class="text-sm text-gray-500 mt-1">Current favicon</p>
             </div>
             @endif
-            <input type="file" name="branding.favicon" id="branding_favicon" accept="image/*" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-blue-500 focus:border-blue-500">
-            @error('branding.favicon')
+            <input type="file" name="favicon" id="branding_favicon" accept="image/*" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-blue-500 focus:border-blue-500">
+            @error('favicon')
             <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
             @enderror
             <p class="text-gray-500 text-sm mt-1">Recommended: 32x32px or 64x64px square image, max 1MB</p>
@@ -52,8 +52,8 @@
 
         <div class="mb-6">
             <label for="site_tagline" class="block text-sm font-medium text-gray-700 mb-2">Site Tagline</label>
-            <input type="text" name="site.tagline" id="site_tagline" value="{{ old('site.tagline', $settings['site.tagline'] ?? '') }}" placeholder="Your company tagline or slogan" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-blue-500 focus:border-blue-500">
-            @error('site.tagline')
+            <input type="text" name="tagline" id="site_tagline" value="{{ old('tagline', $settings['site.tagline'] ?? '') }}" placeholder="Your company tagline or slogan" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-blue-500 focus:border-blue-500">
+            @error('tagline')
             <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
             @enderror
         </div>

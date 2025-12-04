@@ -8,6 +8,11 @@
     <title>@yield('title', 'Welcome') - {{ settings('site.name', 'Victory Business Consulting') }}</title>
     <meta name="description" content="@yield('description', settings('site.description', 'Professional business consulting services'))">
 
+    <!-- Favicon -->
+    @if(settings('branding.favicon'))
+        <link rel="icon" type="image/x-icon" href="{{ asset('storage/' . settings('branding.favicon')) }}">
+    @endif
+
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600,700&display=swap" rel="stylesheet" />
