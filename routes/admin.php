@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\FaqController;
 use App\Http\Controllers\Admin\BlogPostController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\BookingController;
+use App\Http\Controllers\Admin\SearchController;
 use App\Models\BlogPost;
 use App\Models\Booking;
 use App\Models\Faq;
@@ -37,6 +38,9 @@ Route::get('/', function () {
         'recentPosts' => $recentPosts,
     ]);
 })->name('dashboard');
+
+// Search
+Route::get('/search', [SearchController::class, 'search'])->name('search');
 
 // Bookings
 Route::resource('bookings', BookingController::class)->only(['index', 'show', 'update', 'destroy']);

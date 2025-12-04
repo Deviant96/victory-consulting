@@ -29,6 +29,9 @@
             <!-- Header -->
             @include('admin.partials.header')
 
+            <!-- Search Modal -->
+            @include('admin.partials.search-modal')
+
             <!-- Page Content -->
             <main class="flex-1 py-8">
                 <div class="admin-container space-y-6">
