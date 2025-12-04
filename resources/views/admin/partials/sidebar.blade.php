@@ -3,7 +3,7 @@
         <!-- Logo -->
         <div class="flex items-center justify-between h-16 px-4 bg-gradient-to-r from-slate-950 to-slate-900 border-b border-slate-800">
             <div class="flex items-center gap-2">
-                <div class="w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center text-white font-bold">VC</div>
+                <span class="inline-flex items-center justify-center w-10 h-10 rounded-2xl bg-gradient-to-br from-blue-500 to-indigo-600 text-white font-semibold shadow-lg shadow-blue-500/20">VC</span>
                 <div>
                     <p class="text-sm uppercase tracking-widest text-slate-400">Victory CMS</p>
                     <p class="text-base font-semibold text-white">Admin</p>

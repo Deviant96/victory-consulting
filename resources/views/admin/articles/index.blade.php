@@ -1,4 +1,8 @@
 @extends('admin.layouts.app')
+    
+@section('title', 'Articles')
+@section('page-title', 'Articles')
+@section('page-description', 'Search and filter knowledge base entries.')
 
 @section('content')
 <div class="space-y-6">
@@ -9,15 +13,19 @@
             <p class="admin-card-subtitle">Find content by keywords, category, or status</p>
         </div>
         <div class="flex items-center gap-2 mt-4 md:mt-0">
-            <button type="button" @click="toggle()" :aria-expanded="!collapsed" class="p-2 rounded-lg hover:bg-slate-100 transition" aria-label="Toggle article filters">
-                <svg class="w-5 h-5 text-slate-500" :class="{ 'rotate-180': collapsed }" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"></path>
+            <a href="{{ route('admin.articles.create') }}"
+                class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl hover:shadow-md transition transform hover:-translate-y-0.5">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
                 </svg>
-            </button>
-            <a href="{{ route('admin.articles.create') }}" class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg font-semibold transition transform hover:-translate-y-0.5">
                 Add Article
             </a>
         </div>
+        <button type="button" @click="toggle()" :aria-expanded="!collapsed" class="p-2 rounded-xl hover:bg-slate-100 transition absolute right-1 top-1" aria-label="Toggle article filters">
+            <svg class="w-4 h-4 text-slate-500" :class="{ 'rotate-180': collapsed }" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"></path>
+            </svg>
+        </button>
     </div>
     <div class="admin-card-body" x-show="!collapsed" x-transition>
         <form method="GET" class="flex flex-col lg:flex-row lg:items-end gap-4">
@@ -28,25 +36,25 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 105.5 5.5a7.5 7.5 0 0011.15 11.15z" />
                     </svg>
                     <input type="text" name="search" value="{{ $search ?? '' }}" placeholder="Search articles..."
-                           class="w-full pl-9 pr-4 py-2.5 border border-slate-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition">
+                           class="w-full pl-9 pr-4 py-2.5 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition">
                 </div>
             </div>
             <div class="flex-1">
                 <label class="block text-xs uppercase tracking-wide text-slate-500 mb-1">Category</label>
                 <input type="text" name="category" value="{{ $category ?? '' }}" placeholder="Category"
-                       class="w-full px-4 py-2.5 border border-slate-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition">
+                       class="w-full px-4 py-2.5 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition">
             </div>
             <div class="w-full lg:w-48">
                 <label class="block text-xs uppercase tracking-wide text-slate-500 mb-1">Status</label>
-                <select name="status" class="w-full px-4 py-2.5 border border-slate-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition">
+                <select name="status" class="w-full px-4 py-2.5 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition">
                     <option value="">All Statuses</option>
                     <option value="published" @selected(($status ?? '') === 'published')>Published</option>
                     <option value="draft" @selected(($status ?? '') === 'draft')>Draft</option>
                 </select>
             </div>
             <div class="flex items-center gap-2">
-                <button type="submit" class="px-4 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition transform hover:-translate-y-0.5">Filter</button>
-                <a href="{{ route('admin.articles.index') }}" class="px-4 py-2.5 border border-slate-200 rounded-lg text-slate-700 hover:bg-slate-50 transition">Reset</a>
+                <button type="submit" class="px-4 py-2.5 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition transform hover:-translate-y-0.5">Filter</button>
+                <a href="{{ route('admin.articles.index') }}" class="px-4 py-2.5 border border-slate-200 rounded-xl text-slate-700 hover:bg-slate-50 transition">Reset</a>
             </div>
         </form>
     </div>
@@ -67,7 +75,7 @@
             <h3 class="admin-card-title">Article Library</h3>
             <p class="admin-card-subtitle">Browse, edit, and publish articles</p>
         </div>
-        <button type="button" @click="toggle()" :aria-expanded="!collapsed" class="p-2 rounded-lg hover:bg-slate-100 transition" aria-label="Toggle articles table">
+        <button type="button" @click="toggle()" :aria-expanded="!collapsed" class="p-2 rounded-xl hover:bg-slate-100 transition" aria-label="Toggle articles table">
             <svg class="w-5 h-5 text-slate-500" :class="{ 'rotate-180': collapsed }" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"></path>
             </svg>

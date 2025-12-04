@@ -6,10 +6,36 @@ use App\Http\Controllers\Admin\FaqController;
 use App\Http\Controllers\Admin\BlogPostController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\BookingController;
+use App\Models\BlogPost;
+use App\Models\Booking;
+use App\Models\Faq;
+use App\Models\Service;
+use App\Models\TeamMember;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('admin.dashboard');
+    $stats = [
+        'services' => Service::count(),
+        'team' => TeamMember::count(),
+        'faqs' => Faq::count(),
+        'articles' => BlogPost::count(),
+        'bookings' => Booking::count(),
+    ];
+
+    $bookingStatusCounts = collect(Booking::STATUSES)
+        ->mapWithKeys(fn ($status) => [
+            $status => Booking::where('status', $status)->count(),
+        ]);
+
+    $recentBookings = Booking::latest()->take(5)->get();
+    $recentPosts = BlogPost::latest()->take(4)->get();
+
+    return view('admin.dashboard', [
+        'stats' => $stats,
+        'bookingStatusCounts' => $bookingStatusCounts,
+        'recentBookings' => $recentBookings,
+        'recentPosts' => $recentPosts,
+    ]);
 })->name('dashboard');
 
 // Bookings
