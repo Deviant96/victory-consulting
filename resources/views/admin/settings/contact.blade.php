@@ -46,7 +46,7 @@
 
         <div class="mb-6">
             <label for="site_address" class="block text-sm font-medium text-gray-700 mb-2">Physical Address</label>
-            <textarea name="site[address]" id="site_address" rows="3" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-blue-500 focus:border-blue-500">{{ old('site.address', $settings['site.address'] ?? '') }}</textarea>
+            <textarea name="site[address]" id="site_address" rows="5" wrap="soft" style="white-space: pre-wrap;" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-blue-500 focus:border-blue-500 resize-y">{{ old('site.address', $settings['site.address'] ?? '') }}</textarea>
             @error('site.address')
             <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
             @enderror
@@ -59,4 +59,21 @@
         </div>
     </form>
 </div>
+
+@push('scripts')
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const textarea = document.getElementById('site_address');
+    if (textarea) {
+        // Ensure textarea accepts newlines
+        textarea.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' && !e.shiftKey && !e.ctrlKey && !e.altKey) {
+                e.stopPropagation();
+                // Let the default behavior happen (insert newline)
+            }
+        });
+    }
+});
+</script>
+@endpush
 @endsection

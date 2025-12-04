@@ -73,7 +73,7 @@
                                 </div>
                                 <div>
                                     <h3 class="font-semibold text-gray-900 mb-1">Address</h3>
-                                    <p class="text-gray-600">{{ settings('site.address') }}</p>
+                                    <p class="text-gray-600">{!! nl2br(e(settings('site.address'))) !!}</p>
                                 </div>
                             </div>
                             @endif
