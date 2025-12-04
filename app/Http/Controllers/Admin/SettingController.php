@@ -32,8 +32,11 @@ class SettingController extends Controller
             'site.address' => 'nullable|string',
         ]);
 
-        foreach ($validated as $key => $value) {
-            Setting::set($key, $value);
+        // Handle nested array from form submission (site[name] becomes site.name)
+        $site = $request->input('site', []);
+        foreach ($site as $key => $value) {
+            $settingKey = "site.{$key}";
+            Setting::set($settingKey, $value);
         }
 
         $this->logAdminActivity('updated settings', null, 'Updated contact settings');

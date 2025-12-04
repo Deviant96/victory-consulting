@@ -4,11 +4,11 @@
 
 @section('content')
 <!-- Page Header -->
-<section class="bg-gradient-to-br from-blue-600 to-blue-800 text-white py-16">
+<section class="py-24">
     <div class="container mx-auto px-4">
         <div class="max-w-3xl mx-auto text-center">
             <h1 class="text-5xl font-bold mb-4">Contact Us</h1>
-            <p class="text-xl text-blue-100">
+            <p class="text-xl text-black/70">
                 Get in touch with our team to discuss how we can help your business thrive
             </p>
         </div>
@@ -20,8 +20,6 @@
     <div class="container mx-auto px-4">
         <div class="max-w-6xl mx-auto">
             <div class="grid lg:grid-cols-2 gap-12">
-                <!-- Booking Form Component -->
-                @include('frontend.partials.booking-form')
 
                 <!-- Contact Information -->
                 <div>
@@ -133,6 +131,9 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- Booking Form Component -->
+                @include('frontend.partials.booking-form')
             </div>
         </div>
     </div>
