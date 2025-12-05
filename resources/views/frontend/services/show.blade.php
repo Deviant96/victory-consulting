@@ -29,8 +29,8 @@
             <div class="mb-8">
                 <h1 class="text-5xl font-bold text-gray-900 mb-6">{{ $service->title }}</h1>
                 
-                @if($service->image)
-                <img src="{{ asset('storage/' . $service->image) }}" alt="{{ $service->title }}" class="w-full h-96 object-cover rounded-lg shadow-lg mb-6">
+                @if($service->featured_image)
+                <img src="{{ asset('storage/' . $service->featured_image) }}" alt="{{ $service->title }}" class="w-full h-96 object-cover rounded-lg shadow-lg mb-6">
                 @endif
                 
                 <p class="text-xl text-gray-700 leading-relaxed">{{ $service->description }}</p>
@@ -75,8 +75,8 @@
         <div class="grid md:grid-cols-3 gap-8">
             @foreach($relatedServices as $related)
             <a href="{{ route('services.show', $related->slug) }}" class="bg-white rounded-lg shadow-md hover:shadow-xl transition p-6 block">
-                @if($related->image)
-                <img src="{{ asset('storage/' . $related->image) }}" alt="{{ $related->title }}" class="w-full h-48 object-cover rounded-lg mb-4">
+                @if($related->featured_image)
+                <img src="{{ asset('storage/' . $related->featured_image) }}" alt="{{ $related->title }}" class="w-full h-48 object-cover rounded-lg mb-4">
                 @endif
                 <h3 class="text-xl font-bold text-gray-900 mb-2">{{ $related->title }}</h3>
                 <p class="text-gray-600 line-clamp-2 mb-3">{{ $related->description }}</p>

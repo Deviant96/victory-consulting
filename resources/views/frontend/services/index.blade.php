@@ -26,8 +26,8 @@
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             @foreach($services as $service)
             <div class="bg-white rounded-lg shadow-md hover:shadow-xl transition overflow-hidden">
-                @if($service->image)
-                <img src="{{ asset('storage/' . $service->image) }}" alt="{{ $service->title }}" class="w-full h-56 object-cover">
+                @if($service->featured_image)
+                <img src="{{ asset('storage/' . $service->featured_image) }}" alt="{{ $service->title }}" class="w-full h-56 object-cover">
                 @else
                 <div class="w-full h-56 bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center">
                     <svg class="w-20 h-20 text-white opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
