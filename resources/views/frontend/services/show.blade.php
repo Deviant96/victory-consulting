@@ -43,7 +43,7 @@
                 <div class="grid md:grid-cols-2 gap-4">
                     @foreach($service->highlights as $highlight)
                     <div class="flex items-start">
-                        <svg class="w-6 h-6 text-blue-600 mr-3 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
+                        <svg class="w-6 h-6 text-[#0481AE] mr-3 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
                         </svg>
                         <span class="text-gray-700">{{ $highlight->label }}</span>
@@ -54,13 +54,13 @@
             @endif
 
             <!-- CTA Box -->
-            <div class="bg-blue-600 text-white rounded-lg p-8 text-center">
-                <h3 class="text-2xl font-bold mb-4">Interested in This Service?</h3>
-                <p class="text-blue-100 mb-6 text-lg">
+            <div class="bg-[#FFE7D5] text-white rounded-xl p-8 text-center mt-24 shadow-xl">
+                <h3 class="text-3xl text-[#0481AE] font-bold mb-4">Interested in This Service?</h3>
+                <p class="text-[#0481AE] mb-6 text-lg">
                     Contact us today to discuss how we can help your business succeed
-                </p>
-                <a href="{{ route('contact') }}" class="inline-block bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-blue-50 transition">
-                    Get Started
+                </p>    
+                <a href="{{ route('contact') }}" class="inline-block bg-[#0481AE] text-white px-16 py-2 rounded-xl font-semibold hover:bg-[#036494] transition shadow-md">
+                    Book Now
                 </a>
             </div>
         </div>
@@ -80,7 +80,7 @@
                 @endif
                 <h3 class="text-xl font-bold text-gray-900 mb-2">{{ $related->title }}</h3>
                 <p class="text-gray-600 line-clamp-2 mb-3">{{ $related->description }}</p>
-                <span class="text-blue-600 font-semibold hover:text-blue-700">
+                <span class="text-[#0481AE] font-semibold hover:text-[#036494] transition">
                     Learn More →
                 </span>
             </a>
