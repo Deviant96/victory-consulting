@@ -4,94 +4,208 @@
 
 @section('content')
 <!-- Page Header -->
-<section class="bg-gradient-to-br from-blue-600 to-blue-800 text-white py-16">
+<section class="py-20">
     <div class="container mx-auto px-4">
-        <div class="max-w-3xl mx-auto text-center">
+        <div class="max-w-7xl mx-auto text-center">
             <h1 class="text-5xl font-bold mb-4">Our Blog</h1>
-            <p class="text-xl text-blue-100">
+            <p class="text-xl text-black/70">
                 Insights, strategies, and expert perspectives on business growth and success
             </p>
         </div>
     </div>
 </section>
 
-<!-- Blog Grid -->
+<!-- Blog Content with Filters -->
 <section class="py-16 bg-gray-50">
     <div class="container mx-auto px-4">
-        @if($posts->isEmpty())
-        <div class="text-center py-12">
-            <p class="text-xl text-gray-600">No blog posts available at the moment.</p>
-        </div>
-        @else
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            @foreach($posts as $post)
-            <article class="bg-white rounded-lg shadow-md hover:shadow-xl transition overflow-hidden">
-                @if($post->featured_image)
-                <img src="{{ asset('storage/' . $post->featured_image) }}" alt="{{ $post->title }}" class="w-full h-56 object-cover">
-                @else
-                <div class="w-full h-56 bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center">
-                    <svg class="w-20 h-20 text-white opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path>
-                    </svg>
-                </div>
-                @endif
-                
-                <div class="p-6">
-                    <!-- Meta -->
-                    <div class="flex items-center text-sm text-gray-500 mb-3">
-                        @if($post->category)
-                        <span class="text-blue-600 font-semibold">{{ $post->category }}</span>
-                        <span class="mx-2">•</span>
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col lg:flex-row gap-8">
+                <!-- Filter Sidebar -->
+                <aside class="lg:w-1/4">
+                    <div class="bg-white rounded-lg shadow-md p-6 sticky top-4">
+                        <h2 class="text-2xl font-bold mb-6">Filters</h2>
+                        
+                        <form action="{{ route('blog.index') }}" method="GET" id="filterForm">
+                            <!-- Search -->
+                            <div class="mb-6">
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">Search</label>
+                                <input type="text" name="search" value="{{ request('search') }}" 
+                                    placeholder="Search posts..." 
+                                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0481AE] focus:border-transparent">
+                            </div>
+
+                            <!-- Category Filter -->
+                            <div class="mb-6">
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">Category</label>
+                                <select name="category" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0481AE] focus:border-transparent">
+                                    <option value="">All Categories</option>
+                                    @foreach($categories as $category)
+                                    <option value="{{ $category }}" {{ request('category') == $category ? 'selected' : '' }}>
+                                        {{ $category }}
+                                    </option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <!-- Date Range Filter -->
+                            <div class="mb-6">
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">Date From</label>
+                                <input type="date" name="date_from" value="{{ request('date_from') }}" 
+                                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0481AE] focus:border-transparent">
+                            </div>
+
+                            <div class="mb-6">
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">Date To</label>
+                                <input type="date" name="date_to" value="{{ request('date_to') }}" 
+                                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0481AE] focus:border-transparent">
+                            </div>
+
+                            <!-- Sort By -->
+                            <div class="mb-6">
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">Sort By</label>
+                                <select name="sort" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#0481AE] focus:border-transparent">
+                                    <option value="latest" {{ request('sort', 'latest') == 'latest' ? 'selected' : '' }}>Latest First</option>
+                                    <option value="oldest" {{ request('sort') == 'oldest' ? 'selected' : '' }}>Oldest First</option>
+                                </select>
+                            </div>
+
+                            <!-- Buttons -->
+                            <div class="flex gap-3">
+                                <button type="submit" class="flex-1 bg-[#0481AE] text-white px-4 py-2 rounded-lg font-semibold hover:bg-[#036494] transition">
+                                    Apply Filters
+                                </button>
+                                <a href="{{ route('blog.index') }}" class="flex-1 bg-gray-200 text-gray-700 px-4 py-2 rounded-lg font-semibold hover:bg-gray-300 transition text-center">
+                                    Reset
+                                </a>
+                            </div>
+                        </form>
+
+                        <!-- Active Filters Display -->
+                        @if(request()->hasAny(['search', 'category', 'date_from', 'date_to']))
+                        <div class="mt-6 pt-6 border-t border-gray-200">
+                            <h3 class="text-sm font-semibold text-gray-700 mb-3">Active Filters:</h3>
+                            <div class="space-y-2">
+                                @if(request('search'))
+                                <div class="flex items-center justify-between text-sm">
+                                    <span class="text-gray-600">Search: {{ request('search') }}</span>
+                                </div>
+                                @endif
+                                @if(request('category'))
+                                <div class="flex items-center justify-between text-sm">
+                                    <span class="text-gray-600">Category: {{ request('category') }}</span>
+                                </div>
+                                @endif
+                                @if(request('date_from'))
+                                <div class="flex items-center justify-between text-sm">
+                                    <span class="text-gray-600">From: {{ request('date_from') }}</span>
+                                </div>
+                                @endif
+                                @if(request('date_to'))
+                                <div class="flex items-center justify-between text-sm">
+                                    <span class="text-gray-600">To: {{ request('date_to') }}</span>
+                                </div>
+                                @endif
+                            </div>
+                        </div>
                         @endif
-                        @php($publishedDate = $post->published_at ?? $post->created_at)
-                        <time datetime="{{ $publishedDate->format('Y-m-d') }}">
-                            {{ $publishedDate->format('M d, Y') }}
-                        </time>
+                    </div>
+                </aside>
+
+                <!-- Blog Posts -->
+                <main class="lg:w-3/4">
+                    @if($posts->isEmpty())
+                    <div class="bg-white rounded-lg shadow-md p-12 text-center">
+                        <svg class="w-16 h-16 text-gray-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M12 12h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        <p class="text-xl text-gray-600">No blog posts found matching your filters.</p>
+                        <a href="{{ route('blog.index') }}" class="inline-block mt-4 text-[#0481AE] hover:text-[#036494] font-semibold">
+                            Clear all filters
+                        </a>
+                    </div>
+                    @else
+                    <!-- Results Count -->
+                    <div class="mb-6">
+                        <p class="text-gray-600">
+                            Showing <span class="font-semibold">{{ $posts->firstItem() }}</span> to 
+                            <span class="font-semibold">{{ $posts->lastItem() }}</span> of 
+                            <span class="font-semibold">{{ $posts->total() }}</span> results
+                        </p>
                     </div>
 
-                    <!-- Title -->
-                    <h2 class="text-2xl font-bold text-gray-900 mb-3">
-                        <a href="{{ route('blog.show', $post->slug) }}" class="hover:text-blue-600 transition">
-                            {{ $post->title }}
-                        </a>
-                    </h2>
+                    <!-- Posts Grid -->
+                    <div class="grid md:grid-cols-2 gap-6">
+                        @foreach($posts as $post)
+                        <article class="bg-white rounded-lg shadow-md hover:shadow-xl transition overflow-hidden">
+                            @if($post->featured_image)
+                            <img src="{{ asset('storage/' . $post->featured_image) }}" alt="{{ $post->title }}" class="w-full h-48 object-cover">
+                            @else
+                            <div class="w-full h-48 bg-gradient-to-br from-[#0481AE] to-[#036494] flex items-center justify-center">
+                                <svg class="w-16 h-16 text-white opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path>
+                                </svg>
+                            </div>
+                            @endif
+                            
+                            <div class="p-6">
+                                <!-- Meta -->
+                                <div class="flex items-center text-sm text-gray-500 mb-3">
+                                    @if($post->category)
+                                    <span class="text-[#0481AE] font-semibold">{{ $post->category }}</span>
+                                    <span class="mx-2">•</span>
+                                    @endif
+                                    @php($publishedDate = $post->published_at ?? $post->created_at)
+                                    <time datetime="{{ $publishedDate->format('Y-m-d') }}">
+                                        {{ $publishedDate->format('M d, Y') }}
+                                    </time>
+                                </div>
 
-                    <!-- Excerpt -->
-                    <p class="text-gray-600 mb-4 line-clamp-3">{{ $post->excerpt }}</p>
+                                <!-- Title -->
+                                <h2 class="text-xl font-bold text-gray-900 mb-3">
+                                    <a href="{{ route('blog.show', $post->slug) }}" class="hover:text-[#0481AE] transition">
+                                        {{ $post->title }}
+                                    </a>
+                                </h2>
 
-                    <!-- Author & Read More -->
-                    <div class="flex items-center justify-between">
-                        @if($post->author)
-                        <span class="text-sm text-gray-600">By {{ $post->author }}</span>
-                        @endif
-                        <a href="{{ route('blog.show', $post->slug) }}" class="text-blue-600 font-semibold hover:text-blue-700 transition">
-                            Read More →
-                        </a>
+                                <!-- Excerpt -->
+                                <p class="text-gray-600 mb-4 line-clamp-3">{{ $post->excerpt }}</p>
+
+                                <!-- Author & Read More -->
+                                <div class="flex items-center justify-between">
+                                    @if($post->author)
+                                    <span class="text-sm text-gray-600">By {{ $post->author }}</span>
+                                    @endif
+                                    <a href="{{ route('blog.show', $post->slug) }}" class="text-[#0481AE] font-semibold hover:text-[#036494] transition">
+                                        Read More →
+                                    </a>
+                                </div>
+                            </div>
+                        </article>
+                        @endforeach
                     </div>
-                </div>
-            </article>
-            @endforeach
-        </div>
 
-        <!-- Pagination -->
-        <div class="mt-12">
-            {{ $posts->links() }}
+                    <!-- Pagination -->
+                    <div class="mt-8">
+                        {{ $posts->links() }}
+                    </div>
+                    @endif
+                </main>
+            </div>
         </div>
-        @endif
     </div>
 </section>
 
 <!-- Newsletter CTA -->
-<section class="bg-blue-600 text-white py-16">
-    <div class="container mx-auto px-4 text-center">
-        <h2 class="text-3xl font-bold mb-4">Stay Updated</h2>
-        <p class="text-xl mb-8 text-blue-100 max-w-2xl mx-auto">
+<section class="bg-[#FFE7D5] text-white py-8 max-w-5xl mx-auto rounded-xl shadow-xl mb-16">
+    <div class="container mx-auto px-2 text-center">
+        <h2 class="text-3xl font-bold mb-4 text-[#0481AE]">Stay Updated</h2>
+        <p class="text-xl mb-8 max-w-2xl mx-auto text-[#0481AE]">
             Subscribe to our newsletter for the latest insights and business strategies
         </p>
         <form action="#" method="POST" class="max-w-md mx-auto flex gap-4">
             @csrf
-            <input type="email" name="email" placeholder="Enter your email" required class="flex-1 px-4 py-3 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-400">
-            <button type="submit" class="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-blue-50 transition">
+            <input type="email" name="email" placeholder="Enter your email" required class="flex-1 px-4 py-3 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#0481AE]">
+            <button type="submit" class="bg-white text-[#0481AE] px-8 py-3 rounded-lg font-semibold hover:bg-[#E6F0F6] transition">
                 Subscribe
             </button>
         </form>
