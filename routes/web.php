@@ -6,12 +6,14 @@ use App\Http\Controllers\Frontend\TeamController;
 use App\Http\Controllers\Frontend\BlogController;
 use App\Http\Controllers\Frontend\ContactController;
 use App\Http\Controllers\Frontend\BookingController as FrontendBookingController;
+use App\Http\Controllers\Frontend\SearchController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\PushSubscriptionController;
 use Illuminate\Support\Facades\Route;
 
 // Public Frontend Routes
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/search', SearchController::class)->name('search');
 
 // Service Worker
 Route::get('/service-worker.js', function () {
