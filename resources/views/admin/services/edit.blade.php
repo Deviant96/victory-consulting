@@ -98,7 +98,15 @@
             </div>
 
             <!-- Highlights -->
-            <div x-data="highlightsManager(@json($service->highlights))">
+            <div x-data="{
+                highlights: {{ json_encode($service->highlights->map(fn($h) => ['label' => $h->label])) }},
+                addHighlight() {
+                    this.highlights.push({ label: '' });
+                },
+                removeHighlight(index) {
+                    this.highlights.splice(index, 1);
+                }
+            }">
                 <label class="block text-sm font-medium text-gray-700 mb-3">
                     Highlights / Key Points
                 </label>
@@ -159,20 +167,4 @@
         </div>
     </form>
 </div>
-
-@push('scripts')
-<script>
-    function highlightsManager(existing = []) {
-        return {
-            highlights: existing.length > 0 ? existing : [{ label: '' }],
-            addHighlight() {
-                this.highlights.push({ label: '' });
-            },
-            removeHighlight(index) {
-                this.highlights.splice(index, 1);
-            }
-        }
-    }
-</script>
-@endpush
 @endsection

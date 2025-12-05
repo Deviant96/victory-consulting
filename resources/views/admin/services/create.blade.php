@@ -163,7 +163,7 @@
 <script>
     function highlightsManager() {
         return {
-            highlights: [{ label: '' }],
+            highlights: [],
             addHighlight() {
                 this.highlights.push({ label: '' });
             },

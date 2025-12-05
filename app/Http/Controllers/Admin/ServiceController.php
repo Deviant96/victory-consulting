@@ -74,6 +74,7 @@ class ServiceController extends Controller
 
     public function edit(Service $service)
     {
+        $service->load('highlights');
         return view('admin.services.edit', compact('service'));
     }
 

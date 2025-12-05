@@ -29,7 +29,27 @@ class ServiceRequest extends FormRequest
             'featured_image' => ['nullable', 'image', 'max:2048'],
             'published' => ['boolean'],
             'highlights' => ['nullable', 'array'],
-            'highlights.*.label' => ['required_with:highlights', 'string'],
+            'highlights.*.label' => ['nullable', 'string'],
         ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'highlights.*.label.string' => 'Each highlight must be a valid text.',
+        ];
+    }
+
+    protected function prepareForValidation()
+    {
+        // Filter out empty highlights before validation
+        if ($this->has('highlights')) {
+            $highlights = array_filter($this->highlights, function ($highlight) {
+                return !empty($highlight['label']);
+            });
+            $this->merge([
+                'highlights' => array_values($highlights), // Re-index array
+            ]);
+        }
     }
 }
