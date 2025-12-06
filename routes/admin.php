@@ -9,6 +9,8 @@ use App\Http\Controllers\Admin\BookingController;
 use App\Http\Controllers\Admin\SearchController;
 use App\Http\Controllers\Admin\NotificationController;
 use App\Http\Controllers\Admin\AdminLogController;
+use App\Http\Controllers\Admin\WhyChooseItemController;
+use App\Http\Controllers\Admin\BusinessSolutionController;
 use App\Models\BlogPost;
 use App\Models\Booking;
 use App\Models\Faq;
@@ -65,6 +67,12 @@ Route::resource('faqs', FaqController::class);
 // Blog Posts / Articles
 Route::resource('articles', BlogPostController::class);
 
+// Why Choose Items
+Route::resource('why-choose-items', WhyChooseItemController::class);
+
+// Business Solutions
+Route::resource('business-solutions', BusinessSolutionController::class);
+
 // Settings
 Route::prefix('settings')->name('settings.')->group(function () {
     Route::get('/contact', [SettingController::class, 'contact'])->name('contact');
@@ -78,4 +86,7 @@ Route::prefix('settings')->name('settings.')->group(function () {
 
     Route::get('/booking', [SettingController::class, 'booking'])->name('booking');
     Route::post('/booking', [SettingController::class, 'updateBooking'])->name('booking.update');
+
+    Route::get('/hero', [SettingController::class, 'hero'])->name('hero');
+    Route::post('/hero', [SettingController::class, 'updateHero'])->name('hero.update');
 });
