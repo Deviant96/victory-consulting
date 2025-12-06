@@ -4,11 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class BusinessSolution extends Model
+class SubSolution extends Model
 {
     protected $fillable = [
+        'business_solution_id',
         'title',
-        'description',
         'order',
         'is_active'
     ];
@@ -19,11 +19,11 @@ class BusinessSolution extends Model
     ];
 
     /**
-     * Get the sub-solutions for this business solution.
+     * Get the business solution that owns the sub-solution.
      */
-    public function subSolutions()
+    public function businessSolution()
     {
-        return $this->hasMany(SubSolution::class);
+        return $this->belongsTo(BusinessSolution::class);
     }
 
     /**

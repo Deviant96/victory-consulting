@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\NotificationController;
 use App\Http\Controllers\Admin\AdminLogController;
 use App\Http\Controllers\Admin\WhyChooseItemController;
 use App\Http\Controllers\Admin\BusinessSolutionController;
+use App\Http\Controllers\Admin\SubSolutionController;
 use App\Http\Controllers\Admin\WhatsAppAgentController;
 use App\Models\BlogPost;
 use App\Models\Booking;
@@ -73,6 +74,9 @@ Route::resource('why-choose-items', WhyChooseItemController::class);
 
 // Business Solutions
 Route::resource('business-solutions', BusinessSolutionController::class);
+
+// Sub Solutions
+Route::resource('sub-solutions', SubSolutionController::class);
 
 // WhatsApp Agents
 Route::resource('whatsapp-agents', WhatsAppAgentController::class);

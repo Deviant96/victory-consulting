@@ -7,6 +7,7 @@ use App\Http\Controllers\Frontend\BlogController;
 use App\Http\Controllers\Frontend\ContactController;
 use App\Http\Controllers\Frontend\BookingController as FrontendBookingController;
 use App\Http\Controllers\Frontend\SearchController;
+use App\Http\Controllers\Frontend\IndustryController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\PushSubscriptionController;
 use Illuminate\Support\Facades\Route;
@@ -30,6 +31,9 @@ Route::get('/push-diagnostic', function () {
 // Services
 Route::get('/services', [ServiceController::class, 'index'])->name('services.index');
 Route::get('/services/{slug}', [ServiceController::class, 'show'])->name('services.show');
+
+// Industries
+Route::get('/industries', [IndustryController::class, 'index'])->name('industries.index');
 
 // Team
 Route::get('/team', [TeamController::class, 'index'])->name('team');

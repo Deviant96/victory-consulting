@@ -167,6 +167,7 @@ class SettingController extends Controller
         $settings = Setting::whereIn('key', [
             'hero.background_image',
             'hero.text_alignment',
+            'hero.industry_image',
         ])->pluck('value', 'key');
 
         return view('admin.settings.hero', compact('settings'));
@@ -176,6 +177,7 @@ class SettingController extends Controller
     {
         $validated = $request->validate([
             'background_image' => 'nullable|image|max:4096',
+            'industry_image' => 'nullable|image|max:4096',
             'text_alignment' => 'required|in:left,center,right',
         ]);
 
@@ -188,6 +190,17 @@ class SettingController extends Controller
             
             $path = $request->file('background_image')->store('hero', 'public');
             Setting::set('hero.background_image', $path);
+        }
+
+        if ($request->hasFile('industry_image')) {
+            // Delete old industry image if exists
+            $oldImage = Setting::get('hero.industry_image');
+            if ($oldImage && Storage::disk('public')->exists($oldImage)) {
+                Storage::disk('public')->delete($oldImage);
+            }
+            
+            $path = $request->file('industry_image')->store('hero', 'public');
+            Setting::set('hero.industry_image', $path);
         }
 
         Setting::set('hero.text_alignment', $validated['text_alignment']);
