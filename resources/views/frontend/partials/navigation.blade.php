@@ -34,10 +34,10 @@
                    class="text-gray-700 hover:text-blue-600 transition-colors {{ request()->routeIs('industries.*') ? 'text-blue-600 font-semibold' : '' }}">
                     Industries
                 </a>
-                <a href="{{ route('team') }}" 
+                {{-- <a href="{{ route('team') }}" 
                    class="text-gray-700 hover:text-blue-600 transition-colors {{ request()->routeIs('team') ? 'text-blue-600 font-semibold' : '' }}">
                     Team
-                </a>
+                </a> --}}
                 <a href="{{ route('blog.index') }}" 
                    class="text-gray-700 hover:text-blue-600 transition-colors {{ request()->routeIs('blog.*') ? 'text-blue-600 font-semibold' : '' }}">
                     Blog
@@ -186,10 +186,10 @@
                class="block px-3 py-2 rounded-md text-gray-700 hover:bg-gray-50 hover:text-blue-600 {{ request()->routeIs('industries.*') ? 'bg-blue-50 text-blue-600' : '' }}">
                 Industries
             </a>
-            <a href="{{ route('team') }}" 
+            {{-- <a href="{{ route('team') }}" 
                class="block px-3 py-2 rounded-md text-gray-700 hover:bg-gray-50 hover:text-blue-600 {{ request()->routeIs('team') ? 'bg-blue-50 text-blue-600' : '' }}">
                 Team
-            </a>
+            </a> --}}
             <a href="{{ route('blog.index') }}" 
                class="block px-3 py-2 rounded-md text-gray-700 hover:bg-gray-50 hover:text-blue-600 {{ request()->routeIs('blog.*') ? 'bg-blue-50 text-blue-600' : '' }}">
                 Blog
