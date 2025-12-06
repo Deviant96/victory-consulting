@@ -13,6 +13,9 @@ use App\Http\Controllers\Admin\WhyChooseItemController;
 use App\Http\Controllers\Admin\BusinessSolutionController;
 use App\Http\Controllers\Admin\SubSolutionController;
 use App\Http\Controllers\Admin\WhatsAppAgentController;
+use App\Http\Controllers\Admin\AboutSectionController;
+use App\Http\Controllers\Admin\VisionController;
+use App\Http\Controllers\Admin\MissionController;
 use App\Models\BlogPost;
 use App\Models\Booking;
 use App\Models\Faq;
@@ -81,6 +84,15 @@ Route::resource('sub-solutions', SubSolutionController::class);
 // WhatsApp Agents
 Route::resource('whatsapp-agents', WhatsAppAgentController::class);
 
+// About Sections
+Route::resource('about-sections', AboutSectionController::class);
+
+// Visions
+Route::resource('visions', VisionController::class);
+
+// Missions
+Route::resource('missions', MissionController::class);
+
 // Settings
 Route::prefix('settings')->name('settings.')->group(function () {
     Route::get('/contact', [SettingController::class, 'contact'])->name('contact');
@@ -97,4 +109,7 @@ Route::prefix('settings')->name('settings.')->group(function () {
 
     Route::get('/hero', [SettingController::class, 'hero'])->name('hero');
     Route::post('/hero', [SettingController::class, 'updateHero'])->name('hero.update');
+
+    Route::get('/about', [SettingController::class, 'about'])->name('about');
+    Route::post('/about', [SettingController::class, 'updateAbout'])->name('about.update');
 });

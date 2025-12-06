@@ -209,4 +209,70 @@ class SettingController extends Controller
 
         return redirect()->route('admin.settings.hero')->with('success', 'Hero section settings updated successfully.');
     }
+
+    public function about()
+    {
+        $settings = Setting::whereIn('key', [
+            'about.header_title',
+            'about.header_description',
+            'about.content',
+            'about.vision_title',
+            'about.vision_content',
+            'about.vision_image',
+            'about.mission_title',
+            'about.mission_content',
+            'about.mission_image',
+        ])->pluck('value', 'key');
+
+        return view('admin.settings.about', compact('settings'));
+    }
+
+    public function updateAbout(Request $request)
+    {
+        $validated = $request->validate([
+            'about.header_title' => 'required|string|max:255',
+            'about.header_description' => 'nullable|string',
+            'about.content' => 'required|string',
+            'about.vision_title' => 'nullable|string|max:255',
+            'about.vision_content' => 'nullable|string',
+            'about.vision_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
+            'about.mission_title' => 'nullable|string|max:255',
+            'about.mission_content' => 'nullable|string',
+            'about.mission_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
+        ]);
+
+        $about = $request->input('about', []);
+        
+        // Handle vision image upload
+        if ($request->hasFile('about.vision_image')) {
+            $oldImage = Setting::get('about.vision_image');
+            if ($oldImage) {
+                Storage::disk('public')->delete($oldImage);
+            }
+            $path = $request->file('about.vision_image')->store('about', 'public');
+            Setting::set('about.vision_image', $path);
+            unset($about['vision_image']);
+        }
+
+        // Handle mission image upload
+        if ($request->hasFile('about.mission_image')) {
+            $oldImage = Setting::get('about.mission_image');
+            if ($oldImage) {
+                Storage::disk('public')->delete($oldImage);
+            }
+            $path = $request->file('about.mission_image')->store('about', 'public');
+            Setting::set('about.mission_image', $path);
+            unset($about['mission_image']);
+        }
+
+        // Save all other settings
+        foreach ($about as $key => $value) {
+            $settingKey = "about.{$key}";
+            Setting::set($settingKey, $value);
+        }
+
+        $this->logAdminActivity('updated settings', null, 'Updated About Us page content');
+
+        return redirect()->route('admin.settings.about')->with('success', 'About Us page updated successfully.');
+    }
 }

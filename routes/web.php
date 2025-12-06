@@ -5,6 +5,7 @@ use App\Http\Controllers\Frontend\ServiceController;
 use App\Http\Controllers\Frontend\TeamController;
 use App\Http\Controllers\Frontend\BlogController;
 use App\Http\Controllers\Frontend\ContactController;
+use App\Http\Controllers\Frontend\AboutController;
 use App\Http\Controllers\Frontend\BookingController as FrontendBookingController;
 use App\Http\Controllers\Frontend\SearchController;
 use App\Http\Controllers\Frontend\IndustryController;
@@ -34,6 +35,9 @@ Route::get('/services/{slug}', [ServiceController::class, 'show'])->name('servic
 
 // Industries
 Route::get('/industries', [IndustryController::class, 'index'])->name('industries.index');
+
+// About
+Route::get('/about', [AboutController::class, 'index'])->name('about');
 
 // Team
 Route::get('/team', [TeamController::class, 'index'])->name('team');

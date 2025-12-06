@@ -22,6 +22,10 @@
                    class="text-gray-700 hover:text-blue-600 transition-colors {{ request()->routeIs('home') ? 'text-blue-600 font-semibold' : '' }}">
                     Home
                 </a>
+                <a href="{{ route('about') }}"
+                   class="text-gray-700 hover:text-blue-600 transition-colors {{ request()->routeIs('about') ? 'text-blue-600 font-semibold' : '' }}">
+                    About
+                </a>
                 <a href="{{ route('services.index') }}"
                    class="text-gray-700 hover:text-blue-600 transition-colors {{ request()->routeIs('services.*') ? 'text-blue-600 font-semibold' : '' }}">
                     Services
@@ -169,6 +173,10 @@
             <a href="{{ route('home') }}" 
                class="block px-3 py-2 rounded-md text-gray-700 hover:bg-gray-50 hover:text-blue-600 {{ request()->routeIs('home') ? 'bg-blue-50 text-blue-600' : '' }}">
                 Home
+            </a>
+            <a href="{{ route('about') }}" 
+               class="block px-3 py-2 rounded-md text-gray-700 hover:bg-gray-50 hover:text-blue-600 {{ request()->routeIs('about') ? 'bg-blue-50 text-blue-600' : '' }}">
+                About
             </a>
             <a href="{{ route('services.index') }}" 
                class="block px-3 py-2 rounded-md text-gray-700 hover:bg-gray-50 hover:text-blue-600 {{ request()->routeIs('services.*') ? 'bg-blue-50 text-blue-600' : '' }}">
