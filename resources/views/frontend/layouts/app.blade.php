@@ -34,6 +34,9 @@
     <!-- Footer -->
     @include('frontend.partials.footer')
 
+    <!-- WhatsApp Floating Button -->
+    @include('frontend.partials.whatsapp-float')
+
     @stack('scripts')
 </body>
 </html>
