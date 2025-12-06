@@ -158,6 +158,10 @@
             </div>
         </div>
 
+        <div class="hidden sm:block">
+            <x-language-switcher />
+        </div>
+
         <!-- View Site -->
         <a href="{{ url('/') }}"
            target="_blank"

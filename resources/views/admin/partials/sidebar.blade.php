@@ -157,6 +157,22 @@
             <div class="space-y-2">
                 <p class="px-6 text-xs font-semibold text-slate-500 uppercase tracking-wider">System</p>
                 <div class="space-y-1 px-2">
+                    <a href="{{ route('admin.languages.index') ?? '#' }}"
+                       class="sidebar-link {{ request()->routeIs('admin.languages.*') ? 'active' : 'text-slate-200' }}">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11c0 .828-.895 1.5-2 1.5s-2-.672-2-1.5.895-1.5 2-1.5 2 .672 2 1.5zM12 11V9c0-1.105-.895-2-2-2s-2 .895-2 2v2m8 3h1.5a1.5 1.5 0 001.5-1.5v-1.75a2.75 2.75 0 10-5.5 0V17m-3-5.5v7.25A1.25 1.25 0 0110.25 20h-5.5A1.25 1.25 0 013.5 18.75V11.5a1.5 1.5 0 011.5-1.5H6" />
+                        </svg>
+                        <span>Languages</span>
+                    </a>
+
+                    <a href="{{ route('admin.translations.index') ?? '#' }}"
+                       class="sidebar-link {{ request()->routeIs('admin.translations.*') ? 'active' : 'text-slate-200' }}">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 21h4m-2-4a7 7 0 100-14 7 7 0 000 14zm0 0v4m7-10l3 3m0 0l-3 3m3-3H10" />
+                        </svg>
+                        <span>Translations</span>
+                    </a>
+
                     <a href="{{ route('admin.logs.index') ?? '#' }}"
                        class="sidebar-link {{ request()->routeIs('admin.logs.*') ? 'active' : 'text-slate-200' }}">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

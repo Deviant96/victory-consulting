@@ -10,6 +10,7 @@ use App\Http\Controllers\Frontend\SearchController;
 use App\Http\Controllers\Frontend\IndustryController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\PushSubscriptionController;
+use App\Http\Controllers\LocaleController;
 use Illuminate\Support\Facades\Route;
 
 // Public Frontend Routes
@@ -46,6 +47,9 @@ Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('blog.show');
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 Route::post('/bookings', [FrontendBookingController::class, 'store'])->name('bookings.store');
+
+// Locale switching
+Route::get('/set-locale/{locale}', [LocaleController::class, 'setLocale'])->name('set-locale');
 
 // Auth Routes
 Route::get('/dashboard', function () {

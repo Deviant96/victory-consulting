@@ -13,6 +13,8 @@ use App\Http\Controllers\Admin\WhyChooseItemController;
 use App\Http\Controllers\Admin\BusinessSolutionController;
 use App\Http\Controllers\Admin\SubSolutionController;
 use App\Http\Controllers\Admin\WhatsAppAgentController;
+use App\Http\Controllers\Admin\LanguageController;
+use App\Http\Controllers\Admin\TranslationController;
 use App\Models\BlogPost;
 use App\Models\Booking;
 use App\Models\Faq;
@@ -80,6 +82,10 @@ Route::resource('sub-solutions', SubSolutionController::class);
 
 // WhatsApp Agents
 Route::resource('whatsapp-agents', WhatsAppAgentController::class);
+
+// Languages & Translations
+Route::resource('languages', LanguageController::class)->except(['show']);
+Route::resource('translations', TranslationController::class)->except(['show']);
 
 // Settings
 Route::prefix('settings')->name('settings.')->group(function () {

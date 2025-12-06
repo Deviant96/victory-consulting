@@ -20,27 +20,27 @@
             <div class="hidden md:flex items-center space-x-8">
                 <a href="{{ route('home') }}"
                    class="text-gray-700 hover:text-blue-600 transition-colors {{ request()->routeIs('home') ? 'text-blue-600 font-semibold' : '' }}">
-                    Home
+                    {{ t('frontend.nav.home', 'Home') }}
                 </a>
                 <a href="{{ route('services.index') }}"
                    class="text-gray-700 hover:text-blue-600 transition-colors {{ request()->routeIs('services.*') ? 'text-blue-600 font-semibold' : '' }}">
-                    Services
+                    {{ t('frontend.nav.services', 'Services') }}
                 </a>
                 <a href="{{ route('industries.index') }}"
                    class="text-gray-700 hover:text-blue-600 transition-colors {{ request()->routeIs('industries.*') ? 'text-blue-600 font-semibold' : '' }}">
-                    Industries
+                    {{ t('frontend.nav.industries', 'Industries') }}
                 </a>
-                <a href="{{ route('team') }}" 
+                <a href="{{ route('team') }}"
                    class="text-gray-700 hover:text-blue-600 transition-colors {{ request()->routeIs('team') ? 'text-blue-600 font-semibold' : '' }}">
-                    Team
+                    {{ t('frontend.nav.team', 'Team') }}
                 </a>
-                <a href="{{ route('blog.index') }}" 
+                <a href="{{ route('blog.index') }}"
                    class="text-gray-700 hover:text-blue-600 transition-colors {{ request()->routeIs('blog.*') ? 'text-blue-600 font-semibold' : '' }}">
-                    Blog
+                    {{ t('frontend.nav.blog', 'Blog') }}
                 </a>
-                <a href="{{ route('contact') }}" 
+                <a href="{{ route('contact') }}"
                    class="text-gray-700 hover:text-blue-600 transition-colors {{ request()->routeIs('contact') ? 'text-blue-600 font-semibold' : '' }}">
-                    Contact
+                    {{ t('frontend.nav.contact', 'Contact') }}
                 </a>
             </div>
 
@@ -142,6 +142,10 @@
                 </div>
             </div>
 
+            <div class="hidden md:block">
+                <x-language-switcher />
+            </div>
+
             <!-- Mobile Menu Button -->
             <div class="md:hidden">
                 <button @click="mobileMenuOpen = !mobileMenuOpen" 
@@ -166,31 +170,34 @@
          class="md:hidden border-t border-gray-200 bg-white"
          style="display: none;">
         <div class="px-4 pt-2 pb-3 space-y-1">
-            <a href="{{ route('home') }}" 
+            <a href="{{ route('home') }}"
                class="block px-3 py-2 rounded-md text-gray-700 hover:bg-gray-50 hover:text-blue-600 {{ request()->routeIs('home') ? 'bg-blue-50 text-blue-600' : '' }}">
-                Home
+                {{ t('frontend.nav.home', 'Home') }}
             </a>
-            <a href="{{ route('services.index') }}" 
+            <a href="{{ route('services.index') }}"
                class="block px-3 py-2 rounded-md text-gray-700 hover:bg-gray-50 hover:text-blue-600 {{ request()->routeIs('services.*') ? 'bg-blue-50 text-blue-600' : '' }}">
-                Services
+                {{ t('frontend.nav.services', 'Services') }}
             </a>
-            <a href="{{ route('industries.index') }}" 
+            <a href="{{ route('industries.index') }}"
                class="block px-3 py-2 rounded-md text-gray-700 hover:bg-gray-50 hover:text-blue-600 {{ request()->routeIs('industries.*') ? 'bg-blue-50 text-blue-600' : '' }}">
-                Industries
+                {{ t('frontend.nav.industries', 'Industries') }}
             </a>
-            <a href="{{ route('team') }}" 
+            <a href="{{ route('team') }}"
                class="block px-3 py-2 rounded-md text-gray-700 hover:bg-gray-50 hover:text-blue-600 {{ request()->routeIs('team') ? 'bg-blue-50 text-blue-600' : '' }}">
-                Team
+                {{ t('frontend.nav.team', 'Team') }}
             </a>
-            <a href="{{ route('blog.index') }}" 
+            <a href="{{ route('blog.index') }}"
                class="block px-3 py-2 rounded-md text-gray-700 hover:bg-gray-50 hover:text-blue-600 {{ request()->routeIs('blog.*') ? 'bg-blue-50 text-blue-600' : '' }}">
-                Blog
+                {{ t('frontend.nav.blog', 'Blog') }}
             </a>
-            <a href="{{ route('contact') }}" 
+            <a href="{{ route('contact') }}"
                class="block px-3 py-2 rounded-md text-gray-700 hover:bg-gray-50 hover:text-blue-600 {{ request()->routeIs('contact') ? 'bg-blue-50 text-blue-600' : '' }}">
-                Contact
+                {{ t('frontend.nav.contact', 'Contact') }}
             </a>
-            <a href="{{ route('contact') }}" 
+            <div class="px-3 py-2">
+                <x-language-switcher />
+            </div>
+            <a href="{{ route('contact') }}"
                class="block px-3 py-2 mt-2 bg-blue-600 text-white rounded-lg text-center hover:bg-blue-700">
                 Get Started
             </a>
