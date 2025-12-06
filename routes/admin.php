@@ -13,6 +13,8 @@ use App\Http\Controllers\Admin\WhyChooseItemController;
 use App\Http\Controllers\Admin\BusinessSolutionController;
 use App\Http\Controllers\Admin\SubSolutionController;
 use App\Http\Controllers\Admin\WhatsAppAgentController;
+use App\Http\Controllers\Admin\LanguageController;
+use App\Http\Controllers\Admin\TranslationController;
 use App\Models\BlogPost;
 use App\Models\Booking;
 use App\Models\Faq;
@@ -98,3 +100,7 @@ Route::prefix('settings')->name('settings.')->group(function () {
     Route::get('/hero', [SettingController::class, 'hero'])->name('hero');
     Route::post('/hero', [SettingController::class, 'updateHero'])->name('hero.update');
 });
+
+// Localization
+Route::resource('languages', LanguageController::class);
+Route::resource('translations', TranslationController::class)->except(['show']);

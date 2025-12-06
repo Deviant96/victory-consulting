@@ -78,6 +78,10 @@
                     </button>
                 </div>
 
+                <div class="ml-3 hidden md:block">
+                    <x-language-switcher />
+                </div>
+
                 <div x-show="open"
                      x-cloak
                      @click.outside="close()"
@@ -163,10 +167,13 @@
          x-transition:leave="transition ease-in duration-150"
          x-transition:leave-start="opacity-100 transform translate-y-0"
          x-transition:leave-end="opacity-0 transform -translate-y-2"
-         class="md:hidden border-t border-gray-200 bg-white"
+        class="md:hidden border-t border-gray-200 bg-white"
          style="display: none;">
         <div class="px-4 pt-2 pb-3 space-y-1">
-            <a href="{{ route('home') }}" 
+            <div class="py-2">
+                <x-language-switcher />
+            </div>
+            <a href="{{ route('home') }}"
                class="block px-3 py-2 rounded-md text-gray-700 hover:bg-gray-50 hover:text-blue-600 {{ request()->routeIs('home') ? 'bg-blue-50 text-blue-600' : '' }}">
                 Home
             </a>

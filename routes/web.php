@@ -10,11 +10,15 @@ use App\Http\Controllers\Frontend\SearchController;
 use App\Http\Controllers\Frontend\IndustryController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\PushSubscriptionController;
+use App\Http\Controllers\LocaleController;
 use Illuminate\Support\Facades\Route;
 
 // Public Frontend Routes
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/search', SearchController::class)->name('search');
+
+// Locale switching
+Route::get('/set-locale/{locale}', [LocaleController::class, 'set'])->name('set-locale');
 
 // Service Worker
 Route::get('/service-worker.js', function () {

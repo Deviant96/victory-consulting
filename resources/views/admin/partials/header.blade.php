@@ -24,6 +24,9 @@
             <kbd class="ml-2 px-1.5 py-0.5 text-xs bg-white border border-gray-300 rounded">Ctrl+K</kbd>
         </button>
 
+        <!-- Language Switcher -->
+        <x-language-switcher />
+
         <!-- Notifications -->
         @php
             $notifications = $adminNotifications ?? collect();
