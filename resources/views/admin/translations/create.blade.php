@@ -11,7 +11,7 @@
 
             <div class="flex justify-end gap-3">
                 <a href="{{ route('admin.translations.index') }}" class="px-4 py-2 text-sm text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200">Cancel</a>
-                <button type="submit" class="px-4 py-2 text-sm font-semibold text-white bg-indigo-600 rounded-lg shadow hover:bg-indigo-700">Save Key</button>
+                <button type="submit" class="px-4 py-2 text-sm font-semibold bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-lg shadow">Save Key</button>
             </div>
         </form>
     </div>
