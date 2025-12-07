@@ -14,10 +14,10 @@
             <p class="text-2xl mb-10 text-[#cce7f0]">{{ settings('site.tagline', 'Empowering businesses to achieve sustainable growth and operational excellence') }}</p>
             <div class="flex gap-4 {{ settings('hero.text_alignment') === 'center' ? 'justify-center' : (settings('hero.text_alignment') === 'right' ? 'justify-end' : 'justify-start') }}">
                 <a href="{{ route('services.index') }}" class="inline-block bg-white text-[#0481AE] px-16 py-2 rounded-xl font-semibold hover:bg-[#cce7f0] transition shadow-md">
-                    Our Services
+                    {{ t('frontend.home.hero_primary_cta', 'Our Services') }}
                 </a>
                 <a href="{{ route('contact') }}" class="inline-block border-2 border-white text-white px-16 py-2 rounded-xl font-semibold hover:bg-white hover:text-[#035f7f] transition shadow-md">
-                    Get Started
+                    {{ t('frontend.home.hero_secondary_cta', 'Get Started') }}
                 </a>
             </div>
         </div>
@@ -28,9 +28,9 @@
 <section class="py-20 bg-gray-50">
     <div class="container mx-auto px-4 max-w-4xl">
         <div class="text-center mb-12">
-            <h2 class="text-4xl font-bold text-gray-900 mb-4">Our Services</h2>
+            <h2 class="text-4xl font-bold text-gray-900 mb-4">{{ t('frontend.home.services_heading', 'Our Services') }}</h2>
             <p class="text-xl text-gray-600 max-w-2xl mx-auto">
-                Comprehensive business solutions tailored to your unique challenges
+                {{ t('frontend.home.services_subheading', 'Comprehensive business solutions tailored to your unique challenges') }}
             </p>
         </div>
 
@@ -43,7 +43,7 @@
                 <h3 class="text-2xl font-bold text-gray-900 mb-3">{{ $service->title }}</h3>
                 <p class="text-gray-600 mb-4 line-clamp-3">{{ $service->description }}</p>
                 <span class="text-[#0481AE] font-semibold hover:text-[#035f7f]">
-                    Learn More →
+                    {{ t('frontend.common.learn_more', 'Learn More') }} →
                 </span>
             </a>
             @endforeach
@@ -62,9 +62,9 @@
 <section class="relative pt-20 pb-2 mb-32 text-white overflow-x-clip" style="background: linear-gradient(to bottom, rgba(185, 206, 213, 0.72) 0%, rgba(185, 206, 213, 0.72) 15%, rgba(4, 129, 174, 1) 75%);">
     <div class="container mx-auto px-4 max-w-6xl relative z-10">
         <div class="text-center mb-16">
-            <h2 class="text-5xl font-bold text-[#035f7f] mb-4">Why Choose {{ settings('site.name', 'Victory Business Consulting') }}</h2>
+            <h2 class="text-5xl font-bold text-[#035f7f] mb-4">{{ t('frontend.home.why_choose_heading', 'Why Choose ' . settings('site.name', 'Victory Business Consulting')) }}</h2>
             <p class="text-xl text-[#035f7f] max-w-3xl mx-auto">
-                Discover what sets us apart and makes us the ideal partner for your business growth
+                {{ t('frontend.home.why_choose_subheading', 'Discover what sets us apart and makes us the ideal partner for your business growth') }}
             </p>
         </div>
 
@@ -98,9 +98,9 @@
 <section class="py-20 bg-white">
     <div class="container mx-auto px-4 max-w-6xl">
         <div class="text-center mb-16">
-            <h2 class="text-5xl font-bold text-gray-900 mb-4">Whatever Your Business, We Can Handle It</h2>
+            <h2 class="text-5xl font-bold text-gray-900 mb-4">{{ t('frontend.home.solutions_heading', 'Whatever Your Business, We Can Handle It') }}</h2>
             <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-                From startups to enterprises, we provide tailored solutions for every industry and challenge
+                {{ t('frontend.home.solutions_subheading', 'From startups to enterprises, we provide tailored solutions for every industry and challenge') }}
             </p>
         </div>
 
@@ -165,15 +165,15 @@
         <div class="grid md:grid-cols-4 gap-8">
             <div class="mb-8 flex flex-col items-left md:items-start md:col-span-1 justify-between">
                 <div>
-                    <h2 class="text-3xl font-bold text-gray-900 mb-8">Latest Insights</h2>
-                    <p class="text-gray-600 max-w-2xl">Expert perspectives on business strategy and growth.</p>
+                    <h2 class="text-3xl font-bold text-gray-900 mb-8">{{ t('frontend.home.blog_heading', 'Latest Insights') }}</h2>
+                    <p class="text-gray-600 max-w-2xl">{{ t('frontend.home.blog_subheading', 'Expert perspectives on business strategy and growth.') }}</p>
                 </div>
                 <div class="text-center mt-12">
                     <a href="{{ route('blog.index') }}" class="inline-block bg-[#0481AE] text-white px-8 py-3 rounded-lg font-semibold hover:bg-[#035f7f] transition">
-                        Read More Articles
+                        {{ t('frontend.home.blog_cta', 'Read More Articles') }}
                     </a>
                 </div>
-            </div> 
+            </div>
 
             @foreach($posts as $post)
             <a href="{{ route('blog.show', $post->slug) }}" class="bg-white rounded-lg shadow-md hover:shadow-xl transition overflow-hidden block">

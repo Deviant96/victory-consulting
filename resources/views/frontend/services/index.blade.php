@@ -1,15 +1,15 @@
 @extends('frontend.layouts.app')
 
-@section('title', 'Our Services - ' . settings('site.name'))
+@section('title', t('frontend.services.meta_title', 'Our Services') . ' - ' . settings('site.name'))
 
 @section('content')
 <!-- Page Header -->
 <section class="py-20">
     <div class="container mx-auto px-4">
         <div class="max-w-3xl mx-auto text-center">
-            <h1 class="text-5xl font-bold mb-4">Our Services</h1>
+            <h1 class="text-5xl font-bold mb-4">{{ t('frontend.services.heading', 'Our Services') }}</h1>
             <p class="text-xl text-black/70">
-                Comprehensive business solutions designed to drive growth and operational excellence
+                {{ t('frontend.services.subheading', 'Comprehensive business solutions designed to drive growth and operational excellence') }}
             </p>
         </div>
     </div>
@@ -20,7 +20,7 @@
     <div class="container mx-auto px-4">
         @if($services->isEmpty())
         <div class="text-center py-12">
-            <p class="text-xl text-gray-600">No services available at the moment.</p>
+            <p class="text-xl text-gray-600">{{ t('frontend.services.empty', 'No services available at the moment.') }}</p>
         </div>
         @else
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-16">
@@ -56,7 +56,7 @@
                     @endif
                     
                     <a href="{{ route('services.show', $service->slug) }}" class="inline-block bg-[#0481AE] text-white px-6 py-2 rounded-lg font-semibold hover:bg-[#036494] transition">
-                        Learn More
+                        {{ t('frontend.common.learn_more', 'Learn More') }}
                     </a>
                 </div>
             </div>
@@ -75,9 +75,9 @@
 <section class="bg-[#FFE7D5] text-white py-8 max-w-5xl mx-auto rounded-xl shadow-xl mb-16">
     <div class="container mx-auto px-2 text-center">
         <h2 class="text-3xl text-[#0481AE] mb-8">
-            We can tailor our services to meet your specific business needs</h2>
+            {{ t('frontend.services.cta_heading', 'We can tailor our services to meet your specific business needs') }}</h2>
         <a href="{{ route('contact') }}" class="inline-block bg-[#0481AE] text-white px-16 py-2 rounded-xl font-semibold hover:bg-[#036494] transition shadow-md">
-            Book Now
+            {{ t('frontend.services.cta_button', 'Book Now') }}
         </a>
     </div>
 </section>
