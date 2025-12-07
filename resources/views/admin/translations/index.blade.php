@@ -26,6 +26,7 @@
                     <tr>
                         <th class="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Group</th>
                         <th class="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Key</th>
+                        <th class="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Preview ({{ strtoupper($fallbackLocale) }})</th>
                         <th class="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Translations</th>
                         <th class="px-6 py-3"></th>
                     </tr>
@@ -35,6 +36,13 @@
                         <tr>
                             <td class="px-6 py-4 text-sm text-gray-600">{{ $translationKey->group ?? '-' }}</td>
                             <td class="px-6 py-4 text-sm font-semibold text-gray-900">{{ $translationKey->key }}</td>
+                            <td class="px-6 py-4 text-sm text-gray-700">
+                                @if ($translationKey->preview)
+                                    <span title="{{ $translationKey->preview }}">{{ $translationKey->preview }}</span>
+                                @else
+                                    <span class="text-gray-400">No {{ strtoupper($fallbackLocale) }} value yet</span>
+                                @endif
+                            </td>
                             <td class="px-6 py-4 text-sm text-gray-700">
                                 <div class="flex flex-wrap gap-2">
                                     @foreach ($languages as $language)

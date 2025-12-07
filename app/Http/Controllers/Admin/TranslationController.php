@@ -8,6 +8,7 @@ use App\Models\TranslationKey;
 use App\Models\TranslationValue;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Illuminate\View\View;
 
 class TranslationController extends Controller
@@ -20,8 +21,16 @@ class TranslationController extends Controller
             ->paginate(15);
 
         $languages = Language::orderBy('label')->get();
+        $fallbackLocale = config('app.fallback_locale', 'en');
 
-        return view('admin.translations.index', compact('translationKeys', 'languages'));
+        // Attach a friendly preview of the fallback language to speed up scanning
+        $translationKeys->getCollection()->transform(function (TranslationKey $translationKey) use ($fallbackLocale) {
+            $translationKey->preview = Str::limit($translationKey->valueForLocale($fallbackLocale) ?? '', 70);
+
+            return $translationKey;
+        });
+
+        return view('admin.translations.index', compact('translationKeys', 'languages', 'fallbackLocale'));
     }
 
     public function create(): View
