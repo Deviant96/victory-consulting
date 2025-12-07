@@ -5,12 +5,15 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\FaqRequest;
 use App\Models\Faq;
+use App\Models\Language;
+use App\Traits\HandlesContentTranslations;
 use App\Traits\LogsAdminActivity;
 use Illuminate\Http\Request;
 
 class FaqController extends Controller
 {
     use LogsAdminActivity;
+    use HandlesContentTranslations;
 
     /**
      * Display a listing of the resource.
@@ -42,7 +45,9 @@ class FaqController extends Controller
      */
     public function create()
     {
-        return view('admin.faqs.create');
+        $languages = Language::where('is_active', true)->orderBy('label')->get();
+
+        return view('admin.faqs.create', compact('languages'));
     }
 
     /**
@@ -54,6 +59,8 @@ class FaqController extends Controller
         $validated['published'] = $request->boolean('published');
 
         $faq = Faq::create($validated);
+
+        $this->syncTranslations($faq, $request, ['question', 'answer']);
 
         $this->logAdminActivity('created faq', $faq, "Created FAQ: {$faq->question}");
 
@@ -73,7 +80,10 @@ class FaqController extends Controller
      */
     public function edit(Faq $faq)
     {
-        return view('admin.faqs.edit', compact('faq'));
+        $languages = Language::where('is_active', true)->orderBy('label')->get();
+        $faq->load('translations');
+
+        return view('admin.faqs.edit', compact('faq', 'languages'));
     }
 
     /**
@@ -85,6 +95,8 @@ class FaqController extends Controller
         $validated['published'] = $request->boolean('published');
 
         $faq->update($validated);
+
+        $this->syncTranslations($faq, $request, ['question', 'answer']);
 
         $this->logAdminActivity('updated faq', $faq, "Updated FAQ: {$faq->question}");
 

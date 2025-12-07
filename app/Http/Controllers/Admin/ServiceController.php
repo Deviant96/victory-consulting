@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\ServiceRequest;
 use App\Models\Service;
+use App\Models\Language;
+use App\Traits\HandlesContentTranslations;
 use App\Traits\LogsAdminActivity;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -12,6 +14,7 @@ use Illuminate\Support\Str;
 class ServiceController extends Controller
 {
     use LogsAdminActivity;
+    use HandlesContentTranslations;
 
     public function index(Request $request)
     {
@@ -37,7 +40,9 @@ class ServiceController extends Controller
 
     public function create()
     {
-        return view('admin.services.create');
+        $languages = Language::where('is_active', true)->orderBy('label')->get();
+
+        return view('admin.services.create', compact('languages'));
     }
 
     public function store(ServiceRequest $request)
@@ -53,6 +58,8 @@ class ServiceController extends Controller
         }
 
         $service = Service::create($validated);
+
+        $this->syncTranslations($service, $request, ['title', 'summary', 'description', 'price_note']);
 
         // Save highlights
         if ($request->has('highlights')) {
@@ -74,8 +81,10 @@ class ServiceController extends Controller
 
     public function edit(Service $service)
     {
-        $service->load('highlights');
-        return view('admin.services.edit', compact('service'));
+        $languages = Language::where('is_active', true)->orderBy('label')->get();
+        $service->load(['highlights', 'translations']);
+
+        return view('admin.services.edit', compact('service', 'languages'));
     }
 
     public function update(ServiceRequest $request, Service $service)
@@ -91,6 +100,8 @@ class ServiceController extends Controller
         }
 
         $service->update($validated);
+
+        $this->syncTranslations($service, $request, ['title', 'summary', 'description', 'price_note']);
 
         // Update highlights
         $service->highlights()->delete();

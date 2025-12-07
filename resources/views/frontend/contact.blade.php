@@ -1,15 +1,15 @@
 @extends('frontend.layouts.app')
 
-@section('title', 'Contact Us - ' . settings('site.name'))
+@section('title', t('frontend.contact.meta_title', 'Contact Us') . ' - ' . settings('site.name'))
 
 @section('content')
 <!-- Page Header -->
 <section class="py-20">
     <div class="container mx-auto px-4">
         <div class="max-w-3xl mx-auto text-center">
-            <h1 class="text-5xl font-bold mb-4">Contact Us</h1>
+            <h1 class="text-5xl font-bold mb-4">{{ t('frontend.contact.heading', 'Contact Us') }}</h1>
             <p class="text-xl text-black/70">
-                Get in touch with our team to discuss how we can help your business thrive
+                {{ t('frontend.contact.subheading', 'Get in touch with our team to discuss how we can help your business thrive') }}
             </p>
         </div>
     </div>
@@ -33,12 +33,12 @@
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
                                     </svg>
                                 </div>
-                                <h3 class="text-lg font-bold text-gray-900">Phone</h3>
+                                <h3 class="text-lg font-bold text-gray-900">{{ t('frontend.contact.phone_label', 'Phone') }}</h3>
                             </div>
                             <a href="tel:{{ settings('site.phone') }}" class="text-base hover:text-blue-600 transition">
                                 {{ settings('site.phone') }}
                             </a>
-                            <p class="text-sm text-gray-500 mt-1">Available on phone and WhatsApp</p>
+                            <p class="text-sm text-gray-500 mt-1">{{ t('frontend.contact.phone_note', 'Available on phone and WhatsApp') }}</p>
                         </div>
                         @endif
 
@@ -51,12 +51,12 @@
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
                                     </svg>
                                 </div>
-                                <h3 class="text-lg font-bold text-gray-900">Email</h3>
+                                <h3 class="text-lg font-bold text-gray-900">{{ t('frontend.contact.email_label', 'Email') }}</h3>
                             </div>
                             <a href="mailto:{{ settings('site.email') }}" class="text-base hover:text-blue-600 transition">
                                 {{ settings('site.email') }}
                             </a>
-                            <p class="text-sm text-gray-500 mt-1">We answer emails promptly</p>
+                            <p class="text-sm text-gray-500 mt-1">{{ t('frontend.contact.email_note', 'We answer emails promptly') }}</p>
                         </div>
                         @endif
 
@@ -70,7 +70,7 @@
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
                                     </svg>
                                 </div>
-                                <h3 class="text-lg font-bold text-gray-900">Address</h3>
+                                <h3 class="text-lg font-bold text-gray-900">{{ t('frontend.contact.address_label', 'Address') }}</h3>
                             </div>
                             <p class="text-base text-gray-600">{!! nl2br(e(settings('site.address'))) !!}</p>
                         </div>
@@ -84,20 +84,20 @@
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                                     </svg>
                                 </div>
-                                <h3 class="text-lg font-bold text-gray-900">Business Hours</h3>
+                                <h3 class="text-lg font-bold text-gray-900">{{ t('frontend.contact.hours_label', 'Business Hours') }}</h3>
                             </div>
                             <div class="space-y-1 text-sm text-gray-600">
                                 <div class="flex justify-between">
-                                    <span>Monday - Friday:</span>
-                                    <span class="font-semibold">9:00 AM - 6:00 PM</span>
+                                    <span>{{ t('frontend.contact.hours_weekday', 'Monday - Friday:') }}</span>
+                                    <span class="font-semibold">{{ t('frontend.contact.hours_weekday_value', '9:00 AM - 6:00 PM') }}</span>
                                 </div>
                                 <div class="flex justify-between">
-                                    <span>Saturday:</span>
-                                    <span class="font-semibold">10:00 AM - 4:00 PM</span>
+                                    <span>{{ t('frontend.contact.hours_saturday', 'Saturday:') }}</span>
+                                    <span class="font-semibold">{{ t('frontend.contact.hours_saturday_value', '10:00 AM - 4:00 PM') }}</span>
                                 </div>
                                 <div class="flex justify-between">
-                                    <span>Sunday:</span>
-                                    <span class="font-semibold">Closed</span>
+                                    <span>{{ t('frontend.contact.hours_sunday', 'Sunday:') }}</span>
+                                    <span class="font-semibold">{{ t('frontend.contact.hours_sunday_value', 'Closed') }}</span>
                                 </div>
                             </div>
                         </div>
@@ -105,7 +105,7 @@
                         <!-- Social Links -->
                         @if(settings('social.linkedin') || settings('social.twitter') || settings('social.facebook'))
                         <div class="bg-white rounded-lg shadow-md p-4">
-                            <h3 class="text-lg font-bold text-gray-900 mb-3">Follow Us</h3>
+                            <h3 class="text-lg font-bold text-gray-900 mb-3">{{ t('frontend.contact.follow_label', 'Follow Us') }}</h3>
                             <div class="flex gap-3">
                                 @if(settings('social.linkedin'))
                                 <a href="{{ settings('social.linkedin') }}" target="_blank" class="bg-blue-100 p-3 rounded-lg hover:bg-blue-200 transition">

@@ -4,12 +4,15 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\BusinessSolution;
+use App\Models\Language;
+use App\Traits\HandlesContentTranslations;
 use App\Traits\LogsAdminActivity;
 use Illuminate\Http\Request;
 
 class BusinessSolutionController extends Controller
 {
     use LogsAdminActivity;
+    use HandlesContentTranslations;
 
     /**
      * Display a listing of the resource.
@@ -39,7 +42,9 @@ class BusinessSolutionController extends Controller
      */
     public function create()
     {
-        return view('admin.business-solutions.create');
+        $languages = Language::where('is_active', true)->orderBy('label')->get();
+
+        return view('admin.business-solutions.create', compact('languages'));
     }
 
     /**
@@ -51,11 +56,17 @@ class BusinessSolutionController extends Controller
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
             'order' => 'required|integer|min:0',
+            'translations' => ['sometimes', 'array'],
+            'translations.*' => ['sometimes', 'array'],
+            'translations.*.title' => ['nullable', 'string'],
+            'translations.*.description' => ['nullable', 'string'],
         ]);
 
         $validated['is_active'] = $request->boolean('is_active');
 
         $solution = BusinessSolution::create($validated);
+
+        $this->syncTranslations($solution, $request, ['title', 'description']);
 
         $this->logAdminActivity('created business solution', $solution, "Created Business Solution: {$solution->title}");
 
@@ -67,7 +78,10 @@ class BusinessSolutionController extends Controller
      */
     public function edit(BusinessSolution $businessSolution)
     {
-        return view('admin.business-solutions.edit', compact('businessSolution'));
+        $languages = Language::where('is_active', true)->orderBy('label')->get();
+        $businessSolution->load('translations');
+
+        return view('admin.business-solutions.edit', compact('businessSolution', 'languages'));
     }
 
     /**
@@ -79,11 +93,17 @@ class BusinessSolutionController extends Controller
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
             'order' => 'required|integer|min:0',
+            'translations' => ['sometimes', 'array'],
+            'translations.*' => ['sometimes', 'array'],
+            'translations.*.title' => ['nullable', 'string'],
+            'translations.*.description' => ['nullable', 'string'],
         ]);
 
         $validated['is_active'] = $request->boolean('is_active');
 
         $businessSolution->update($validated);
+
+        $this->syncTranslations($businessSolution, $request, ['title', 'description']);
 
         $this->logAdminActivity('updated business solution', $businessSolution, "Updated Business Solution: {$businessSolution->title}");
 

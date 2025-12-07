@@ -3,15 +3,23 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Traits\HasTranslations;
 
 class WhyChooseItem extends Model
 {
+    use HasTranslations;
+
     protected $fillable = [
         'title',
         'description',
         'icon',
         'order',
         'is_active'
+    ];
+
+    protected array $translatable = [
+        'title',
+        'description',
     ];
 
     protected $casts = [

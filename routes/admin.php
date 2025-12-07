@@ -13,6 +13,8 @@ use App\Http\Controllers\Admin\WhyChooseItemController;
 use App\Http\Controllers\Admin\BusinessSolutionController;
 use App\Http\Controllers\Admin\SubSolutionController;
 use App\Http\Controllers\Admin\WhatsAppAgentController;
+use App\Http\Controllers\Admin\LanguageController;
+use App\Http\Controllers\Admin\TranslationController;
 use App\Http\Controllers\Admin\AboutSectionController;
 use App\Http\Controllers\Admin\VisionController;
 use App\Http\Controllers\Admin\MissionController;
@@ -113,3 +115,7 @@ Route::prefix('settings')->name('settings.')->group(function () {
     Route::get('/about', [SettingController::class, 'about'])->name('about');
     Route::post('/about', [SettingController::class, 'updateAbout'])->name('about.update');
 });
+
+// Localization
+Route::resource('languages', LanguageController::class);
+Route::resource('translations', TranslationController::class)->except(['show']);

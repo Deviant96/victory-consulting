@@ -24,6 +24,12 @@ class BlogPostRequest extends FormRequest
             'author' => ['nullable', 'string', 'max:255'],
             'published' => ['boolean'],
             'published_at' => ['nullable', 'date'],
+            'translations' => ['sometimes', 'array'],
+            'translations.*' => ['sometimes', 'array'],
+            'translations.*.title' => ['nullable', 'string'],
+            'translations.*.excerpt' => ['nullable', 'string'],
+            'translations.*.content' => ['nullable', 'string'],
+            'translations.*.author' => ['nullable', 'string'],
         ];
     }
 }

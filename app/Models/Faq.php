@@ -3,15 +3,26 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Traits\HasTranslations;
 
 class Faq extends Model
 {
+    use HasTranslations;
+
     protected $fillable = [
         'question',
         'answer',
         'category',
         'order',
         'published',
+    ];
+
+    /**
+     * Fields that can be translated via the content translations table.
+     */
+    protected array $translatable = [
+        'question',
+        'answer',
     ];
 
     protected $casts = [

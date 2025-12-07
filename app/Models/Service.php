@@ -5,9 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Str;
+use App\Traits\HasTranslations;
 
 class Service extends Model
 {
+    use HasTranslations;
+
     protected $fillable = [
         'title',
         'slug',
@@ -17,6 +20,13 @@ class Service extends Model
         'price_note',
         'featured_image',
         'published',
+    ];
+
+    protected array $translatable = [
+        'title',
+        'summary',
+        'description',
+        'price_note',
     ];
 
     protected $casts = [

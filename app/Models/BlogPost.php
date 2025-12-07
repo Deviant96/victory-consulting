@@ -4,9 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
+use App\Traits\HasTranslations;
 
 class BlogPost extends Model
 {
+    use HasTranslations;
+
     protected $fillable = [
         'title',
         'slug',
@@ -18,6 +21,13 @@ class BlogPost extends Model
         'tags',
         'published',
         'published_at',
+    ];
+
+    protected array $translatable = [
+        'title',
+        'excerpt',
+        'content',
+        'author',
     ];
 
     protected $casts = [

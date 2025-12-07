@@ -19,6 +19,10 @@ class FaqRequest extends FormRequest
             'category' => ['nullable', 'string', 'max:255'],
             'order' => ['nullable', 'integer'],
             'published' => ['boolean'],
+            'translations' => ['sometimes', 'array'],
+            'translations.*' => ['sometimes', 'array'],
+            'translations.*.question' => ['nullable', 'string'],
+            'translations.*.answer' => ['nullable', 'string'],
         ];
     }
 }
