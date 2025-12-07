@@ -1,12 +1,133 @@
 import './bootstrap';
-
 import Alpine from 'alpinejs';
 
-    document.addEventListener('alpine:init', () => {
-        Alpine.data('adminLayout', () => ({
-            sidebarOpen: false,
-            init() {
-                this.syncSidebarWithViewport();
+// Register frontend Alpine components (for pages without Livewire)
+Alpine.data('frontendSearch', () => ({
+    open: false,
+    loading: false,
+    query: '',
+    index: null,
+    error: null,
+
+    toggle() {
+        this.open = !this.open;
+        if (this.open) {
+            this.ensureIndex();
+            this.focusInput();
+        }
+    },
+
+    openPanel() {
+        this.open = true;
+        this.ensureIndex();
+    },
+
+    close() {
+        this.open = false;
+    },
+
+    clear() {
+        this.query = '';
+        this.focusInput();
+    },
+
+    focusInput() {
+        this.$nextTick(() => {
+            this.$refs.searchInput?.focus();
+        });
+    },
+
+    async ensureIndex() {
+        if (this.index || this.loading) {
+            return;
+        }
+
+        this.loading = true;
+        this.error = null;
+
+        try {
+            const response = await fetch('/search');
+
+            if (!response.ok) {
+                throw new Error('Search is unavailable right now.');
+            }
+
+            this.index = await response.json();
+        } catch (error) {
+            console.error(error);
+            this.error = 'Unable to load search results. Please try again later.';
+        } finally {
+            this.loading = false;
+        }
+    },
+
+    filterCollection(items, term) {
+        if (!Array.isArray(items)) {
+            return [];
+        }
+
+        if (!term) {
+            return items.slice(0, 5);
+        }
+
+        return items.filter((item) => {
+            const haystack = [item.title, item.subtitle, item.type]
+                .filter(Boolean)
+                .map((value) => value.toLowerCase());
+
+            return haystack.some((value) => value.includes(term));
+        });
+    },
+
+    get filteredResults() {
+        if (!this.index) {
+            return {
+                services: [],
+                team: [],
+                articles: [],
+                contacts: [],
+            };
+        }
+
+        const term = this.query.trim().toLowerCase();
+
+        return {
+            services: this.filterCollection(this.index.services, term),
+            team: this.filterCollection(this.index.team, term),
+            articles: this.filterCollection(this.index.articles, term),
+            contacts: this.filterCollection(this.index.contacts, term),
+        };
+    },
+
+    get groupedResults() {
+        const results = this.filteredResults;
+
+        return [
+            { key: 'services', label: 'Services', items: results.services ?? [] },
+            { key: 'team', label: 'Team', items: results.team ?? [] },
+            { key: 'articles', label: 'Articles', items: results.articles ?? [] },
+            { key: 'contacts', label: 'Contact info', items: results.contacts ?? [] },
+        ];
+    },
+
+    get hasResults() {
+        return this.groupedResults.some((group) => group.items.length > 0);
+    },
+}));
+
+// Start Alpine for frontend pages
+window.Alpine = Alpine;
+Alpine.start();
+
+// Register admin Alpine components with Livewire's Alpine instance
+document.addEventListener('livewire:init', () => {
+    // Get Livewire's Alpine instance for admin pages
+    const Alpine = window.Alpine;
+    
+    Alpine.data('adminLayout', () => ({
+        sidebarOpen: false,
+        init() {
+            this.syncSidebarWithViewport();
             window.addEventListener('resize', () => this.syncSidebarWithViewport());
             this.$watch('sidebarOpen', (open) => {
                 const shouldLock = open && window.innerWidth < 1024;
@@ -29,133 +150,16 @@ import Alpine from 'alpinejs';
         }
     }));
 
-        Alpine.data('collapsibleCard', (id) => ({
-            id,
-            collapsed: false,
-            init() {
-                const saved = sessionStorage.getItem(`admin-card-${this.id}`);
-                this.collapsed = saved === 'collapsed';
-            },
-            toggle() {
-                this.collapsed = !this.collapsed;
-                sessionStorage.setItem(`admin-card-${this.id}`, this.collapsed ? 'collapsed' : 'expanded');
-            }
-        }));
-
-        Alpine.data('frontendSearch', () => ({
-            open: false,
-            loading: false,
-            query: '',
-            index: null,
-            error: null,
-
-            toggle() {
-                this.open = !this.open;
-                if (this.open) {
-                    this.ensureIndex();
-                    this.focusInput();
-                }
-            },
-
-            openPanel() {
-                this.open = true;
-                this.ensureIndex();
-            },
-
-            close() {
-                this.open = false;
-            },
-
-            clear() {
-                this.query = '';
-                this.focusInput();
-            },
-
-            focusInput() {
-                this.$nextTick(() => {
-                    this.$refs.searchInput?.focus();
-                });
-            },
-
-            async ensureIndex() {
-                if (this.index || this.loading) {
-                    return;
-                }
-
-                this.loading = true;
-                this.error = null;
-
-                try {
-                    const response = await fetch('/search');
-
-                    if (!response.ok) {
-                        throw new Error('Search is unavailable right now.');
-                    }
-
-                    this.index = await response.json();
-                } catch (error) {
-                    console.error(error);
-                    this.error = 'Unable to load search results. Please try again later.';
-                } finally {
-                    this.loading = false;
-                }
-            },
-
-            filterCollection(items, term) {
-                if (!Array.isArray(items)) {
-                    return [];
-                }
-
-                if (!term) {
-                    return items.slice(0, 5);
-                }
-
-                return items.filter((item) => {
-                    const haystack = [item.title, item.subtitle, item.type]
-                        .filter(Boolean)
-                        .map((value) => value.toLowerCase());
-
-                    return haystack.some((value) => value.includes(term));
-                });
-            },
-
-            get filteredResults() {
-                if (!this.index) {
-                    return {
-                        services: [],
-                        team: [],
-                        articles: [],
-                        contacts: [],
-                    };
-                }
-
-                const term = this.query.trim().toLowerCase();
-
-                return {
-                    services: this.filterCollection(this.index.services, term),
-                    team: this.filterCollection(this.index.team, term),
-                    articles: this.filterCollection(this.index.articles, term),
-                    contacts: this.filterCollection(this.index.contacts, term),
-                };
-            },
-
-            get groupedResults() {
-                const results = this.filteredResults;
-
-                return [
-                    { key: 'services', label: 'Services', items: results.services ?? [] },
-                    { key: 'team', label: 'Team', items: results.team ?? [] },
-                    { key: 'articles', label: 'Articles', items: results.articles ?? [] },
-                    { key: 'contacts', label: 'Contact info', items: results.contacts ?? [] },
-                ];
-            },
-
-            get hasResults() {
-                return this.groupedResults.some((group) => group.items.length > 0);
-            },
-        }));
-    });
-
-window.Alpine = Alpine;
-
-Alpine.start();
+    Alpine.data('collapsibleCard', (id) => ({
+        id,
+        collapsed: false,
+        init() {
+            const saved = sessionStorage.getItem(`admin-card-${this.id}`);
+            this.collapsed = saved === 'collapsed';
+        },
+        toggle() {
+            this.collapsed = !this.collapsed;
+            sessionStorage.setItem(`admin-card-${this.id}`, this.collapsed ? 'collapsed' : 'expanded');
+        }
+    }));
+});

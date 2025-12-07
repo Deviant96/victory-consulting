@@ -36,7 +36,7 @@
                     <p class="text-xs uppercase tracking-[0.2em] text-gray-500">Bookings</p>
                     <h2 class="text-lg font-semibold text-gray-900">Recent activity</h2>
                 </div>
-                <a href="{{ route('admin.settings.booking') }}" class="text-sm text-blue-600 hover:text-blue-700 font-semibold">Notification preferences</a>
+                <a href="{{ route('admin.settings.index') }}" class="text-sm text-blue-600 hover:text-blue-700 font-semibold">Settings</a>
             </div>
             <div class="overflow-x-auto">
                 <table class="min-w-full divide-y divide-gray-200">

@@ -36,7 +36,7 @@
                     x-model="query"
                     @input.debounce.300ms="search()"
                     type="text" 
-                    placeholder="Search services, team members, FAQs, articles..." 
+                    placeholder="Search across all modules..." 
                     class="w-full px-4 py-4 text-base border-0 focus:outline-none focus:ring-0"
                     autocomplete="off">
                 <button @click="closeSearch()" class="text-gray-400 hover:text-gray-600 transition">
@@ -63,7 +63,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 105.5 5.5a7.5 7.5 0 0011.15 11.15z" />
                     </svg>
                     <h3 class="mt-4 text-sm font-medium text-gray-900">Quick Search</h3>
-                    <p class="mt-1 text-sm text-gray-500">Search across services, team members, FAQs, and articles</p>
+                    <p class="mt-1 text-sm text-gray-500">Search across services, team, FAQs, articles, solutions, translations, and more</p>
                 </div>
 
                 <!-- No Results -->

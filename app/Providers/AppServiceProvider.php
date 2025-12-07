@@ -21,21 +21,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        View::composer('admin.partials.header', function ($view) {
-            $user = Auth::user();
-
-            $notifications = collect();
-            $unreadCount = 0;
-
-            if ($user) {
-                $notifications = $user->notifications()->latest()->take(8)->get();
-                $unreadCount = $user->unreadNotifications()->count();
-            }
-
-            $view->with([
-                'adminNotifications' => $notifications,
-                'adminUnreadNotificationsCount' => $unreadCount,
-            ]);
-        });
+        //
     }
 }

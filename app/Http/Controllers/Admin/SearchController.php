@@ -8,6 +8,10 @@ use App\Models\TeamMember;
 use App\Models\Faq;
 use App\Models\BlogPost;
 use App\Models\Booking;
+use App\Models\BusinessSolution;
+use App\Models\WhyChooseItem;
+use App\Models\Language;
+use App\Models\TranslationKey;
 use Illuminate\Http\Request;
 
 class SearchController extends Controller
@@ -45,6 +49,26 @@ class SearchController extends Controller
                 'type' => 'bookings',
                 'label' => 'Bookings',
                 'items' => $this->searchBookings($query),
+            ],
+            [
+                'type' => 'business_solutions',
+                'label' => 'Business Solutions',
+                'items' => $this->searchBusinessSolutions($query),
+            ],
+            [
+                'type' => 'why_choose',
+                'label' => 'Why Choose Items',
+                'items' => $this->searchWhyChooseItems($query),
+            ],
+            [
+                'type' => 'languages',
+                'label' => 'Languages',
+                'items' => $this->searchLanguages($query),
+            ],
+            [
+                'type' => 'translations',
+                'label' => 'Translations',
+                'items' => $this->searchTranslations($query),
             ],
         ];
 
@@ -124,6 +148,69 @@ class SearchController extends Controller
                 'title' => $booking->name,
                 'subtitle' => ucfirst($booking->status) . ' • ' . $booking->email,
                 'url' => route('admin.bookings.show', $booking),
+            ])
+            ->toArray();
+    }
+
+    private function searchBusinessSolutions($query)
+    {
+        return BusinessSolution::where('title', 'LIKE', "%{$query}%")
+            ->orWhere('description', 'LIKE', "%{$query}%")
+            ->limit(5)
+            ->get()
+            ->map(fn($solution) => [
+                'id' => $solution->id,
+                'title' => $solution->title,
+                'subtitle' => $solution->is_active ? 'Active' : 'Inactive',
+                'url' => route('admin.business-solutions.edit', $solution),
+            ])
+            ->toArray();
+    }
+
+    private function searchWhyChooseItems($query)
+    {
+        return WhyChooseItem::where('title', 'LIKE', "%{$query}%")
+            ->orWhere('description', 'LIKE', "%{$query}%")
+            ->limit(5)
+            ->get()
+            ->map(fn($item) => [
+                'id' => $item->id,
+                'title' => $item->title,
+                'subtitle' => $item->is_active ? 'Active' : 'Inactive',
+                'url' => route('admin.why-choose-items.edit', $item),
+            ])
+            ->toArray();
+    }
+
+    private function searchLanguages($query)
+    {
+        return Language::where('code', 'LIKE', "%{$query}%")
+            ->orWhere('label', 'LIKE', "%{$query}%")
+            ->limit(5)
+            ->get()
+            ->map(fn($language) => [
+                'id' => $language->id,
+                'title' => $language->label . ' (' . strtoupper($language->code) . ')',
+                'subtitle' => $language->is_active ? 'Active' : 'Inactive',
+                'url' => route('admin.languages.edit', $language),
+            ])
+            ->toArray();
+    }
+
+    private function searchTranslations($query)
+    {
+        return TranslationKey::where('key', 'LIKE', "%{$query}%")
+            ->orWhere('group', 'LIKE', "%{$query}%")
+            ->orWhereHas('values', function ($q) use ($query) {
+                $q->where('value', 'LIKE', "%{$query}%");
+            })
+            ->limit(5)
+            ->get()
+            ->map(fn($translation) => [
+                'id' => $translation->id,
+                'title' => $translation->key,
+                'subtitle' => $translation->group ? 'Group: ' . $translation->group : 'No group',
+                'url' => route('admin.translations.edit', $translation),
             ])
             ->toArray();
     }

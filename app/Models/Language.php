@@ -23,4 +23,9 @@ class Language extends Model
     {
         return $query->where('is_active', true);
     }
+
+    public function translationValues()
+    {
+        return $this->hasMany(TranslationValue::class, 'language_code', 'code');
+    }
 }

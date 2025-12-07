@@ -18,6 +18,9 @@
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    
+    <!-- Livewire Styles -->
+    @livewireStyles
 
     @stack('styles')
 </head>
@@ -84,6 +87,12 @@
             </main>
         </div>
     </div>
+
+    <!-- Toast Notification -->
+    <x-toast />
+
+    <!-- Livewire Scripts -->
+    @livewireScripts
 
     @stack('scripts')
 </body>
