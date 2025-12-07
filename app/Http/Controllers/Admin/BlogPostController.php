@@ -5,12 +5,15 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\BlogPostRequest;
 use App\Models\BlogPost;
+use App\Models\Language;
+use App\Traits\HandlesContentTranslations;
 use App\Traits\LogsAdminActivity;
 use Illuminate\Http\Request;
 
 class BlogPostController extends Controller
 {
     use LogsAdminActivity;
+    use HandlesContentTranslations;
 
     /**
      * Display a listing of the resource.
@@ -43,7 +46,9 @@ class BlogPostController extends Controller
      */
     public function create()
     {
-        return view('admin.articles.create');
+        $languages = Language::where('is_active', true)->orderBy('label')->get();
+
+        return view('admin.articles.create', compact('languages'));
     }
 
     /**
@@ -66,6 +71,8 @@ class BlogPostController extends Controller
 
         $post = BlogPost::create($validated);
 
+        $this->syncTranslations($post, $request, ['title', 'excerpt', 'content', 'author']);
+
         $this->logAdminActivity('created article', $post, "Created article: {$post->title}");
 
         return redirect()->route('admin.articles.index')->with('success', 'Article created successfully.');
@@ -84,7 +91,10 @@ class BlogPostController extends Controller
      */
     public function edit(BlogPost $article)
     {
-        return view('admin.articles.edit', compact('article'));
+        $languages = Language::where('is_active', true)->orderBy('label')->get();
+        $article->load('translations');
+
+        return view('admin.articles.edit', compact('article', 'languages'));
     }
 
     /**
@@ -106,6 +116,8 @@ class BlogPostController extends Controller
         $validated['published_at'] = $validated['published_at'] ?? ($validated['published'] ? now() : null);
 
         $article->update($validated);
+
+        $this->syncTranslations($article, $request, ['title', 'excerpt', 'content', 'author']);
 
         $this->logAdminActivity('updated article', $article, "Updated article: {$article->title}");
 

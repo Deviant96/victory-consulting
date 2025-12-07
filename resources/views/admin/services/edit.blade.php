@@ -142,9 +142,9 @@
 
             <!-- Published -->
             <div class="flex items-center">
-                <input type="checkbox" 
-                       name="published" 
-                       id="published" 
+                <input type="checkbox"
+                       name="published"
+                       id="published"
                        value="1"
                        {{ old('published', $service->published) ? 'checked' : '' }}
                        class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
@@ -154,9 +154,20 @@
             </div>
         </div>
 
+        @include('admin.components.content-translation-tabs', [
+            'languages' => $languages,
+            'model' => $service,
+            'fields' => [
+                'title' => 'Title',
+                'summary' => 'Summary',
+                'description' => 'Description',
+                'price_note' => 'Price Note',
+            ],
+        ])
+
         <!-- Actions -->
         <div class="mt-6 flex gap-4">
-            <button type="submit" 
+            <button type="submit"
                     class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl hover:shadow-md transition transform hover:-translate-y-0.5">
                 Update Service
             </button>

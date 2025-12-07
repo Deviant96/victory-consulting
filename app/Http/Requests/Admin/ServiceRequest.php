@@ -30,6 +30,12 @@ class ServiceRequest extends FormRequest
             'published' => ['boolean'],
             'highlights' => ['nullable', 'array'],
             'highlights.*.label' => ['nullable', 'string'],
+            'translations' => ['sometimes', 'array'],
+            'translations.*' => ['sometimes', 'array'],
+            'translations.*.title' => ['nullable', 'string'],
+            'translations.*.summary' => ['nullable', 'string'],
+            'translations.*.description' => ['nullable', 'string'],
+            'translations.*.price_note' => ['nullable', 'string'],
         ];
     }
 

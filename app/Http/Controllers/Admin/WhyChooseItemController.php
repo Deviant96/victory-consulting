@@ -4,12 +4,15 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\WhyChooseItem;
+use App\Models\Language;
+use App\Traits\HandlesContentTranslations;
 use App\Traits\LogsAdminActivity;
 use Illuminate\Http\Request;
 
 class WhyChooseItemController extends Controller
 {
     use LogsAdminActivity;
+    use HandlesContentTranslations;
 
     /**
      * Display a listing of the resource.
@@ -39,7 +42,9 @@ class WhyChooseItemController extends Controller
      */
     public function create()
     {
-        return view('admin.why-choose-items.create');
+        $languages = Language::where('is_active', true)->orderBy('label')->get();
+
+        return view('admin.why-choose-items.create', compact('languages'));
     }
 
     /**
@@ -52,11 +57,17 @@ class WhyChooseItemController extends Controller
             'description' => 'required|string',
             'icon' => 'nullable|string|max:255',
             'order' => 'required|integer|min:0',
+            'translations' => ['sometimes', 'array'],
+            'translations.*' => ['sometimes', 'array'],
+            'translations.*.title' => ['nullable', 'string'],
+            'translations.*.description' => ['nullable', 'string'],
         ]);
 
         $validated['is_active'] = $request->boolean('is_active');
 
         $item = WhyChooseItem::create($validated);
+
+        $this->syncTranslations($item, $request, ['title', 'description']);
 
         $this->logAdminActivity('created why choose item', $item, "Created Why Choose Item: {$item->title}");
 
@@ -68,7 +79,10 @@ class WhyChooseItemController extends Controller
      */
     public function edit(WhyChooseItem $whyChooseItem)
     {
-        return view('admin.why-choose-items.edit', compact('whyChooseItem'));
+        $languages = Language::where('is_active', true)->orderBy('label')->get();
+        $whyChooseItem->load('translations');
+
+        return view('admin.why-choose-items.edit', compact('whyChooseItem', 'languages'));
     }
 
     /**
@@ -81,11 +95,17 @@ class WhyChooseItemController extends Controller
             'description' => 'required|string',
             'icon' => 'nullable|string|max:255',
             'order' => 'required|integer|min:0',
+            'translations' => ['sometimes', 'array'],
+            'translations.*' => ['sometimes', 'array'],
+            'translations.*.title' => ['nullable', 'string'],
+            'translations.*.description' => ['nullable', 'string'],
         ]);
 
         $validated['is_active'] = $request->boolean('is_active');
 
         $whyChooseItem->update($validated);
+
+        $this->syncTranslations($whyChooseItem, $request, ['title', 'description']);
 
         $this->logAdminActivity('updated why choose item', $whyChooseItem, "Updated Why Choose Item: {$whyChooseItem->title}");
 
