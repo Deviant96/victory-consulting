@@ -22,6 +22,10 @@
                    class="text-gray-700 hover:text-blue-600 transition-colors {{ request()->routeIs('home') ? 'text-blue-600 font-semibold' : '' }}">
                     {{ t('frontend.navigation.home', 'Home') }}
                 </a>
+                <a href="{{ route('about') }}"
+                   class="text-gray-700 hover:text-blue-600 transition-colors {{ request()->routeIs('about') ? 'text-blue-600 font-semibold' : '' }}">
+                    About
+                </a>
                 <a href="{{ route('services.index') }}"
                    class="text-gray-700 hover:text-blue-600 transition-colors {{ request()->routeIs('services.*') ? 'text-blue-600 font-semibold' : '' }}">
                     {{ t('frontend.navigation.services', 'Services') }}
@@ -30,11 +34,11 @@
                    class="text-gray-700 hover:text-blue-600 transition-colors {{ request()->routeIs('industries.*') ? 'text-blue-600 font-semibold' : '' }}">
                     {{ t('frontend.navigation.industries', 'Industries') }}
                 </a>
-                <a href="{{ route('team') }}"
+                {{-- <a href="{{ route('team') }}" 
                    class="text-gray-700 hover:text-blue-600 transition-colors {{ request()->routeIs('team') ? 'text-blue-600 font-semibold' : '' }}">
-                    {{ t('frontend.navigation.team', 'Team') }}
-                </a>
-                <a href="{{ route('blog.index') }}"
+                    Team
+                </a> --}}
+                <a href="{{ route('blog.index') }}" 
                    class="text-gray-700 hover:text-blue-600 transition-colors {{ request()->routeIs('blog.*') ? 'text-blue-600 font-semibold' : '' }}">
                     {{ t('frontend.navigation.blog', 'Blog') }}
                 </a>
@@ -177,7 +181,11 @@
                class="block px-3 py-2 rounded-md text-gray-700 hover:bg-gray-50 hover:text-blue-600 {{ request()->routeIs('home') ? 'bg-blue-50 text-blue-600' : '' }}">
                 {{ t('frontend.navigation.home', 'Home') }}
             </a>
-            <a href="{{ route('services.index') }}"
+            <a href="{{ route('about') }}" 
+               class="block px-3 py-2 rounded-md text-gray-700 hover:bg-gray-50 hover:text-blue-600 {{ request()->routeIs('about') ? 'bg-blue-50 text-blue-600' : '' }}">
+                About
+            </a>
+            <a href="{{ route('services.index') }}" 
                class="block px-3 py-2 rounded-md text-gray-700 hover:bg-gray-50 hover:text-blue-600 {{ request()->routeIs('services.*') ? 'bg-blue-50 text-blue-600' : '' }}">
                 {{ t('frontend.navigation.services', 'Services') }}
             </a>
@@ -185,11 +193,11 @@
                class="block px-3 py-2 rounded-md text-gray-700 hover:bg-gray-50 hover:text-blue-600 {{ request()->routeIs('industries.*') ? 'bg-blue-50 text-blue-600' : '' }}">
                 {{ t('frontend.navigation.industries', 'Industries') }}
             </a>
-            <a href="{{ route('team') }}"
+            {{-- <a href="{{ route('team') }}" 
                class="block px-3 py-2 rounded-md text-gray-700 hover:bg-gray-50 hover:text-blue-600 {{ request()->routeIs('team') ? 'bg-blue-50 text-blue-600' : '' }}">
-                {{ t('frontend.navigation.team', 'Team') }}
-            </a>
-            <a href="{{ route('blog.index') }}"
+                Team
+            </a> --}}
+            <a href="{{ route('blog.index') }}" 
                class="block px-3 py-2 rounded-md text-gray-700 hover:bg-gray-50 hover:text-blue-600 {{ request()->routeIs('blog.*') ? 'bg-blue-50 text-blue-600' : '' }}">
                 {{ t('frontend.navigation.blog', 'Blog') }}
             </a>
