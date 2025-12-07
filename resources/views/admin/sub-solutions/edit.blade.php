@@ -61,6 +61,14 @@
             <p class="text-gray-500 text-sm mt-1">Only active sub-solutions are displayed on the frontend</p>
         </div>
 
+        @include('admin.components.content-translation-tabs', [
+            'languages' => $languages,
+            'model' => $subSolution,
+            'fields' => [
+                'title' => 'Title',
+            ],
+        ])
+
         <div class="flex gap-4">
             <button type="submit" class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl hover:shadow-md transition transform hover:-translate-y-0.5">
                 Update Sub-Solution

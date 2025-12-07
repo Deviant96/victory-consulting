@@ -5,12 +5,15 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\BusinessSolution;
 use App\Models\SubSolution;
+use App\Models\Language;
+use App\Traits\HandlesContentTranslations;
 use App\Traits\LogsAdminActivity;
 use Illuminate\Http\Request;
 
 class SubSolutionController extends Controller
 {
     use LogsAdminActivity;
+    use HandlesContentTranslations;
 
     /**
      * Display a listing of the resource.
@@ -40,7 +43,9 @@ class SubSolutionController extends Controller
     public function create()
     {
         $businessSolutions = BusinessSolution::ordered()->get();
-        return view('admin.sub-solutions.create', compact('businessSolutions'));
+        $languages = Language::where('is_active', true)->orderBy('label')->get();
+
+        return view('admin.sub-solutions.create', compact('businessSolutions', 'languages'));
     }
 
     /**
@@ -52,11 +57,16 @@ class SubSolutionController extends Controller
             'business_solution_id' => 'required|exists:business_solutions,id',
             'title' => 'required|string|max:255',
             'order' => 'required|integer|min:0',
+            'translations' => ['sometimes', 'array'],
+            'translations.*' => ['sometimes', 'array'],
+            'translations.*.title' => ['nullable', 'string'],
         ]);
 
         $validated['is_active'] = $request->boolean('is_active');
 
         $subSolution = SubSolution::create($validated);
+
+        $this->syncTranslations($subSolution, $request, ['title']);
 
         $this->logAdminActivity('created sub-solution', $subSolution, "Created Sub-Solution: {$subSolution->title}");
 
@@ -69,7 +79,10 @@ class SubSolutionController extends Controller
     public function edit(SubSolution $subSolution)
     {
         $businessSolutions = BusinessSolution::ordered()->get();
-        return view('admin.sub-solutions.edit', compact('subSolution', 'businessSolutions'));
+        $languages = Language::where('is_active', true)->orderBy('label')->get();
+        $subSolution->load('translations');
+
+        return view('admin.sub-solutions.edit', compact('subSolution', 'businessSolutions', 'languages'));
     }
 
     /**
@@ -81,11 +94,16 @@ class SubSolutionController extends Controller
             'business_solution_id' => 'required|exists:business_solutions,id',
             'title' => 'required|string|max:255',
             'order' => 'required|integer|min:0',
+            'translations' => ['sometimes', 'array'],
+            'translations.*' => ['sometimes', 'array'],
+            'translations.*.title' => ['nullable', 'string'],
         ]);
 
         $validated['is_active'] = $request->boolean('is_active');
 
         $subSolution->update($validated);
+
+        $this->syncTranslations($subSolution, $request, ['title']);
 
         $this->logAdminActivity('updated sub-solution', $subSolution, "Updated Sub-Solution: {$subSolution->title}");
 

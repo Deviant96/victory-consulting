@@ -2,15 +2,26 @@
 
 namespace App\Models;
 
+use App\Traits\HasTranslations;
 use Illuminate\Database\Eloquent\Model;
 
 class BusinessSolution extends Model
 {
+    use HasTranslations;
+
     protected $fillable = [
         'title',
         'description',
         'order',
         'is_active'
+    ];
+
+    /**
+     * Fields that can be translated via the content translations table.
+     */
+    protected array $translatable = [
+        'title',
+        'description',
     ];
 
     protected $casts = [

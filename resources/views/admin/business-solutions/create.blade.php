@@ -48,6 +48,15 @@
             </label>
         </div>
 
+        @include('admin.components.content-translation-tabs', [
+            'languages' => $languages,
+            'model' => null,
+            'fields' => [
+                'title' => 'Title',
+                'description' => 'Description',
+            ],
+        ])
+
         <div class="flex gap-4">
             <button type="submit" class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl hover:shadow-md transition transform hover:-translate-y-0.5">
                 Create Solution
