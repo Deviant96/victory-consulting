@@ -21,6 +21,7 @@ class StaticTranslationSeeder extends Seeder
             ['group' => 'frontend.navigation', 'key' => 'contact', 'value' => 'Contact'],
             ['group' => 'frontend.search', 'key' => 'placeholder', 'value' => 'Search services, people, articles'],
             ['group' => 'frontend.search', 'key' => 'title', 'value' => 'Search our site'],
+            ['group' => 'frontend.search', 'key' => 'searching_for', 'value' => 'Searching for'],
             ['group' => 'frontend.search', 'key' => 'subtitle', 'value' => 'Services, team, articles, and contact info'],
             ['group' => 'frontend.search', 'key' => 'no_results', 'value' => 'No matches found. Try another term.'],
             ['group' => 'frontend.search', 'key' => 'loading', 'value' => 'Loading search index...'],
