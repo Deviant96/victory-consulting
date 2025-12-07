@@ -1,8 +1,50 @@
 import './bootstrap';
-import Alpine from 'alpinejs';
 
-// Register frontend Alpine components (for pages without Livewire)
-Alpine.data('frontendSearch', () => ({
+// Function to register all Alpine components
+function registerAlpineComponents(Alpine) {
+
+    // Register admin Alpine components (for Livewire pages)
+    Alpine.data('adminLayout', () => ({
+        sidebarOpen: false,
+        init() {
+            this.syncSidebarWithViewport();
+            window.addEventListener('resize', () => this.syncSidebarWithViewport());
+            this.$watch('sidebarOpen', (open) => {
+                const shouldLock = open && window.innerWidth < 1024;
+                document.body.classList.toggle('overflow-hidden', shouldLock);
+            });
+        },
+        syncSidebarWithViewport() {
+            this.sidebarOpen = window.innerWidth >= 1024 ? true : this.sidebarOpen;
+            if (window.innerWidth >= 1024) {
+                document.body.classList.remove('overflow-hidden');
+            }
+        },
+        toggleSidebar() {
+            this.sidebarOpen = !this.sidebarOpen;
+        },
+        closeSidebar() {
+            if (window.innerWidth < 1024) {
+                this.sidebarOpen = false;
+            }
+        }
+    }));
+
+    Alpine.data('collapsibleCard', (id) => ({
+        id,
+        collapsed: false,
+        init() {
+            const saved = sessionStorage.getItem(`admin-card-${this.id}`);
+            this.collapsed = saved === 'collapsed';
+        },
+        toggle() {
+            this.collapsed = !this.collapsed;
+            sessionStorage.setItem(`admin-card-${this.id}`, this.collapsed ? 'collapsed' : 'expanded');
+        }
+    }));
+
+    // Register frontend Alpine components (for pages without Livewire)
+    Alpine.data('frontendSearch', () => ({
     open: false,
     loading: false,
     query: '',
@@ -110,56 +152,23 @@ Alpine.data('frontendSearch', () => ({
         ];
     },
 
-    get hasResults() {
-        return this.groupedResults.some((group) => group.items.length > 0);
-    },
-}));
-
-// Start Alpine for frontend pages
-window.Alpine = Alpine;
-Alpine.start();
-
-// Register admin Alpine components with Livewire's Alpine instance
-document.addEventListener('livewire:init', () => {
-    // Get Livewire's Alpine instance for admin pages
-    const Alpine = window.Alpine;
-    
-    Alpine.data('adminLayout', () => ({
-        sidebarOpen: false,
-        init() {
-            this.syncSidebarWithViewport();
-            window.addEventListener('resize', () => this.syncSidebarWithViewport());
-            this.$watch('sidebarOpen', (open) => {
-                const shouldLock = open && window.innerWidth < 1024;
-                document.body.classList.toggle('overflow-hidden', shouldLock);
-            });
+        get hasResults() {
+            return this.groupedResults.some((group) => group.items.length > 0);
         },
-        syncSidebarWithViewport() {
-            this.sidebarOpen = window.innerWidth >= 1024 ? true : this.sidebarOpen;
-            if (window.innerWidth >= 1024) {
-                document.body.classList.remove('overflow-hidden');
-            }
-        },
-        toggleSidebar() {
-            this.sidebarOpen = !this.sidebarOpen;
-        },
-        closeSidebar() {
-            if (window.innerWidth < 1024) {
-                this.sidebarOpen = false;
-            }
-        }
     }));
+}
 
-    Alpine.data('collapsibleCard', (id) => ({
-        id,
-        collapsed: false,
-        init() {
-            const saved = sessionStorage.getItem(`admin-card-${this.id}`);
-            this.collapsed = saved === 'collapsed';
-        },
-        toggle() {
-            this.collapsed = !this.collapsed;
-            sessionStorage.setItem(`admin-card-${this.id}`, this.collapsed ? 'collapsed' : 'expanded');
-        }
-    }));
+// Register components on alpine:init event (works for both Livewire and standalone Alpine)
+document.addEventListener('alpine:init', () => {
+    registerAlpineComponents(window.Alpine);
 });
+
+// If Livewire is not present, we need to import and start Alpine ourselves
+if (typeof window.Livewire === 'undefined') {
+    // Dynamically import Alpine only for frontend pages
+    import('alpinejs').then((module) => {
+        const Alpine = module.default;
+        window.Alpine = Alpine;
+        Alpine.start();
+    });
+}
