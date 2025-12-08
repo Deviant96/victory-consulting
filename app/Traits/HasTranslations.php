@@ -37,11 +37,20 @@ trait HasTranslations
             $value = optional($matchingTranslations->firstWhere('language_code', $fallback))->value;
         }
 
-        if (!$value && $this->getAttribute($field)) {
-            $value = $this->getAttribute($field);
+        if (!$value) {
+            $value = parent::getAttribute($field);
         }
 
         return $value ?? $default;
+    }
+
+    public function getAttribute($key)
+    {
+        if (property_exists($this, 'translatable') && is_array($this->translatable) && in_array($key, $this->translatable)) {
+            return $this->translate($key);
+        }
+
+        return parent::getAttribute($key);
     }
 
     public function setTranslation(string $field, string $locale, $value): void
