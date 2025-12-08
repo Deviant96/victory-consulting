@@ -1,11 +1,11 @@
 <div class="bg-white rounded-lg shadow-md p-8">
     <div class="flex items-center justify-between mb-6">
         <div>
-            <p class="text-sm text-blue-600 font-semibold">{{ t('frontend.booking.badge', 'Book a consultation') }}</p>
+            <p class="text-sm text-[#03658C] font-semibold">{{ t('frontend.booking.badge', 'Book a consultation') }}</p>
             <h2 class="text-3xl font-bold text-gray-900">{{ t('frontend.booking.heading', 'Reserve time with our team') }}</h2>
             <p class="text-gray-600">{{ t('frontend.booking.subheading', "Share a few details and we'll confirm the best time for you.") }}</p>
         </div>
-        <div class="hidden md:flex items-center justify-center w-14 h-14 rounded-full bg-blue-50 text-blue-700 font-bold text-lg">
+        <div class="hidden md:flex items-center justify-center w-14 h-14 rounded-full bg-[#D6E9F8] text-[#03658C] font-bold text-lg">
             <span>24/7</span>
         </div>
     </div>
@@ -22,7 +22,7 @@
             <div>
                 <label for="name" class="block text-sm font-medium text-gray-700 mb-1">{{ t('frontend.booking.name_label', 'Full name *') }}</label>
                 <input type="text" name="name" id="name" value="{{ old('name') }}" required
-                       class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('name') border-red-500 @enderror"
+                       class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-[#0481AE] focus:border-[#0481AE] @error('name') border-red-500 @enderror"
                        placeholder="Alex Morgan">
                 @error('name')
                     <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
@@ -31,7 +31,7 @@
             <div>
                 <label for="email" class="block text-sm font-medium text-gray-700 mb-1">{{ t('frontend.booking.email_label', 'Work email *') }}</label>
                 <input type="email" name="email" id="email" value="{{ old('email') }}" required
-                       class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('email') border-red-500 @enderror"
+                       class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-[#0481AE] focus:border-[#0481AE] @error('email') border-red-500 @enderror"
                        placeholder="you@company.com">
                 @error('email')
                     <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
@@ -43,7 +43,7 @@
             <div>
                 <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">{{ t('frontend.booking.phone_label', 'Phone') }}</label>
                 <input type="tel" name="phone" id="phone" value="{{ old('phone') }}"
-                       class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('phone') border-red-500 @enderror"
+                       class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-[#0481AE] focus:border-[#0481AE] @error('phone') border-red-500 @enderror"
                        placeholder="+1 (555) 123-4567">
                 @error('phone')
                     <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
@@ -52,7 +52,7 @@
             <div>
                 <label for="company" class="block text-sm font-medium text-gray-700 mb-1">{{ t('frontend.booking.company_label', 'Company') }}</label>
                 <input type="text" name="company" id="company" value="{{ old('company') }}"
-                       class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                       class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-[#0481AE] focus:border-[#0481AE]"
                        placeholder="Acme Inc.">
             </div>
         </div>
@@ -61,7 +61,7 @@
             <div>
                 <label for="service_interest" class="block text-sm font-medium text-gray-700 mb-1">{{ t('frontend.booking.service_label', 'Service of interest') }}</label>
                 <select name="service_interest" id="service_interest"
-                        class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                        class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-[#0481AE] focus:border-[#0481AE]">
                     <option value="" disabled @selected(! old('service_interest'))>{{ t('frontend.booking.service_placeholder', 'Select a service') }}</option>
                     @forelse(($services ?? collect()) as $service)
                         <option value="{{ $service->title }}" @selected(old('service_interest') === $service->title)>
@@ -77,12 +77,12 @@
                 <div>
                     <label for="preferred_date" class="block text-sm font-medium text-gray-700 mb-1">{{ t('frontend.booking.date_label', 'Preferred date') }}</label>
                     <input type="date" name="preferred_date" id="preferred_date" value="{{ old('preferred_date') }}"
-                           class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                           class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-[#0481AE] focus:border-[#0481AE]">
                 </div>
                 <div>
                     <label for="preferred_time" class="block text-sm font-medium text-gray-700 mb-1">{{ t('frontend.booking.time_label', 'Preferred time') }}</label>
                     <input type="text" name="preferred_time" id="preferred_time" value="{{ old('preferred_time') }}"
-                           class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                           class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-[#0481AE] focus:border-[#0481AE]"
                            placeholder="Morning / Afternoon">
                 </div>
             </div>
@@ -90,7 +90,7 @@
 
         <div>
             <label for="message" class="block text-sm font-medium text-gray-700 mb-1">{{ t('frontend.booking.message_label', 'Project goals') }}</label>
-            <textarea name="message" id="message" rows="4" class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="{{ t('frontend.booking.message_placeholder', 'Tell us what success looks like') }}">{{ old('message') }}</textarea>
+            <textarea name="message" id="message" rows="4" class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-[#0481AE] focus:border-[#0481AE]" placeholder="{{ t('frontend.booking.message_placeholder', 'Tell us what success looks like') }}">{{ old('message') }}</textarea>
         </div>
 
         <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
@@ -98,7 +98,7 @@
                 <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-green-100 text-green-600">✓</span>
                 <span>{{ t('frontend.booking.confirmation_note', 'Instant confirmation & friendly reminders.') }}</span>
             </div>
-            <button type="submit" class="inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-lg shadow transition">
+            <button type="submit" class="inline-flex items-center justify-center gap-2 bg-[#0481AE] hover:bg-[#03658C] text-white font-semibold px-6 py-3 rounded-lg shadow transition">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
                 {{ t('frontend.booking.submit', 'Confirm my consultation') }}
             </button>
@@ -108,21 +108,21 @@
 
 @push('scripts')
     @auth
-        <div class="mt-8 rounded-lg border border-blue-100 bg-blue-50 p-4 text-sm text-blue-900">
+        <div class="mt-8 rounded-lg border border-[#0481AE] bg-[#D6E9F8] p-4 text-sm text-[#03658C]">
             <div class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
                 <div class="flex items-start gap-3">
-                    <span class="mt-0.5 inline-flex h-6 w-6 items-center justify-center rounded-full bg-blue-600 text-white">🔔</span>
+                    <span class="mt-0.5 inline-flex h-6 w-6 items-center justify-center rounded-full bg-[#0481AE] text-white">🔔</span>
                     <div>
                         <p class="font-semibold">Want push alerts when someone books?</p>
-                        <p class="text-blue-800">We'll send browser/OS notifications to this account after you subscribe.</p>
+                        <p class="text-[#03658C]">We'll send browser/OS notifications to this account after you subscribe.</p>
                     </div>
                 </div>
                 <div class="flex items-center gap-3">
-                    <button id="booking-push-subscribe" type="button" class="inline-flex items-center gap-2 rounded-md border border-blue-700 px-4 py-2 font-semibold text-blue-700 transition hover:bg-blue-100">
+                    <button id="booking-push-subscribe" type="button" class="inline-flex items-center gap-2 rounded-md border border-[#0481AE] px-4 py-2 font-semibold text-[#0481AE] transition hover:bg-[#D6E9F8]">
                         <svg class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M10 2a6 6 0 00-6 6v2.586l-.707.707A1 1 0 004 13h12a1 1 0 00.707-1.707L16 10.586V8a6 6 0 00-6-6zm0 16a2 2 0 01-2-2h4a2 2 0 01-2 2z" /></svg>
                         Subscribe to booking alerts
                     </button>
-                    <span id="booking-push-status" class="text-xs text-blue-800"></span>
+                    <span id="booking-push-status" class="text-xs text-[#03658C]"></span>
                 </div>
             </div>
         </div>
