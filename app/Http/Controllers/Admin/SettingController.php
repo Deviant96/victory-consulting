@@ -212,19 +212,29 @@ class SettingController extends Controller
 
     public function about()
     {
-        $settings = Setting::whereIn('key', [
+        $languages = \App\Models\Language::active()->get();
+        
+        $settingKeys = [
             'about.header_title',
             'about.header_description',
             'about.content',
+            'about.wisdom1_title',
+            'about.wisdom1_description',
+            'about.wisdom1_image',
+            'about.wisdom2_title',
+            'about.wisdom2_description',
+            'about.wisdom2_image',
             'about.vision_title',
             'about.vision_content',
             'about.vision_image',
             'about.mission_title',
             'about.mission_content',
             'about.mission_image',
-        ])->pluck('value', 'key');
+        ];
+        
+        $settings = Setting::whereIn('key', $settingKeys)->get()->keyBy('key');
 
-        return view('admin.settings.about', compact('settings'));
+        return view('admin.settings.about', compact('settings', 'languages'));
     }
 
     public function updateAbout(Request $request)
@@ -233,42 +243,94 @@ class SettingController extends Controller
             'about.header_title' => 'required|string|max:255',
             'about.header_description' => 'nullable|string',
             'about.content' => 'required|string',
+            'about.wisdom1_title' => 'nullable|string|max:255',
+            'about.wisdom1_description' => 'nullable|string',
+            'wisdom1_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp,svg|max:2048',
+            'about.wisdom2_title' => 'nullable|string|max:255',
+            'about.wisdom2_description' => 'nullable|string',
+            'wisdom2_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp,svg|max:2048',
             'about.vision_title' => 'nullable|string|max:255',
             'about.vision_content' => 'nullable|string',
-            'about.vision_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
+            'vision_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
             'about.mission_title' => 'nullable|string|max:255',
             'about.mission_content' => 'nullable|string',
-            'about.mission_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
+            'mission_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
         ]);
 
         $about = $request->input('about', []);
+        $translations = $request->input('translations', []);
+        
+        // Handle wisdom1 image upload
+        if ($request->hasFile('wisdom1_image')) {
+            $oldImage = Setting::get('about.wisdom1_image');
+            if ($oldImage) {
+                Storage::disk('public')->delete($oldImage);
+            }
+            $path = $request->file('wisdom1_image')->store('about', 'public');
+            Setting::set('about.wisdom1_image', $path);
+        }
+
+        // Handle wisdom2 image upload
+        if ($request->hasFile('wisdom2_image')) {
+            $oldImage = Setting::get('about.wisdom2_image');
+            if ($oldImage) {
+                Storage::disk('public')->delete($oldImage);
+            }
+            $path = $request->file('wisdom2_image')->store('about', 'public');
+            Setting::set('about.wisdom2_image', $path);
+        }
         
         // Handle vision image upload
-        if ($request->hasFile('about.vision_image')) {
+        if ($request->hasFile('vision_image')) {
             $oldImage = Setting::get('about.vision_image');
             if ($oldImage) {
                 Storage::disk('public')->delete($oldImage);
             }
-            $path = $request->file('about.vision_image')->store('about', 'public');
+            $path = $request->file('vision_image')->store('about', 'public');
             Setting::set('about.vision_image', $path);
-            unset($about['vision_image']);
         }
 
         // Handle mission image upload
-        if ($request->hasFile('about.mission_image')) {
+        if ($request->hasFile('mission_image')) {
             $oldImage = Setting::get('about.mission_image');
             if ($oldImage) {
                 Storage::disk('public')->delete($oldImage);
             }
-            $path = $request->file('about.mission_image')->store('about', 'public');
+            $path = $request->file('mission_image')->store('about', 'public');
             Setting::set('about.mission_image', $path);
-            unset($about['mission_image']);
         }
 
-        // Save all other settings
+        // Translatable fields
+        $translatableFields = [
+            'header_title',
+            'header_description',
+            'content',
+            'wisdom1_title',
+            'wisdom1_description',
+            'wisdom2_title',
+            'wisdom2_description',
+            'vision_title',
+            'vision_content',
+            'mission_title',
+            'mission_content',
+        ];
+
+        // Save all settings and their translations
         foreach ($about as $key => $value) {
             $settingKey = "about.{$key}";
-            Setting::set($settingKey, $value);
+            $setting = Setting::firstOrCreate(['key' => $settingKey]);
+            $setting->value = $value;
+            $setting->save();
+
+            // Save translations for this field
+            if (in_array($key, $translatableFields)) {
+                foreach ($translations as $locale => $fields) {
+                    $translatedValue = $fields[$key] ?? null;
+                    if ($translatedValue) {
+                        $setting->setTranslation($key, $locale, $translatedValue);
+                    }
+                }
+            }
         }
 
         $this->logAdminActivity('updated settings', null, 'Updated About Us page content');
