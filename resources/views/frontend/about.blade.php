@@ -1,15 +1,15 @@
 @extends('frontend.layouts.app')
 
-@section('title', 'About Us - ' . settings('site.name'))
+@section('title', t('frontend.about.meta_title', 'About Us') . ' - ' . settings('site.name'))
 
 @section('content')
 <!-- Page Header -->
 <section class="py-20">
     <div class="container mx-auto px-4">
         <div class="max-w-4xl mx-auto text-center">
-            <h1 class="text-5xl font-bold mb-6">{{ settings('about.header_title', 'About Us') }}</h1>
+            <h1 class="text-5xl font-bold mb-6">{{ settings('about.header_title', t('frontend.about.header_title', 'About Us')) }}</h1>
             <p class="text-xl text-black/70">
-                {{ settings('about.header_description', 'Learn more about our mission, vision, and values that drive us to deliver excellence.') }}
+                {{ settings('about.header_description', t('frontend.about.header_description', 'Learn more about our mission, vision, and values that drive us to deliver excellence.')) }}
             </p>
         </div>
     </div>
@@ -33,11 +33,11 @@
                         <circle cx="120" cy="70" r="3" fill="white"/>
                         <circle cx="90" cy="120" r="3" fill="white"/>
                     </svg>
-                    <h3 class="text-2xl font-bold mb-4">Melayani Sepenuh Hati</h3>
+                    <h3 class="text-2xl font-bold mb-4">{{ t('frontend.about.wisdom_service_title', 'Melayani Sepenuh Hati') }}</h3>
                     <p class="text-lg leading-relaxed">
-                        Klien dari Seluruh Indonesia
+                        {{ t('frontend.about.wisdom_service_description', 'Klien dari Seluruh Indonesia') }}
                     </p>
-                    <div class="mt-6 text-sm opacity-80 italic">Founder's Wisdom 1</div>
+                    <div class="mt-6 text-sm opacity-80 italic">{{ t('frontend.about.wisdom_service_caption', "Founder's Wisdom 1") }}</div>
                 </div>
             </div>
 
@@ -60,11 +60,11 @@
                             <path d="M20 5 L12 18 L28 18 Z" fill="currentColor"/>
                         </svg>
                     </div>
-                    <h3 class="text-2xl font-bold mb-4">Membantu Bisnis Tumbuh</h3>
+                    <h3 class="text-2xl font-bold mb-4">{{ t('frontend.about.wisdom_growth_title', 'Membantu Bisnis Tumbuh') }}</h3>
                     <p class="text-lg leading-relaxed">
-                        dan UMKM Berkembang
+                        {{ t('frontend.about.wisdom_growth_description', 'dan UMKM Berkembang') }}
                     </p>
-                    <div class="mt-6 text-sm opacity-80 italic">Founder's Wisdom 2</div>
+                    <div class="mt-6 text-sm opacity-80 italic">{{ t('frontend.about.wisdom_growth_caption', "Founder's Wisdom 2") }}</div>
                 </div>
             </div>
         </div>
@@ -82,8 +82,8 @@
         </div>
         @else
         <div class="text-center py-16 bg-white rounded-2xl shadow-md">
-            <h3 class="text-2xl font-bold text-gray-900 mb-2">Coming Soon</h3>
-            <p class="text-gray-600">We're working on this content. Check back soon!</p>
+            <h3 class="text-2xl font-bold text-gray-900 mb-2">{{ t('frontend.about.coming_soon_heading', 'Coming Soon') }}</h3>
+            <p class="text-gray-600">{{ t('frontend.about.coming_soon_description', "We're working on this content. Check back soon!") }}</p>
         </div>
         @endif
     </div>
@@ -94,9 +94,9 @@
 <section class="py-16 bg-white">
     <div class="container mx-auto px-4 max-w-7xl">
         <div class="text-center mb-16">
-            <h2 class="text-4xl font-bold text-gray-900 mb-4">Why Choose Us</h2>
+            <h2 class="text-4xl font-bold text-gray-900 mb-4">{{ t('frontend.about.why_choose_heading', 'Why Choose Us') }}</h2>
             <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-                We combine expertise, dedication, and innovation to deliver exceptional results for your business.
+                {{ t('frontend.about.why_choose_description', 'We combine expertise, dedication, and innovation to deliver exceptional results for your business.') }}
             </p>
         </div>
 
@@ -131,7 +131,7 @@
             <div class="bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-shadow duration-300">
                 <div class="p-8">
                     <div class="flex items-center justify-between mb-6">
-                        <h2 class="text-3xl font-bold text-gray-900">{{ settings('about.vision_title', 'Our Vision') }}</h2>
+                        <h2 class="text-3xl font-bold text-gray-900">{{ settings('about.vision_title', t('frontend.about.vision_title', 'Our Vision')) }}</h2>
                         <div class="w-12 h-12 bg-gradient-to-br from-[#0481AE] to-[#035f7f] rounded-full flex items-center justify-center">
                             <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
@@ -145,8 +145,8 @@
                 </div>
                 @if(settings('about.vision_image'))
                 <div class="relative h-64">
-                    <img src="{{ asset('storage/' . settings('about.vision_image')) }}" 
-                         alt="{{ settings('about.vision_title', 'Our Vision') }}" 
+                    <img src="{{ asset('storage/' . settings('about.vision_image')) }}"
+                         alt="{{ settings('about.vision_title', t('frontend.about.vision_title', 'Our Vision')) }}"
                          class="w-full h-full object-cover">
                     <div class="absolute bottom-0 left-0 w-full h-full bg-gradient-to-t from-black/30 to-transparent"></div>
                 </div>
@@ -166,7 +166,7 @@
             <div class="bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-shadow duration-300">
                 <div class="p-8">
                     <div class="flex items-center justify-between mb-6">
-                        <h2 class="text-3xl font-bold text-gray-900">{{ settings('about.mission_title', 'Our Mission') }}</h2>
+                        <h2 class="text-3xl font-bold text-gray-900">{{ settings('about.mission_title', t('frontend.about.mission_title', 'Our Mission')) }}</h2>
                         <div class="w-12 h-12 bg-gradient-to-br from-[#035f7f] to-[#0481AE] rounded-full flex items-center justify-center">
                             <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
@@ -179,8 +179,8 @@
                 </div>
                 @if(settings('about.mission_image'))
                 <div class="relative h-64">
-                    <img src="{{ asset('storage/' . settings('about.mission_image')) }}" 
-                         alt="{{ settings('about.mission_title', 'Our Mission') }}" 
+                    <img src="{{ asset('storage/' . settings('about.mission_image')) }}"
+                         alt="{{ settings('about.mission_title', t('frontend.about.mission_title', 'Our Mission')) }}"
                          class="w-full h-full object-cover">
                     <div class="absolute bottom-0 right-0 w-full h-full bg-gradient-to-t from-black/30 to-transparent"></div>
                 </div>
@@ -203,9 +203,9 @@
 <section class="py-20 bg-white">
     <div class="container mx-auto px-4 max-w-7xl">
         <div class="text-center mb-16">
-            <h2 class="text-4xl font-bold text-gray-900 mb-4">Meet Our Team</h2>
+            <h2 class="text-4xl font-bold text-gray-900 mb-4">{{ t('frontend.team.heading', 'Meet Our Team') }}</h2>
             <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-                Dedicated professionals committed to helping your business succeed
+                {{ t('frontend.team.subheading', 'Dedicated professionals committed to helping your business succeed') }}
             </p>
         </div>
 
@@ -240,7 +240,7 @@
         <div class="text-center mt-12">
             <a href="{{ route('team') }}" 
                class="inline-flex items-center px-8 py-3 bg-gradient-to-r from-[#0481AE] to-[#035f7f] text-white rounded-xl hover:shadow-lg transition transform hover:-translate-y-0.5 font-semibold">
-                View Full Team
+                {{ t('frontend.team.view_full', 'View Full Team') }}
                 <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
                 </svg>
@@ -253,16 +253,16 @@
 <!-- CTA Section -->
 <section class="bg-[#FFE7D5] py-8 max-w-5xl mx-auto rounded-xl shadow-xl mb-16">
     <div class="container mx-auto px-4 max-w-4xl text-center">
-        <h2 class="text-4xl md:text-5xl font-bold mb-6">Ready to Transform Your Business?</h2>
+        <h2 class="text-4xl md:text-5xl font-bold mb-6">{{ t('frontend.about.cta_heading', 'Ready to Transform Your Business?') }}</h2>
         <p class="text-xl mb-10 opacity-90">
-            Join hundreds of satisfied clients who have experienced growth and success with our consulting services.
+            {{ t('frontend.about.cta_subheading', 'Join hundreds of satisfied clients who have experienced growth and success with our consulting services.') }}
         </p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
             <a href="{{ route('contact') }}" class="inline-block bg-[#0481AE] text-white px-16 py-2 rounded-xl font-semibold hover:bg-[#036494] transition shadow-md">
-                Get in Touch
+                {{ t('frontend.about.cta_primary', 'Get in Touch') }}
             </a>
             <a href="{{ route('contact') }}" class="inline-block text-[#0481AE] px-16 py-2 rounded-xl font-semibold border-2 border-[#0481AE] transition shadow-md">
-                Explore Services
+                {{ t('frontend.about.cta_secondary', 'Explore Services') }}
             </a>
         </div>
     </div>

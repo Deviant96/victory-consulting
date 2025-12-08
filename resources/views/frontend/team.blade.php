@@ -1,15 +1,15 @@
 @extends('frontend.layouts.app')
 
-@section('title', 'Our Team - ' . settings('site.name'))
+@section('title', t('frontend.team.meta_title', 'Our Team') . ' - ' . settings('site.name'))
 
 @section('content')
 <!-- Page Header -->
 <section class="bg-gradient-to-br from-blue-600 to-blue-800 text-white py-16">
     <div class="container mx-auto px-4">
         <div class="max-w-3xl mx-auto text-center">
-            <h1 class="text-5xl font-bold mb-4">Our Team</h1>
+            <h1 class="text-5xl font-bold mb-4">{{ t('frontend.team.heading', 'Our Team') }}</h1>
             <p class="text-xl text-blue-100">
-                Meet the experienced professionals dedicated to driving your business success
+                {{ t('frontend.team.subheading', 'Meet the experienced professionals dedicated to driving your business success') }}
             </p>
         </div>
     </div>
@@ -20,7 +20,7 @@
     <div class="container mx-auto px-4">
         @if($teamMembers->isEmpty())
         <div class="text-center py-12">
-            <p class="text-xl text-gray-600">Our team information will be available soon.</p>
+            <p class="text-xl text-gray-600">{{ t('frontend.team.empty', 'Our team information will be available soon.') }}</p>
         </div>
         @else
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -51,7 +51,7 @@
                 <!-- Expertise -->
                 @if($member->expertise && count($member->expertise) > 0)
                 <div class="mb-4">
-                    <h3 class="text-sm font-semibold text-gray-700 mb-2 text-center">Expertise</h3>
+                    <h3 class="text-sm font-semibold text-gray-700 mb-2 text-center">{{ t('frontend.team.expertise', 'Expertise') }}</h3>
                     <div class="flex flex-wrap gap-2 justify-center">
                         @foreach($member->expertise as $skill)
                         <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-3 py-1 rounded-full">
@@ -90,12 +90,12 @@
 <!-- CTA Section -->
 <section class="bg-blue-600 text-white py-16">
     <div class="container mx-auto px-4 text-center">
-        <h2 class="text-3xl font-bold mb-4">Work With Our Expert Team</h2>
+        <h2 class="text-3xl font-bold mb-4">{{ t('frontend.team.cta_heading', 'Work With Our Expert Team') }}</h2>
         <p class="text-xl mb-8 text-blue-100 max-w-2xl mx-auto">
-            Ready to leverage our expertise for your business growth?
+            {{ t('frontend.team.cta_subheading', 'Ready to leverage our expertise for your business growth?') }}
         </p>
         <a href="{{ route('contact') }}" class="inline-block bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-blue-50 transition">
-            Contact Us Today
+            {{ t('frontend.team.cta_button', 'Contact Us Today') }}
         </a>
     </div>
 </section>
