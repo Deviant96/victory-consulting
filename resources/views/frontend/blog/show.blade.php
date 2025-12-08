@@ -8,11 +8,11 @@
 <section class="bg-gray-100 py-4">
     <div class="container mx-auto px-4">
         <div class="flex items-center text-sm text-gray-600">
-            <a href="{{ route('home') }}" class="hover:text-[#0481AE]">Home</a>
+            <a href="{{ route('home') }}" class="hover:text-[#0481AE]">{{ t('frontend.navigation.home', 'Home') }}</a>
             <svg class="w-4 h-4 mx-2" fill="currentColor" viewBox="0 0 20 20">
                 <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
             </svg>
-            <a href="{{ route('blog.index') }}" class="hover:text-[#0481AE]">Blog</a>
+            <a href="{{ route('blog.index') }}" class="hover:text-[#0481AE]">{{ t('frontend.navigation.blog', 'Blog') }}</a>
             <svg class="w-4 h-4 mx-2" fill="currentColor" viewBox="0 0 20 20">
                 <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
             </svg>
@@ -45,7 +45,7 @@
                         {{ $publishedDate->format('F d, Y') }}
                     </time>
                     <span class="mx-3">•</span>
-                    <span>{{ $post->read_time ?? '5 min read' }}</span>
+                    <span>{{ $post->read_time ?? t('frontend.blog.show.read_time_default', '5 min read') }}</span>
                 </div>
 
                 @if($post->featured_image)
@@ -68,7 +68,7 @@
             <!-- Tags -->
             @if($post->tags && count($post->tags) > 0)
             <div class="mb-8 pb-8 border-t border-gray-200 pt-8">
-                <h3 class="text-lg font-semibold text-gray-900 mb-3">Tags</h3>
+                <h3 class="text-lg font-semibold text-gray-900 mb-3">{{ t('frontend.blog.show.tags_heading', 'Tags') }}</h3>
                 <div class="flex flex-wrap gap-2">
                     @foreach($post->tags as $tag)
                     <span class="bg-gray-100 text-gray-700 px-4 py-2 rounded-full text-sm">
@@ -82,16 +82,16 @@
             <!-- Author Box -->
             @if($post->author)
             <div class="bg-gray-50 rounded-lg p-6 mb-12">
-                <h3 class="text-lg font-semibold text-gray-900 mb-2">About the Author</h3>
+                <h3 class="text-lg font-semibold text-gray-900 mb-2">{{ t('frontend.blog.show.about_author_heading', 'About the Author') }}</h3>
                 <p class="text-gray-700">
-                    <strong>{{ $post->author }}</strong> is a contributor to the {{ settings('site.name') }} blog, sharing insights on business strategy and growth.
+                    <strong>{{ $post->author }}</strong> {{ str_replace(':site', settings('site.name'), t('frontend.blog.show.about_author_body', 'is a contributor to the :site blog, sharing insights on business strategy and growth.')) }}
                 </p>
             </div>
             @endif
 
             <!-- Share -->
             <div class="flex items-center justify-between border-t border-b border-gray-200 py-6 mb-12">
-                <span class="font-semibold text-gray-900">Share this article:</span>
+                <span class="font-semibold text-gray-900">{{ t('frontend.blog.show.share_label', 'Share this article:') }}</span>
                 <div class="flex gap-4">
                     <a href="https://twitter.com/intent/tweet?url={{ urlencode(route('blog.show', $post->slug)) }}&text={{ urlencode($post->title) }}" target="_blank" class="text-gray-600 hover:text-[#1DA1F2] transition">
                         <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
@@ -113,7 +113,7 @@
 @if($relatedPosts->isNotEmpty())
 <section class="py-16 bg-gray-50">
     <div class="container mx-auto px-4">
-        <h2 class="text-3xl font-bold text-gray-900 mb-8 text-center">Related Articles</h2>
+        <h2 class="text-3xl font-bold text-gray-900 mb-8 text-center">{{ t('frontend.blog.show.related_heading', 'Related Articles') }}</h2>
         <div class="grid md:grid-cols-3 gap-8">
             @foreach($relatedPosts as $related)
             <a href="{{ route('blog.show', $related->slug) }}" class="bg-white rounded-lg shadow-md hover:shadow-xl transition overflow-hidden block">
@@ -139,12 +139,12 @@
 <!-- CTA -->
 <section class="bg-[#FFE7D5] text-white py-8 max-w-5xl mx-auto rounded-xl shadow-xl mb-16">
     <div class="container mx-auto px-2 text-center">
-        <h2 class="text-3xl font-bold mb-4 text-[#0481AE]">Ready to Transform Your Business?</h2>
+        <h2 class="text-3xl font-bold mb-4 text-[#0481AE]">{{ t('frontend.blog.show.cta_heading', 'Ready to Transform Your Business?') }}</h2>
         <p class="text-xl mb-8 max-w-2xl mx-auto text-[#0481AE]">
-            Let's discuss how our expertise can help you achieve your goals
+            {{ t('frontend.blog.show.cta_subheading', "Let's discuss how our expertise can help you achieve your goals") }}
         </p>
         <a href="{{ route('contact') }}" class="inline-block bg-white text-[#0481AE] px-8 py-3 rounded-lg font-semibold hover:bg-[#E6F0F6] transition">
-            Get in Touch
+            {{ t('frontend.about.cta_primary', 'Get in Touch') }}
         </a>
     </div>
 </section>

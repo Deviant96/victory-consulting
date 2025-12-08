@@ -1,15 +1,15 @@
 @extends('frontend.layouts.app')
 
-@section('title', 'About Us - ' . settings('site.name'))
+@section('title', t('frontend.about.meta_title', 'About Us') . ' - ' . settings('site.name'))
 
 @section('content')
 <!-- Page Header -->
 <section class="py-20">
     <div class="container mx-auto px-4">
         <div class="max-w-4xl mx-auto text-center">
-            <h1 class="text-5xl font-bold mb-6">{{ settings('about.header_title', 'About Us') }}</h1>
+            <h1 class="text-5xl font-bold mb-6">{{ settings('about.header_title', t('frontend.about.header_title', 'About Us')) }}</h1>
             <p class="text-xl text-black/70">
-                {{ settings('about.header_description', 'Learn more about our mission, vision, and values that drive us to deliver excellence.') }}
+                {{ settings('about.header_description', t('frontend.about.header_description', 'Learn more about our mission, vision, and values that drive us to deliver excellence.')) }}
             </p>
         </div>
     </div>
@@ -19,35 +19,52 @@
 <section class="pt-4 pb-16 bg-white">
     <div class="container mx-auto px-4 max-w-7xl">
         <div class="grid md:grid-cols-2 gap-12">
-            <!-- Left Column - Wisdom 1 -->
-            <div class="relative overflow-hidden group max-w-xl justify-self-end">
-                <div class="relative z-10 p-12 h-full flex flex-col items-center justify-center text-center">
-                    <!-- Icon/Image -->
-                    @if(settings('about.wisdom1_image'))
-                        <img src="{{ asset('storage/' . settings('about.wisdom1_image')) }}" 
-                             alt="{{ settings('about.wisdom1_title', 'Melayani Sepenuh Hati') }}" 
-                             class="w-32 h-32 mb-6 object-contain opacity-80">
-                    @endif
-                    <h3 class="text-2xl font-bold mb-4">{{ settings('about.wisdom1_title', 'Melayani Sepenuh Hati') }}</h3>
+            <!-- Left Column - Map of Indonesia -->
+            <div class="relative rounded-2xl overflow-hidden shadow-xl group hover:shadow-2xl transition-shadow duration-300">
+                <div class="absolute inset-0 bg-gradient-to-br from-[#0481AE] to-[#035f7f] opacity-90"></div>
+                <div class="relative z-10 p-12 h-full flex flex-col items-center justify-center text-white text-center">
+                    <!-- Indonesia Map Icon -->
+                    <svg class="w-32 h-32 mb-6 opacity-80" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20 80 L50 70 L80 75 L110 65 L140 70 L170 65 L180 75 L175 95 L160 105 L130 110 L100 105 L70 110 L40 100 L25 90 Z" 
+                              fill="currentColor" stroke="currentColor" stroke-width="2" opacity="0.6"/>
+                        <path d="M60 115 L85 110 L110 115 L135 110 L150 115 L145 130 L120 135 L95 130 L70 135 Z" 
+                              fill="currentColor" stroke="currentColor" stroke-width="2" opacity="0.6"/>
+                        <circle cx="50" cy="80" r="3" fill="white"/>
+                        <circle cx="120" cy="70" r="3" fill="white"/>
+                        <circle cx="90" cy="120" r="3" fill="white"/>
+                    </svg>
+                    <h3 class="text-2xl font-bold mb-4">{{ t('frontend.about.wisdom_service_title', 'Melayani Sepenuh Hati') }}</h3>
                     <p class="text-lg leading-relaxed">
-                        {{ settings('about.wisdom1_description', 'Klien dari Seluruh Indonesia') }}
+                        {{ t('frontend.about.wisdom_service_description', 'Klien dari Seluruh Indonesia') }}
                     </p>
+                    <div class="mt-6 text-sm opacity-80 italic">{{ t('frontend.about.wisdom_service_caption', "Founder's Wisdom 1") }}</div>
                 </div>
             </div>
 
-            <!-- Right Column - Wisdom 2 -->
-            <div class="relative overflow-hidden group max-w-xl justify-self-start">
-                <div class="relative z-10 p-12 h-full flex flex-col items-center justify-center text-center">
-                    <!-- Icon/Image -->
-                    @if(settings('about.wisdom2_image'))
-                        <img src="{{ asset('storage/' . settings('about.wisdom2_image')) }}" 
-                             alt="{{ settings('about.wisdom2_title', 'Membantu Bisnis Tumbuh') }}" 
-                             class="w-32 h-32 mb-6 object-contain opacity-80">
-                    @endif
-                    <h3 class="text-2xl font-bold mb-4">{{ settings('about.wisdom2_title', 'Membantu Bisnis Tumbuh') }}</h3>
+            <!-- Right Column - Growth Arrows -->
+            <div class="relative rounded-2xl overflow-hidden shadow-xl group hover:shadow-2xl transition-shadow duration-300">
+                <div class="absolute inset-0 bg-gradient-to-br from-[#035f7f] to-[#0481AE] opacity-90"></div>
+                <div class="relative z-10 p-12 h-full flex flex-col items-center justify-center text-white text-center">
+                    <!-- Three Arrows Pointing Up -->
+                    <div class="flex items-end justify-center space-x-4 mb-6">
+                        <svg class="w-16 h-24 opacity-80" viewBox="0 0 40 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M20 5 L15 15 L18 15 L18 75 L22 75 L22 15 L25 15 Z" fill="currentColor"/>
+                            <path d="M20 5 L12 18 L28 18 Z" fill="currentColor"/>
+                        </svg>
+                        <svg class="w-16 h-28 opacity-90" viewBox="0 0 40 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M20 5 L15 15 L18 15 L18 85 L22 85 L22 15 L25 15 Z" fill="currentColor"/>
+                            <path d="M20 5 L12 18 L28 18 Z" fill="currentColor"/>
+                        </svg>
+                        <svg class="w-16 h-32 opacity-100" viewBox="0 0 40 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M20 5 L15 15 L18 15 L18 95 L22 95 L22 15 L25 15 Z" fill="currentColor"/>
+                            <path d="M20 5 L12 18 L28 18 Z" fill="currentColor"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">{{ t('frontend.about.wisdom_growth_title', 'Membantu Bisnis Tumbuh') }}</h3>
                     <p class="text-lg leading-relaxed">
-                        {{ settings('about.wisdom2_description', 'dan UMKM Berkembang') }}
+                        {{ t('frontend.about.wisdom_growth_description', 'dan UMKM Berkembang') }}
                     </p>
+                    <div class="mt-6 text-sm opacity-80 italic">{{ t('frontend.about.wisdom_growth_caption', "Founder's Wisdom 2") }}</div>
                 </div>
             </div>
         </div>
@@ -65,8 +82,8 @@
         </div>
         @else
         <div class="text-center py-16 bg-white rounded-2xl shadow-md">
-            <h3 class="text-2xl font-bold text-gray-900 mb-2">Coming Soon</h3>
-            <p class="text-gray-600">We're working on this content. Check back soon!</p>
+            <h3 class="text-2xl font-bold text-gray-900 mb-2">{{ t('frontend.about.coming_soon_heading', 'Coming Soon') }}</h3>
+            <p class="text-gray-600">{{ t('frontend.about.coming_soon_description', "We're working on this content. Check back soon!") }}</p>
         </div>
         @endif
     </div>
@@ -77,9 +94,9 @@
 <section class="py-16 bg-white">
     <div class="container mx-auto px-4 max-w-7xl">
         <div class="text-center mb-16">
-            <h2 class="text-4xl font-bold text-gray-900 mb-4">Why Choose Us</h2>
+            <h2 class="text-4xl font-bold text-gray-900 mb-4">{{ t('frontend.about.why_choose_heading', 'Why Choose Us') }}</h2>
             <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-                We combine expertise, dedication, and innovation to deliver exceptional results for your business.
+                {{ t('frontend.about.why_choose_description', 'We combine expertise, dedication, and innovation to deliver exceptional results for your business.') }}
             </p>
         </div>
 
@@ -114,7 +131,7 @@
             <div class="bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-shadow duration-300">
                 <div class="p-8">
                     <div class="flex items-center justify-between mb-6">
-                        <h2 class="text-3xl font-bold text-gray-900">{{ settings('about.vision_title', 'Our Vision') }}</h2>
+                        <h2 class="text-3xl font-bold text-gray-900">{{ settings('about.vision_title', t('frontend.about.vision_title', 'Our Vision')) }}</h2>
                         <div class="w-12 h-12 bg-gradient-to-br from-[#0481AE] to-[#035f7f] rounded-full flex items-center justify-center">
                             <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
@@ -128,8 +145,8 @@
                 </div>
                 @if(settings('about.vision_image'))
                 <div class="relative h-64">
-                    <img src="{{ asset('storage/' . settings('about.vision_image')) }}" 
-                         alt="{{ settings('about.vision_title', 'Our Vision') }}" 
+                    <img src="{{ asset('storage/' . settings('about.vision_image')) }}"
+                         alt="{{ settings('about.vision_title', t('frontend.about.vision_title', 'Our Vision')) }}"
                          class="w-full h-full object-cover">
                     <div class="absolute bottom-0 left-0 w-full h-full bg-gradient-to-t from-black/30 to-transparent"></div>
                 </div>
@@ -149,7 +166,7 @@
             <div class="bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-shadow duration-300">
                 <div class="p-8">
                     <div class="flex items-center justify-between mb-6">
-                        <h2 class="text-3xl font-bold text-gray-900">{{ settings('about.mission_title', 'Our Mission') }}</h2>
+                        <h2 class="text-3xl font-bold text-gray-900">{{ settings('about.mission_title', t('frontend.about.mission_title', 'Our Mission')) }}</h2>
                         <div class="w-12 h-12 bg-gradient-to-br from-[#035f7f] to-[#0481AE] rounded-full flex items-center justify-center">
                             <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
@@ -162,8 +179,8 @@
                 </div>
                 @if(settings('about.mission_image'))
                 <div class="relative h-64">
-                    <img src="{{ asset('storage/' . settings('about.mission_image')) }}" 
-                         alt="{{ settings('about.mission_title', 'Our Mission') }}" 
+                    <img src="{{ asset('storage/' . settings('about.mission_image')) }}"
+                         alt="{{ settings('about.mission_title', t('frontend.about.mission_title', 'Our Mission')) }}"
                          class="w-full h-full object-cover">
                     <div class="absolute bottom-0 right-0 w-full h-full bg-gradient-to-t from-black/30 to-transparent"></div>
                 </div>
@@ -186,9 +203,9 @@
 <section class="py-20 bg-white">
     <div class="container mx-auto px-4 max-w-7xl">
         <div class="text-center mb-16">
-            <h2 class="text-4xl font-bold text-gray-900 mb-4">Meet Our Team</h2>
+            <h2 class="text-4xl font-bold text-gray-900 mb-4">{{ t('frontend.team.heading', 'Meet Our Team') }}</h2>
             <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-                Dedicated professionals committed to helping your business succeed
+                {{ t('frontend.team.subheading', 'Dedicated professionals committed to helping your business succeed') }}
             </p>
         </div>
 
@@ -223,7 +240,7 @@
         <div class="text-center mt-12">
             <a href="{{ route('team') }}" 
                class="inline-flex items-center px-8 py-3 bg-gradient-to-r from-[#0481AE] to-[#035f7f] text-white rounded-xl hover:shadow-lg transition transform hover:-translate-y-0.5 font-semibold">
-                View Full Team
+                {{ t('frontend.team.view_full', 'View Full Team') }}
                 <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
                 </svg>
@@ -236,16 +253,16 @@
 <!-- CTA Section -->
 <section class="bg-[#FFE7D5] py-8 max-w-5xl mx-auto rounded-xl shadow-xl mb-16">
     <div class="container mx-auto px-4 max-w-4xl text-center">
-        <h2 class="text-4xl md:text-5xl font-bold mb-6">Ready to Transform Your Business?</h2>
+        <h2 class="text-4xl md:text-5xl font-bold mb-6">{{ t('frontend.about.cta_heading', 'Ready to Transform Your Business?') }}</h2>
         <p class="text-xl mb-10 opacity-90">
-            Join hundreds of satisfied clients who have experienced growth and success with our consulting services.
+            {{ t('frontend.about.cta_subheading', 'Join hundreds of satisfied clients who have experienced growth and success with our consulting services.') }}
         </p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
             <a href="{{ route('contact') }}" class="inline-block bg-[#0481AE] text-white px-16 py-2 rounded-xl font-semibold hover:bg-[#036494] transition shadow-md">
-                Get in Touch
+                {{ t('frontend.about.cta_primary', 'Get in Touch') }}
             </a>
             <a href="{{ route('contact') }}" class="inline-block text-[#0481AE] px-16 py-2 rounded-xl font-semibold border-2 border-[#0481AE] transition shadow-md">
-                Explore Services
+                {{ t('frontend.about.cta_secondary', 'Explore Services') }}
             </a>
         </div>
     </div>

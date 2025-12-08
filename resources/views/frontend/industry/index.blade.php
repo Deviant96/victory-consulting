@@ -1,15 +1,15 @@
 @extends('frontend.layouts.app')
 
-@section('title', 'Industries We Serve - ' . settings('site.name'))
+@section('title', t('frontend.industry.meta_title', 'Industries We Serve') . ' - ' . settings('site.name'))
 
 @section('content')
 <!-- Page Header -->
 <section class="py-20">
     <div class="container mx-auto px-4">
         <div class="max-w-4xl mx-auto text-center">
-            <h1 class="text-5xl font-bold mb-6">Industries We Serve</h1>
+            <h1 class="text-5xl font-bold mb-6">{{ t('frontend.industry.heading', 'Industries We Serve') }}</h1>
             <p class="text-xl opacity-90">
-                Whatever your business, we can handle it. Comprehensive solutions tailored to your industry's unique challenges and opportunities.
+                {{ t('frontend.industry.subheading', "Whatever your business, we can handle it. Comprehensive solutions tailored to your industry's unique challenges and opportunities.") }}
             </p>
         </div>
     </div>
@@ -19,7 +19,7 @@
 @if(settings('hero.industry_image'))
 <section class="w-full">
     <img src="{{ asset('storage/' . settings('hero.industry_image')) }}" 
-         alt="Industries We Serve" 
+         alt="{{ t('frontend.industry.hero_alt', 'Industries We Serve') }}"
          class="w-full h-64 md:h-80 lg:h-96 object-cover">
 </section>
 @endif
@@ -32,16 +32,15 @@
             <svg class="w-24 h-24 mx-auto text-gray-300 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
             </svg>
-            <h3 class="text-2xl font-bold text-gray-900 mb-2">No Industries Available</h3>
-            <p class="text-gray-600">Check back soon for our industry solutions.</p>
+            <h3 class="text-2xl font-bold text-gray-900 mb-2">{{ t('frontend.industry.empty_heading', 'No Industries Available') }}</h3>
+            <p class="text-gray-600">{{ t('frontend.industry.empty_description', 'Check back soon for our industry solutions.') }}</p>
         </div>
         @else
         <!-- Intro Section -->
         <div class="text-center mb-16">
-            <h2 class="text-4xl font-bold text-gray-900 mb-4">Expertise Across Industries</h2>
+            <h2 class="text-4xl font-bold text-gray-900 mb-4">{{ t('frontend.industry.expertise_heading', 'Expertise Across Industries') }}</h2>
             <p class="text-lg text-gray-600 max-w-3xl mx-auto">
-                We bring deep domain knowledge and proven strategies to help businesses thrive in their respective markets. 
-                Our tailored approach ensures you get solutions that work for your specific industry.
+                {{ t('frontend.industry.expertise_description', 'We bring deep domain knowledge and proven strategies to help businesses thrive in their respective markets. Our tailored approach ensures you get solutions that work for your specific industry.') }}
             </p>
         </div>
 
@@ -72,7 +71,7 @@
                     <!-- Sub-Solutions Checklist -->
                     @if($industry->subSolutions->isNotEmpty())
                     <div class="mt-4 pt-4 border-t border-gray-200">
-                        <h4 class="text-sm font-semibold text-gray-700 mb-3">Specialized Areas:</h4>
+                        <h4 class="text-sm font-semibold text-gray-700 mb-3">{{ t('frontend.industry.specialized_areas', 'Specialized Areas:') }}</h4>
                         <ul class="space-y-2">
                             @foreach($industry->subSolutions as $subSolution)
                             <li class="flex items-start text-sm text-gray-700">
@@ -92,22 +91,22 @@
 
         <!-- Call to Action -->
         <div class="mt-20 text-center p-12 bg-[#FFE7D5] text-white py-8 max-w-5xl mx-auto rounded-xl shadow-xl mb-16">
-            <h2 class="text-3xl font-bold text-[#0481AE] mb-4">Don't See Your Industry?</h2>
+            <h2 class="text-3xl font-bold text-[#0481AE] mb-4">{{ t('frontend.industry.cta_heading', "Don't See Your Industry?") }}</h2>
             <p class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
-                We work with businesses across all sectors. Contact us to discuss how we can help your specific industry.
+                {{ t('frontend.industry.cta_description', 'We work with businesses across all sectors. Contact us to discuss how we can help your specific industry.') }}
             </p>
             <div class="flex flex-col sm:flex-row gap-4 justify-center">
                 <a href="{{ route('contact') }}" class="inline-flex items-center justify-center bg-[#0481AE] text-white px-16 py-2 rounded-xl font-semibold hover:bg-[#036494] transition shadow-md">
                     <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
                     </svg>
-                    Contact Us
+                    {{ t('frontend.about.cta_primary', 'Get in Touch') }}
                 </a>
                 <a href="{{ route('contact') }}" class="inline-flex items-center justify-center bg-white text-[#0481AE] px-16 py-2 rounded-xl font-semibold hover:bg-gray-50 transition border-2 border-[#0481AE] transform hover:-translate-y-0.5">
                     <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
                     </svg>
-                    View Our Services
+                    {{ t('frontend.industry.view_services', 'View Our Services') }}
                 </a>
             </div>
         </div>
