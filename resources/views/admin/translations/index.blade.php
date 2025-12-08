@@ -10,21 +10,23 @@
             'label' => $language->label,
         ]);
 
-        $rows = $translationKeys->map(function ($translationKey) use ($languages, $fallbackLocale) {
-            return [
-                'id' => $translationKey->id,
-                'group' => $translationKey->group,
-                'key' => $translationKey->key,
-                'preview' => $translationKey->valueForLocale($fallbackLocale) ?? '',
-                'values' => $languages
-                    ->mapWithKeys(function ($language) use ($translationKey) {
-                        $value = optional($translationKey->values->firstWhere('language_code', $language->code))->value ?? '';
+        $rows = $translationKeys
+            ->map(function ($translationKey) use ($languages, $fallbackLocale) {
+                return [
+                    'id' => $translationKey->id,
+                    'group' => $translationKey->group,
+                    'key' => $translationKey->key,
+                    'preview' => $translationKey->valueForLocale($fallbackLocale) ?? '',
+                    'values' => $languages
+                        ->mapWithKeys(function ($language) use ($translationKey) {
+                            $value = optional($translationKey->values->firstWhere('language_code', $language->code))->value ?? '';
 
-                        return [$language->code => $value];
-                    })
-                    ->toArray(),
-            ];
-        });
+                            return [$language->code => $value];
+                        })
+                        ->toArray(),
+                ];
+            })
+            ->values();
     @endphp
 
     <div class="space-y-6" x-data="translationGrid({
