@@ -157,7 +157,7 @@ document.addEventListener('alpine:init', () => {
 
     Alpine.data('translationGrid', (config) => ({
         languages: config.languages || [],
-        rows: config.rows || [],
+        rows: [],
         groups: config.groups || [],
         filters: { search: '', group: 'all' },
         filteredRows: [],
@@ -165,7 +165,20 @@ document.addEventListener('alpine:init', () => {
         lastNotice: '',
 
         init() {
+            this.rows = this.normalizeRows(config.rows);
             this.applyFilters();
+        },
+
+        normalizeRows(rows) {
+            if (Array.isArray(rows)) {
+                return rows;
+            }
+
+            if (rows && typeof rows === 'object') {
+                return Object.values(rows);
+            }
+
+            return [];
         },
 
         applyFilters() {

@@ -26,7 +26,8 @@
                         ->toArray(),
                 ];
             })
-            ->values();
+            ->values()
+            ->toArray();
     @endphp
 
     <div class="space-y-6" x-data="translationGrid({
