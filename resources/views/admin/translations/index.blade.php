@@ -10,7 +10,7 @@
             'label' => $language->label,
         ]);
 
-        $rows = $translationKeys
+        $rows = $translationKeys->getCollection()
             ->map(function ($translationKey) use ($languages, $fallbackLocale) {
                 return [
                     'id' => $translationKey->id,
@@ -28,16 +28,20 @@
             })
             ->values()
             ->toArray();
+        
+        $config = [
+            'languages' => $languageMeta,
+            'rows' => $rows,
+            'groups' => $groups,
+            'fallback' => $fallbackLocale,
+            'updateUrl' => route('admin.translations.inline', '__ID__'),
+            'csrf' => csrf_token(),
+        ];
     @endphp
 
-    <div class="space-y-6" x-data="translationGrid({
-        languages: @json($languageMeta),
-        rows: @json($rows),
-        groups: @json($groups),
-        fallback: '{{ $fallbackLocale }}',
-        updateUrl: '{{ route('admin.translations.inline', '__ID__') }}',
-        csrf: '{{ csrf_token() }}'
-    })">
+    <div class="space-y-6" 
+         x-data="translationGrid(JSON.parse(atob($el.dataset.config)))"
+         data-config="{{ base64_encode(json_encode($config)) }}">
         <div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
             <div>
                 <p class="text-sm text-gray-600">Manage static labels for admin and frontend with quick inline edits.</p>
