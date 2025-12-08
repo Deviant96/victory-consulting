@@ -118,4 +118,7 @@ Route::prefix('settings')->name('settings.')->group(function () {
 
 // Localization
 Route::resource('languages', LanguageController::class);
+Route::get('translations/export', [TranslationController::class, 'export'])->name('translations.export');
+Route::post('translations/import', [TranslationController::class, 'import'])->name('translations.import');
+Route::put('translations/{translation}/inline', [TranslationController::class, 'inlineUpdate'])->name('translations.inline');
 Route::resource('translations', TranslationController::class)->except(['show']);

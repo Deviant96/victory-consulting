@@ -12,6 +12,7 @@ class TeamMember extends Model
         'bio',
         'photo',
         'expertise',
+        'order',
     ];
 
     protected $casts = [

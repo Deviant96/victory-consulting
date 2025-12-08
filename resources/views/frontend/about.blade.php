@@ -16,7 +16,7 @@
 </section>
 
 <!-- Founder's Wisdom Section - Two Columns -->
-<section class="py-16 bg-white">
+<section class="pt-4 pb-16 bg-white">
     <div class="container mx-auto px-4 max-w-7xl">
         <div class="grid md:grid-cols-2 gap-12">
             <!-- Left Column - Map of Indonesia -->
@@ -73,9 +73,9 @@
 
 <!-- About Description Section -->
 <section class="py-16 bg-gray-50">
-    <div class="container mx-auto px-4 max-w-5xl">
+    <div class="container mx-auto px-4 max-w-5xl text-center">
         @if(settings('about.content'))
-        <div class="bg-white rounded-2xl shadow-lg p-12">
+        <div class="p-12">
             <div class="prose prose-lg max-w-none text-gray-700 leading-relaxed">
                 {!! nl2br(e(settings('about.content'))) !!}
             </div>
