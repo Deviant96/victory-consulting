@@ -2,11 +2,11 @@ import './bootstrap';
 
 import Alpine from 'alpinejs';
 
-    document.addEventListener('alpine:init', () => {
-        Alpine.data('adminLayout', () => ({
-            sidebarOpen: false,
-            init() {
-                this.syncSidebarWithViewport();
+document.addEventListener('alpine:init', () => {
+    Alpine.data('adminLayout', () => ({
+        sidebarOpen: false,
+        init() {
+            this.syncSidebarWithViewport();
             window.addEventListener('resize', () => this.syncSidebarWithViewport());
             this.$watch('sidebarOpen', (open) => {
                 const shouldLock = open && window.innerWidth < 1024;
@@ -26,135 +26,206 @@ import Alpine from 'alpinejs';
             if (window.innerWidth < 1024) {
                 this.sidebarOpen = false;
             }
-        }
+        },
     }));
 
-        Alpine.data('collapsibleCard', (id) => ({
-            id,
-            collapsed: false,
-            init() {
-                const saved = sessionStorage.getItem(`admin-card-${this.id}`);
-                this.collapsed = saved === 'collapsed';
-            },
-            toggle() {
-                this.collapsed = !this.collapsed;
-                sessionStorage.setItem(`admin-card-${this.id}`, this.collapsed ? 'collapsed' : 'expanded');
-            }
-        }));
+    Alpine.data('collapsibleCard', (id) => ({
+        id,
+        collapsed: false,
+        init() {
+            const saved = sessionStorage.getItem(`admin-card-${this.id}`);
+            this.collapsed = saved === 'collapsed';
+        },
+        toggle() {
+            this.collapsed = !this.collapsed;
+            sessionStorage.setItem(`admin-card-${this.id}`, this.collapsed ? 'collapsed' : 'expanded');
+        },
+    }));
 
-        Alpine.data('frontendSearch', () => ({
-            open: false,
-            loading: false,
-            query: '',
-            index: null,
-            error: null,
+    Alpine.data('frontendSearch', () => ({
+        open: false,
+        loading: false,
+        query: '',
+        index: null,
+        error: null,
 
-            toggle() {
-                this.open = !this.open;
-                if (this.open) {
-                    this.ensureIndex();
-                    this.focusInput();
-                }
-            },
-
-            openPanel() {
-                this.open = true;
+        toggle() {
+            this.open = !this.open;
+            if (this.open) {
                 this.ensureIndex();
-            },
-
-            close() {
-                this.open = false;
-            },
-
-            clear() {
-                this.query = '';
                 this.focusInput();
-            },
+            }
+        },
 
-            focusInput() {
-                this.$nextTick(() => {
-                    this.$refs.searchInput?.focus();
-                });
-            },
+        openPanel() {
+            this.open = true;
+            this.ensureIndex();
+        },
 
-            async ensureIndex() {
-                if (this.index || this.loading) {
-                    return;
+        close() {
+            this.open = false;
+        },
+
+        clear() {
+            this.query = '';
+            this.focusInput();
+        },
+
+        focusInput() {
+            this.$nextTick(() => {
+                this.$refs.searchInput?.focus();
+            });
+        },
+
+        async ensureIndex() {
+            if (this.index || this.loading) {
+                return;
+            }
+
+            this.loading = true;
+            this.error = null;
+
+            try {
+                const response = await fetch('/search');
+
+                if (!response.ok) {
+                    throw new Error('Search is unavailable right now.');
                 }
 
-                this.loading = true;
-                this.error = null;
+                this.index = await response.json();
+            } catch (error) {
+                console.error(error);
+                this.error = 'Unable to load search results. Please try again later.';
+            } finally {
+                this.loading = false;
+            }
+        },
 
-                try {
-                    const response = await fetch('/search');
+        filterCollection(items, term) {
+            if (!Array.isArray(items)) {
+                return [];
+            }
 
-                    if (!response.ok) {
-                        throw new Error('Search is unavailable right now.');
-                    }
+            if (!term) {
+                return items.slice(0, 5);
+            }
 
-                    this.index = await response.json();
-                } catch (error) {
-                    console.error(error);
-                    this.error = 'Unable to load search results. Please try again later.';
-                } finally {
-                    this.loading = false;
-                }
-            },
+            return items.filter((item) => {
+                const haystack = [item.title, item.subtitle, item.type]
+                    .filter(Boolean)
+                    .map((value) => value.toLowerCase());
 
-            filterCollection(items, term) {
-                if (!Array.isArray(items)) {
-                    return [];
-                }
+                return haystack.some((value) => value.includes(term));
+            });
+        },
 
-                if (!term) {
-                    return items.slice(0, 5);
-                }
-
-                return items.filter((item) => {
-                    const haystack = [item.title, item.subtitle, item.type]
-                        .filter(Boolean)
-                        .map((value) => value.toLowerCase());
-
-                    return haystack.some((value) => value.includes(term));
-                });
-            },
-
-            get filteredResults() {
-                if (!this.index) {
-                    return {
-                        services: [],
-                        team: [],
-                        articles: [],
-                        contacts: [],
-                    };
-                }
-
-                const term = this.query.trim().toLowerCase();
-
+        get filteredResults() {
+            if (!this.index) {
                 return {
-                    services: this.filterCollection(this.index.services, term),
-                    team: this.filterCollection(this.index.team, term),
-                    articles: this.filterCollection(this.index.articles, term),
-                    contacts: this.filterCollection(this.index.contacts, term),
+                    services: [],
+                    team: [],
+                    articles: [],
+                    contacts: [],
                 };
-            },
+            }
 
-            get groupedResults() {
-                const results = this.filteredResults;
+            const term = this.query.trim().toLowerCase();
 
-                return [
-                    { key: 'services', label: 'Services', items: results.services ?? [] },
-                    { key: 'team', label: 'Team', items: results.team ?? [] },
-                    { key: 'articles', label: 'Articles', items: results.articles ?? [] },
-                    { key: 'contacts', label: 'Contact info', items: results.contacts ?? [] },
-                ];
-            },
+            return {
+                services: this.filterCollection(this.index.services, term),
+                team: this.filterCollection(this.index.team, term),
+                articles: this.filterCollection(this.index.articles, term),
+                contacts: this.filterCollection(this.index.contacts, term),
+            };
+        },
 
-            get hasResults() {
-                return this.groupedResults.some((group) => group.items.length > 0);
-            },
-        }));
-    });
+        get groupedResults() {
+            const results = this.filteredResults;
+
+            return [
+                { key: 'services', label: 'Services', items: results.services ?? [] },
+                { key: 'team', label: 'Team', items: results.team ?? [] },
+                { key: 'articles', label: 'Articles', items: results.articles ?? [] },
+                { key: 'contacts', label: 'Contact info', items: results.contacts ?? [] },
+            ];
+        },
+
+        get hasResults() {
+            return this.groupedResults.some((group) => group.items.length > 0);
+        },
+    }));
+
+    Alpine.data('translationGrid', (config) => ({
+        languages: config.languages || [],
+        rows: config.rows || [],
+        groups: config.groups || [],
+        filters: { search: '', group: 'all' },
+        filteredRows: [],
+        saving: {},
+        lastNotice: '',
+
+        init() {
+            this.applyFilters();
+        },
+
+        applyFilters() {
+            const term = this.filters.search.trim().toLowerCase();
+
+            this.filteredRows = (this.rows || []).filter((row) => {
+                const matchesGroup = this.filters.group === 'all' || row.group === this.filters.group;
+                const haystack = [row.group, row.key, ...Object.values(row.values || {})]
+                    .filter(Boolean)
+                    .join(' ')
+                    .toLowerCase();
+                const matchesSearch = !term || haystack.includes(term);
+
+                return matchesGroup && matchesSearch;
+            });
+        },
+
+        cellKey(rowId, languageCode) {
+            return `${rowId}-${languageCode}`;
+        },
+
+        isSaving(rowId, languageCode) {
+            return Boolean(this.saving[this.cellKey(rowId, languageCode)]);
+        },
+
+        async saveCell(row, languageCode) {
+            const key = this.cellKey(row.id, languageCode);
+            this.saving[key] = true;
+
+            try {
+                const response = await fetch(config.updateUrl.replace('__ID__', row.id), {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': config.csrf,
+                        Accept: 'application/json',
+                    },
+                    body: JSON.stringify({
+                        language_code: languageCode,
+                        value: row.values?.[languageCode] ?? '',
+                    }),
+                });
+
+                if (!response.ok) {
+                    const error = await response.json().catch(() => ({}));
+                    throw new Error(error.message || 'Unable to save translation right now.');
+                }
+
+                const result = await response.json();
+                row.preview = result.preview;
+                this.lastNotice = `Saved ${row.key} (${languageCode.toUpperCase()}) at ${new Date().toLocaleTimeString()}`;
+            } catch (error) {
+                console.error(error);
+                this.lastNotice = error.message;
+            } finally {
+                delete this.saving[key];
+            }
+        },
+    }));
+});
 
 window.Alpine = Alpine;
 

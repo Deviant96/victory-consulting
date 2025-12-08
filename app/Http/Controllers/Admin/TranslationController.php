@@ -7,6 +7,7 @@ use App\Models\Language;
 use App\Models\TranslationKey;
 use App\Models\TranslationValue;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
@@ -20,6 +21,12 @@ class TranslationController extends Controller
             ->orderBy('key')
             ->paginate(15);
 
+        $groups = TranslationKey::select('group')
+            ->distinct()
+            ->pluck('group')
+            ->filter()
+            ->values();
+
         $languages = Language::orderBy('label')->get();
         $fallbackLocale = config('app.fallback_locale', 'en');
 
@@ -30,7 +37,7 @@ class TranslationController extends Controller
             return $translationKey;
         });
 
-        return view('admin.translations.index', compact('translationKeys', 'languages', 'fallbackLocale'));
+        return view('admin.translations.index', compact('translationKeys', 'languages', 'fallbackLocale', 'groups'));
     }
 
     public function create(): View
@@ -114,5 +121,23 @@ class TranslationController extends Controller
                 ]
             );
         }
+    }
+
+    public function inlineUpdate(Request $request, TranslationKey $translation): JsonResponse
+    {
+        $data = $request->validate([
+            'language_code' => ['required', 'string', 'exists:languages,code'],
+            'value' => ['nullable', 'string'],
+        ]);
+
+        $this->syncTranslations($translation, [$data['language_code'] => $data['value']]);
+
+        $fallbackLocale = config('app.fallback_locale', 'en');
+        $translation->load('values');
+
+        return response()->json([
+            'status' => 'ok',
+            'preview' => Str::limit($translation->valueForLocale($fallbackLocale) ?? '', 70),
+        ]);
     }
 }
