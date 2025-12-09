@@ -6,7 +6,7 @@
 <!-- Page Header -->
 <section class="py-20">
     <div class="container mx-auto px-4">
-        <div class="max-w-4xl mx-auto text-center">
+        <div class="max-w-4xl mx-auto text-center" data-animate="fade-up">
             <h1 class="text-5xl font-bold mb-6">{{ t('frontend.industry.heading', 'Industries We Serve') }}</h1>
             <p class="text-xl opacity-90">
                 {{ t('frontend.industry.subheading', "Whatever your business, we can handle it. Comprehensive solutions tailored to your industry's unique challenges and opportunities.") }}
@@ -17,7 +17,7 @@
 
 <!-- Full-Width Hero Image -->
 @if(settings('hero.industry_image'))
-<section class="w-full">
+<section class="w-full" data-animate="fade-in">
     <img src="{{ asset('storage/' . settings('hero.industry_image')) }}" 
          alt="{{ t('frontend.industry.hero_alt', 'Industries We Serve') }}"
          class="w-full h-64 md:h-80 lg:h-96 object-cover">
@@ -37,7 +37,7 @@
         </div>
         @else
         <!-- Intro Section -->
-        <div class="text-center mb-16">
+        <div class="text-center mb-16" data-animate="fade-up">
             <h2 class="text-4xl font-bold text-gray-900 mb-4">{{ t('frontend.industry.expertise_heading', 'Expertise Across Industries') }}</h2>
             <p class="text-lg text-gray-600 max-w-3xl mx-auto">
                 {{ t('frontend.industry.expertise_description', 'We bring deep domain knowledge and proven strategies to help businesses thrive in their respective markets. Our tailored approach ensures you get solutions that work for your specific industry.') }}
@@ -45,9 +45,9 @@
         </div>
 
         <!-- Industries Grid -->
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" data-animate-stagger="120">
             @foreach($industries as $industry)
-            <div class="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border-2 border-transparent hover:border-[#0481AE] overflow-hidden group">
+            <div class="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border-2 border-transparent hover:border-[#0481AE] overflow-hidden group" data-animate="fade-up">
                 <!-- Card Header with Gradient -->
                 <div class="bg-gradient-to-br from-[#0481AE] to-[#036494] p-6 text-white">
                     <div class="flex items-center justify-center mb-4">
@@ -90,7 +90,7 @@
         </div>
 
         <!-- Call to Action -->
-        <div class="mt-20 text-center p-12 bg-[#FFE7D5] text-white py-8 max-w-5xl mx-auto rounded-xl shadow-xl mb-16">
+        <div class="mt-20 text-center p-12 bg-[#FFE7D5] text-white py-8 max-w-5xl mx-auto rounded-xl shadow-xl mb-16" data-animate="fade-up">
             <h2 class="text-3xl font-bold text-[#0481AE] mb-4">{{ t('frontend.industry.cta_heading', "Don't See Your Industry?") }}</h2>
             <p class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
                 {{ t('frontend.industry.cta_description', 'We work with businesses across all sectors. Contact us to discuss how we can help your specific industry.') }}

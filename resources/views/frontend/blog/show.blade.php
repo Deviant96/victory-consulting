@@ -5,7 +5,7 @@
 
 @section('content')
 <!-- Breadcrumb -->
-<section class="bg-gray-100 py-4">
+<section class="bg-gray-100 py-4" data-animate="fade-in">
     <div class="container mx-auto px-4">
         <div class="flex items-center text-sm text-gray-600">
             <a href="{{ route('home') }}" class="hover:text-[#0481AE]">{{ t('frontend.navigation.home', 'Home') }}</a>
@@ -26,7 +26,7 @@
     <div class="container mx-auto px-4">
         <div class="max-w-4xl mx-auto">
             <!-- Header -->
-            <header class="mb-8">
+            <header class="mb-8" data-animate="fade-up">
                 @if($post->category)
                 <span class="inline-block bg-[#D0E9F8] text-[#0481AE] text-sm font-semibold px-4 py-1 rounded-full mb-4">
                     {{ $post->category }}
@@ -55,19 +55,19 @@
 
             <!-- Excerpt -->
             @if($post->excerpt)
-            <div class="text-xl text-gray-700 leading-relaxed mb-8 pb-8 border-b border-gray-200">
+            <div class="text-xl text-gray-700 leading-relaxed mb-8 pb-8 border-b border-gray-200" data-animate="fade-up" data-animate-delay="80">
                 {{ $post->excerpt }}
             </div>
             @endif
 
             <!-- Content -->
-            <div class="prose prose-lg max-w-none mb-12">
+            <div class="prose prose-lg max-w-none mb-12" data-animate="fade-up" data-animate-delay="120">
                 {!! $post->content !!}
             </div>
 
             <!-- Tags -->
             @if($post->tags && count($post->tags) > 0)
-            <div class="mb-8 pb-8 border-t border-gray-200 pt-8">
+            <div class="mb-8 pb-8 border-t border-gray-200 pt-8" data-animate="fade-up" data-animate-delay="140">
                 <h3 class="text-lg font-semibold text-gray-900 mb-3">{{ t('frontend.blog.show.tags_heading', 'Tags') }}</h3>
                 <div class="flex flex-wrap gap-2">
                     @foreach($post->tags as $tag)
@@ -81,7 +81,7 @@
 
             <!-- Author Box -->
             @if($post->author)
-            <div class="bg-gray-50 rounded-lg p-6 mb-12">
+            <div class="bg-gray-50 rounded-lg p-6 mb-12" data-animate="fade-up" data-animate-delay="160">
                 <h3 class="text-lg font-semibold text-gray-900 mb-2">{{ t('frontend.blog.show.about_author_heading', 'About the Author') }}</h3>
                 <p class="text-gray-700">
                     <strong>{{ $post->author }}</strong> {{ str_replace(':site', settings('site.name'), t('frontend.blog.show.about_author_body', 'is a contributor to the :site blog, sharing insights on business strategy and growth.')) }}
@@ -90,7 +90,7 @@
             @endif
 
             <!-- Share -->
-            <div class="flex items-center justify-between border-t border-b border-gray-200 py-6 mb-12">
+            <div class="flex items-center justify-between border-t border-b border-gray-200 py-6 mb-12" data-animate="fade-up" data-animate-delay="180">
                 <span class="font-semibold text-gray-900">{{ t('frontend.blog.show.share_label', 'Share this article:') }}</span>
                 <div class="flex gap-4">
                     <a href="https://twitter.com/intent/tweet?url={{ urlencode(route('blog.show', $post->slug)) }}&text={{ urlencode($post->title) }}" target="_blank" class="text-gray-600 hover:text-[#1DA1F2] transition">
@@ -114,9 +114,9 @@
 <section class="py-16 bg-gray-50">
     <div class="container mx-auto px-4">
         <h2 class="text-3xl font-bold text-gray-900 mb-8 text-center">{{ t('frontend.blog.show.related_heading', 'Related Articles') }}</h2>
-        <div class="grid md:grid-cols-3 gap-8">
+        <div class="grid md:grid-cols-3 gap-8" data-animate-stagger="120">
             @foreach($relatedPosts as $related)
-            <a href="{{ route('blog.show', $related->slug) }}" class="bg-white rounded-lg shadow-md hover:shadow-xl transition overflow-hidden block">
+            <a href="{{ route('blog.show', $related->slug) }}" class="bg-white rounded-lg shadow-md hover:shadow-xl transition overflow-hidden block" data-animate="fade-up">
                 @if($related->featured_image)
                 <img src="{{ asset('storage/' . $related->featured_image) }}" alt="{{ $related->title }}" class="w-full h-48 object-cover">
                 @endif
@@ -137,7 +137,7 @@
 @endif
 
 <!-- CTA -->
-<section class="bg-[#FFE7D5] text-white py-8 max-w-5xl mx-auto rounded-xl shadow-xl mb-16">
+<section class="bg-[#FFE7D5] text-white py-8 max-w-5xl mx-auto rounded-xl shadow-xl mb-16" data-animate="fade-up">
     <div class="container mx-auto px-2 text-center">
         <h2 class="text-3xl font-bold mb-4 text-[#0481AE]">{{ t('frontend.blog.show.cta_heading', 'Ready to Transform Your Business?') }}</h2>
         <p class="text-xl mb-8 max-w-2xl mx-auto text-[#0481AE]">

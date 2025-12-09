@@ -4,11 +4,11 @@
 <!-- Hero Section -->
 <section class="relative min-h-[600px] flex items-center justify-center bg-gradient-to-br from-[#0481AE] to-[#035f7f] text-white overflow-hidden">
     @if(settings('hero.background_image'))
-    <div class="absolute inset-0 z-0">
+    <div class="absolute inset-0 z-0 floating-soft">
         <img src="{{ asset('storage/' . settings('hero.background_image')) }}" alt="Hero Background" class="w-full h-full object-cover opacity-30">
     </div>
     @endif
-    <div class="container mx-auto px-4 max-w-6xl relative z-10 py-24">
+    <div class="container mx-auto px-4 max-w-6xl relative z-10 py-24" data-animate="fade-up">
         <div class="max-w-4xl mx-auto text-{{ settings('hero.text_alignment', 'center') }}">
             <h1 class="text-6xl md:text-7xl font-bold mb-6 leading-tight">{{ settings('site.name', 'Victory Business Consulting') }}</h1>
             <p class="text-2xl mb-10 text-[#cce7f0]">{{ settings('site.tagline', 'Empowering businesses to achieve sustainable growth and operational excellence') }}</p>
@@ -27,16 +27,16 @@
 <!-- Services Section -->
 <section class="py-20 bg-gray-50">
     <div class="container mx-auto px-4 max-w-4xl">
-        <div class="text-center mb-12">
+        <div class="text-center mb-12" data-animate="fade-up">
             <h2 class="text-4xl font-bold text-gray-900 mb-4">{{ t('frontend.home.services_heading', 'Our Services') }}</h2>
             <p class="text-xl text-gray-600 max-w-2xl mx-auto">
                 {{ t('frontend.home.services_subheading', 'Comprehensive business solutions tailored to your unique challenges') }}
             </p>
         </div>
 
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-12">
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-12" data-animate-stagger="120">
             @foreach($services as $service)
-            <a href="{{ route('services.show', $service->slug) }}" class="bg-white rounded-lg shadow-md hover:shadow-xl transition p-6 block border-[#0481AE] border-2">
+            <a href="{{ route('services.show', $service->slug) }}" class="bg-white rounded-lg shadow-md hover:shadow-xl transition p-6 block border-[#0481AE] border-2" data-animate="fade-up">
                 @if($service->image)
                 <img src="{{ asset('storage/' . $service->image) }}" alt="{{ $service->title }}" class="w-full h-48 object-cover rounded-lg mb-4">
                 @endif
@@ -61,16 +61,16 @@
 @if($whyChooseItems->isNotEmpty())
 <section class="relative pt-20 pb-2 mb-32 text-white overflow-x-clip" style="background: linear-gradient(to bottom, rgba(185, 206, 213, 0.72) 0%, rgba(185, 206, 213, 0.72) 15%, rgba(4, 129, 174, 1) 75%);">
     <div class="container mx-auto px-4 max-w-6xl relative z-10">
-        <div class="text-center mb-16">
+        <div class="text-center mb-16" data-animate="fade-up">
             <h2 class="text-5xl font-bold text-[#035f7f] mb-4">{{ t('frontend.home.why_choose_heading', 'Why Choose ' . settings('site.name', 'Victory Business Consulting')) }}</h2>
             <p class="text-xl text-[#035f7f] max-w-3xl mx-auto">
                 {{ t('frontend.home.why_choose_subheading', 'Discover what sets us apart and makes us the ideal partner for your business growth') }}
             </p>
         </div>
 
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16" data-animate-stagger="120">
             @foreach($whyChooseItems as $item)
-            <div class="bg-white/95 backdrop-blur rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all transform hover:-translate-y-2">
+            <div class="bg-white/95 backdrop-blur rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all transform hover:-translate-y-2" data-animate="fade-up">
                 <div class="flex items-start gap-4 mb-4">
                     @if($item->icon)
                     <div class="flex-shrink-0 w-14 h-14 bg-gradient-to-br from-[#0481AE] to-[#035f7f] rounded-xl flex items-center justify-center text-white text-2xl">
@@ -97,16 +97,16 @@
 @if($businessSolutions->isNotEmpty())
 <section class="py-20 bg-white">
     <div class="container mx-auto px-4 max-w-6xl">
-        <div class="text-center mb-16">
+        <div class="text-center mb-16" data-animate="fade-up">
             <h2 class="text-5xl font-bold text-gray-900 mb-4">{{ t('frontend.home.solutions_heading', 'Whatever Your Business, We Can Handle It') }}</h2>
             <p class="text-xl text-gray-600 max-w-3xl mx-auto">
                 {{ t('frontend.home.solutions_subheading', 'From startups to enterprises, we provide tailored solutions for every industry and challenge') }}
             </p>
         </div>
 
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6" data-animate-stagger="120">
             @foreach($businessSolutions as $solution)
-            <div class="bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl p-8 shadow hover:shadow-xl transition-all transform hover:-translate-y-1 border-[#0481AE] border-2">
+            <div class="bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl p-8 shadow hover:shadow-xl transition-all transform hover:-translate-y-1 border-[#0481AE] border-2" data-animate="fade-up">
                 <h3 class="text-xl font-bold text-[#0481AE] mb-3 text-center">{{ $solution->title }}</h3>
                 @if($solution->description)
                 <p class="text-gray-600 text-center text-sm">{{ $solution->description }}</p>
@@ -162,8 +162,8 @@
 <!-- Blog Section -->
 <section class="py-20 bg-[#FFE7D5] text-white">
     <div class="container mx-auto px-4 max-w-6xl">
-        <div class="grid md:grid-cols-4 gap-8">
-            <div class="mb-8 flex flex-col items-left md:items-start md:col-span-1 justify-between">
+        <div class="grid md:grid-cols-4 gap-8" data-animate-stagger="140">
+            <div class="mb-8 flex flex-col items-left md:items-start md:col-span-1 justify-between" data-animate="fade-right">
                 <div>
                     <h2 class="text-3xl font-bold text-gray-900 mb-8">{{ t('frontend.home.blog_heading', 'Latest Insights') }}</h2>
                     <p class="text-gray-600 max-w-2xl">{{ t('frontend.home.blog_subheading', 'Expert perspectives on business strategy and growth.') }}</p>
@@ -176,7 +176,7 @@
             </div>
 
             @foreach($posts as $post)
-            <a href="{{ route('blog.show', $post->slug) }}" class="bg-white rounded-lg shadow-md hover:shadow-xl transition overflow-hidden block">
+            <a href="{{ route('blog.show', $post->slug) }}" class="bg-white rounded-lg shadow-md hover:shadow-xl transition overflow-hidden block" data-animate="fade-up">
                 @if($post->featured_image)
                 <img src="{{ asset('storage/' . $post->featured_image) }}" alt="{{ $post->title }}" class="w-full h-48 object-cover">
                 @endif

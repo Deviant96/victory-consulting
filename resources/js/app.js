@@ -243,3 +243,71 @@ document.addEventListener('alpine:init', () => {
 window.Alpine = Alpine;
 
 Alpine.start();
+
+const setupPageShell = () => {
+    const body = document.body;
+    body.classList.add('page-shell');
+
+    window.requestAnimationFrame(() => {
+        body.classList.add('is-loaded');
+    });
+};
+
+const applyStaggerDelays = () => {
+    document.querySelectorAll('[data-animate-stagger]').forEach((container) => {
+        const step = Number(container.dataset.animateStagger) || 120;
+        const children = container.querySelectorAll('[data-animate]');
+
+        children.forEach((child, index) => {
+            if (!child.dataset.animateDelay && !child.style.getPropertyValue('--a-delay')) {
+                child.style.setProperty('--a-delay', `${index * step}ms`);
+            }
+        });
+    });
+};
+
+const setupScrollAnimations = () => {
+    const animated = Array.from(document.querySelectorAll('[data-animate]'));
+
+    if (!animated.length) {
+        return;
+    }
+
+    applyStaggerDelays();
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (prefersReducedMotion) {
+        animated.forEach((el) => el.classList.add('is-visible'));
+        return;
+    }
+
+    const observer = new IntersectionObserver(
+        (entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        },
+        {
+            threshold: 0.18,
+            rootMargin: '0px 0px -5% 0px',
+        },
+    );
+
+    animated.forEach((el) => {
+        const delay = el.dataset.animateDelay;
+        if (delay && !el.style.getPropertyValue('--a-delay')) {
+            el.style.setProperty('--a-delay', `${delay}ms`);
+        }
+
+        observer.observe(el);
+    });
+};
+
+document.addEventListener('DOMContentLoaded', () => {
+    setupPageShell();
+    setupScrollAnimations();
+});

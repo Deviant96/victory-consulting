@@ -6,7 +6,7 @@
 <!-- Page Header -->
 <section class="py-20">
     <div class="container mx-auto px-4">
-        <div class="max-w-4xl mx-auto text-center">
+        <div class="max-w-4xl mx-auto text-center" data-animate="fade-up">
             <h1 class="text-5xl font-bold mb-6">{{ settings('about.header_title', t('frontend.about.header_title', 'About Us')) }}</h1>
             <p class="text-xl text-black/70">
                 {{ settings('about.header_description', t('frontend.about.header_description', 'Learn more about our mission, vision, and values that drive us to deliver excellence.')) }}
@@ -18,9 +18,9 @@
 <!-- Founder's Wisdom Section - Two Columns -->
 <section class="pt-4 pb-8 bg-white">
     <div class="container mx-auto px-4 max-w-5xl">
-        <div class="grid md:grid-cols-2 gap-12">
+        <div class="grid md:grid-cols-2 gap-12" data-animate-stagger="120">
             <!-- Left Column - Map of Indonesia -->
-            <div class="relative overflow-hidden">
+            <div class="relative overflow-hidden" data-animate="fade-up">
                 <div class="relative z-10 p-12 h-full flex flex-col items-center justify-center text-center">
                     @if(settings('about.wisdom1_image'))
                         <img src="{{ asset('storage/' . settings('about.wisdom1_image')) }}" alt="Wisdom 1" class="w-32 h-32 mb-6 object-contain">
@@ -35,7 +35,7 @@
             </div>
 
             <!-- Right Column - Growth Arrows -->
-            <div class="relative overflow-hidden max-w-3xl mx-auto">
+            <div class="relative overflow-hidden max-w-3xl mx-auto" data-animate="fade-up" data-animate-delay="120">
                 <div class="relative z-10 p-12 h-full flex flex-col items-center justify-center text-center">
                     @if(settings('about.wisdom2_image'))
                         <img src="{{ asset('storage/' . settings('about.wisdom2_image')) }}" alt="Wisdom 2" class="h-32 mb-6 object-contain">
@@ -54,7 +54,7 @@
 
 <!-- About Description Section -->
 <section class="py-16 bg-gray-50">
-    <div class="container mx-auto px-4 max-w-5xl text-center">
+    <div class="container mx-auto px-4 max-w-5xl text-center" data-animate="fade-up">
         @if(settings('about.content'))
         <div class="p-12">
             <div class="prose prose-lg max-w-none text-gray-700 leading-relaxed">
@@ -74,16 +74,16 @@
 @if($whyChooseItems->isNotEmpty())
 <section class="py-16 bg-white">
     <div class="container mx-auto px-4 max-w-7xl">
-        <div class="text-center mb-16">
+        <div class="text-center mb-16" data-animate="fade-up">
             <h2 class="text-4xl font-bold text-gray-900 mb-4">{{ t('frontend.about.why_choose_heading', 'Why Choose Us') }}</h2>
             <p class="text-xl text-gray-600 max-w-3xl mx-auto">
                 {{ t('frontend.about.why_choose_description', 'We combine expertise, dedication, and innovation to deliver exceptional results for your business.') }}
             </p>
         </div>
 
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" data-animate-stagger="120">
             @foreach($whyChooseItems as $item)
-            <div class="bg-gray-50 rounded-xl p-8 hover:shadow-xl transition-shadow duration-300 border-2 border-transparent hover:border-[#0481AE] flex items-center justify-center flex-col text-center">
+            <div class="bg-gray-50 rounded-xl p-8 hover:shadow-xl transition-shadow duration-300 border-2 border-transparent hover:border-[#0481AE] flex items-center justify-center flex-col text-center" data-animate="fade-up">
                 @if($item->icon)
                 <div class="text-5xl mb-4">{{ $item->icon }}</div>
                 @else
@@ -106,10 +106,10 @@
 @if(settings('about.vision_content') || settings('about.mission_content'))
 <section class="py-20 bg-gray-50">
     <div class="container mx-auto px-4 max-w-7xl">
-        <div class="grid md:grid-cols-2 gap-16">
+        <div class="grid md:grid-cols-2 gap-16" data-animate-stagger="140">
             <!-- Vision -->
             @if(settings('about.vision_content'))
-            <div class="bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-shadow duration-300">
+            <div class="bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-shadow duration-300" data-animate="fade-up">
                 <div class="p-8">
                     <div class="flex items-center justify-between mb-6">
                         <h2 class="text-3xl font-bold text-gray-900">{{ settings('about.vision_title', t('frontend.about.vision_title', 'Our Vision')) }}</h2>
@@ -144,7 +144,7 @@
 
             <!-- Mission -->
             @if(settings('about.mission_content'))
-            <div class="bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-shadow duration-300">
+            <div class="bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-shadow duration-300" data-animate="fade-up" data-animate-delay="120">
                 <div class="p-8">
                     <div class="flex items-center justify-between mb-6">
                         <h2 class="text-3xl font-bold text-gray-900">{{ settings('about.mission_title', t('frontend.about.mission_title', 'Our Mission')) }}</h2>
@@ -183,16 +183,16 @@
 @if($teamMembers->isNotEmpty())
 <section class="py-20 bg-white">
     <div class="container mx-auto px-4 max-w-7xl">
-        <div class="text-center mb-16">
+        <div class="text-center mb-16" data-animate="fade-up">
             <h2 class="text-4xl font-bold text-gray-900 mb-4">{{ t('frontend.team.heading', 'Meet Our Team') }}</h2>
             <p class="text-xl text-gray-600 max-w-3xl mx-auto">
                 {{ t('frontend.team.subheading', 'Dedicated professionals committed to helping your business succeed') }}
             </p>
         </div>
 
-        <div class="flex flex-wrap justify-center gap-8">
+        <div class="flex flex-wrap justify-center gap-8" data-animate-stagger="100">
             @foreach($teamMembers as $member)
-            <div class="group w-64">
+            <div class="group w-64" data-animate="fade-up">
                 <div class="relative overflow-hidden rounded-2xl shadow-lg mb-4 aspect-square">
                     @if($member->photo)
                     <img src="{{ asset('storage/' . $member->photo) }}" 
@@ -218,7 +218,7 @@
             @endforeach
         </div>
 
-        <div class="text-center mt-12">
+        <div class="text-center mt-12" data-animate="fade-up" data-animate-delay="120">
             <a href="{{ route('team') }}" 
                class="inline-flex items-center px-8 py-3 bg-gradient-to-r from-[#0481AE] to-[#035f7f] text-white rounded-xl hover:shadow-lg transition transform hover:-translate-y-0.5 font-semibold">
                 {{ t('frontend.team.view_full', 'View Full Team') }}
@@ -232,7 +232,7 @@
 @endif
 
 <!-- CTA Section -->
-<section class="bg-[#FFE7D5] py-8 max-w-5xl mx-auto rounded-xl shadow-xl mb-16">
+<section class="bg-[#FFE7D5] py-8 max-w-5xl mx-auto rounded-xl shadow-xl mb-16" data-animate="fade-up">
     <div class="container mx-auto px-4 max-w-4xl text-center">
         <h2 class="text-4xl md:text-5xl font-bold mb-6">{{ t('frontend.about.cta_heading', 'Ready to Transform Your Business?') }}</h2>
         <p class="text-xl mb-10 opacity-90">
