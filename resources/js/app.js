@@ -245,11 +245,14 @@ window.Alpine = Alpine;
 Alpine.start();
 
 const setupPageShell = () => {
-    const body = document.body;
-    body.classList.add('page-shell');
+    const shell = document.querySelector('main');
+
+    if (!shell) return;
+
+    shell.classList.add('page-shell');
 
     window.requestAnimationFrame(() => {
-        body.classList.add('is-loaded');
+        shell.classList.add('is-loaded');
     });
 };
 
