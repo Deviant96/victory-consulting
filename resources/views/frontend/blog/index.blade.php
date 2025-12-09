@@ -6,7 +6,7 @@
 <!-- Page Header -->
 <section class="py-20">
     <div class="container mx-auto px-4">
-        <div class="max-w-7xl mx-auto text-center">
+        <div class="max-w-7xl mx-auto text-center" data-animate="fade-up">
             <h1 class="text-5xl font-bold mb-4">{{ t('frontend.blog.heading', 'Our Blog') }}</h1>
             <p class="text-xl text-black/70">
                 {{ t('frontend.blog.subheading', 'Insights, strategies, and expert perspectives on business growth and success') }}
@@ -22,7 +22,7 @@
             <div class="flex flex-col lg:flex-row gap-8">
                 <!-- Filter Sidebar -->
                 <aside class="lg:w-1/4">
-                    <div class="bg-white rounded-lg shadow-md p-6 sticky top-4">
+                    <div class="bg-white rounded-lg shadow-md p-6 sticky top-4" data-animate="fade-right">
                         <h2 class="text-2xl font-bold mb-6">{{ t('frontend.blog.filters_title', 'Filters') }}</h2>
                         
                         <form action="{{ route('blog.index') }}" method="GET" id="filterForm">
@@ -125,7 +125,7 @@
                     </div>
                     @else
                     <!-- Results Count -->
-                    <div class="mb-6">
+                    <div class="mb-6" data-animate="fade-up">
                         <p class="text-gray-600">
                             {{ t('frontend.blog.results_prefix', 'Showing') }} <span class="font-semibold">{{ $posts->firstItem() }}</span> {{ t('frontend.blog.results_to', 'to') }}
                             <span class="font-semibold">{{ $posts->lastItem() }}</span> {{ t('frontend.blog.results_of', 'of') }}
@@ -134,9 +134,9 @@
                     </div>
 
                     <!-- Posts Grid -->
-                    <div class="grid md:grid-cols-2 gap-6">
+                    <div class="grid md:grid-cols-2 gap-6" data-animate-stagger="120">
                         @foreach($posts as $post)
-                        <article class="bg-white rounded-lg shadow-md hover:shadow-xl transition overflow-hidden">
+                        <article class="bg-white rounded-lg shadow-md hover:shadow-xl transition overflow-hidden" data-animate="fade-up">
                             @if($post->featured_image)
                             <img src="{{ asset('storage/' . $post->featured_image) }}" alt="{{ $post->title }}" class="w-full h-48 object-cover">
                             @else
@@ -196,7 +196,7 @@
 </section>
 
 <!-- Newsletter CTA -->
-<section class="bg-[#FFE7D5] text-white py-8 max-w-5xl mx-auto rounded-xl shadow-xl mb-16">
+<section class="bg-[#FFE7D5] text-white py-8 max-w-5xl mx-auto rounded-xl shadow-xl mb-16" data-animate="fade-up">
     <div class="container mx-auto px-2 text-center">
         <h2 class="text-3xl font-bold mb-4 text-[#0481AE]">{{ t('frontend.blog.newsletter_heading', 'Stay Updated') }}</h2>
         <p class="text-xl mb-8 max-w-2xl mx-auto text-[#0481AE]">

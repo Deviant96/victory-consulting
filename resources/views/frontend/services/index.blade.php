@@ -6,7 +6,7 @@
 <!-- Page Header -->
 <section class="py-20">
     <div class="container mx-auto px-4">
-        <div class="max-w-3xl mx-auto text-center">
+        <div class="max-w-3xl mx-auto text-center" data-animate="fade-up">
             <h1 class="text-5xl font-bold mb-4">{{ t('frontend.services.heading', 'Our Services') }}</h1>
             <p class="text-xl text-black/70">
                 {{ t('frontend.services.subheading', 'Comprehensive business solutions designed to drive growth and operational excellence') }}
@@ -23,9 +23,9 @@
             <p class="text-xl text-gray-600">{{ t('frontend.services.empty', 'No services available at the moment.') }}</p>
         </div>
         @else
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-16">
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-16" data-animate-stagger="120">
             @foreach($services as $service)
-            <div class="bg-white rounded-xl shadow-md hover:shadow-xl transition overflow-hidden border-[#0481AE] border-2">
+            <div class="bg-white rounded-xl shadow-md hover:shadow-xl transition overflow-hidden border-[#0481AE] border-2" data-animate="fade-up">
                 @if($service->featured_image)
                 <img src="{{ asset('storage/' . $service->featured_image) }}" alt="{{ $service->title }}" class="w-full h-56 object-cover">
                 @else
@@ -72,7 +72,7 @@
 </section>
 
 <!-- CTA Section -->
-<section class="bg-[#FFE7D5] text-white py-8 max-w-5xl mx-auto rounded-xl shadow-xl mb-16">
+<section class="bg-[#FFE7D5] text-white py-8 max-w-5xl mx-auto rounded-xl shadow-xl mb-16" data-animate="fade-up">
     <div class="container mx-auto px-2 text-center">
         <h2 class="text-3xl text-[#0481AE] mb-8">
             {{ t('frontend.services.cta_heading', 'We can tailor our services to meet your specific business needs') }}</h2>

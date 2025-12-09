@@ -6,7 +6,7 @@
 <!-- Page Header -->
 <section class="py-20">
     <div class="container mx-auto px-4">
-        <div class="max-w-3xl mx-auto text-center">
+        <div class="max-w-3xl mx-auto text-center" data-animate="fade-up">
             <h1 class="text-5xl font-bold mb-4">{{ t('frontend.contact.heading', 'Contact Us') }}</h1>
             <p class="text-xl text-black/70">
                 {{ t('frontend.contact.subheading', 'Get in touch with our team to discuss how we can help your business thrive') }}
@@ -23,10 +23,10 @@
 
                 <!-- Contact Information -->
                 <div>
-                    <div class="space-y-4 max-w-sm">
+                    <div class="space-y-4 max-w-sm" data-animate-stagger="120">
                         <!-- Phone -->
                         @if(settings('site.phone'))
-                        <div class="bg-white rounded-lg shadow-md p-4">
+                        <div class="bg-white rounded-lg shadow-md p-4" data-animate="fade-up">
                             <div class="flex items-center mb-2">
                                 <div class="bg-[#D6E9F8] rounded-lg p-2 mr-3">
                                     <svg class="w-5 h-5 text-[#0481AE]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -44,7 +44,7 @@
 
                         <!-- Email -->
                         @if(settings('site.email'))
-                        <div class="bg-white rounded-lg shadow-md p-4">
+                        <div class="bg-white rounded-lg shadow-md p-4" data-animate="fade-up">
                             <div class="flex items-center mb-2">
                                 <div class="bg-[#D6E9F8] rounded-lg p-2 mr-3">
                                     <svg class="w-5 h-5 text-[#0481AE]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -62,7 +62,7 @@
 
                         <!-- Address -->
                         @if(settings('site.address'))
-                        <div class="bg-white rounded-lg shadow-md p-4">
+                        <div class="bg-white rounded-lg shadow-md p-4" data-animate="fade-up">
                             <div class="flex items-center mb-2">
                                 <div class="bg-[#D6E9F8] rounded-lg p-2 mr-3">
                                     <svg class="w-5 h-5 text-[#0481AE]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -77,7 +77,7 @@
                         @endif
 
                         <!-- Business Hours -->
-                        <div class="bg-white rounded-lg shadow-md p-4">
+                        <div class="bg-white rounded-lg shadow-md p-4" data-animate="fade-up">
                             <div class="flex items-center mb-2">
                                 <div class="bg-[#D6E9F8] rounded-lg p-2 mr-3">
                                     <svg class="w-5 h-5 text-[#0481AE]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -104,7 +104,7 @@
 
                         <!-- Social Links -->
                         @if(settings('social.linkedin') || settings('social.twitter') || settings('social.facebook'))
-                        <div class="bg-white rounded-lg shadow-md p-4">
+                        <div class="bg-white rounded-lg shadow-md p-4" data-animate="fade-up">
                             <h3 class="text-lg font-bold text-gray-900 mb-3">{{ t('frontend.contact.follow_label', 'Follow Us') }}</h3>
                             <div class="flex gap-3">
                                 @if(settings('social.linkedin'))

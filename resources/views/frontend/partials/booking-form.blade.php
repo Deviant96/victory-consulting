@@ -1,4 +1,4 @@
-<div class="bg-white rounded-lg shadow-md p-8">
+<div class="bg-white rounded-lg shadow-md p-8" data-animate="fade-left" data-animate-delay="120">
     <div class="flex items-center justify-between mb-6">
         <div>
             <p class="text-sm text-[#03658C] font-semibold">{{ t('frontend.booking.badge', 'Book a consultation') }}</p>
