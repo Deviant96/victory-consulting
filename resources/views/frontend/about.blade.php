@@ -16,23 +16,16 @@
 </section>
 
 <!-- Founder's Wisdom Section - Two Columns -->
-<section class="pt-4 pb-16 bg-white">
-    <div class="container mx-auto px-4 max-w-7xl">
+<section class="pt-4 pb-8 bg-white">
+    <div class="container mx-auto px-4 max-w-5xl">
         <div class="grid md:grid-cols-2 gap-12">
             <!-- Left Column - Map of Indonesia -->
-            <div class="relative rounded-2xl overflow-hidden shadow-xl group hover:shadow-2xl transition-shadow duration-300">
-                <div class="absolute inset-0 bg-gradient-to-br from-[#0481AE] to-[#035f7f] opacity-90"></div>
-                <div class="relative z-10 p-12 h-full flex flex-col items-center justify-center text-white text-center">
-                    <!-- Indonesia Map Icon -->
-                    <svg class="w-32 h-32 mb-6 opacity-80" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M20 80 L50 70 L80 75 L110 65 L140 70 L170 65 L180 75 L175 95 L160 105 L130 110 L100 105 L70 110 L40 100 L25 90 Z" 
-                              fill="currentColor" stroke="currentColor" stroke-width="2" opacity="0.6"/>
-                        <path d="M60 115 L85 110 L110 115 L135 110 L150 115 L145 130 L120 135 L95 130 L70 135 Z" 
-                              fill="currentColor" stroke="currentColor" stroke-width="2" opacity="0.6"/>
-                        <circle cx="50" cy="80" r="3" fill="white"/>
-                        <circle cx="120" cy="70" r="3" fill="white"/>
-                        <circle cx="90" cy="120" r="3" fill="white"/>
-                    </svg>
+            <div class="relative overflow-hidden">
+                <div class="relative z-10 p-12 h-full flex flex-col items-center justify-center text-center">
+                    @if(settings('about.wisdom1_image'))
+                        <img src="{{ asset('storage/' . settings('about.wisdom1_image')) }}" alt="Wisdom 1" class="w-32 h-32 mb-6 object-contain">
+                    @else
+                    @endif
                     <h3 class="text-2xl font-bold mb-4">{{ t('frontend.about.wisdom_service_title', 'Melayani Sepenuh Hati') }}</h3>
                     <p class="text-lg leading-relaxed">
                         {{ t('frontend.about.wisdom_service_description', 'Klien dari Seluruh Indonesia') }}
@@ -42,24 +35,12 @@
             </div>
 
             <!-- Right Column - Growth Arrows -->
-            <div class="relative rounded-2xl overflow-hidden shadow-xl group hover:shadow-2xl transition-shadow duration-300">
-                <div class="absolute inset-0 bg-gradient-to-br from-[#035f7f] to-[#0481AE] opacity-90"></div>
-                <div class="relative z-10 p-12 h-full flex flex-col items-center justify-center text-white text-center">
-                    <!-- Three Arrows Pointing Up -->
-                    <div class="flex items-end justify-center space-x-4 mb-6">
-                        <svg class="w-16 h-24 opacity-80" viewBox="0 0 40 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M20 5 L15 15 L18 15 L18 75 L22 75 L22 15 L25 15 Z" fill="currentColor"/>
-                            <path d="M20 5 L12 18 L28 18 Z" fill="currentColor"/>
-                        </svg>
-                        <svg class="w-16 h-28 opacity-90" viewBox="0 0 40 90" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M20 5 L15 15 L18 15 L18 85 L22 85 L22 15 L25 15 Z" fill="currentColor"/>
-                            <path d="M20 5 L12 18 L28 18 Z" fill="currentColor"/>
-                        </svg>
-                        <svg class="w-16 h-32 opacity-100" viewBox="0 0 40 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M20 5 L15 15 L18 15 L18 95 L22 95 L22 15 L25 15 Z" fill="currentColor"/>
-                            <path d="M20 5 L12 18 L28 18 Z" fill="currentColor"/>
-                        </svg>
-                    </div>
+            <div class="relative overflow-hidden max-w-3xl mx-auto">
+                <div class="relative z-10 p-12 h-full flex flex-col items-center justify-center text-center">
+                    @if(settings('about.wisdom2_image'))
+                        <img src="{{ asset('storage/' . settings('about.wisdom2_image')) }}" alt="Wisdom 2" class="h-32 mb-6 object-contain">
+                    @else
+                    @endif
                     <h3 class="text-2xl font-bold mb-4">{{ t('frontend.about.wisdom_growth_title', 'Membantu Bisnis Tumbuh') }}</h3>
                     <p class="text-lg leading-relaxed">
                         {{ t('frontend.about.wisdom_growth_description', 'dan UMKM Berkembang') }}
