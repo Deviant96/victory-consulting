@@ -2,21 +2,23 @@
 
 @section('content')
 <!-- Hero Section -->
-<section class="relative min-h-[600px] flex items-center justify-center bg-gradient-to-br from-[#0481AE] to-[#035f7f] text-white overflow-hidden">
+<section class="relative min-h-[600px] flex items-center justify-center bg-gradient-to-br from-[#0481AE] to-[#035f7f] text-white overflow-hidden page-section">
+    <div class="hero-ornament hero-ornament--top"></div>
+    <div class="hero-ornament hero-ornament--bottom"></div>
     @if(settings('hero.background_image'))
     <div class="absolute inset-0 z-0">
         <img src="{{ asset('storage/' . settings('hero.background_image')) }}" alt="Hero Background" class="w-full h-full object-cover opacity-30">
     </div>
     @endif
     <div class="container mx-auto px-4 max-w-6xl relative z-10 py-24">
-        <div class="max-w-4xl mx-auto text-{{ settings('hero.text_alignment', 'center') }}">
-            <h1 class="text-6xl md:text-7xl font-bold mb-6 leading-tight">{{ settings('site.name', 'Victory Business Consulting') }}</h1>
-            <p class="text-2xl mb-10 text-[#cce7f0]">{{ settings('site.tagline', 'Empowering businesses to achieve sustainable growth and operational excellence') }}</p>
-            <div class="flex gap-4 {{ settings('hero.text_alignment') === 'center' ? 'justify-center' : (settings('hero.text_alignment') === 'right' ? 'justify-end' : 'justify-start') }}">
-                <a href="{{ route('services.index') }}" class="inline-block bg-white text-[#0481AE] px-16 py-2 rounded-xl font-semibold hover:bg-[#cce7f0] transition shadow-md">
+        <div class="max-w-4xl mx-auto text-{{ settings('hero.text_alignment', 'center') }} hero-panel p-10">
+            <h1 class="text-6xl md:text-7xl font-bold mb-6 leading-tight animate-slide-up">{{ settings('site.name', 'Victory Business Consulting') }}</h1>
+            <p class="text-2xl mb-10 text-[#e5f4fb] animate-slide-up-delay">{{ settings('site.tagline', 'Empowering businesses to achieve sustainable growth and operational excellence') }}</p>
+            <div class="flex gap-4 flex-wrap {{ settings('hero.text_alignment') === 'center' ? 'justify-center' : (settings('hero.text_alignment') === 'right' ? 'justify-end' : 'justify-start') }} animate-slide-up-delay-lg">
+                <a href="{{ route('services.index') }}" class="cta-button-primary">
                     {{ t('frontend.home.hero_primary_cta', 'Our Services') }}
                 </a>
-                <a href="{{ route('contact') }}" class="inline-block border-2 border-white text-white px-16 py-2 rounded-xl font-semibold hover:bg-white hover:text-[#035f7f] transition shadow-md">
+                <a href="{{ route('contact') }}" class="cta-button-outline">
                     {{ t('frontend.home.hero_secondary_cta', 'Get Started') }}
                 </a>
             </div>
@@ -27,16 +29,17 @@
 <!-- Services Section -->
 <section class="py-20 bg-gray-50">
     <div class="container mx-auto px-4 max-w-4xl">
-        <div class="text-center mb-12">
-            <h2 class="text-4xl font-bold text-gray-900 mb-4">{{ t('frontend.home.services_heading', 'Our Services') }}</h2>
+        <div class="text-center mb-12 animate-fade-in">
+            <h2 class="text-4xl font-bold text-gray-900 mb-4 soft-highlight">{{ t('frontend.home.services_heading', 'Our Services') }}</h2>
             <p class="text-xl text-gray-600 max-w-2xl mx-auto">
                 {{ t('frontend.home.services_subheading', 'Comprehensive business solutions tailored to your unique challenges') }}
             </p>
+            <div class="divider-accent"></div>
         </div>
 
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-12">
             @foreach($services as $service)
-            <a href="{{ route('services.show', $service->slug) }}" class="bg-white rounded-lg shadow-md hover:shadow-xl transition p-6 block border-[#0481AE] border-2">
+            <a href="{{ route('services.show', $service->slug) }}" class="card-surface border-[#0481AE] border-2 p-6 block animate-slide-up">
                 @if($service->image)
                 <img src="{{ asset('storage/' . $service->image) }}" alt="{{ $service->title }}" class="w-full h-48 object-cover rounded-lg mb-4">
                 @endif
@@ -61,16 +64,17 @@
 @if($whyChooseItems->isNotEmpty())
 <section class="relative pt-20 pb-2 mb-32 text-white overflow-x-clip" style="background: linear-gradient(to bottom, rgba(185, 206, 213, 0.72) 0%, rgba(185, 206, 213, 0.72) 15%, rgba(4, 129, 174, 1) 75%);">
     <div class="container mx-auto px-4 max-w-6xl relative z-10">
-        <div class="text-center mb-16">
-            <h2 class="text-5xl font-bold text-[#035f7f] mb-4">{{ t('frontend.home.why_choose_heading', 'Why Choose ' . settings('site.name', 'Victory Business Consulting')) }}</h2>
+        <div class="text-center mb-16 animate-fade-in">
+            <h2 class="text-5xl font-bold text-[#035f7f] mb-4 soft-highlight">{{ t('frontend.home.why_choose_heading', 'Why Choose ' . settings('site.name', 'Victory Business Consulting')) }}</h2>
             <p class="text-xl text-[#035f7f] max-w-3xl mx-auto">
                 {{ t('frontend.home.why_choose_subheading', 'Discover what sets us apart and makes us the ideal partner for your business growth') }}
             </p>
+            <div class="divider-accent"></div>
         </div>
 
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
             @foreach($whyChooseItems as $item)
-            <div class="bg-white/95 backdrop-blur rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all transform hover:-translate-y-2">
+            <div class="bg-white/95 backdrop-blur rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all transform hover:-translate-y-2 animate-slide-up">
                 <div class="flex items-start gap-4 mb-4">
                     @if($item->icon)
                     <div class="flex-shrink-0 w-14 h-14 bg-gradient-to-br from-[#0481AE] to-[#035f7f] rounded-xl flex items-center justify-center text-white text-2xl">
@@ -97,16 +101,17 @@
 @if($businessSolutions->isNotEmpty())
 <section class="py-20 bg-white">
     <div class="container mx-auto px-4 max-w-6xl">
-        <div class="text-center mb-16">
-            <h2 class="text-5xl font-bold text-gray-900 mb-4">{{ t('frontend.home.solutions_heading', 'Whatever Your Business, We Can Handle It') }}</h2>
+        <div class="text-center mb-16 animate-fade-in">
+            <h2 class="text-5xl font-bold text-gray-900 mb-4 soft-highlight">{{ t('frontend.home.solutions_heading', 'Whatever Your Business, We Can Handle It') }}</h2>
             <p class="text-xl text-gray-600 max-w-3xl mx-auto">
                 {{ t('frontend.home.solutions_subheading', 'From startups to enterprises, we provide tailored solutions for every industry and challenge') }}
             </p>
+            <div class="divider-accent"></div>
         </div>
 
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             @foreach($businessSolutions as $solution)
-            <div class="bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl p-8 shadow hover:shadow-xl transition-all transform hover:-translate-y-1 border-[#0481AE] border-2">
+            <div class="card-surface card-surface-muted p-8 hover:-translate-y-1 border-[#0481AE] border-2 animate-slide-up">
                 <h3 class="text-xl font-bold text-[#0481AE] mb-3 text-center">{{ $solution->title }}</h3>
                 @if($solution->description)
                 <p class="text-gray-600 text-center text-sm">{{ $solution->description }}</p>
@@ -163,9 +168,9 @@
 <section class="py-20 bg-[#FFE7D5] text-white">
     <div class="container mx-auto px-4 max-w-6xl">
         <div class="grid md:grid-cols-4 gap-8">
-            <div class="mb-8 flex flex-col items-left md:items-start md:col-span-1 justify-between">
+            <div class="mb-8 flex flex-col items-left md:items-start md:col-span-1 justify-between animate-fade-in">
                 <div>
-                    <h2 class="text-3xl font-bold text-gray-900 mb-8">{{ t('frontend.home.blog_heading', 'Latest Insights') }}</h2>
+                    <h2 class="text-3xl font-bold text-gray-900 mb-8 soft-highlight">{{ t('frontend.home.blog_heading', 'Latest Insights') }}</h2>
                     <p class="text-gray-600 max-w-2xl">{{ t('frontend.home.blog_subheading', 'Expert perspectives on business strategy and growth.') }}</p>
                 </div>
                 <div class="text-center mt-12">
@@ -176,7 +181,7 @@
             </div>
 
             @foreach($posts as $post)
-            <a href="{{ route('blog.show', $post->slug) }}" class="bg-white rounded-lg shadow-md hover:shadow-xl transition overflow-hidden block">
+            <a href="{{ route('blog.show', $post->slug) }}" class="card-surface overflow-hidden block animate-slide-up">
                 @if($post->featured_image)
                 <img src="{{ asset('storage/' . $post->featured_image) }}" alt="{{ $post->title }}" class="w-full h-48 object-cover">
                 @endif
