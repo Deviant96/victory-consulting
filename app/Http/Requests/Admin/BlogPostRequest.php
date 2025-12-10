@@ -11,6 +11,15 @@ class BlogPostRequest extends FormRequest
         return true;
     }
 
+    protected function prepareForValidation()
+    {
+        if ($this->has('tags') && is_string($this->tags)) {
+            $this->merge([
+                'tags' => array_values(array_filter(array_map('trim', explode(',', $this->tags)))),
+            ]);
+        }
+    }
+
     public function rules(): array
     {
         return [

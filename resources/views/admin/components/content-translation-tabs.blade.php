@@ -39,8 +39,8 @@
                         <div>
                             <label class="block text-sm font-semibold text-gray-700">{{ $label }} ({{ strtoupper($language->code) }})</label>
                             <textarea name="translations[{{ $language->code }}][{{ $field }}]"
-                                      rows="3"
-                                      class="mt-2 w-full rounded-lg border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"
+                                      rows="{{ $field === 'content' ? 15 : 3 }}"
+                                      class="mt-2 w-full rounded-lg border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 {{ $field === 'content' ? 'rich-text' : '' }}"
                                       placeholder="Enter {{ strtolower($label) }} translation">{{ $value }}</textarea>
                         </div>
                     @endforeach

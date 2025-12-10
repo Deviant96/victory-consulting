@@ -47,8 +47,10 @@ class BlogPostController extends Controller
     public function create()
     {
         $languages = Language::where('is_active', true)->orderBy('label')->get();
+        $categories = BlogPost::distinct()->whereNotNull('category')->pluck('category');
+        $allTags = BlogPost::pluck('tags')->flatten()->filter()->unique()->values();
 
-        return view('admin.articles.create', compact('languages'));
+        return view('admin.articles.create', compact('languages', 'categories', 'allTags'));
     }
 
     /**
@@ -59,6 +61,10 @@ class BlogPostController extends Controller
         $validated = $request->validated();
 
         if (isset($validated['tags'])) {
+            // Handle comma-separated string if it comes as a string, or array if it comes as array
+            if (is_string($validated['tags'])) {
+                $validated['tags'] = array_map('trim', explode(',', $validated['tags']));
+            }
             $validated['tags'] = array_values(array_filter($validated['tags'], fn ($tag) => filled($tag)));
         }
 
@@ -71,7 +77,7 @@ class BlogPostController extends Controller
 
         $post = BlogPost::create($validated);
 
-        $this->syncTranslations($post, $request, ['title', 'excerpt', 'content', 'author']);
+        $this->syncTranslations($post, $request, ['title', 'excerpt', 'content']);
 
         $this->logAdminActivity('created article', $post, "Created article: {$post->title}");
 
@@ -94,7 +100,10 @@ class BlogPostController extends Controller
         $languages = Language::where('is_active', true)->orderBy('label')->get();
         $article->load('translations');
 
-        return view('admin.articles.edit', compact('article', 'languages'));
+        $categories = BlogPost::distinct()->whereNotNull('category')->pluck('category');
+        $allTags = BlogPost::pluck('tags')->flatten()->filter()->unique()->values();
+
+        return view('admin.articles.edit', compact('article', 'languages', 'categories', 'allTags'));
     }
 
     /**
@@ -105,6 +114,9 @@ class BlogPostController extends Controller
         $validated = $request->validated();
 
         if (isset($validated['tags'])) {
+            if (is_string($validated['tags'])) {
+                $validated['tags'] = array_map('trim', explode(',', $validated['tags']));
+            }
             $validated['tags'] = array_values(array_filter($validated['tags'], fn ($tag) => filled($tag)));
         }
 
@@ -117,7 +129,7 @@ class BlogPostController extends Controller
 
         $article->update($validated);
 
-        $this->syncTranslations($article, $request, ['title', 'excerpt', 'content', 'author']);
+        $this->syncTranslations($article, $request, ['title', 'excerpt', 'content']);
 
         $this->logAdminActivity('updated article', $article, "Updated article: {$article->title}");
 

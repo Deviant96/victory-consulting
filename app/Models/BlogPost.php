@@ -27,7 +27,6 @@ class BlogPost extends Model
         'title',
         'excerpt',
         'content',
-        'author',
     ];
 
     protected $casts = [
