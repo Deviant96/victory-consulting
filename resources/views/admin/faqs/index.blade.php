@@ -86,8 +86,8 @@
                     {{ $faq->order ?? '-' }}
                 </td>
                 <td class="px-6 py-4">
-                    <div class="text-sm font-medium text-gray-900">{{ Str::limit($faq->question, 80) }}</div>
-                    <div class="text-sm text-gray-500">{{ Str::limit($faq->answer, 100) }}</div>
+                    <div class="text-sm font-medium text-gray-900">{{ Str::limit($faq->translate('question', config('app.fallback_locale')), 80) }}</div>
+                    <div class="text-sm text-gray-500">{{ Str::limit($faq->translate('answer', config('app.fallback_locale')), 100) }}</div>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">
                     @if($faq->category)

@@ -81,8 +81,8 @@
                     {{ $item->order }}
                 </td>
                 <td class="px-6 py-4">
-                    <div class="text-sm font-medium text-gray-900">{{ $item->title }}</div>
-                    <div class="text-sm text-gray-500">{{ Str::limit($item->description, 80) }}</div>
+                    <div class="text-sm font-medium text-gray-900">{{ $item->translate('title', config('app.fallback_locale')) }}</div>
+                    <div class="text-sm text-gray-500">{{ Str::limit($item->translate('description', config('app.fallback_locale')), 80) }}</div>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                     {{ $item->icon ?? '-' }}

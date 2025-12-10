@@ -96,7 +96,7 @@
                                     @endif
                                     <div>
                                         <div class="text-sm font-medium text-slate-900">
-                                            {{ $service->title }}
+                                            {{ $service->translate('title', config('app.fallback_locale')) }}
                                         </div>
                                         <div class="text-sm text-slate-500">
                                             {{ $service->slug }}
@@ -106,7 +106,7 @@
                             </td>
                             <td class="px-6 py-4">
                                 <div class="text-sm text-slate-900">
-                                    {{ Str::limit($service->summary, 60) }}
+                                    {{ Str::limit($service->translate('summary', config('app.fallback_locale')), 60) }}
                                 </div>
                             </td>
                             <td class="px-6 py-4">

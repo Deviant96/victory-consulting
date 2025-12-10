@@ -82,11 +82,11 @@
                     {{ $subSolution->order }}
                 </td>
                 <td class="px-6 py-4">
-                    <div class="text-sm font-medium text-gray-900">{{ $subSolution->title }}</div>
+                    <div class="text-sm font-medium text-gray-900">{{ $subSolution->translate('title', config('app.fallback_locale')) }}</div>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">
                     <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-                        {{ $subSolution->businessSolution->title }}
+                        {{ $subSolution->businessSolution->translate('title', config('app.fallback_locale')) }}
                     </span>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">

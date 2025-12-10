@@ -95,15 +95,15 @@
         </thead>
         <tbody class="bg-white divide-y divide-gray-200">
             @foreach($posts as $post)
-            <tr class="hover:bg-gray-50">
+                        <tr class="hover:bg-gray-50">
                 <td class="px-6 py-4">
                     <div class="flex items-center">
                         @if($post->featured_image)
-                        <img src="{{ asset('storage/' . $post->featured_image) }}" alt="{{ $post->title }}" class="h-10 w-16 object-cover rounded mr-3">
+                        <img class="h-10 w-10 rounded-lg object-cover mr-3" src="{{ asset('storage/' . $post->featured_image) }}" alt="">
                         @endif
                         <div>
-                            <div class="text-sm font-medium text-gray-900">{{ Str::limit($post->title, 60) }}</div>
-                            <div class="text-sm text-gray-500">{{ Str::limit($post->excerpt, 80) }}</div>
+                            <div class="text-sm font-medium text-gray-900">{{ Str::limit($post->translate('title', config('app.fallback_locale')), 60) }}</div>
+                            <div class="text-sm text-gray-500">{{ Str::limit($post->translate('excerpt', config('app.fallback_locale')), 80) }}</div>
                         </div>
                     </div>
                 </td>

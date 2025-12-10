@@ -80,9 +80,9 @@
                     {{ $solution->order }}
                 </td>
                 <td class="px-6 py-4">
-                    <div class="text-sm font-medium text-gray-900">{{ $solution->title }}</div>
-                    @if($solution->description)
-                    <div class="text-sm text-gray-500">{{ Str::limit($solution->description, 100) }}</div>
+                    <div class="text-sm font-medium text-gray-900">{{ $solution->translate('title', config('app.fallback_locale')) }}</div>
+                    @if($solution->translate('description', config('app.fallback_locale')))
+                    <div class="text-sm text-gray-500">{{ Str::limit($solution->translate('description', config('app.fallback_locale')), 100) }}</div>
                     @endif
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">
