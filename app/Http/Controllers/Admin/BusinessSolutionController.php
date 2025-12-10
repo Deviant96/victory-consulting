@@ -31,10 +31,13 @@ class BusinessSolutionController extends Controller
             })
             ->when($status === 'active', fn ($query) => $query->where('is_active', true))
             ->when($status === 'inactive', fn ($query) => $query->where('is_active', false))
+            ->with('translations')
             ->ordered()
             ->get();
 
-        return view('admin.business-solutions.index', compact('solutions', 'search', 'status'));
+        $languages = Language::where('is_active', true)->orderBy('label')->get();
+
+        return view('admin.business-solutions.index', compact('solutions', 'search', 'status', 'languages'));
     }
 
     /**

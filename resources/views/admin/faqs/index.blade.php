@@ -85,9 +85,10 @@
                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                     {{ $faq->order ?? '-' }}
                 </td>
-                <td class="px-6 py-4">
+                                <td class="px-6 py-4">
                     <div class="text-sm font-medium text-gray-900">{{ Str::limit($faq->translate('question', config('app.fallback_locale')), 80) }}</div>
                     <div class="text-sm text-gray-500">{{ Str::limit($faq->translate('answer', config('app.fallback_locale')), 100) }}</div>
+                    @include('admin.components.language-indicators', ['languages' => $languages, 'model' => $faq])
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">
                     @if($faq->category)

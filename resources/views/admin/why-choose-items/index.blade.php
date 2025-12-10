@@ -83,6 +83,7 @@
                 <td class="px-6 py-4">
                     <div class="text-sm font-medium text-gray-900">{{ $item->translate('title', config('app.fallback_locale')) }}</div>
                     <div class="text-sm text-gray-500">{{ Str::limit($item->translate('description', config('app.fallback_locale')), 80) }}</div>
+                    @include('admin.components.language-indicators', ['languages' => $languages, 'model' => $item])
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                     {{ $item->icon ?? '-' }}

@@ -34,10 +34,13 @@ class FaqController extends Controller
             ->when($category, fn ($query) => $query->where('category', 'like', "%{$category}%"))
             ->when($status === 'published', fn ($query) => $query->where('published', true))
             ->when($status === 'draft', fn ($query) => $query->where('published', false))
+            ->with('translations')
             ->ordered()
             ->get();
 
-        return view('admin.faqs.index', compact('faqs', 'search', 'category', 'status'));
+        $languages = Language::where('is_active', true)->orderBy('label')->get();
+
+        return view('admin.faqs.index', compact('faqs', 'search', 'category', 'status', 'languages'));
     }
 
     /**

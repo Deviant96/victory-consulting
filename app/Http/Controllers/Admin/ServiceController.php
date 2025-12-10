@@ -31,11 +31,14 @@ class ServiceController extends Controller
             })
             ->when($status === 'published', fn ($query) => $query->where('published', true))
             ->when($status === 'draft', fn ($query) => $query->where('published', false))
+            ->with('translations')
             ->latest()
             ->paginate(15)
             ->withQueryString();
 
-        return view('admin.services.index', compact('services', 'search', 'status'));
+        $languages = Language::where('is_active', true)->orderBy('label')->get();
+
+        return view('admin.services.index', compact('services', 'search', 'status', 'languages'));
     }
 
     public function create()

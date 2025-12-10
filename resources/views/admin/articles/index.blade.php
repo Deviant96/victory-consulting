@@ -104,6 +104,7 @@
                         <div>
                             <div class="text-sm font-medium text-gray-900">{{ Str::limit($post->translate('title', config('app.fallback_locale')), 60) }}</div>
                             <div class="text-sm text-gray-500">{{ Str::limit($post->translate('excerpt', config('app.fallback_locale')), 80) }}</div>
+                            @include('admin.components.language-indicators', ['languages' => $languages, 'model' => $post])
                         </div>
                     </div>
                 </td>

@@ -83,6 +83,7 @@
                 </td>
                 <td class="px-6 py-4">
                     <div class="text-sm font-medium text-gray-900">{{ $subSolution->translate('title', config('app.fallback_locale')) }}</div>
+                    @include('admin.components.language-indicators', ['languages' => $languages, 'model' => $subSolution])
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">
                     <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">

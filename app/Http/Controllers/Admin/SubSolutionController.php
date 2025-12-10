@@ -29,12 +29,14 @@ class SubSolutionController extends Controller
                 $query->where('title', 'like', "%{$search}%");
             })
             ->when($solutionId, fn ($query) => $query->where('business_solution_id', $solutionId))
+            ->with('translations')
             ->ordered()
             ->get();
 
         $businessSolutions = BusinessSolution::ordered()->get();
+        $languages = Language::where('is_active', true)->orderBy('label')->get();
 
-        return view('admin.sub-solutions.index', compact('subSolutions', 'businessSolutions', 'search', 'solutionId'));
+        return view('admin.sub-solutions.index', compact('subSolutions', 'businessSolutions', 'search', 'solutionId', 'languages'));
     }
 
     /**

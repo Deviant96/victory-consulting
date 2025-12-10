@@ -35,10 +35,13 @@ class BlogPostController extends Controller
             ->when($category, fn ($query) => $query->where('category', 'like', "%{$category}%"))
             ->when($status === 'published', fn ($query) => $query->where('published', true))
             ->when($status === 'draft', fn ($query) => $query->where('published', false))
+            ->with('translations')
             ->latest()
             ->get();
 
-        return view('admin.articles.index', compact('posts', 'search', 'status', 'category'));
+        $languages = Language::where('is_active', true)->orderBy('label')->get();
+
+        return view('admin.articles.index', compact('posts', 'search', 'status', 'category', 'languages'));
     }
 
     /**

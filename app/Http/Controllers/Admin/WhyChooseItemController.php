@@ -31,10 +31,13 @@ class WhyChooseItemController extends Controller
             })
             ->when($status === 'active', fn ($query) => $query->where('is_active', true))
             ->when($status === 'inactive', fn ($query) => $query->where('is_active', false))
+            ->with('translations')
             ->ordered()
             ->get();
 
-        return view('admin.why-choose-items.index', compact('items', 'search', 'status'));
+        $languages = Language::where('is_active', true)->orderBy('label')->get();
+
+        return view('admin.why-choose-items.index', compact('items', 'search', 'status', 'languages'));
     }
 
     /**

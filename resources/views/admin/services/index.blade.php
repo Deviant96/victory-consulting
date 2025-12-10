@@ -101,6 +101,7 @@
                                         <div class="text-sm text-slate-500">
                                             {{ $service->slug }}
                                         </div>
+                                        @include('admin.components.language-indicators', ['languages' => $languages, 'model' => $service])
                                     </div>
                                 </div>
                             </td>

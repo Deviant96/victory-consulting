@@ -84,6 +84,7 @@
                     @if($solution->translate('description', config('app.fallback_locale')))
                     <div class="text-sm text-gray-500">{{ Str::limit($solution->translate('description', config('app.fallback_locale')), 100) }}</div>
                     @endif
+                    @include('admin.components.language-indicators', ['languages' => $languages, 'model' => $solution])
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">
                     @if($solution->is_active)
