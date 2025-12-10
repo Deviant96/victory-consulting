@@ -22,58 +22,59 @@
 </section>
 
 <!-- Article -->
-<article class="py-16 bg-white">
+<article class="py-20 bg-white">
     <div class="container mx-auto px-4">
-        <div class="max-w-4xl mx-auto">
+        <div class="max-w-3xl mx-auto">
             <!-- Header -->
-            <header class="mb-8" data-animate="fade-up">
+            <header class="mb-12 text-center" data-animate="fade-up">
                 @if($post->category)
-                <span class="inline-block bg-[#D0E9F8] text-[#0481AE] text-sm font-semibold px-4 py-1 rounded-full mb-4">
+                <a href="{{ route('blog.index', ['category' => $post->category]) }}" class="inline-block bg-blue-50 text-blue-600 text-sm font-bold px-4 py-1.5 rounded-full mb-6 hover:bg-blue-100 transition-colors uppercase tracking-wide">
                     {{ $post->category }}
-                </span>
+                </a>
                 @endif
                 
-                <h1 class="text-5xl font-bold text-gray-900 mb-6">{{ $post->title }}</h1>
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-gray-900 mb-8 leading-tight tracking-tight">{{ $post->title }}</h1>
                 
                 @php($publishedDate = $post->published_at ?? $post->created_at)
-                <div class="flex items-center text-gray-600 mb-6">
+                <div class="flex items-center justify-center text-gray-500 text-sm md:text-base mb-10 font-medium">
                     @if($post->author)
-                    <span class="font-semibold">{{ $post->author }}</span>
-                    <span class="mx-3">•</span>
+                    <span class="text-gray-900">{{ $post->author }}</span>
+                    <span class="mx-3 text-gray-300">•</span>
                     @endif
                     <time datetime="{{ $publishedDate->format('Y-m-d') }}">
                         {{ $publishedDate->format('F d, Y') }}
                     </time>
-                    <span class="mx-3">•</span>
+                    <span class="mx-3 text-gray-300">•</span>
                     <span>{{ $post->read_time ?? t('frontend.blog.show.read_time_default', '5 min read') }}</span>
                 </div>
 
                 @if($post->featured_image)
-                <img src="{{ asset('storage/' . $post->featured_image) }}" alt="{{ $post->title }}" class="w-full h-96 object-cover rounded-lg shadow-lg">
+                <div class="relative aspect-video w-full overflow-hidden rounded-2xl shadow-xl mb-12">
+                    <img src="{{ asset('storage/' . $post->featured_image) }}" alt="{{ $post->title }}" class="absolute inset-0 w-full h-full object-cover">
+                </div>
                 @endif
             </header>
 
             <!-- Excerpt -->
             @if($post->excerpt)
-            <div class="text-xl text-gray-700 leading-relaxed mb-8 pb-8 border-b border-gray-200" data-animate="fade-up" data-animate-delay="80">
+            <div class="text-xl md:text-2xl text-gray-600 leading-relaxed mb-12 font-serif italic border-l-4 border-blue-500 pl-6" data-animate="fade-up" data-animate-delay="80">
                 {{ $post->excerpt }}
             </div>
             @endif
 
             <!-- Content -->
-            <div class="prose prose-lg max-w-none mb-12" data-animate="fade-up" data-animate-delay="120">
+            <div class="prose prose-lg md:prose-xl max-w-none prose-headings:font-bold prose-headings:text-gray-900 prose-p:text-gray-700 prose-p:leading-loose prose-a:text-blue-600 prose-a:no-underline hover:prose-a:underline prose-img:rounded-xl prose-img:shadow-lg prose-blockquote:border-l-blue-500 prose-blockquote:bg-gray-50 prose-blockquote:py-2 prose-blockquote:px-6 prose-blockquote:not-italic prose-blockquote:text-gray-700" data-animate="fade-up" data-animate-delay="120">
                 {!! $post->content !!}
             </div>
 
             <!-- Tags -->
             @if($post->tags && count($post->tags) > 0)
-            <div class="mb-8 pb-8 border-t border-gray-200 pt-8" data-animate="fade-up" data-animate-delay="140">
-                <h3 class="text-lg font-semibold text-gray-900 mb-3">{{ t('frontend.blog.show.tags_heading', 'Tags') }}</h3>
-                <div class="flex flex-wrap gap-2">
+            <div class="mt-16 pt-8 border-t border-gray-100" data-animate="fade-up" data-animate-delay="140">
+                <div class="flex flex-wrap gap-3">
                     @foreach($post->tags as $tag)
-                    <span class="bg-gray-100 text-gray-700 px-4 py-2 rounded-full text-sm">
-                        {{ $tag }}
-                    </span>
+                    <a href="#" class="bg-gray-50 text-gray-600 hover:bg-gray-100 hover:text-gray-900 px-4 py-2 rounded-lg text-sm font-medium transition-colors duration-200">
+                        #{{ $tag }}
+                    </a>
                     @endforeach
                 </div>
             </div>
@@ -81,20 +82,27 @@
 
             <!-- Author Box -->
             @if($post->author)
-            <div class="bg-gray-50 rounded-lg p-6 mb-12" data-animate="fade-up" data-animate-delay="160">
-                <h3 class="text-lg font-semibold text-gray-900 mb-2">{{ t('frontend.blog.show.about_author_heading', 'About the Author') }}</h3>
-                <p class="text-gray-700">
-                    <strong>{{ $post->author }}</strong> {{ str_replace(':site', settings('site.name'), t('frontend.blog.show.about_author_body', 'is a contributor to the :site blog, sharing insights on business strategy and growth.')) }}
-                </p>
+            <div class="mt-12 bg-gray-50 rounded-2xl p-8 flex flex-col md:flex-row items-center md:items-start gap-6" data-animate="fade-up" data-animate-delay="160">
+                <div class="flex-shrink-0">
+                    <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 text-2xl font-bold">
+                        {{ substr($post->author, 0, 1) }}
+                    </div>
+                </div>
+                <div class="text-center md:text-left">
+                    <h3 class="text-lg font-bold text-gray-900 mb-2">{{ t('frontend.blog.show.about_author_heading', 'About the Author') }}</h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        <strong>{{ $post->author }}</strong> {{ str_replace(':site', settings('site.name'), t('frontend.blog.show.about_author_body', 'is a contributor to the :site blog, sharing insights on business strategy and growth.')) }}
+                    </p>
+                </div>
             </div>
             @endif
 
             <!-- Share -->
-            <div class="flex items-center justify-between border-t border-b border-gray-200 py-6 mb-12" data-animate="fade-up" data-animate-delay="180">
-                <span class="font-semibold text-gray-900">{{ t('frontend.blog.show.share_label', 'Share this article:') }}</span>
-                <div class="flex gap-4">
-                    <a href="https://twitter.com/intent/tweet?url={{ urlencode(route('blog.show', $post->slug)) }}&text={{ urlencode($post->title) }}" target="_blank" class="text-gray-600 hover:text-[#1DA1F2] transition">
-                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+            <div class="mt-12 flex flex-col items-center justify-center border-t border-gray-100 pt-12" data-animate="fade-up" data-animate-delay="180">
+                <span class="font-semibold text-gray-900 mb-6 uppercase tracking-wider text-sm">{{ t('frontend.blog.show.share_label', 'Share this article') }}</span>
+                <div class="flex gap-6 items-center">
+                    <a href="https://twitter.com/intent/tweet?url={{ urlencode(route('blog.show', $post->slug)) }}&text={{ urlencode($post->title) }}" target="_blank" class="w-12 h-12 flex items-center justify-center rounded-full bg-gray-100 text-gray-600 hover:bg-[#1DA1F2] hover:text-white transition-all duration-300 transform hover:-translate-y-1">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                             <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
                         </svg>
                     </a>
