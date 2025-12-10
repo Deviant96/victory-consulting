@@ -29,9 +29,9 @@
                 </a>
             </div>
 
-            <!-- Content Section -->
+            <!-- Management Section -->
             <div class="space-y-2">
-                <p class="px-6 text-xs font-semibold text-slate-500 uppercase tracking-wider">Content</p>
+                <p class="px-6 text-xs font-semibold text-slate-500 uppercase tracking-wider">Management</p>
 
                 <div class="space-y-1 px-2">
                     <a href="{{ route('admin.bookings.index') ?? '#' }}"
@@ -50,38 +50,6 @@
                         <span>Services</span>
                     </a>
 
-                    <a href="{{ route('admin.team.index') ?? '#' }}"
-                       class="sidebar-link {{ request()->routeIs('admin.team.*') ? 'active' : 'text-slate-200' }}">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
-                        </svg>
-                        <span>Team Members</span>
-                    </a>
-
-                    <a href="{{ route('admin.faqs.index') ?? '#' }}"
-                       class="sidebar-link {{ request()->routeIs('admin.faqs.*') ? 'active' : 'text-slate-200' }}">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                        </svg>
-                        <span>FAQs</span>
-                    </a>
-
-                    <a href="{{ route('admin.articles.index') ?? '#' }}"
-                       class="sidebar-link {{ request()->routeIs('admin.articles.*') ? 'active' : 'text-slate-200' }}">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path>
-                        </svg>
-                        <span>Articles</span>
-                    </a>
-
-                    <a href="{{ route('admin.why-choose-items.index') ?? '#' }}"
-                       class="sidebar-link {{ request()->routeIs('admin.why-choose-items.*') ? 'active' : 'text-slate-200' }}">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                        </svg>
-                        <span>Why Choose Us</span>
-                    </a>
-
                     <a href="{{ route('admin.business-solutions.index') ?? '#' }}"
                        class="sidebar-link {{ request()->routeIs('admin.business-solutions.*') ? 'active' : 'text-slate-200' }}">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -98,6 +66,60 @@
                         <span>Sub-Solutions</span>
                     </a>
 
+                    <a href="{{ route('admin.articles.index') ?? '#' }}"
+                       class="sidebar-link {{ request()->routeIs('admin.articles.*') ? 'active' : 'text-slate-200' }}">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path>
+                        </svg>
+                        <span>Articles</span>
+                    </a>
+
+                    <a href="{{ route('admin.team.index') ?? '#' }}"
+                       class="sidebar-link {{ request()->routeIs('admin.team.*') ? 'active' : 'text-slate-200' }}">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                        </svg>
+                        <span>Team Members</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Site Content Section -->
+            <div class="space-y-2">
+                <p class="px-6 text-xs font-semibold text-slate-500 uppercase tracking-wider">Site Content</p>
+                <div class="space-y-1 px-2">
+                    <a href="{{ route('admin.settings.hero') ?? '#' }}"
+                       class="sidebar-link {{ request()->routeIs('admin.settings.hero') ? 'active' : 'text-slate-200' }}">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                        </svg>
+                        <span>Hero Section</span>
+                    </a>
+
+                    <a href="{{ route('admin.settings.about') ?? '#' }}"
+                       class="sidebar-link {{ request()->routeIs('admin.settings.about') ? 'active' : 'text-slate-200' }}">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        <span>About Us Page</span>
+                    </a>
+
+                    <a href="{{ route('admin.why-choose-items.index') ?? '#' }}"
+                       class="sidebar-link {{ request()->routeIs('admin.why-choose-items.*') ? 'active' : 'text-slate-200' }}">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        <span>Why Choose Us</span>
+                    </a>
+
+                    <a href="{{ route('admin.faqs.index') ?? '#' }}"
+                       class="sidebar-link {{ request()->routeIs('admin.faqs.*') ? 'active' : 'text-slate-200' }}">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        <span>FAQs</span>
+                    </a>
+
                     <a href="{{ route('admin.whatsapp-agents.index') ?? '#' }}"
                        class="sidebar-link {{ request()->routeIs('admin.whatsapp-agents.*') ? 'active' : 'text-slate-200' }}">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -112,13 +134,6 @@
             <div class="space-y-2">
                 <p class="px-6 text-xs font-semibold text-slate-500 uppercase tracking-wider">Settings</p>
                 <div class="space-y-1 px-2">
-                    <a href="{{ route('admin.settings.about') ?? '#' }}"
-                       class="sidebar-link {{ request()->routeIs('admin.settings.about') ? 'active' : 'text-slate-200' }}">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                        </svg>
-                        <span>About Us Page</span>
-                    </a>
                     <a href="{{ route('admin.settings.contact') ?? '#' }}"
                        class="sidebar-link {{ request()->routeIs('admin.settings.contact') ? 'active' : 'text-slate-200' }}">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -135,14 +150,6 @@
                         <span>Social Links</span>
                     </a>
 
-                    <a href="{{ route('admin.settings.booking') ?? '#' }}"
-                       class="sidebar-link {{ request()->routeIs('admin.settings.booking') ? 'active' : 'text-slate-200' }}">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V4a2 2 0 10-4 0v1.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5" />
-                        </svg>
-                        <span>Booking Notifications</span>
-                    </a>
-
                     <a href="{{ route('admin.settings.branding') ?? '#' }}"
                        class="sidebar-link {{ request()->routeIs('admin.settings.branding') ? 'active' : 'text-slate-200' }}">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -151,16 +158,17 @@
                         <span>Branding</span>
                     </a>
 
-                    <a href="{{ route('admin.settings.hero') ?? '#' }}"
-                       class="sidebar-link {{ request()->routeIs('admin.settings.hero') ? 'active' : 'text-slate-200' }}">
+                    <a href="{{ route('admin.settings.booking') ?? '#' }}"
+                       class="sidebar-link {{ request()->routeIs('admin.settings.booking') ? 'active' : 'text-slate-200' }}">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V4a2 2 0 10-4 0v1.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5" />
                         </svg>
-                        <span>Hero Section</span>
+                        <span>Booking Notifications</span>
                     </a>
                 </div>
             </div>
 
+            <!-- System Section -->
             <div class="space-y-2">
                 <p class="px-6 text-xs font-semibold text-slate-500 uppercase tracking-wider">System</p>
                 <div class="space-y-1 px-2">
