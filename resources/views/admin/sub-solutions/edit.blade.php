@@ -38,7 +38,7 @@
 
         <div class="mb-6">
             <label for="title" class="block text-sm font-medium text-gray-700 mb-2">Title <span class="text-red-500">*</span></label>
-            <input type="text" name="title" id="title" value="{{ old('title', $subSolution->title) }}" required placeholder="e.g., E-commerce Solutions" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-blue-500 focus:border-blue-500 @error('title') border-red-500 @enderror">
+            <input type="text" name="title" id="title" value="{{ old('title', $subSolution->translate('title', config('app.fallback_locale'))) }}" required placeholder="e.g., E-commerce Solutions" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-blue-500 focus:border-blue-500 @error('title') border-red-500 @enderror">
             @error('title')
             <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
             @enderror

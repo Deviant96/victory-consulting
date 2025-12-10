@@ -18,7 +18,7 @@
                 <input type="text" 
                        name="title" 
                        id="title" 
-                       value="{{ old('title', $service->title) }}"
+                       value="{{ old('title', $service->translate('title', config('app.fallback_locale'))) }}"
                        class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                        required>
                 @error('title')
@@ -49,7 +49,7 @@
                 <textarea name="summary" 
                           id="summary" 
                           rows="3"
-                          class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500">{{ old('summary', $service->summary) }}</textarea>
+                          class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500">{{ old('summary', $service->translate('summary', config('app.fallback_locale'))) }}</textarea>
             </div>
 
             <!-- Description -->
@@ -60,7 +60,7 @@
                 <textarea name="description" 
                           id="description" 
                           rows="10"
-                          class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500">{{ old('description', $service->description) }}</textarea>
+                          class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500">{{ old('description', $service->translate('description', config('app.fallback_locale'))) }}</textarea>
             </div>
 
             <!-- Price Note -->
@@ -71,7 +71,7 @@
                 <input type="text" 
                        name="price_note" 
                        id="price_note" 
-                       value="{{ old('price_note', $service->price_note) }}"
+                       value="{{ old('price_note', $service->translate('price_note', config('app.fallback_locale'))) }}"
                        class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
             </div>
 
