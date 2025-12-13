@@ -16,7 +16,7 @@
 </section>
 
 <!-- Blog Content with Filters -->
-<section class="py-16 bg-gray-50">
+<section class="py-4 md:py-16 bg-gray-50">
     <div class="container mx-auto px-4">
         <div class="max-w-7xl mx-auto">
             <div class="flex flex-col lg:flex-row gap-8">
@@ -196,13 +196,13 @@
 </section>
 
 <!-- Newsletter CTA -->
-<section class="bg-[#FFE7D5] text-white py-8 max-w-5xl mx-auto rounded-xl shadow-xl mb-16" data-animate="fade-up">
+<section class="bg-[#FFE7D5] text-white py-10 px-12 max-w-5xl mx-auto md:rounded-xl md:shadow-xl md:mb-16" data-animate="fade-up">
     <div class="container mx-auto px-2 text-center">
         <h2 class="text-3xl font-bold mb-4 text-[#0481AE]">{{ t('frontend.blog.newsletter_heading', 'Stay Updated') }}</h2>
         <p class="text-xl mb-8 max-w-2xl mx-auto text-[#0481AE]">
             {{ t('frontend.blog.newsletter_subheading', 'Subscribe to our newsletter for the latest insights and business strategies') }}
         </p>
-        <form action="#" method="POST" class="max-w-md mx-auto flex gap-4">
+        <form action="#" method="POST" class="max-w-md mx-auto flex flex-col md:flex-row gap-4">
             @csrf
             <input type="email" name="email" placeholder="{{ t('frontend.blog.newsletter_placeholder', 'Enter your email') }}" required class="flex-1 px-4 py-3 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#0481AE]">
             <button type="submit" class="bg-white text-[#0481AE] px-8 py-3 rounded-lg font-semibold hover:bg-[#E6F0F6] transition">

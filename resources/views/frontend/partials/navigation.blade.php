@@ -19,31 +19,31 @@
             <!-- Desktop Navigation -->
             <div class="hidden md:flex items-center space-x-8">
                 <a href="{{ route('home') }}"
-                   class="text-gray-700 hover:text-blue-600 transition-colors {{ request()->routeIs('home') ? 'text-blue-600 font-semibold' : '' }}">
+                   class="text-gray-700 hover:text-[#0481AE] transition-colors {{ request()->routeIs('home') ? 'text-[#0481AE] font-semibold' : '' }}">
                     {{ t('frontend.navigation.home', 'Home') }}
                 </a>
                 <a href="{{ route('about') }}"
-                   class="text-gray-700 hover:text-blue-600 transition-colors {{ request()->routeIs('about') ? 'text-blue-600 font-semibold' : '' }}">
+                   class="text-gray-700 hover:text-[#0481AE] transition-colors {{ request()->routeIs('about') ? 'text-[#0481AE] font-semibold' : '' }}">
                     About
                 </a>
                 <a href="{{ route('services.index') }}"
-                   class="text-gray-700 hover:text-blue-600 transition-colors {{ request()->routeIs('services.*') ? 'text-blue-600 font-semibold' : '' }}">
+                   class="text-gray-700 hover:text-[#0481AE] transition-colors {{ request()->routeIs('services.*') ? 'text-[#0481AE] font-semibold' : '' }}">
                     {{ t('frontend.navigation.services', 'Services') }}
                 </a>
                 <a href="{{ route('industries.index') }}"
-                   class="text-gray-700 hover:text-blue-600 transition-colors {{ request()->routeIs('industries.*') ? 'text-blue-600 font-semibold' : '' }}">
+                   class="text-gray-700 hover:text-[#0481AE] transition-colors {{ request()->routeIs('industries.*') ? 'text-[#0481AE] font-semibold' : '' }}">
                     {{ t('frontend.navigation.industries', 'Industries') }}
                 </a>
                 {{-- <a href="{{ route('team') }}" 
-                   class="text-gray-700 hover:text-blue-600 transition-colors {{ request()->routeIs('team') ? 'text-blue-600 font-semibold' : '' }}">
+                   class="text-gray-700 hover:text-[#0481AE] transition-colors {{ request()->routeIs('team') ? 'text-[#0481AE] font-semibold' : '' }}">
                     Team
                 </a> --}}
                 <a href="{{ route('blog.index') }}" 
-                   class="text-gray-700 hover:text-blue-600 transition-colors {{ request()->routeIs('blog.*') ? 'text-blue-600 font-semibold' : '' }}">
+                   class="text-gray-700 hover:text-[#0481AE] transition-colors {{ request()->routeIs('blog.*') ? 'text-[#0481AE] font-semibold' : '' }}">
                     {{ t('frontend.navigation.blog', 'Blog') }}
                 </a>
                 <a href="{{ route('contact') }}"
-                   class="text-gray-700 hover:text-blue-600 transition-colors {{ request()->routeIs('contact') ? 'text-blue-600 font-semibold' : '' }}">
+                   class="text-gray-700 hover:text-[#0481AE] transition-colors {{ request()->routeIs('contact') ? 'text-[#0481AE] font-semibold' : '' }}">
                     {{ t('frontend.navigation.contact', 'Contact') }}
                 </a>
             </div>
@@ -54,7 +54,7 @@
                     <div class="flex items-center bg-gray-50 border border-gray-200 rounded-full transition-all duration-200 overflow-hidden"
                          :class="open ? 'w-80 pl-4 pr-2 py-2 shadow-sm ring-1 ring-blue-100' : 'w-10 justify-center py-2'">
                         <button type="button"
-                                class="text-gray-600 hover:text-blue-600 focus:outline-none"
+                                class="text-gray-600 hover:text-[#0481AE] focus:outline-none"
                                 @click="toggle()"
                                 :aria-expanded="open">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -94,7 +94,7 @@
                          x-transition:leave-end="opacity-0 translate-y-1"
                          class="absolute right-0 mt-2 w-96 bg-white border border-gray-200 rounded-xl shadow-lg overflow-hidden">
                         <div class="px-4 py-3 border-b border-gray-100 flex items-center space-x-2">
-                            <div class="bg-blue-50 text-blue-600 rounded-full p-2">
+                            <div class="bg-blue-50 text-[#0481AE] rounded-full p-2">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m21 21-4.35-4.35m0 0A7.5 7.5 0 1 0 5.65 5.65a7.5 7.5 0 0 0 11 11Z" />
                                 </svg>
@@ -109,7 +109,7 @@
                         <div class="max-h-96 overflow-y-auto divide-y divide-gray-100">
                             <template x-if="loading">
                                 <div class="p-4 text-sm text-gray-600 flex items-center space-x-2">
-                                    <svg class="animate-spin h-4 w-4 text-blue-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                    <svg class="animate-spin h-4 w-4 text-[#0481AE]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                                         <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                                         <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 0 1 8-8v4a4 4 0 0 0-4 4H4Z"></path>
                                     </svg>
@@ -131,7 +131,7 @@
                                     <template x-for="item in group.items" :key="item.url">
                                         <a :href="item.url"
                                            class="flex items-start space-x-3 p-2 rounded-lg hover:bg-blue-50">
-                                            <div class="w-8 h-8 rounded-full flex items-center justify-center text-blue-600 bg-blue-50">
+                                            <div class="w-8 h-8 rounded-full flex items-center justify-center text-[#0481AE] bg-blue-50">
                                                 <span class="text-xs font-semibold" x-text="item.type.charAt(0)"></span>
                                             </div>
                                             <div class="flex-1">
@@ -178,35 +178,35 @@
                 <x-language-switcher />
             </div>
             <a href="{{ route('home') }}"
-               class="block px-3 py-2 rounded-md text-gray-700 hover:bg-gray-50 hover:text-blue-600 {{ request()->routeIs('home') ? 'bg-blue-50 text-blue-600' : '' }}">
+               class="block px-3 py-2 rounded-md text-gray-700 hover:bg-gray-50 hover:text-[#0481AE] {{ request()->routeIs('home') ? 'bg-blue-50 text-[#0481AE]' : '' }}">
                 {{ t('frontend.navigation.home', 'Home') }}
             </a>
             <a href="{{ route('about') }}" 
-               class="block px-3 py-2 rounded-md text-gray-700 hover:bg-gray-50 hover:text-blue-600 {{ request()->routeIs('about') ? 'bg-blue-50 text-blue-600' : '' }}">
+               class="block px-3 py-2 rounded-md text-gray-700 hover:bg-gray-50 hover:text-[#0481AE] {{ request()->routeIs('about') ? 'bg-blue-50 text-[#0481AE]' : '' }}">
                 About
             </a>
             <a href="{{ route('services.index') }}" 
-               class="block px-3 py-2 rounded-md text-gray-700 hover:bg-gray-50 hover:text-blue-600 {{ request()->routeIs('services.*') ? 'bg-blue-50 text-blue-600' : '' }}">
+               class="block px-3 py-2 rounded-md text-gray-700 hover:bg-gray-50 hover:text-[#0481AE] {{ request()->routeIs('services.*') ? 'bg-blue-50 text-[#0481AE]' : '' }}">
                 {{ t('frontend.navigation.services', 'Services') }}
             </a>
             <a href="{{ route('industries.index') }}"
-               class="block px-3 py-2 rounded-md text-gray-700 hover:bg-gray-50 hover:text-blue-600 {{ request()->routeIs('industries.*') ? 'bg-blue-50 text-blue-600' : '' }}">
+               class="block px-3 py-2 rounded-md text-gray-700 hover:bg-gray-50 hover:text-[#0481AE] {{ request()->routeIs('industries.*') ? 'bg-blue-50 text-[#0481AE]' : '' }}">
                 {{ t('frontend.navigation.industries', 'Industries') }}
             </a>
             {{-- <a href="{{ route('team') }}" 
-               class="block px-3 py-2 rounded-md text-gray-700 hover:bg-gray-50 hover:text-blue-600 {{ request()->routeIs('team') ? 'bg-blue-50 text-blue-600' : '' }}">
+               class="block px-3 py-2 rounded-md text-gray-700 hover:bg-gray-50 hover:text-[#0481AE] {{ request()->routeIs('team') ? 'bg-blue-50 text-[#0481AE]' : '' }}">
                 Team
             </a> --}}
             <a href="{{ route('blog.index') }}" 
-               class="block px-3 py-2 rounded-md text-gray-700 hover:bg-gray-50 hover:text-blue-600 {{ request()->routeIs('blog.*') ? 'bg-blue-50 text-blue-600' : '' }}">
+               class="block px-3 py-2 rounded-md text-gray-700 hover:bg-gray-50 hover:text-[#0481AE] {{ request()->routeIs('blog.*') ? 'bg-blue-50 text-[#0481AE]' : '' }}">
                 {{ t('frontend.navigation.blog', 'Blog') }}
             </a>
             <a href="{{ route('contact') }}"
-               class="block px-3 py-2 rounded-md text-gray-700 hover:bg-gray-50 hover:text-blue-600 {{ request()->routeIs('contact') ? 'bg-blue-50 text-blue-600' : '' }}">
+               class="block px-3 py-2 rounded-md text-gray-700 hover:bg-gray-50 hover:text-[#0481AE] {{ request()->routeIs('contact') ? 'bg-blue-50 text-[#0481AE]' : '' }}">
                 {{ t('frontend.navigation.contact', 'Contact') }}
             </a>
             <a href="{{ route('contact') }}" 
-               class="block px-3 py-2 mt-2 bg-blue-600 text-white rounded-lg text-center hover:bg-blue-700">
+               class="block px-3 py-2 mt-2 bg-[#0481AE] text-white rounded-lg text-center hover:bg-[#036494]">
                 Get Started
             </a>
         </div>

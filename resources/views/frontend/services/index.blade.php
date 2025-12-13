@@ -72,7 +72,7 @@
 </section>
 
 <!-- CTA Section -->
-<section class="bg-[#FFE7D5] text-white py-8 max-w-5xl mx-auto rounded-xl shadow-xl mb-16" data-animate="fade-up">
+<section class="bg-[#FFE7D5] text-white py-10 px-12 max-w-5xl mx-auto md:rounded-xl md:shadow-xl md:mb-16" data-animate="fade-up">
     <div class="container mx-auto px-2 text-center">
         <h2 class="text-3xl text-[#0481AE] mb-8">
             {{ t('frontend.services.cta_heading', 'We can tailor our services to meet your specific business needs') }}</h2>

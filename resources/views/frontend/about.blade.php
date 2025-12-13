@@ -21,7 +21,7 @@
         <div class="grid md:grid-cols-2 gap-12" data-animate-stagger="120">
             <!-- Left Column - Map of Indonesia -->
             <div class="relative overflow-hidden" data-animate="fade-up">
-                <div class="relative z-10 p-12 h-full flex flex-col items-center justify-center text-center">
+                <div class="relative z-10 p-2 md:p-12 h-full flex flex-col items-center justify-center text-center">
                     @if(settings('about.wisdom1_image'))
                         <img src="{{ asset('storage/' . settings('about.wisdom1_image')) }}" alt="Wisdom 1" class="w-32 h-32 mb-6 object-contain">
                     @else
@@ -36,7 +36,7 @@
 
             <!-- Right Column - Growth Arrows -->
             <div class="relative overflow-hidden max-w-3xl mx-auto" data-animate="fade-up" data-animate-delay="120">
-                <div class="relative z-10 p-12 h-full flex flex-col items-center justify-center text-center">
+                <div class="relative z-10 p-2 md:p-12 h-full flex flex-col items-center justify-center text-center">
                     @if(settings('about.wisdom2_image'))
                         <img src="{{ asset('storage/' . settings('about.wisdom2_image')) }}" alt="Wisdom 2" class="h-32 mb-6 object-contain">
                     @else
@@ -53,10 +53,10 @@
 </section>
 
 <!-- About Description Section -->
-<section class="py-16 bg-gray-50">
+<section class="py-4 md:py-16 bg-gray-50">
     <div class="container mx-auto px-4 max-w-5xl text-center" data-animate="fade-up">
         @if(settings('about.content'))
-        <div class="p-12">
+        <div class="p-4 md:p-12 bg-white rounded-2xl shadow-md">
             <div class="prose prose-lg max-w-none text-gray-700 leading-relaxed">
                 {!! nl2br(e(settings('about.content'))) !!}
             </div>
@@ -232,7 +232,7 @@
 @endif
 
 <!-- CTA Section -->
-<section class="bg-[#FFE7D5] py-8 max-w-5xl mx-auto rounded-xl shadow-xl mb-16" data-animate="fade-up">
+<section class="bg-[#FFE7D5] py-10 px-12 max-w-5xl mx-auto md:rounded-xl md:shadow-xl md:mb-16" data-animate="fade-up">
     <div class="container mx-auto px-4 max-w-4xl text-center">
         <h2 class="text-4xl md:text-5xl font-bold mb-6">{{ t('frontend.about.cta_heading', 'Ready to Transform Your Business?') }}</h2>
         <p class="text-xl mb-10 opacity-90">

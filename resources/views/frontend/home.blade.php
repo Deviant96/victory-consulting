@@ -10,14 +10,14 @@
     </div>
     @endif
     <div class="container mx-auto px-4 max-w-6xl relative z-10 py-24" data-animate="fade-up">
-        <div class="max-w-4xl mx-auto text-{{ settings('hero.text_alignment', 'center') }}">
+        <div class="max-w-4xl mx-auto text-center md:text-{{ settings('hero.text_alignment', 'center') }}">
             <h1 class="text-6xl md:text-7xl font-bold mb-6 leading-tight">{{ settings('site.name', 'Victory Business Consulting') }}</h1>
             <p class="text-2xl mb-10 text-[#cce7f0]">{{ settings('site.tagline', 'Empowering businesses to achieve sustainable growth and operational excellence') }}</p>
-            <div class="flex gap-4 {{ settings('hero.text_alignment') === 'center' ? 'justify-center' : (settings('hero.text_alignment') === 'right' ? 'justify-end' : 'justify-start') }}">
-                <a href="{{ route('services.index') }}" class="inline-block bg-white text-[#0481AE] px-16 py-2 rounded-xl font-semibold hover:bg-[#cce7f0] transition shadow-md">
+            <div class="flex flex-col md:flex-row gap-4 justify-center md:{{ settings('hero.text_alignment') === 'center' ? 'justify-center' : (settings('hero.text_alignment') === 'right' ? 'justify-end' : 'justify-start') }}">
+                <a href="{{ route('services.index') }}" class="w-full md:w-auto text-center bg-white text-[#0481AE] px-8 sm:px-12 md:px-16 py-3 rounded-xl font-semibold hover:bg-[#cce7f0] transition shadow-md">
                     {{ t('frontend.home.hero_primary_cta', 'Our Services') }}
                 </a>
-                <a href="{{ route('contact') }}" class="inline-block border-2 border-white text-white px-16 py-2 rounded-xl font-semibold hover:bg-white hover:text-[#035f7f] transition shadow-md">
+                <a href="{{ route('contact') }}" class="w-full md:w-auto text-center border-2 border-white text-white px-8 sm:px-12 md:px-16 py-3 rounded-xl font-semibold hover:bg-white hover:text-[#035f7f] transition shadow-md">
                     {{ t('frontend.home.hero_secondary_cta', 'Get Started') }}
                 </a>
             </div>
@@ -87,10 +87,10 @@
     </div>
     
     <!-- Half-rounded separator at bottom -->
-    <div class="absolute -bottom-24 bg-[#0481AE] left-[-2.5%] right-0 h-32 z-[3] w-[105%]" style="border-radius: 0 0 50% 50% / 0 0 100% 100%;"></div>
+    <div class="absolute -bottom-12 bg-[#0481AE] left-[-2.5%] right-0 h-16 md:h-32 z-[3] w-[105%]" style="border-radius: 0 0 50% 50% / 0 0 100% 100%;"></div>
     
     <!-- Half-rounded separator at bottom -->
-    <div class="absolute -bottom-36 bg-[#EAF1EF] left-[-5%] right-0 h-40 w-[110%] z-[2]" style="border-radius: 0 0 50% 50% / 0 0 100% 100%;"></div>
+    <div class="absolute -bottom-18 bg-[#EAF1EF] left-[-5%] right-0 h-20 md:h-40 w-[110%] z-[2]" style="border-radius: 0 0 50% 50% / 0 0 100% 100%;"></div>
 </section>
 @endif
 
@@ -164,12 +164,12 @@
 <section class="py-20 bg-[#FFE7D5] text-white">
     <div class="container mx-auto px-4 max-w-6xl">
         <div class="grid md:grid-cols-4 gap-8" data-animate-stagger="140">
-            <div class="mb-8 flex flex-col items-left md:items-start md:col-span-1 justify-between" data-animate="fade-right">
+            <div class="mb-8 flex flex-col items-center md:items-start md:col-span-1 justify-between text-center md:text-left" data-animate="fade-right">
                 <div>
-                    <h2 class="text-3xl font-bold text-gray-900 mb-8">{{ t('frontend.home.blog_heading', 'Latest Insights') }}</h2>
+                    <h2 class="text-3xl font-bold text-gray-900 mb-2 md:mb-8">{{ t('frontend.home.blog_heading', 'Latest Insights') }}</h2>
                     <p class="text-gray-600 max-w-2xl">{{ t('frontend.home.blog_subheading', 'Expert perspectives on business strategy and growth.') }}</p>
                 </div>
-                <div class="text-center mt-12">
+                <div class="text-center mt-6 md:mt-12">
                     <a href="{{ route('blog.index') }}" class="inline-block bg-[#0481AE] text-white px-8 py-3 rounded-lg font-semibold hover:bg-[#035f7f] transition">
                         {{ t('frontend.home.blog_cta', 'Read More Articles') }}
                     </a>
