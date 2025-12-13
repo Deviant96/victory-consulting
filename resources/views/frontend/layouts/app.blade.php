@@ -20,6 +20,10 @@
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
+    <!-- Flatpickr -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/themes/airbnb.css">
+
     @stack('styles')
 </head>
 <body class="font-sans antialiased bg-white">
@@ -38,5 +42,23 @@
     @include('frontend.partials.whatsapp-float')
 
     @stack('scripts')
+
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            flatpickr(".datepicker", {
+                dateFormat: "Y-m-d",
+                allowInput: true,
+                minDate: "today" // Usually good for booking forms
+            });
+            
+            flatpickr(".datetimepicker", {
+                enableTime: true,
+                dateFormat: "Y-m-d H:i",
+                time_24hr: true,
+                allowInput: true,
+            });
+        });
+    </script>
 </body>
 </html>

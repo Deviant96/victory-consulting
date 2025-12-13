@@ -76,8 +76,8 @@
             <div class="grid grid-cols-2 gap-3">
                 <div>
                     <label for="preferred_date" class="block text-sm font-medium text-gray-700 mb-1">{{ t('frontend.booking.date_label', 'Preferred date') }}</label>
-                    <input type="date" name="preferred_date" id="preferred_date" value="{{ old('preferred_date') }}"
-                           class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-[#0481AE] focus:border-[#0481AE]">
+                    <input type="text" name="preferred_date" id="preferred_date" value="{{ old('preferred_date') }}"
+                           class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-[#0481AE] focus:border-[#0481AE] datepicker" placeholder="Select date">
                 </div>
                 <div>
                     <label for="preferred_time" class="block text-sm font-medium text-gray-700 mb-1">{{ t('frontend.booking.time_label', 'Preferred time') }}</label>

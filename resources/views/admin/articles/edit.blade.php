@@ -62,7 +62,7 @@
                     
                     <div class="mb-4">
                         <label for="published_at" class="block text-sm font-medium text-gray-700 mb-2">Publish Date</label>
-                        <input type="datetime-local" name="published_at" id="published_at" value="{{ old('published_at', $article->published_at?->format('Y-m-d\TH:i')) }}" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-blue-500 focus:border-blue-500">
+                        <input type="text" name="published_at" id="published_at" value="{{ old('published_at', $article->published_at?->format('Y-m-d H:i')) }}" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-blue-500 focus:border-blue-500 datetimepicker" placeholder="Select date and time">
                         <p class="text-gray-500 text-xs mt-1">Leave empty for current time</p>
                     </div>
 
