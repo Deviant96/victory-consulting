@@ -2,10 +2,11 @@
 
 @section('content')
 <!-- Hero Section -->
-<section class="relative min-h-[600px] flex items-center justify-center bg-gradient-to-br from-[#0481AE] to-[#035f7f] text-white overflow-hidden">
+<section class="relative min-h-[700px] flex items-center justify-center text-white overflow-hidden">
+    <div class="absolute inset-0 bg-black/25 z-[2] bg-gradient-to-br from-[#0481ae00] to-[#03607f9f]"></div>
     @if(settings('hero.background_image'))
-    <div class="absolute inset-0 z-0 floating-soft">
-        <img src="{{ asset('storage/' . settings('hero.background_image')) }}" alt="Hero Background" class="w-full h-full object-cover opacity-30">
+    <div class="absolute inset-0 z-0 floating-soft">  
+        <img src="{{ asset('storage/' . settings('hero.background_image')) }}"   alt="Hero Background" class="w-full h-full object-cover">
     </div>
     @endif
     <div class="container mx-auto px-4 max-w-6xl relative z-10 py-24" data-animate="fade-up">
