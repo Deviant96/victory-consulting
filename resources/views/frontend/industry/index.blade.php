@@ -47,7 +47,7 @@
         <!-- Industries Grid -->
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" data-animate-stagger="120">
             @foreach($industries as $industry)
-            <div class="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border-2 border-transparent hover:border-[#0481AE] overflow-hidden group" data-animate="fade-up">
+            <div id="industry-{{ $industry->id }}" class="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border-2 border-transparent hover:border-[#0481AE] overflow-hidden group" data-animate="fade-up">
                 <!-- Card Header with Gradient -->
                 <div class="bg-gradient-to-br from-[#0481AE] to-[#036494] p-6 text-white">
                     <div class="flex items-center justify-center mb-4">
