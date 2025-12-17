@@ -108,7 +108,10 @@
                         <a href="{{ route('home') }}" class="text-gray-300 hover:text-white transition-colors">Home</a>
                     </li>
                     <li>
-                        <a href="{{ route('team') }}" class="text-gray-300 hover:text-white transition-colors">Team</a>
+                        <a href="{{ route('services.index') }}" class="text-gray-300 hover:text-white transition-colors">Services</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('industries.index') }}" class="text-gray-300 hover:text-white transition-colors">Industries</a>
                     </li>
                     <li>
                         <a href="{{ route('blog.index') }}" class="text-gray-300 hover:text-white transition-colors">Blog</a>
