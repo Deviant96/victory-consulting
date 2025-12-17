@@ -93,10 +93,19 @@
             <!-- Services -->
             <div>
                 <h4 class="text-white font-semibold mb-4">Services</h4>
+                @php
+                    $footerServices = $footerServices ?? collect();
+                @endphp
                 <ul class="space-y-4">
-                    <li>
-                        <a href="{{ route('services.index') }}" class="text-gray-300 hover:text-white transition-colors">Our Services</a>
-                    </li>
+                    @forelse($footerServices as $service)
+                        <li>
+                            <a href="{{ route('services.show', $service->slug) }}" class="text-gray-300 hover:text-white transition-colors">{{ $service->title }}</a>
+                        </li>
+                    @empty
+                        <li>
+                            <a href="{{ route('services.index') }}" class="text-gray-300 hover:text-white transition-colors">Our Services</a>
+                        </li>
+                    @endforelse
                 </ul>
             </div>
 

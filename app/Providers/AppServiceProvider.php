@@ -28,6 +28,10 @@ class AppServiceProvider extends ServiceProvider
             $view->with('navIndustries', BusinessSolution::active()->ordered()->get());
         });
 
+        View::composer('frontend.partials.footer', function ($view) {
+            $view->with('footerServices', Service::published()->orderBy('title')->take(4)->get());
+        });
+
         View::composer('admin.partials.header', function ($view) {
             $user = Auth::user();
 
