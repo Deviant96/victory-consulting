@@ -20,7 +20,7 @@
 <section class="w-full" data-animate="fade-in">
     <img src="{{ asset('storage/' . settings('hero.industry_image')) }}" 
          alt="{{ t('frontend.industry.hero_alt', 'Industries We Serve') }}"
-         class="w-full h-64 md:h-80 lg:h-96 object-cover">
+         class="w-full h-32 md:h-48 lg:h-[270px] object-cover">
 </section>
 @endif
 
