@@ -38,7 +38,7 @@
                 
                 <div class="p-6">
                     <h2 class="text-2xl font-bold text-[#0481AE] mb-3">{{ $service->title }}</h2>
-                    <p class="text-gray-600 mb-4 line-clamp-3">{{ $service->description }}</p>
+                    <p class="text-gray-600 mb-4 line-clamp-3">{{ $service->summary }}</p>
                     
                     @if($service->highlights->isNotEmpty())
                     <div class="mb-4">
