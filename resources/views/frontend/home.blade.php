@@ -166,7 +166,7 @@
 <section class="py-20 bg-[#FFE7D5] text-white">
     <div class="container mx-auto px-4 max-w-6xl">
         <div class="grid md:grid-cols-4 gap-8" data-animate-stagger="140">
-            <div class="mb-8 flex flex-col items-center md:items-start md:col-span-1 justify-between text-center md:text-left" data-animate="fade-right">
+            <div class="mb-8 flex flex-col items-center md:items-start md:col-span-1 text-center md:text-left" data-animate="fade-right">
                 <div>
                     <h2 class="text-3xl font-bold text-gray-900 mb-2 md:mb-8">{{ t('frontend.home.blog_heading', 'Latest Insights') }}</h2>
                     <p class="text-gray-600 max-w-2xl">{{ t('frontend.home.blog_subheading', 'Expert perspectives on business strategy and growth.') }}</p>
