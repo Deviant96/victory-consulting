@@ -60,27 +60,7 @@
                     <a href="{{ route('industries.index') }}"
                        class="flex items-center text-gray-700 hover:text-[#0481AE] transition-colors {{ request()->routeIs('industries.*') ? 'text-[#0481AE] font-semibold' : '' }}">
                         {{ t('frontend.navigation.industries', 'Industries') }}
-                        <svg class="ml-1 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                        </svg>
                     </a>
-                    <div x-show="open"
-                         x-transition:enter="transition ease-out duration-200"
-                         x-transition:enter-start="opacity-0 translate-y-1"
-                         x-transition:enter-end="opacity-100 translate-y-0"
-                         x-transition:leave="transition ease-in duration-150"
-                         x-transition:leave-start="opacity-100 translate-y-0"
-                         x-transition:leave-end="opacity-0 translate-y-1"
-                         class="absolute left-0 mt-2 w-64 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-50"
-                         style="display: none;">
-                        <div class="py-1 max-h-[80vh] overflow-y-auto">
-                            @foreach($navIndustries as $industry)
-                                <a href="{{ route('industries.index') }}#industry-{{ $industry->id }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-[#0481AE]">
-                                    {{ $industry->title }}
-                                </a>
-                            @endforeach
-                        </div>
-                    </div>
                 </div>
                 {{-- <a href="{{ route('team') }}" 
                    class="text-gray-700 hover:text-[#0481AE] transition-colors {{ request()->routeIs('team') ? 'text-[#0481AE] font-semibold' : '' }}">
