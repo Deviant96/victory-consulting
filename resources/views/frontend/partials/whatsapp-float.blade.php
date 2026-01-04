@@ -1,5 +1,12 @@
 <!-- WhatsApp Floating Button -->
-<div x-data="{ open: false }" class="fixed bottom-6 right-6 z-50">
+<div x-data="{ open: false, visible: false }" 
+     x-init="setTimeout(() => visible = true, 3000)"
+     x-show="visible"
+     x-transition:enter="transition ease-out duration-1000"
+     x-transition:enter-start="opacity-0 translate-y-12 scale-75"
+     x-transition:enter-end="opacity-100 translate-y-0 scale-100"
+     class="fixed bottom-6 right-6 z-50"
+     style="display: none;">
     <!-- Agent List (expanded) -->
     <div x-show="open" 
          x-transition:enter="transition ease-out duration-200"
