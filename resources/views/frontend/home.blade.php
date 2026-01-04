@@ -37,15 +37,17 @@
 
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-12" data-animate-stagger="120">
             @foreach($services as $service)
-            <a href="{{ route('services.show', $service->slug) }}" class="bg-white rounded-lg shadow-md hover:shadow-xl transition p-6 block border-[#0481AE] border-2" data-animate="fade-up">
+            <a href="{{ route('services.show', $service->slug) }}" class="bg-white rounded-lg shadow-md hover:shadow-xl transition p-6 border-[#0481AE] border-2 flex flex-col" data-animate="fade-up">
                 @if($service->image)
                 <img src="{{ asset('storage/' . $service->image) }}" alt="{{ $service->title }}" class="w-full h-48 object-cover rounded-lg mb-4">
                 @endif
-                <h3 class="text-2xl font-bold text-gray-900 mb-3">{{ $service->title }}</h3>
-                <p class="text-gray-600 mb-4 line-clamp-3">{{ $service->summary }}</p>
-                <span class="text-[#0481AE] font-semibold hover:text-[#035f7f]">
-                    {{ t('frontend.common.learn_more', 'Learn More') }} →
-                </span>
+                <h3 class="text-2xl font-bold text-gray-900 mb-3 flex-1">{{ $service->title }}</h3>
+                <div class="flex-grow flex flex-col justify-between">
+                    <p class="text-gray-600 mb-4 line-clamp-3">{{ $service->summary }}</p>
+                    <span class="text-[#0481AE] font-semibold hover:text-[#035f7f]">
+                        {{ t('frontend.common.learn_more', 'Learn More') }} →
+                    </span>
+                </div>
             </a>
             @endforeach
         </div>
