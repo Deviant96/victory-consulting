@@ -18,6 +18,7 @@ use App\Http\Controllers\Admin\TranslationController;
 use App\Http\Controllers\Admin\AboutSectionController;
 use App\Http\Controllers\Admin\VisionController;
 use App\Http\Controllers\Admin\MissionController;
+use App\Http\Controllers\Admin\PageController;
 use App\Models\BlogPost;
 use App\Models\Booking;
 use App\Models\Faq;
@@ -94,6 +95,15 @@ Route::resource('visions', VisionController::class);
 
 // Missions
 Route::resource('missions', MissionController::class);
+
+// Pages
+Route::prefix('pages')->name('pages.')->group(function () {
+    Route::get('/home', [PageController::class, 'home'])->name('home');
+    Route::post('/home', [PageController::class, 'updateHome'])->name('home.update');
+
+    Route::get('/services', [PageController::class, 'services'])->name('services');
+    Route::post('/services', [PageController::class, 'updateServices'])->name('services.update');
+});
 
 // Settings
 Route::prefix('settings')->name('settings.')->group(function () {
