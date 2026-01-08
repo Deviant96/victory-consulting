@@ -22,13 +22,25 @@
 
         <div class="mb-8 pb-8 border-b border-gray-200">
             <h2 class="text-xl font-bold text-gray-900 mb-4">Header Content</h2>
-            <div class="mb-4">
-                 <label for="page_title" class="block text-sm font-medium text-gray-700 mb-2">Page Title</label>
-                 <input type="text" name="services[page_title]" id="page_title" value="{{ old('services.page_title', $settings['services.page_title'] ?? '') }}" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-blue-500 focus:border-blue-500">
-            </div>
-             <div class="mb-4">
-                 <label for="page_description" class="block text-sm font-medium text-gray-700 mb-2">Page Description</label>
-                 <textarea name="services[page_description]" id="page_description" rows="3" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-blue-500 focus:border-blue-500">{{ old('services.page_description', $settings['services.page_description'] ?? '') }}</textarea>
+            
+            <x-admin.settings-field-with-translation
+                name="services[page_title]"
+                label="Page Title"
+                value="Our Services"
+                :settings="$settings"
+                :languages="$languages"
+            />
+
+            <div class="mt-6">
+                <x-admin.settings-field-with-translation
+                    name="services[page_description]"
+                    label="Page Description"
+                    type="textarea"
+                    rows="3"
+                    value="Explore our comprehensive range of professional services"
+                    :settings="$settings"
+                    :languages="$languages"
+                />
             </div>
         </div>
 
