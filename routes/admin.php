@@ -103,6 +103,12 @@ Route::prefix('pages')->name('pages.')->group(function () {
 
     Route::get('/services', [PageController::class, 'services'])->name('services');
     Route::post('/services', [PageController::class, 'updateServices'])->name('services.update');
+
+    Route::get('/industry', [PageController::class, 'industry'])->name('industry');
+    Route::post('/industry', [PageController::class, 'updateIndustry'])->name('industry.update');
+
+    Route::get('/blog', [PageController::class, 'blog'])->name('blog');
+    Route::post('/blog', [PageController::class, 'updateBlog'])->name('blog.update');
 });
 
 // Settings

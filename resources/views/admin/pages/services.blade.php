@@ -44,6 +44,29 @@
             </div>
         </div>
 
+        <!-- CTA Section -->
+        <div class="mb-8 pb-8 border-b border-gray-200">
+            <h2 class="text-xl font-bold text-gray-900 mb-4">Call to Action Section</h2>
+            
+            <x-admin.settings-field-with-translation
+                name="services[cta_heading]"
+                label="CTA Heading"
+                value="We can tailor our services to meet your specific business needs"
+                :settings="$settings"
+                :languages="$languages"
+            />
+
+            <div class="mt-6">
+                <x-admin.settings-field-with-translation
+                    name="services[cta_button]"
+                    label="CTA Button Text"
+                    value="Book Now"
+                    :settings="$settings"
+                    :languages="$languages"
+                />
+            </div>
+        </div>
+
         <div class="flex gap-4">
             <button type="submit" class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl hover:shadow-md transition transform hover:-translate-y-0.5">
                 Save Services Settings

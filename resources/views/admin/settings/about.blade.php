@@ -261,6 +261,57 @@
             </div>
         </div>
 
+        <!-- CTA Section -->
+        <div class="p-6 border-b border-gray-200 bg-orange-50">
+            <h2 class="text-xl font-semibold text-gray-900 mb-4 flex items-center">
+                <svg class="w-6 h-6 mr-2 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z"></path>
+                </svg>
+                {{ t('Call to Action Section', 'Call to Action Section') }}
+            </h2>
+            
+            <div class="mb-6">
+                <label for="cta_heading" class="block text-sm font-medium text-gray-700 mb-2">{{ t('CTA Heading', 'CTA Heading') }}</label>
+                <input type="text" name="about[cta_heading]" id="cta_heading" 
+                       value="{{ old('about.cta_heading', optional($settings->get('about.cta_heading'))->value ?? 'Ready to Transform Your Business?') }}" 
+                       class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-blue-500 focus:border-blue-500 bg-white">
+                @error('about.cta_heading')
+                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                @enderror
+            </div>
+
+            <div class="mb-6">
+                <label for="cta_subheading" class="block text-sm font-medium text-gray-700 mb-2">{{ t('CTA Subheading', 'CTA Subheading') }}</label>
+                <textarea name="about[cta_subheading]" id="cta_subheading" rows="2" 
+                          class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-blue-500 focus:border-blue-500 bg-white">{{ old('about.cta_subheading', optional($settings->get('about.cta_subheading'))->value ?? 'Join hundreds of satisfied clients who have experienced growth and success with our consulting services.') }}</textarea>
+                @error('about.cta_subheading')
+                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                @enderror
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                    <label for="cta_primary_button" class="block text-sm font-medium text-gray-700 mb-2">{{ t('Primary Button Text', 'Primary Button Text') }}</label>
+                    <input type="text" name="about[cta_primary_button]" id="cta_primary_button" 
+                           value="{{ old('about.cta_primary_button', optional($settings->get('about.cta_primary_button'))->value ?? 'Get in Touch') }}" 
+                           class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-blue-500 focus:border-blue-500 bg-white">
+                    @error('about.cta_primary_button')
+                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <div>
+                    <label for="cta_secondary_button" class="block text-sm font-medium text-gray-700 mb-2">{{ t('Secondary Button Text', 'Secondary Button Text') }}</label>
+                    <input type="text" name="about[cta_secondary_button]" id="cta_secondary_button" 
+                           value="{{ old('about.cta_secondary_button', optional($settings->get('about.cta_secondary_button'))->value ?? 'Explore Services') }}" 
+                           class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-blue-500 focus:border-blue-500 bg-white">
+                    @error('about.cta_secondary_button')
+                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                    @enderror
+                </div>
+            </div>
+        </div>
+
         @include('admin.components.settings-translation-tabs', [
             'languages' => $languages,
             'settings' => $settings,
@@ -276,6 +327,10 @@
                 'vision_content' => 'Vision Content',
                 'mission_title' => 'Mission Title',
                 'mission_content' => 'Mission Content',
+                'cta_heading' => 'CTA Heading',
+                'cta_subheading' => 'CTA Subheading',
+                'cta_primary_button' => 'Primary Button Text',
+                'cta_secondary_button' => 'Secondary Button Text',
             ],
         ])
 

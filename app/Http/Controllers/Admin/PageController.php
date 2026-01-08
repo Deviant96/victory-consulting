@@ -111,6 +111,8 @@ class PageController extends Controller
         $settingKeys = [
             'services.page_title',
             'services.page_description',
+            'services.cta_heading',
+            'services.cta_button',
         ];
         
         $settings = Setting::whereIn('key', $settingKeys)->get()->keyBy('key');
@@ -123,6 +125,8 @@ class PageController extends Controller
         $request->validate([
             'services.page_title' => 'nullable|string',
             'services.page_description' => 'nullable|string',
+            'services.cta_heading' => 'nullable|string|max:255',
+            'services.cta_button' => 'nullable|string|max:100',
         ]);
 
         $servicesSettings = $request->input('services', []);
@@ -132,6 +136,8 @@ class PageController extends Controller
         $translatableFields = [
             'page_title',
             'page_description',
+            'cta_heading',
+            'cta_button',
         ];
 
         // Save all settings and their translations
@@ -155,5 +161,134 @@ class PageController extends Controller
         $this->logAdminActivity('updated settings', null, 'Updated Services page settings');
 
         return redirect()->route('admin.pages.services')->with('success', 'Services page updated successfully.');
+    }
+
+    public function industry()
+    {
+        $languages = \App\Models\Language::active()->get();
+        
+        $settingKeys = [
+            'industry.page_title',
+            'industry.page_description',
+            'industry.cta_title',
+            'industry.cta_description',
+            'industry.cta_primary_button',
+            'industry.cta_secondary_button',
+        ];
+        
+        $settings = Setting::whereIn('key', $settingKeys)->get()->keyBy('key');
+
+        return view('admin.pages.industry', compact('settings', 'languages'));
+    }
+
+    public function updateIndustry(Request $request)
+    {
+        $request->validate([
+            'industry.page_title' => 'nullable|string|max:255',
+            'industry.page_description' => 'nullable|string',
+            'industry.cta_title' => 'nullable|string|max:255',
+            'industry.cta_description' => 'nullable|string',
+            'industry.cta_primary_button' => 'nullable|string|max:100',
+            'industry.cta_secondary_button' => 'nullable|string|max:100',
+        ]);
+
+        $industrySettings = $request->input('industry', []);
+        $translations = $request->input('translations', []);
+        
+        // Translatable fields
+        $translatableFields = [
+            'page_title',
+            'page_description',
+            'cta_title',
+            'cta_description',
+            'cta_primary_button',
+            'cta_secondary_button',
+        ];
+
+        // Save all settings and their translations
+        foreach ($industrySettings as $key => $value) {
+            $settingKey = "industry.{$key}";
+            $setting = Setting::firstOrCreate(['key' => $settingKey]);
+            $setting->value = $value;
+            $setting->save();
+
+            // Save translations for this field
+            if (in_array($key, $translatableFields)) {
+                foreach ($translations as $locale => $fields) {
+                    $translatedValue = $fields[$key] ?? null;
+                    if ($translatedValue) {
+                        $setting->setTranslation($key, $locale, $translatedValue);
+                    }
+                }
+            }
+        }
+        
+        $this->logAdminActivity('updated settings', null, 'Updated Industry page settings');
+
+        return redirect()->route('admin.pages.industry')->with('success', 'Industry page updated successfully.');
+    }
+
+    public function blog()
+    {
+        $languages = \App\Models\Language::active()->get();
+        
+        $settingKeys = [
+            'blog.page_title',
+            'blog.page_description',
+            'blog.enable_filters',
+            'blog.cta_title',
+            'blog.cta_description',
+            'blog.cta_button',
+        ];
+        
+        $settings = Setting::whereIn('key', $settingKeys)->get()->keyBy('key');
+
+        return view('admin.pages.blog', compact('settings', 'languages'));
+    }
+
+    public function updateBlog(Request $request)
+    {
+        $request->validate([
+            'blog.page_title' => 'nullable|string|max:255',
+            'blog.page_description' => 'nullable|string',
+            'blog.enable_filters' => 'nullable|boolean',
+            'blog.cta_title' => 'nullable|string|max:255',
+            'blog.cta_description' => 'nullable|string',
+            'blog.cta_button' => 'nullable|string|max:100',
+        ]);
+
+        $blogSettings = $request->input('blog', []);
+        $translations = $request->input('translations', []);
+        
+        // Translatable fields
+        $translatableFields = [
+            'page_title',
+            'page_description',
+            'cta_title',
+            'cta_description',
+            'cta_button',
+        ];
+
+        // Save all settings and their translations
+        foreach ($blogSettings as $key => $value) {
+            $settingKey = "blog.{$key}";
+            $setting = Setting::firstOrCreate(['key' => $settingKey]);
+            $setting->value = $value;
+            $setting->save();
+
+            // Save translations for this field
+            if (in_array($key, $translatableFields)) {
+                foreach ($translations as $locale => $fields) {
+                    $translatedValue = $fields[$key] ?? null;
+                    if ($translatedValue) {
+                        $setting->setTranslation($key, $locale, $translatedValue);
+                    }
+                }
+            }
+        }
+        
+        $this->logAdminActivity('updated settings', null, 'Updated Blog page settings');
+
+        return redirect()->route('admin.pages.blog')->with('success', 'Blog page updated successfully.');
     }
 }

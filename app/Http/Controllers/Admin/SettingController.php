@@ -230,6 +230,10 @@ class SettingController extends Controller
             'about.mission_title',
             'about.mission_content',
             'about.mission_image',
+            'about.cta_heading',
+            'about.cta_subheading',
+            'about.cta_primary_button',
+            'about.cta_secondary_button',
         ];
         
         $settings = Setting::whereIn('key', $settingKeys)->get()->keyBy('key');
@@ -255,6 +259,10 @@ class SettingController extends Controller
             'about.mission_title' => 'nullable|string|max:255',
             'about.mission_content' => 'nullable|string',
             'mission_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
+            'about.cta_heading' => 'nullable|string|max:255',
+            'about.cta_subheading' => 'nullable|string',
+            'about.cta_primary_button' => 'nullable|string|max:100',
+            'about.cta_secondary_button' => 'nullable|string|max:100',
         ]);
 
         $about = $request->input('about', []);
@@ -313,6 +321,10 @@ class SettingController extends Controller
             'vision_content',
             'mission_title',
             'mission_content',
+            'cta_heading',
+            'cta_subheading',
+            'cta_primary_button',
+            'cta_secondary_button',
         ];
 
         // Save all settings and their translations
