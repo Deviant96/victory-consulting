@@ -291,4 +291,57 @@ class PageController extends Controller
 
         return redirect()->route('admin.pages.blog')->with('success', 'Blog page updated successfully.');
     }
+
+    public function contact()
+    {
+        $languages = \App\Models\Language::active()->get();
+        
+        $settingKeys = [
+            'contact.page_title',
+            'contact.page_description',
+        ];
+        
+        $settings = Setting::whereIn('key', $settingKeys)->get()->keyBy('key');
+
+        return view('admin.pages.contact', compact('settings', 'languages'));
+    }
+
+    public function updateContact(Request $request)
+    {
+        $request->validate([
+            'contact.page_title' => 'nullable|string|max:255',
+            'contact.page_description' => 'nullable|string',
+        ]);
+
+        $contactSettings = $request->input('contact', []);
+        $translations = $request->input('translations', []);
+        
+        // Translatable fields
+        $translatableFields = [
+            'page_title',
+            'page_description',
+        ];
+
+        // Save all settings and their translations
+        foreach ($contactSettings as $key => $value) {
+            $settingKey = "contact.{$key}";
+            $setting = Setting::firstOrCreate(['key' => $settingKey]);
+            $setting->value = $value;
+            $setting->save();
+
+            // Save translations for this field
+            if (in_array($key, $translatableFields)) {
+                foreach ($translations as $locale => $fields) {
+                    $translatedValue = $fields[$key] ?? null;
+                    if ($translatedValue) {
+                        $setting->setTranslation($key, $locale, $translatedValue);
+                    }
+                }
+            }
+        }
+        
+        $this->logAdminActivity('updated settings', null, 'Updated Contact page settings');
+
+        return redirect()->route('admin.pages.contact')->with('success', 'Contact page updated successfully.');
+    }
 }

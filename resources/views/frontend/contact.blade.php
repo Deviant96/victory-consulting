@@ -7,9 +7,9 @@
 <section class="py-20">
     <div class="container mx-auto px-4">
         <div class="max-w-3xl mx-auto text-center" data-animate="fade-up">
-            <h1 class="text-5xl font-bold mb-4">{{ t('frontend.contact.heading', 'Contact Us') }}</h1>
+            <h1 class="text-5xl font-bold mb-4">{{ settings('contact.page_title', t('frontend.contact.heading', 'Contact Us')) }}</h1>
             <p class="text-xl text-black/70">
-                {{ t('frontend.contact.subheading', 'Get in touch with our team to discuss how we can help your business thrive') }}
+                {{ settings('contact.page_description', t('frontend.contact.subheading', 'Get in touch with our team to discuss how we can help your business thrive')) }}
             </p>
         </div>
     </div>

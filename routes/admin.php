@@ -109,6 +109,9 @@ Route::prefix('pages')->name('pages.')->group(function () {
 
     Route::get('/blog', [PageController::class, 'blog'])->name('blog');
     Route::post('/blog', [PageController::class, 'updateBlog'])->name('blog.update');
+
+    Route::get('/contact', [PageController::class, 'contact'])->name('contact');
+    Route::post('/contact', [PageController::class, 'updateContact'])->name('contact.update');
 });
 
 // Settings
