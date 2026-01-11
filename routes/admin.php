@@ -18,6 +18,7 @@ use App\Http\Controllers\Admin\TranslationController;
 use App\Http\Controllers\Admin\AboutSectionController;
 use App\Http\Controllers\Admin\VisionController;
 use App\Http\Controllers\Admin\MissionController;
+use App\Http\Controllers\Admin\PageController;
 use App\Models\BlogPost;
 use App\Models\Booking;
 use App\Models\Faq;
@@ -94,6 +95,24 @@ Route::resource('visions', VisionController::class);
 
 // Missions
 Route::resource('missions', MissionController::class);
+
+// Pages
+Route::prefix('pages')->name('pages.')->group(function () {
+    Route::get('/home', [PageController::class, 'home'])->name('home');
+    Route::post('/home', [PageController::class, 'updateHome'])->name('home.update');
+
+    Route::get('/services', [PageController::class, 'services'])->name('services');
+    Route::post('/services', [PageController::class, 'updateServices'])->name('services.update');
+
+    Route::get('/industry', [PageController::class, 'industry'])->name('industry');
+    Route::post('/industry', [PageController::class, 'updateIndustry'])->name('industry.update');
+
+    Route::get('/blog', [PageController::class, 'blog'])->name('blog');
+    Route::post('/blog', [PageController::class, 'updateBlog'])->name('blog.update');
+
+    Route::get('/contact', [PageController::class, 'contact'])->name('contact');
+    Route::post('/contact', [PageController::class, 'updateContact'])->name('contact.update');
+});
 
 // Settings
 Route::prefix('settings')->name('settings.')->group(function () {

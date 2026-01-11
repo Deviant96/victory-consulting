@@ -7,9 +7,9 @@
 <section class="py-20">
     <div class="container mx-auto px-4">
         <div class="max-w-7xl mx-auto text-center" data-animate="fade-up">
-            <h1 class="text-5xl font-bold mb-4">{{ t('frontend.blog.heading', 'Our Blog') }}</h1>
+            <h1 class="text-5xl font-bold mb-4">{{ settings('blog.page_title', t('frontend.blog.heading', 'Our Blog')) }}</h1>
             <p class="text-xl text-black/70">
-                {{ t('frontend.blog.subheading', 'Insights, strategies, and expert perspectives on business growth and success') }}
+                {{ settings('blog.page_description', t('frontend.blog.subheading', 'Insights, strategies, and expert perspectives on business growth and success')) }}
             </p>
         </div>
     </div>
@@ -21,6 +21,7 @@
         <div class="max-w-7xl mx-auto">
             <div class="flex flex-col lg:flex-row gap-8">
                 <!-- Filter Sidebar -->
+                @if(settings('blog.enable_filters', '1') == '1')
                 <aside class="lg:w-1/4">
                     <div class="bg-white rounded-lg shadow-md p-6 sticky top-4" data-animate="fade-right">
                         <h2 class="text-2xl font-bold mb-6">{{ t('frontend.blog.filters_title', 'Filters') }}</h2>
@@ -110,9 +111,10 @@
                         @endif
                     </div>
                 </aside>
+                @endif
 
                 <!-- Blog Posts -->
-                <main class="lg:w-3/4">
+                <main class="{{ settings('blog.enable_filters', '1') == '1' ? 'lg:w-3/4' : 'w-full' }}">
                     @if($posts->isEmpty())
                     <div class="bg-white rounded-lg shadow-md p-12 text-center">
                         <svg class="w-16 h-16 text-gray-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -198,15 +200,15 @@
 <!-- Newsletter CTA -->
 <section class="bg-[#FFE7D5] text-white py-10 px-12 max-w-5xl mx-auto md:rounded-xl md:shadow-xl md:mb-16" data-animate="fade-up">
     <div class="container mx-auto px-2 text-center">
-        <h2 class="text-3xl font-bold mb-4 text-[#0481AE]">{{ t('frontend.blog.newsletter_heading', 'Stay Updated') }}</h2>
+        <h2 class="text-3xl font-bold mb-4 text-[#0481AE]">{{ settings('blog.cta_title', t('frontend.blog.newsletter_heading', 'Stay Updated')) }}</h2>
         <p class="text-xl mb-8 max-w-2xl mx-auto text-[#0481AE]">
-            {{ t('frontend.blog.newsletter_subheading', 'Subscribe to our newsletter for the latest insights and business strategies') }}
+            {{ settings('blog.cta_description', t('frontend.blog.newsletter_subheading', 'Subscribe to our newsletter for the latest insights and business strategies')) }}
         </p>
         <form action="#" method="POST" class="max-w-md mx-auto flex flex-col md:flex-row gap-4">
             @csrf
             <input type="email" name="email" placeholder="{{ t('frontend.blog.newsletter_placeholder', 'Enter your email') }}" required class="flex-1 px-4 py-3 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#0481AE]">
             <button type="submit" class="bg-white text-[#0481AE] px-8 py-3 rounded-lg font-semibold hover:bg-[#E6F0F6] transition">
-                {{ t('frontend.blog.newsletter_cta', 'Subscribe') }}
+                {{ settings('blog.cta_button', t('frontend.blog.newsletter_cta', 'Subscribe')) }}
             </button>
         </form>
     </div>

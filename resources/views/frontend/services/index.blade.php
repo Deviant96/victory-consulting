@@ -75,9 +75,9 @@
 <section class="bg-[#FFE7D5] text-white py-10 px-12 max-w-5xl mx-auto md:rounded-xl md:shadow-xl md:mb-16" data-animate="fade-up">
     <div class="container mx-auto px-2 text-center">
         <h2 class="text-3xl text-[#0481AE] mb-8">
-            {{ t('frontend.services.cta_heading', 'We can tailor our services to meet your specific business needs') }}</h2>
+            {{ settings('services.cta_heading', t('frontend.services.cta_heading', 'We can tailor our services to meet your specific business needs')) }}</h2>
         <a href="{{ route('contact') }}" class="inline-block bg-[#0481AE] text-white px-16 py-2 rounded-xl font-semibold hover:bg-[#036494] transition shadow-md">
-            {{ t('frontend.services.cta_button', 'Book Now') }}
+            {{ settings('services.cta_button', t('frontend.services.cta_button', 'Book Now')) }}
         </a>
     </div>
 </section>

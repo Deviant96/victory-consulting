@@ -29,6 +29,60 @@
                 </a>
             </div>
 
+            <!-- Pages Section -->
+            <div class="space-y-2">
+                <p class="px-6 text-xs font-semibold text-slate-500 uppercase tracking-wider">Pages</p>
+                <div class="space-y-1 px-2">
+                    <a href="{{ route('admin.pages.home') }}"
+                       class="sidebar-link {{ request()->routeIs('admin.pages.home') ? 'active' : 'text-slate-200' }}">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+                        </svg>
+                        <span>Home</span>
+                    </a>
+
+                    <a href="{{ route('admin.settings.about') }}"
+                       class="sidebar-link {{ request()->routeIs('admin.settings.about') ? 'active' : 'text-slate-200' }}">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        <span>About</span>
+                    </a>
+
+                    <a href="{{ route('admin.pages.services') }}"
+                       class="sidebar-link {{ request()->routeIs('admin.pages.services') ? 'active' : 'text-slate-200' }}">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                        </svg>
+                        <span>Services</span>
+                    </a>
+
+                    <a href="{{ route('admin.pages.industry') }}"
+                       class="sidebar-link {{ request()->routeIs('admin.pages.industry') ? 'active' : 'text-slate-200' }}">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                        </svg>
+                        <span>Industries</span>
+                    </a>
+
+                    <a href="{{ route('admin.pages.blog') }}"
+                       class="sidebar-link {{ request()->routeIs('admin.pages.blog') ? 'active' : 'text-slate-200' }}">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path>
+                        </svg>
+                        <span>Blog</span>
+                    </a>
+
+                    <a href="{{ route('admin.pages.contact') }}"
+                       class="sidebar-link {{ request()->routeIs('admin.pages.contact') ? 'active' : 'text-slate-200' }}">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                        </svg>
+                        <span>Contact</span>
+                    </a>
+                </div>
+            </div>
+
             <!-- Management Section -->
             <div class="space-y-2">
                 <p class="px-6 text-xs font-semibold text-slate-500 uppercase tracking-wider">Management</p>
@@ -88,22 +142,6 @@
             <div class="space-y-2">
                 <p class="px-6 text-xs font-semibold text-slate-500 uppercase tracking-wider">Site Content</p>
                 <div class="space-y-1 px-2">
-                    <a href="{{ route('admin.settings.hero') ?? '#' }}"
-                       class="sidebar-link {{ request()->routeIs('admin.settings.hero') ? 'active' : 'text-slate-200' }}">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                        </svg>
-                        <span>Hero Section</span>
-                    </a>
-
-                    <a href="{{ route('admin.settings.about') ?? '#' }}"
-                       class="sidebar-link {{ request()->routeIs('admin.settings.about') ? 'active' : 'text-slate-200' }}">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                        </svg>
-                        <span>About Us Page</span>
-                    </a>
-
                     <a href="{{ route('admin.why-choose-items.index') ?? '#' }}"
                        class="sidebar-link {{ request()->routeIs('admin.why-choose-items.*') ? 'active' : 'text-slate-200' }}">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

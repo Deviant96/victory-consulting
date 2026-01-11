@@ -234,16 +234,16 @@
 <!-- CTA Section -->
 <section class="bg-[#FFE7D5] py-10 px-12 max-w-5xl mx-auto md:rounded-xl md:shadow-xl md:mb-16" data-animate="fade-up">
     <div class="container mx-auto px-4 max-w-4xl text-center">
-        <h2 class="text-4xl md:text-5xl font-bold mb-6">{{ t('frontend.about.cta_heading', 'Ready to Transform Your Business?') }}</h2>
+        <h2 class="text-4xl md:text-5xl font-bold mb-6">{{ settings('about.cta_heading', t('frontend.about.cta_heading', 'Ready to Transform Your Business?')) }}</h2>
         <p class="text-xl mb-10 opacity-90">
-            {{ t('frontend.about.cta_subheading', 'Join hundreds of satisfied clients who have experienced growth and success with our consulting services.') }}
+            {{ settings('about.cta_subheading', t('frontend.about.cta_subheading', 'Join hundreds of satisfied clients who have experienced growth and success with our consulting services.')) }}
         </p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
             <a href="{{ route('contact') }}" class="inline-block bg-[#0481AE] text-white px-16 py-2 rounded-xl font-semibold hover:bg-[#036494] transition shadow-md">
-                {{ t('frontend.about.cta_primary', 'Get in Touch') }}
+                {{ settings('about.cta_primary_button', t('frontend.about.cta_primary', 'Get in Touch')) }}
             </a>
-            <a href="{{ route('contact') }}" class="inline-block text-[#0481AE] px-16 py-2 rounded-xl font-semibold border-2 border-[#0481AE] transition shadow-md">
-                {{ t('frontend.about.cta_secondary', 'Explore Services') }}
+            <a href="{{ route('services.index') }}" class="inline-block text-[#0481AE] px-16 py-2 rounded-xl font-semibold border-2 border-[#0481AE] transition shadow-md">
+                {{ settings('about.cta_secondary_button', t('frontend.about.cta_secondary', 'Explore Services')) }}
             </a>
         </div>
     </div>

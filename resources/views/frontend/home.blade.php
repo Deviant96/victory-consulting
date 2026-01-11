@@ -29,9 +29,9 @@
 <section class="py-20 bg-gray-50">
     <div class="container mx-auto px-4 max-w-4xl">
         <div class="text-center mb-12" data-animate="fade-up">
-            <h2 class="text-4xl font-bold text-gray-900 mb-4">{{ t('frontend.home.services_heading', 'Our Services') }}</h2>
+            <h2 class="text-4xl font-bold text-gray-900 mb-4">{{ settings('home.services_title', t('frontend.home.services_heading', 'Our Services')) }}</h2>
             <p class="text-xl text-gray-600 max-w-2xl mx-auto">
-                {{ t('frontend.home.services_subheading', 'Comprehensive business solutions tailored to your unique challenges') }}
+                {{ settings('home.services_description', t('frontend.home.services_subheading', 'Comprehensive business solutions tailored to your unique challenges')) }}
             </p>
         </div>
 
@@ -65,9 +65,9 @@
 <section class="relative pt-20 pb-2 mb-32 text-white overflow-x-clip" style="background: linear-gradient(to bottom, rgba(185, 206, 213, 0.72) 0%, rgba(185, 206, 213, 0.72) 15%, rgba(4, 129, 174, 1) 75%);">
     <div class="container mx-auto px-4 max-w-6xl relative z-10">
         <div class="text-center mb-16" data-animate="fade-up">
-            <h2 class="text-5xl font-bold text-[#035f7f] mb-4">{{ t('frontend.home.why_choose_heading', 'Why Choose ' . settings('site.name', 'Victory Business Consulting')) }}</h2>
+            <h2 class="text-5xl font-bold text-[#035f7f] mb-4">{{ settings('home.why_choose_title', t('frontend.home.why_choose_heading', 'Why Choose ' . settings('site.name', 'Victory Business Consulting'))) }}</h2>
             <p class="text-xl text-[#035f7f] max-w-3xl mx-auto">
-                {{ t('frontend.home.why_choose_subheading', 'Discover what sets us apart and makes us the ideal partner for your business growth') }}
+                {{ settings('home.why_choose_description', t('frontend.home.why_choose_subheading', 'Discover what sets us apart and makes us the ideal partner for your business growth')) }}
             </p>
         </div>
 
@@ -101,9 +101,9 @@
 <section class="py-20 bg-white">
     <div class="container mx-auto px-4 max-w-6xl">
         <div class="text-center mb-16" data-animate="fade-up">
-            <h2 class="text-5xl font-bold text-gray-900 mb-4">{{ t('frontend.home.solutions_heading', 'Whatever Your Business, We Can Handle It') }}</h2>
+            <h2 class="text-5xl font-bold text-gray-900 mb-4">{{ settings('home.business_solutions_title', t('frontend.home.solutions_heading', 'Whatever Your Business, We Can Handle It')) }}</h2>
             <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-                {{ t('frontend.home.solutions_subheading', 'From startups to enterprises, we provide tailored solutions for every industry and challenge') }}
+                {{ settings('home.business_solutions_description', t('frontend.home.solutions_subheading', 'From startups to enterprises, we provide tailored solutions for every industry and challenge')) }}
             </p>
         </div>
 
@@ -168,12 +168,12 @@
         <div class="grid md:grid-cols-4 gap-8" data-animate-stagger="140">
             <div class="mb-8 flex flex-col items-center md:items-start md:col-span-1 text-center md:text-left" data-animate="fade-right">
                 <div>
-                    <h2 class="text-3xl font-bold text-gray-900 mb-2 md:mb-8">{{ t('frontend.home.blog_heading', 'Latest Insights') }}</h2>
-                    <p class="text-gray-600 max-w-2xl">{{ t('frontend.home.blog_subheading', 'Expert perspectives on business strategy and growth.') }}</p>
+                    <h2 class="text-3xl font-bold text-gray-900 mb-2 md:mb-8">{{ settings('home.blog_title', t('frontend.home.blog_heading', 'Latest Insights')) }}</h2>
+                    <p class="text-gray-600 max-w-2xl">{{ settings('home.blog_description', t('frontend.home.blog_subheading', 'Expert perspectives on business strategy and growth.')) }}</p>
                 </div>
                 <div class="text-center mt-6 md:mt-12">
                     <a href="{{ route('blog.index') }}" class="inline-block bg-[#0481AE] text-white px-8 py-3 rounded-lg font-semibold hover:bg-[#035f7f] transition">
-                        {{ t('frontend.home.blog_cta', 'Read More Articles') }}
+                        {{ settings('home.blog_button_text', t('frontend.home.blog_cta', 'Read More Articles')) }}
                     </a>
                 </div>
             </div>
