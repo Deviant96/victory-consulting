@@ -29,6 +29,25 @@
                 </a>
             </div>
 
+            <!-- Bookings - Highlighted -->
+            <div class="px-3 !mt-2">
+                <a href="{{ route('admin.bookings.index') ?? '#' }}"
+                   class="sidebar-link {{ request()->routeIs('admin.bookings.*') ? 'active' : 'text-slate-200' }} bg-gradient-to-r from-blue-600/10 to-indigo-600/10 border border-blue-500/20 shadow-sm">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
+                    <span>Bookings</span>
+                    @php
+                        $pendingBookings = \App\Models\Booking::where('status', 'pending')->count();
+                    @endphp
+                    @if($pendingBookings > 0)
+                        <span class="ml-auto inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white bg-red-500 rounded-full animate-pulse">
+                            {{ $pendingBookings }}
+                        </span>
+                    @endif
+                </a>
+            </div>
+
             <!-- Pages Section -->
             <div class="space-y-2">
                 <p class="px-6 text-xs font-semibold text-slate-500 uppercase tracking-wider">Pages</p>
@@ -88,14 +107,6 @@
                 <p class="px-6 text-xs font-semibold text-slate-500 uppercase tracking-wider">Management</p>
 
                 <div class="space-y-1 px-2">
-                    <a href="{{ route('admin.bookings.index') ?? '#' }}"
-                       class="sidebar-link {{ request()->routeIs('admin.bookings.*') ? 'active' : 'text-slate-200' }}">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                        </svg>
-                        <span>Bookings</span>
-                    </a>
-
                     <a href="{{ route('admin.services.index') ?? '#' }}"
                        class="sidebar-link {{ request()->routeIs('admin.services.*') ? 'active' : 'text-slate-200' }}">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
