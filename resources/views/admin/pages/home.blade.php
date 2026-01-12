@@ -32,11 +32,37 @@
                 <label for="hero_image" class="block text-sm font-medium text-gray-700 mb-2">Background Image</label>
                 @if(isset($settings['hero.background_image']) && optional($settings['hero.background_image'])->value)
                 <div class="mb-3">
-                    <img src="{{ asset('storage/' . $settings['hero.background_image']->value) }}" alt="Current Hero Background" class="w-full max-w-2xl h-56 object-cover rounded-lg shadow-md">
+                    <img id="current-hero-image" src="{{ asset('storage/' . $settings['hero.background_image']->value) }}" alt="Current Hero Background" class="w-full max-w-2xl h-56 object-cover rounded-lg shadow-md">
                     <p class="text-sm text-gray-500 mt-1">Current hero image</p>
                 </div>
                 @endif
-                <input type="file" name="hero_image" id="hero_image" accept="image/*" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-blue-500 focus:border-blue-500">
+                
+                <!-- Preview Container for New Image -->
+                <div id="hero-preview-container" class="hidden mb-3">
+                    <div class="relative">
+                        <img id="hero-preview" src="" alt="New Image Preview" class="w-full max-w-2xl h-56 object-cover rounded-lg shadow-md border-4 border-blue-500">
+                        <div class="absolute top-2 right-2 bg-blue-500 text-white px-3 py-1 rounded-full text-xs font-semibold shadow-lg flex items-center gap-1">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                            New Image Selected
+                        </div>
+                        <button type="button" id="clear-hero-btn" class="absolute bottom-2 right-2 bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg text-sm font-semibold shadow-lg flex items-center gap-2 transition transform hover:scale-105">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                            </svg>
+                            Clear
+                        </button>
+                    </div>
+                    <p class="text-sm text-blue-600 font-semibold mt-1 flex items-center gap-1">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        Preview of new image - click "Save Home Settings" to upload
+                    </p>
+                </div>
+                
+                <input type="file" name="hero_image" id="hero_image" accept="image/*" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-blue-500 focus:border-blue-500 transition">
                 <p class="text-gray-500 text-sm mt-1">Recommended: 1920x600px or larger, max 4MB.</p>
             </div>
 
@@ -194,4 +220,67 @@
         </div>
     </form>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const heroInput = document.getElementById('hero_image');
+    const heroPreviewContainer = document.getElementById('hero-preview-container');
+    const heroPreview = document.getElementById('hero-preview');
+    const clearHeroBtn = document.getElementById('clear-hero-btn');
+    
+    heroInput.addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        
+        if (file) {
+            // Check file size (4MB = 4 * 1024 * 1024 bytes)
+            if (file.size > 4 * 1024 * 1024) {
+                alert('File size must be less than 4MB');
+                heroInput.value = '';
+                heroPreviewContainer.classList.add('hidden');
+                return;
+            }
+            
+            // Check file type
+            if (!file.type.startsWith('image/')) {
+                alert('Please select an image file');
+                heroInput.value = '';
+                heroPreviewContainer.classList.add('hidden');
+                return;
+            }
+            
+            const reader = new FileReader();
+            
+            reader.onload = function(e) {
+                heroPreview.src = e.target.result;
+                heroPreviewContainer.classList.remove('hidden');
+                
+                // Add a smooth fade-in animation
+                heroPreviewContainer.style.opacity = '0';
+                setTimeout(() => {
+                    heroPreviewContainer.style.transition = 'opacity 0.3s ease-in-out';
+                    heroPreviewContainer.style.opacity = '1';
+                }, 10);
+                
+                // Scroll to preview
+                heroPreviewContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            };
+            
+            reader.readAsDataURL(file);
+        } else {
+            heroPreviewContainer.classList.add('hidden');
+        }
+    });
+    
+    // Clear button functionality
+    clearHeroBtn.addEventListener('click', function() {
+        heroInput.value = '';
+        heroPreviewContainer.style.transition = 'opacity 0.2s ease-in-out';
+        heroPreviewContainer.style.opacity = '0';
+        setTimeout(() => {
+            heroPreviewContainer.classList.add('hidden');
+            heroPreview.src = '';
+        }, 200);
+    });
+});
+</script>
 @endsection
