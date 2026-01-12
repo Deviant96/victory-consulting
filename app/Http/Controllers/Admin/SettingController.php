@@ -83,6 +83,7 @@ class SettingController extends Controller
         $settings = Setting::whereIn('key', [
             'branding.logo',
             'branding.favicon',
+            'site.name',
             'site.tagline',
         ])->pluck('value', 'key');
 
@@ -94,6 +95,7 @@ class SettingController extends Controller
         $validated = $request->validate([
             'logo' => 'nullable|image|max:2048',
             'favicon' => 'nullable|image|max:1024',
+            'site_name' => 'required|string|max:255',
             'tagline' => 'nullable|string',
         ]);
 
@@ -117,6 +119,10 @@ class SettingController extends Controller
             
             $path = $request->file('favicon')->store('branding', 'public');
             Setting::set('branding.favicon', $path);
+        }
+
+        if (isset($validated['site_name'])) {
+            Setting::set('site.name', $validated['site_name']);
         }
 
         if (isset($validated['tagline'])) {

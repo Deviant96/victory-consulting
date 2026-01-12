@@ -51,6 +51,14 @@
         </div>
 
         <div class="mb-6">
+            <label for="site_name" class="block text-sm font-medium text-gray-700 mb-2">Site Name *</label>
+            <input type="text" name="site_name" id="site_name" value="{{ old('site_name', $settings['site.name'] ?? '') }}" required class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-blue-500 focus:border-blue-500">
+            @error('site_name')
+            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+            @enderror
+        </div>
+
+        <div class="mb-6">
             <label for="site_tagline" class="block text-sm font-medium text-gray-700 mb-2">Site Tagline</label>
             <input type="text" name="tagline" id="site_tagline" value="{{ old('tagline', $settings['site.tagline'] ?? '') }}" placeholder="Your company tagline or slogan" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-blue-500 focus:border-blue-500">
             @error('tagline')

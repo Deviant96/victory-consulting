@@ -21,14 +21,6 @@
         @csrf
 
         <div class="mb-6">
-            <label for="site_name" class="block text-sm font-medium text-gray-700 mb-2">Site Name *</label>
-            <input type="text" name="site[name]" id="site_name" value="{{ old('site.name', $settings['site.name'] ?? '') }}" required class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-blue-500 focus:border-blue-500">
-            @error('site.name')
-            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-            @enderror
-        </div>
-
-        <div class="mb-6">
             <label for="site_email" class="block text-sm font-medium text-gray-700 mb-2">Email Address *</label>
             <input type="email" name="site[email]" id="site_email" value="{{ old('site.email', $settings['site.email'] ?? '') }}" required class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-blue-500 focus:border-blue-500">
             @error('site.email')
