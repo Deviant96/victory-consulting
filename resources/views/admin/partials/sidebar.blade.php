@@ -102,9 +102,9 @@
                 </div>
             </div>
 
-            <!-- Management Section -->
+            <!-- Content Management Section -->
             <div class="space-y-2">
-                <p class="px-6 text-xs font-semibold text-slate-500 uppercase tracking-wider">Management</p>
+                <p class="px-6 text-xs font-semibold text-slate-500 uppercase tracking-wider">Content Management</p>
 
                 <div class="space-y-1 px-2">
                     <a href="{{ route('admin.services.index') ?? '#' }}"
@@ -146,13 +146,7 @@
                         </svg>
                         <span>Team Members</span>
                     </a>
-                </div>
-            </div>
 
-            <!-- Site Content Section -->
-            <div class="space-y-2">
-                <p class="px-6 text-xs font-semibold text-slate-500 uppercase tracking-wider">Site Content</p>
-                <div class="space-y-1 px-2">
                     <a href="{{ route('admin.why-choose-items.index') ?? '#' }}"
                        class="sidebar-link {{ request()->routeIs('admin.why-choose-items.*') ? 'active' : 'text-slate-200' }}">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -167,14 +161,6 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                         </svg>
                         <span>FAQs</span>
-                    </a>
-
-                    <a href="{{ route('admin.whatsapp-agents.index') ?? '#' }}"
-                       class="sidebar-link {{ request()->routeIs('admin.whatsapp-agents.*') ? 'active' : 'text-slate-200' }}">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
-                        </svg>
-                        <span>WhatsApp Agents</span>
                     </a>
                 </div>
             </div>
@@ -207,20 +193,6 @@
                         <span>Branding</span>
                     </a>
 
-                    <a href="{{ route('admin.settings.booking') ?? '#' }}"
-                       class="sidebar-link {{ request()->routeIs('admin.settings.booking') ? 'active' : 'text-slate-200' }}">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V4a2 2 0 10-4 0v1.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5" />
-                        </svg>
-                        <span>Booking Notifications</span>
-                    </a>
-                </div>
-            </div>
-
-            <!-- System Section -->
-            <div class="space-y-2">
-                <p class="px-6 text-xs font-semibold text-slate-500 uppercase tracking-wider">System</p>
-                <div class="space-y-1 px-2">
                     <a href="{{ route('admin.languages.index') ?? '#' }}"
                        class="sidebar-link {{ request()->routeIs('admin.languages.*') ? 'active' : 'text-slate-200' }}">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -235,6 +207,28 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9h8M8 13h6m5 2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2h8l4 4v-4h2a2 2 0 002-2z" />
                         </svg>
                         <span>Static Translations</span>
+                    </a>
+
+                    <a href="{{ route('admin.whatsapp-agents.index') ?? '#' }}"
+                       class="sidebar-link {{ request()->routeIs('admin.whatsapp-agents.*') ? 'active' : 'text-slate-200' }}">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+                        </svg>
+                        <span>WhatsApp Agents</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- System Section -->
+            <div class="space-y-2">
+                <p class="px-6 text-xs font-semibold text-slate-500 uppercase tracking-wider">System</p>
+                <div class="space-y-1 px-2">
+                    <a href="{{ route('admin.settings.booking') ?? '#' }}"
+                       class="sidebar-link {{ request()->routeIs('admin.settings.booking') ? 'active' : 'text-slate-200' }}">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V4a2 2 0 10-4 0v1.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5" />
+                        </svg>
+                        <span>Booking Notifications</span>
                     </a>
 
                     <a href="{{ route('admin.logs.index') ?? '#' }}"
