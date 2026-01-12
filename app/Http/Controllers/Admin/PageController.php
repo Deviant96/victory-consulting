@@ -174,6 +174,7 @@ class PageController extends Controller
             'industry.cta_description',
             'industry.cta_primary_button',
             'industry.cta_secondary_button',
+            'hero.industry_image',
         ];
         
         $settings = Setting::whereIn('key', $settingKeys)->get()->keyBy('key');
@@ -190,7 +191,25 @@ class PageController extends Controller
             'industry.cta_description' => 'nullable|string',
             'industry.cta_primary_button' => 'nullable|string|max:100',
             'industry.cta_secondary_button' => 'nullable|string|max:100',
+            'industry_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:4096',
         ]);
+
+        // Handle industry hero image upload
+        if ($request->hasFile('industry_image')) {
+            $image = $request->file('industry_image');
+            $imagePath = $image->store('images/hero', 'public');
+            
+            // Save to settings
+            $setting = Setting::firstOrCreate(['key' => 'hero.industry_image']);
+            
+            // Delete old image if exists
+            if ($setting->value && \Storage::disk('public')->exists($setting->value)) {
+                \Storage::disk('public')->delete($setting->value);
+            }
+            
+            $setting->value = $imagePath;
+            $setting->save();
+        }
 
         $industrySettings = $request->input('industry', []);
         $translations = $request->input('translations', []);
