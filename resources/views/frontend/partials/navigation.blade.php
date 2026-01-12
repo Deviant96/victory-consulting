@@ -128,7 +128,7 @@
                                 </svg>
                             </div>
                             <div class="flex-1">
-                                <p class="text-sm font-semibold text-gray-900" x-text="query ? `{{ t('frontend.search.searching_for', 'Searching for') }} \"${query}\"` : '{{ t('frontend.search.title', 'Search our site') }}'"></p>
+                                <p class="text-sm font-semibold text-gray-900" x-text='query ? `{{ t("frontend.search.searching_for", "Searching for") }} "${query}"` : "{{ t("frontend.search.title", "Search our site") }}"'></p>
                                 <p class="text-xs text-gray-500">{{ t('frontend.search.subtitle', 'Services, team, articles, and contact info') }}</p>
                             </div>
                             <span class="text-[11px] text-gray-400 border border-gray-200 rounded px-2 py-1">Esc</span>
