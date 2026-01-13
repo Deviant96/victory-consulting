@@ -17,7 +17,7 @@
         </div>
 
         <!-- Navigation -->
-        <nav class="flex-1 overflow-y-auto py-6 space-y-6">
+        <nav class="flex-1 overflow-y-auto py-6 space-y-6 scrollbar-thin scrollbar-thumb-slate-700 scrollbar-track-slate-800" id="sidebar-nav">
             <!-- Dashboard -->
             <div class="px-3">
                 <a href="{{ route('admin.dashboard') }}"
@@ -257,3 +257,34 @@
         </div>
     </div>
 </aside>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const sidebarNav = document.getElementById('sidebar-nav');
+    const activeLink = sidebarNav.querySelector('.sidebar-link.active');
+    
+    // Scroll active menu item into view on page load
+    if (activeLink && sidebarNav) {
+        setTimeout(() => {
+            activeLink.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+        }, 100);
+    }
+    
+    // Add click handlers to all sidebar links to ensure visibility
+    const allLinks = sidebarNav.querySelectorAll('.sidebar-link');
+    allLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            // Small delay to allow navigation, then scroll
+            setTimeout(() => {
+                this.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'nearest'
+                });
+            }, 50);
+        });
+    });
+});
+</script>

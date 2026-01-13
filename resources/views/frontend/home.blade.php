@@ -163,33 +163,33 @@
 </section> --}}
 
 <!-- Blog Section -->
-<section class="py-20 bg-[#FFE7D5] text-white">
+<section class="py-16 md:py-20 bg-[#FFE7D5] text-white">
     <div class="container mx-auto px-4 max-w-6xl">
-        <div class="grid md:grid-cols-4 gap-8" data-animate-stagger="140">
-            <div class="mb-8 flex flex-col items-center md:items-start md:col-span-1 text-center md:text-left" data-animate="fade-right">
+        <div class="grid md:grid-cols-4 gap-4 md:gap-8" data-animate-stagger="140">
+            <div class="mb-2 md:mb-8 flex flex-row justify-between md:justify-normal md:flex-col  md:items-start md:col-span-1 text-left md:text-center" data-animate="fade-right">
                 <div>
-                    <h2 class="text-3xl font-bold text-gray-900 mb-2 md:mb-8">{{ settings('home.blog_title', t('frontend.home.blog_heading', 'Latest Insights')) }}</h2>
+                    <h2 class="text-lg md:text-3xl font-bold text-gray-900 mb-2 md:mb-8 leading-4 md:leading-normal">{{ settings('home.blog_title', t('frontend.home.blog_heading', 'Latest Insights')) }}</h2>
                     <p class="text-gray-600 max-w-2xl">{{ settings('home.blog_description', t('frontend.home.blog_subheading', 'Expert perspectives on business strategy and growth.')) }}</p>
                 </div>
-                <div class="text-center mt-6 md:mt-12">
-                    <a href="{{ route('blog.index') }}" class="inline-block bg-[#0481AE] text-white px-8 py-3 rounded-lg font-semibold hover:bg-[#035f7f] transition">
+                <div class="text-center md:mt-12">
+                    <a href="{{ route('blog.index') }}" class="inline-block md:bg-[#0481AE] text-black md:text-white underline md:no-underline p-0 md:px-8 md:py-3 md:rounded-lg md:font-semibold md:hover:bg-[#035f7f] transition">
                         {{ settings('home.blog_button_text', t('frontend.home.blog_cta', 'Read More Articles')) }}
                     </a>
                 </div>
             </div>
 
             @foreach($posts as $post)
-            <a href="{{ route('blog.show', $post->slug) }}" class="bg-white rounded-lg shadow-md hover:shadow-xl transition overflow-hidden block" data-animate="fade-up">
+            <a href="{{ route('blog.show', $post->slug) }}" class="bg-white rounded-lg shadow-md hover:shadow-xl transition overflow-hidden flex flex-row md:block p-4 md:p-0" data-animate="fade-up">
                 @if($post->featured_image)
-                <img src="{{ asset('storage/' . $post->featured_image) }}" alt="{{ $post->title }}" class="w-full h-48 object-cover">
+                <img src="{{ asset('storage/' . $post->featured_image) }}" alt="{{ $post->title }}" class="w-[72px] h-[72px] object-cover mr-4 lg:mr-0 md:w-full md:h-48">
                 @endif
-                <div class="p-6">
+                <div class="p-0 md:py-6 md:px-4 lg:px-6 flex-1">
                     @if($post->category)
-                    <span class="text-sm text-[#0481AE] font-semibold">{{ $post->category }}</span>
+                    <span class="text-xs md:text-sm text-black md:text-[#0481AE] md:font-semibold">{{ $post->category }}</span>
                     @endif
-                    <h3 class="text-xl font-bold text-gray-900 mb-2 mt-2">{{ $post->title }}</h3>
-                    <p class="text-gray-600 mb-4 line-clamp-2">{{ $post->excerpt }}</p>
-                    <div class="flex items-center text-sm text-gray-500">
+                    <h3 class="text-md leading-tight md:leading-normal md:text-xl font-semibold md:font-bold text-gray-900 md:mb-2 md:mt-2">{{ $post->title }}</h3>
+                    <div class="hidden md:block"><p class="text-gray-600 mb-4 line-clamp-2">{{ $post->excerpt }}</p></div>
+                    <div class="hidden md:flex items-center text-sm text-gray-500">
                         @php($publishedDate = $post->published_at ?? $post->created_at)
                         <span>{{ $publishedDate->format('M d, Y') }}</span>
                         @if($post->author)
