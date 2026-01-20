@@ -89,10 +89,10 @@
     </div>
     
     <!-- Half-rounded separator at bottom -->
-    <div class="absolute -bottom-8 md:-bottom-12 bg-[#0481AE] left-[-2.5%] right-0 h-12 md:h-32 z-[3] w-[105%]" style="border-radius: 0 0 50% 50% / 0 0 100% 100%;"></div>
+    <div class="absolute -bottom-8 md:-bottom-[4rem] bg-[#0481AE] left-[-2.5%] right-0 h-12 md:h-32 z-[3] w-[105%]" style="border-radius: 0 0 50% 50% / 0 0 100% 100%;"></div>
     
     <!-- Half-rounded separator at bottom -->
-    <div class="absolute -bottom-12 md:-bottom-18 bg-[#EAF1EF] left-[-5%] right-0 h-16 md:h-40 w-[110%] z-[2]" style="border-radius: 0 0 50% 50% / 0 0 100% 100%;"></div>
+    <div class="absolute -bottom-12 md:-bottom-[6rem] bg-[#EAF1EF] left-[-5%] right-0 h-16 md:h-40 w-[110%] z-[2]" style="border-radius: 0 0 50% 50% / 0 0 100% 100%;"></div>
 </section>
 @endif
 
@@ -163,21 +163,16 @@
 </section> --}}
 
 <!-- Blog Section -->
-<section class="py-12 md:py-16 lg:py-20 bg-[#FFE7D5] text-white">
+<section class="py-12 md:py-16 lg:py-20 bg-[#faf4f0] text-white">
     <div class="container mx-auto px-4 max-w-6xl">
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 md:gap-8" data-animate-stagger="140">
-            <div class="mb-4 md:mb-8 flex flex-row justify-between items-center md:justify-normal md:flex-col md:items-start md:col-span-1 text-left md:text-center" data-animate="fade-right">
-                <div class="flex-1">
-                    <h2 class="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 mb-2 md:mb-8 leading-tight md:leading-normal">{{ settings('home.blog_title', t('frontend.home.blog_heading', 'Latest Insights')) }}</h2>
-                    <p class="text-sm md:text-base text-gray-600 max-w-2xl hidden md:block">{{ settings('home.blog_description', t('frontend.home.blog_subheading', 'Expert perspectives on business strategy and growth.')) }}</p>
-                </div>
-                <div class="text-center md:mt-12 flex-shrink-0">
-                    <a href="{{ route('blog.index') }}" class="inline-block text-sm md:text-base md:bg-[#0481AE] text-black md:text-white underline md:no-underline p-0 md:px-8 md:py-3 md:rounded-lg md:font-semibold md:hover:bg-[#035f7f] transition whitespace-nowrap">
-                        {{ settings('home.blog_button_text', t('frontend.home.blog_cta', 'Read More')) }}
-                    </a>
-                </div>
+        <div class="mb-4 md:mb-14 items-center md:justify-normal md:flex-col md:items-start md:col-span-1 text-left md:text-center" data-animate="fade-right">
+            <div>
+                <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-3 md:mb-4 px-2">{{ settings('home.blog_title', t('frontend.home.blog_heading', 'Latest Insights')) }}</h2>
+                <p class="text-base md:text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto px-4">{{ settings('home.blog_description', t('frontend.home.blog_subheading', 'Expert perspectives on business strategy and growth.')) }}</p>
             </div>
+        </div>
 
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8" data-animate-stagger="140">
             @foreach($posts as $post)
             <a href="{{ route('blog.show', $post->slug) }}" class="bg-white rounded-lg shadow-md hover:shadow-xl transition overflow-hidden flex flex-row md:block p-3 md:p-0" data-animate="fade-up">
                 @if($post->featured_image)
@@ -200,6 +195,12 @@
                 </div>
             </a>
             @endforeach
+        </div>
+
+        <div class="text-center md:mt-12 flex-shrink-0">
+            <a href="{{ route('blog.index') }}" class="inline-block text-sm md:text-base md:bg-[#0481AE] text-black md:text-white underline md:no-underline p-0 md:px-8 md:py-3 md:rounded-lg md:font-semibold md:hover:bg-[#035f7f] transition whitespace-nowrap">
+                {{ settings('home.blog_button_text', t('frontend.home.blog_cta', 'Read More')) }}
+            </a>
         </div>
     </div>
 </section>
