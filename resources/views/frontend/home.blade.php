@@ -174,23 +174,31 @@
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8" data-animate-stagger="140">
             @foreach($posts as $post)
-            <a href="{{ route('blog.show', $post->slug) }}" class="bg-white rounded-lg shadow-md hover:shadow-xl transition overflow-hidden flex flex-row md:block p-3 md:p-0" data-animate="fade-up">
+            <a href="{{ route('blog.show', $post->slug) }}" class="group bg-white rounded-lg shadow-md hover:shadow-2xl transition overflow-hidden flex flex-row md:flex md:flex-col h-full relative" data-animate="fade-up">
                 @if($post->featured_image)
-                <img src="{{ asset('storage/' . $post->featured_image) }}" alt="{{ $post->title }}" class="w-20 h-20 sm:w-24 sm:h-24 object-cover rounded md:rounded-none mr-3 md:mr-0 md:w-full md:h-48 flex-shrink-0">
+                <img src="{{ asset('storage/' . $post->featured_image) }}" alt="{{ $post->title }}" class="w-20 h-full sm:w-24 sm:h-24 md:w-full md:h-40 object-cover md:rounded-t-lg mr-0 md:mr-0 flex-shrink-0 group-hover:md:h-24 transition-all duration-300">
                 @endif
-                <div class="p-0 md:py-6 md:px-4 lg:px-6 flex-1 min-w-0">
-                    @if($post->category)
-                    <span class="text-xs md:text-sm text-black md:text-[#0481AE] md:font-semibold block mb-1 md:mb-0">{{ $post->category }}</span>
-                    @endif
-                    <h3 class="text-sm sm:text-base md:text-xl font-semibold md:font-bold text-gray-900 md:mb-2 md:mt-2 line-clamp-2 md:line-clamp-none">{{ $post->title }}</h3>
-                    <div class="hidden md:block"><p class="text-gray-600 mb-4 line-clamp-2">{{ $post->excerpt }}</p></div>
-                    <div class="hidden md:flex items-center text-sm text-gray-500">
-                        @php($publishedDate = $post->published_at ?? $post->created_at)
-                        <span>{{ $publishedDate->format('M d, Y') }}</span>
-                        @if($post->author)
-                        <span class="mx-2">•</span>
-                        <span>{{ $post->author }}</span>
-                        @endif
+                <div class="p-3 md:p-5 lg:p-6 flex-1 min-w-0 flex flex-col justify-between md:relative">
+                    <div>
+                        <div class="flex items-center gap-2 mb-2 flex-wrap justify-between">
+                            @if($post->category)
+                            <span class="text-xs md:text-sm text-black md:text-[#0481AE] md:font-semibold">{{ $post->category }}</span>
+                            @endif
+                            <div class="hidden md:flex items-center text-xs md:text-xs text-gray-500 gap-2">
+                                @php($publishedDate = $post->published_at ?? $post->created_at)
+                                <span>{{ $publishedDate->format('M d, Y') }}</span>
+                                @if($post->author)
+                                <span>•</span>
+                                <span>{{ $post->author }}</span>
+                                @endif
+                            </div>
+                        </div>
+                        <h3 class="text-sm sm:text-base md:text-lg font-semibold md:font-bold text-gray-900 mb-0 md:mb-3 line-clamp-2 md:line-clamp-none group-hover:md:line-clamp-2 transition-all">{{ $post->title }}</h3>
+                    </div>
+                    
+                    <!-- Excerpt - Hidden on desktop, shows on hover with smooth transition -->
+                    <div class="hidden md:block invisible opacity-0 group-hover:md:visible group-hover:md:opacity-100 md:absolute md:left-0 md:right-0 md:bottom-0 md:bg-gradient-to-t md:from-white md:to-white/95 md:p-5 md:pt-6 md:max-h-32 md:overflow-hidden transition-all duration-500">
+                        <p class="text-gray-600 text-sm line-clamp-3 md:line-clamp-4">{{ $post->excerpt }}</p>
                     </div>
                 </div>
             </a>
