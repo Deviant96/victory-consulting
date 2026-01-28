@@ -11,52 +11,77 @@
     @endif
     <div class="container mx-auto px-4 max-w-6xl relative z-10 py-12 md:py-24" data-animate="fade-up">
         <div class="max-w-4xl mx-auto text-center md:text-{{ settings('hero.text_alignment', 'center') }}">
-            <h1 class="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold mb-4 md:mb-6 leading-tight">{{ settings('site.name', 'Victory Business Consulting') }}</h1>
-            <p class="text-base sm:text-lg md:text-xl lg:text-2xl mb-6 md:mb-10 text-[#cce7f0] px-2">{{ settings('site.tagline', 'Empowering businesses to achieve sustainable growth and operational excellence') }}</p>
+            <!-- Trust Badges -->
+            <div class="flex flex-wrap justify-center gap-3 md:gap-4 mb-4 md:mb-6">
+                <span class="bg-white/20 backdrop-blur-sm px-3 md:px-4 py-1 md:py-2 rounded-full text-xs md:text-sm font-semibold border border-white/30">
+                    <i class="fas fa-certificate mr-1 md:mr-2"></i>Certified CPAs
+                </span>
+                <span class="bg-white/20 backdrop-blur-sm px-3 md:px-4 py-1 md:py-2 rounded-full text-xs md:text-sm font-semibold border border-white/30">
+                    <i class="fas fa-shield-alt mr-1 md:mr-2"></i>SOC 2 Compliant
+                </span>
+                <span class="bg-white/20 backdrop-blur-sm px-3 md:px-4 py-1 md:py-2 rounded-full text-xs md:text-sm font-semibold border border-white/30">
+                    <i class="fas fa-award mr-1 md:mr-2"></i>15+ Years Experience
+                </span>
+            </div>
+            
+            <h1 class="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold mb-4 md:mb-6 leading-tight">{{ settings('site.name', 'Victory Financial & Accounting Consulting') }}</h1>
+            <p class="text-base sm:text-lg md:text-xl lg:text-2xl mb-6 md:mb-10 text-[#cce7f0] px-2">{{ settings('site.tagline', 'Strategic tax planning and accounting solutions that reduce liability, ensure compliance, and drive financial clarity') }}</p>
             <div class="flex flex-col md:flex-row gap-3 md:gap-4 justify-center md:{{ settings('hero.text_alignment') === 'center' ? 'justify-center' : (settings('hero.text_alignment') === 'right' ? 'justify-end' : 'justify-start') }} px-4 md:px-0">
-                <a href="{{ route('services.index') }}" class="w-full md:w-auto text-center bg-white text-[#0481AE] px-8 md:px-12 lg:px-16 py-3 rounded-xl font-semibold hover:bg-[#cce7f0] transition shadow-md">
-                    {{ t('frontend.home.hero_primary_cta', 'Our Services') }}
+                <a href="{{ route('contact') }}" class="w-full md:w-auto text-center bg-white text-[#0481AE] px-8 md:px-12 lg:px-16 py-3 md:py-4 rounded-xl font-semibold hover:bg-[#cce7f0] transition shadow-md text-base md:text-lg">
+                    <i class="far fa-calendar-check mr-2"></i>{{ t('frontend.home.hero_primary_cta', 'Schedule Free Consultation') }}
                 </a>
-                <a href="{{ route('contact') }}" class="w-full md:w-auto text-center border-2 border-white text-white px-8 md:px-12 lg:px-16 py-3 rounded-xl font-semibold hover:bg-white hover:text-[#035f7f] transition shadow-md">
-                    {{ t('frontend.home.hero_secondary_cta', 'Get Started') }}
+                <a href="{{ route('services.index') }}" class="w-full md:w-auto text-center border-2 border-white text-white px-8 md:px-12 lg:px-16 py-3 md:py-4 rounded-xl font-semibold hover:bg-white hover:text-[#035f7f] transition shadow-md text-base md:text-lg">
+                    {{ t('frontend.home.hero_secondary_cta', 'Explore Services') }}
                 </a>
             </div>
+            <p class="text-xs md:text-sm text-white/80 mt-4 md:mt-6">✓ No obligation assessment  ✓ Same-day response  ✓ Confidential consultation</p>
         </div>
     </div>
 </section>
 
 <!-- Services Section -->
 <section class="py-12 md:py-20 bg-gray-50">
-    <div class="container mx-auto px-4 max-w-4xl">
+    <div class="container mx-auto px-4 max-w-6xl">
         <div class="text-center mb-8 md:mb-12" data-animate="fade-up">
-            <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-3 md:mb-4">{{ settings('home.services_title', t('frontend.home.services_heading', 'Our Services')) }}</h2>
-            <p class="text-base md:text-xl text-gray-600 max-w-2xl mx-auto px-2">
-                {{ settings('home.services_description', t('frontend.home.services_subheading', 'Comprehensive business solutions tailored to your unique challenges')) }}
+            <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-3 md:mb-4">{{ settings('home.services_title', t('frontend.home.services_heading', 'Expert Accounting & Tax Services')) }}</h2>
+            <p class="text-base md:text-xl text-gray-600 max-w-3xl mx-auto px-2">
+                {{ settings('home.services_description', t('frontend.home.services_subheading', 'Proactive financial strategies that reduce tax liability, ensure compliance, and provide the clarity you need to make confident business decisions')) }}
             </p>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-12" data-animate-stagger="120">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8" data-animate-stagger="120">
             @foreach($services as $service)
-            <a href="{{ route('services.show', $service->slug) }}" class="bg-white rounded-lg shadow-md hover:shadow-xl transition p-5 md:p-6 border-[#0481AE] border-2 flex flex-col" data-animate="fade-up">
+            <a href="{{ route('services.show', $service->slug) }}" class="bg-white rounded-lg shadow-md hover:shadow-xl transition p-5 md:p-6 border-[#0481AE] border-2 flex flex-col group" data-animate="fade-up">
                 @if($service->image)
-                <img src="{{ asset('storage/' . $service->image) }}" alt="{{ $service->title }}" class="w-full h-40 md:h-48 object-cover rounded-lg mb-3 md:mb-4">
+                <div class="relative overflow-hidden rounded-lg mb-3 md:mb-4">
+                    <img src="{{ asset('storage/' . $service->image) }}" alt="{{ $service->title }}" class="w-full h-40 md:h-48 object-cover">
+                    <div class="absolute top-3 right-3 bg-[#0481AE] text-white px-3 py-1 rounded-full text-xs font-semibold">
+                        <i class="fas fa-check-circle mr-1"></i>Proven
+                    </div>
+                </div>
                 @endif
-                <h3 class="text-lg sm:text-xl md:text-2xl font-bold text-gray-900 mb-2 md:mb-3 flex-1">{{ $service->title }}</h3>
+                <h3 class="text-lg sm:text-xl md:text-2xl font-bold text-gray-900 mb-2 md:mb-3 flex-1 group-hover:text-[#0481AE] transition">{{ $service->title }}</h3>
                 <div class="flex-grow flex flex-col justify-between">
                     <p class="text-sm md:text-base text-gray-600 mb-3 md:mb-4 line-clamp-3">{{ $service->summary }}</p>
-                    <span class="text-[#0481AE] font-semibold hover:text-[#035f7f]">
-                        {{ t('frontend.common.learn_more', 'Learn More') }} →
-                    </span>
+                    <div class="flex items-center justify-between">
+                        <span class="text-[#0481AE] font-semibold group-hover:text-[#035f7f]">
+                            {{ t('frontend.common.learn_more', 'Learn More') }} →
+                        </span>
+                        <span class="text-xs text-gray-500">
+                            <i class="far fa-clock mr-1"></i>Fast turnaround
+                        </span>
+                    </div>
                 </div>
             </a>
             @endforeach
         </div>
 
-        {{-- <div class="text-center mt-12">
-            <a href="{{ route('services.index') }}" class="inline-block bg-[#0481AE] text-white px-8 py-3 rounded-lg font-semibold hover:bg-[#035f7f] transition">
-                View All Services
+        <div class="text-center mt-8 md:mt-12">
+            <a href="{{ route('contact') }}" class="inline-block bg-[#0481AE] text-white px-8 md:px-12 py-3 md:py-4 rounded-lg font-semibold hover:bg-[#035f7f] transition shadow-lg text-base md:text-lg">
+                <i class="far fa-calendar-check mr-2"></i>Book Your Free Assessment
             </a>
-        </div> --}}
+            <p class="text-sm text-gray-600 mt-3">30-minute consultation • No obligation • Get clarity on your options</p>
+        </div>
     </div>
 </section>
 
@@ -65,18 +90,18 @@
 <section class="relative pt-12 md:pt-20 pb-2 mb-20 md:mb-32 text-white overflow-x-clip" style="background: linear-gradient(to bottom, rgba(185, 206, 213, 0.72) 0%, rgba(185, 206, 213, 0.72) 15%, rgba(4, 129, 174, 1) 75%);">
     <div class="container mx-auto px-4 max-w-6xl relative z-10">
         <div class="text-center mb-8 md:mb-16" data-animate="fade-up">
-            <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-[#035f7f] mb-3 md:mb-4 px-2">{{ settings('home.why_choose_title', t('frontend.home.why_choose_heading', 'Why Choose ' . settings('site.name', 'Victory Business Consulting'))) }}</h2>
+            <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-[#035f7f] mb-3 md:mb-4 px-2">{{ settings('home.why_choose_title', t('frontend.home.why_choose_heading', 'Why Finance Leaders Trust ' . settings('site.name', 'Victory Financial Consulting'))) }}</h2>
             <p class="text-base md:text-lg lg:text-xl text-[#035f7f] max-w-3xl mx-auto px-4">
-                {{ settings('home.why_choose_description', t('frontend.home.why_choose_subheading', 'Discover what sets us apart and makes us the ideal partner for your business growth')) }}
+                {{ settings('home.why_choose_description', t('frontend.home.why_choose_subheading', 'We go beyond traditional accounting—delivering proactive strategies, personalized service, and the expertise you need to minimize taxes and maximize financial performance')) }}
             </p>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8 mb-8 md:mb-16" data-animate-stagger="120">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8 mb-8 md:mb-12" data-animate-stagger="120">
             @foreach($whyChooseItems as $item)
             <div class="bg-white/95 backdrop-blur rounded-xl md:rounded-2xl p-5 md:p-8 shadow-lg hover:shadow-2xl transition-all transform hover:-translate-y-2" data-animate="fade-up">
                 <div class="flex items-start gap-3 md:gap-4 mb-3 md:mb-4">
                     @if($item->icon)
-                    <div class="flex-shrink-0 w-10 h-10 md:w-14 md:h-14 bg-gradient-to-br from-[#0481AE] to-[#035f7f] rounded-lg md:rounded-xl flex items-center justify-center text-white text-lg md:text-2xl">
+                    <div class="flex-shrink-0 w-10 h-10 md:w-14 md:h-14 bg-gradient-to-br from-[#0481AE] to-[#035f7f] rounded-lg md:rounded-xl flex items-center justify-center text-white text-lg md:text-2xl shadow-md">
                         <i class="{{ $item->icon }}"></i>
                     </div>
                     @endif
@@ -85,6 +110,28 @@
                 <p class="text-sm md:text-base text-gray-700 leading-relaxed">{{ $item->description }}</p>
             </div>
             @endforeach
+        </div>
+        
+        <!-- Trust Indicators -->
+        <div class="bg-white/90 backdrop-blur rounded-xl md:rounded-2xl p-6 md:p-8 shadow-lg mb-8 md:mb-16" data-animate="fade-up">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 text-center">
+                <div>
+                    <div class="text-2xl md:text-4xl font-bold text-[#0481AE] mb-1 md:mb-2">500+</div>
+                    <div class="text-xs md:text-sm text-gray-600">Clients Served</div>
+                </div>
+                <div>
+                    <div class="text-2xl md:text-4xl font-bold text-[#0481AE] mb-1 md:mb-2">$2M+</div>
+                    <div class="text-xs md:text-sm text-gray-600">Tax Savings Generated</div>
+                </div>
+                <div>
+                    <div class="text-2xl md:text-4xl font-bold text-[#0481AE] mb-1 md:mb-2">100%</div>
+                    <div class="text-xs md:text-sm text-gray-600">Compliance Rate</div>
+                </div>
+                <div>
+                    <div class="text-2xl md:text-4xl font-bold text-[#0481AE] mb-1 md:mb-2">24hr</div>
+                    <div class="text-xs md:text-sm text-gray-600">Response Time</div>
+                </div>
+            </div>
         </div>
     </div>
     
@@ -101,21 +148,33 @@
 <section class="py-12 md:py-20 bg-white">
     <div class="container mx-auto px-4 max-w-6xl">
         <div class="text-center mb-8 md:mb-16" data-animate="fade-up">
-            <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-3 md:mb-4 px-2">{{ settings('home.business_solutions_title', t('frontend.home.solutions_heading', 'Whatever Your Business, We Can Handle It')) }}</h2>
+            <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-3 md:mb-4 px-2">{{ settings('home.business_solutions_title', t('frontend.home.solutions_heading', 'Industry-Specific Financial Expertise')) }}</h2>
             <p class="text-base md:text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto px-4">
-                {{ settings('home.business_solutions_description', t('frontend.home.solutions_subheading', 'From startups to enterprises, we provide tailored solutions for every industry and challenge')) }}
+                {{ settings('home.business_solutions_description', t('frontend.home.solutions_subheading', 'We understand the unique tax implications, compliance requirements, and financial challenges specific to your industry')) }}
             </p>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6" data-animate-stagger="120">
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-6" data-animate-stagger="120">
             @foreach($businessSolutions as $solution)
-            <div class="bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl md:rounded-2xl p-5 md:p-8 shadow hover:shadow-xl transition-all transform hover:-translate-y-1 border-[#0481AE] border-2" data-animate="fade-up">
-                <h3 class="text-base sm:text-lg md:text-xl font-bold text-[#0481AE] mb-2 md:mb-3 text-center">{{ $solution->title }}</h3>
-                @if($solution->description)
-                <p class="text-gray-600 text-center text-xs md:text-sm">{{ $solution->description }}</p>
-                @endif
+            <div class="bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg md:rounded-xl p-4 md:p-6 shadow hover:shadow-xl transition-all transform hover:-translate-y-1 border-[#0481AE] border-2 group" data-animate="fade-up">
+                <div class="text-center">
+                    <div class="text-2xl md:text-3xl mb-2 md:mb-3 group-hover:scale-110 transition-transform">
+                        <i class="fas fa-briefcase text-[#0481AE]"></i>
+                    </div>
+                    <h3 class="text-sm sm:text-base md:text-lg font-bold text-[#0481AE] mb-1 md:mb-2">{{ $solution->title }}</h3>
+                    @if($solution->description)
+                    <p class="text-gray-600 text-xs md:text-sm line-clamp-2">{{ $solution->description }}</p>
+                    @endif
+                </div>
             </div>
             @endforeach
+        </div>
+        
+        <div class="text-center mt-8 md:mt-12">
+            <a href="{{ route('contact') }}" class="inline-block bg-[#0481AE] text-white px-8 md:px-12 py-3 md:py-4 rounded-lg font-semibold hover:bg-[#035f7f] transition shadow-lg text-base md:text-lg">
+                <i class="fas fa-user-tie mr-2"></i>Discuss Your Industry Needs
+            </a>
+            <p class="text-sm text-gray-600 mt-3">Free consultation to explore how we can optimize your finances</p>
         </div>
     </div>
 </section>
@@ -167,14 +226,14 @@
     <div class="container mx-auto px-4 max-w-6xl">
         <div class="mb-4 md:mb-14 items-center md:justify-normal md:flex-col md:items-start md:col-span-1 text-left md:text-center" data-animate="fade-right">
             <div>
-                <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-3 md:mb-4 px-2">{{ settings('home.blog_title', t('frontend.home.blog_heading', 'Latest Insights')) }}</h2>
-                <p class="text-base md:text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto px-4">{{ settings('home.blog_description', t('frontend.home.blog_subheading', 'Expert perspectives on business strategy and growth.')) }}</p>
+                <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-3 md:mb-4 px-2">{{ settings('home.blog_title', t('frontend.home.blog_heading', 'Tax Tips & Financial Insights')) }}</h2>
+                <p class="text-base md:text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto px-4">{{ settings('home.blog_description', t('frontend.home.blog_subheading', 'Timely updates on tax deadlines, regulatory changes, and actionable strategies to optimize your finances')) }}</p>
             </div>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8" data-animate-stagger="140">
             @foreach($posts as $post)
-            <a href="{{ route('blog.show', $post->slug) }}" class="group bg-white rounded-lg shadow-md hover:shadow-2xl transition overflow-hidden flex flex-row md:flex md:flex-col h-full relative" data-animate="fade-up">
+            <a href="{{ route('blog.show', $post->slug) }}" class="group bg-white rounded-lg shadow-md hover:shadow-2xl transition overflow-hidden flex flex-row md:flex md:flex-col h-full relative border-l-4 md:border-l-0 md:border-t-4 border-[#0481AE]" data-animate="fade-up">
                 @if($post->featured_image)
                 <img src="{{ asset('storage/' . $post->featured_image) }}" alt="{{ $post->title }}" class="w-20 h-full sm:w-24 sm:h-24 md:w-full md:h-40 object-cover md:rounded-t-lg mr-0 md:mr-0 flex-shrink-0 group-hover:md:h-24 transition-all duration-300">
                 @endif
@@ -182,18 +241,20 @@
                     <div>
                         <div class="flex items-center gap-2 mb-2 flex-wrap justify-between">
                             @if($post->category)
-                            <span class="text-xs md:text-sm text-black md:text-[#0481AE] md:font-semibold">{{ $post->category }}</span>
+                            <span class="text-xs md:text-sm text-black md:text-[#0481AE] md:font-semibold bg-blue-50 md:bg-transparent px-2 py-1 md:px-0 md:py-0 rounded">
+                                <i class="fas fa-tag mr-1"></i>{{ $post->category }}
+                            </span>
                             @endif
                             <div class="hidden md:flex items-center text-xs md:text-xs text-gray-500 gap-2">
                                 @php($publishedDate = $post->published_at ?? $post->created_at)
-                                <span>{{ $publishedDate->format('M d, Y') }}</span>
+                                <span><i class="far fa-calendar mr-1"></i>{{ $publishedDate->format('M d, Y') }}</span>
                                 @if($post->author)
                                 <span>•</span>
-                                <span>{{ $post->author }}</span>
+                                <span><i class="far fa-user mr-1"></i>{{ $post->author }}</span>
                                 @endif
                             </div>
                         </div>
-                        <h3 class="text-sm sm:text-base md:text-lg font-semibold md:font-bold text-gray-900 mb-0 md:mb-3 line-clamp-2 md:line-clamp-none group-hover:md:line-clamp-2 transition-all">{{ $post->title }}</h3>
+                        <h3 class="text-sm sm:text-base md:text-lg font-semibold md:font-bold text-gray-900 mb-0 md:mb-3 line-clamp-2 md:line-clamp-none group-hover:md:line-clamp-2 transition-all group-hover:text-[#0481AE]">{{ $post->title }}</h3>
                     </div>
                     
                     <!-- Excerpt - Hidden on desktop, shows on hover with smooth transition -->
@@ -207,22 +268,74 @@
 
         <div class="text-center md:mt-12 flex-shrink-0">
             <a href="{{ route('blog.index') }}" class="inline-block text-sm md:text-base md:bg-[#0481AE] text-black md:text-white underline md:no-underline p-0 md:px-8 md:py-3 md:rounded-lg md:font-semibold md:hover:bg-[#035f7f] transition whitespace-nowrap">
-                {{ settings('home.blog_button_text', t('frontend.home.blog_cta', 'Read More')) }}
+                <i class="fas fa-book-open mr-2 hidden md:inline"></i>{{ settings('home.blog_button_text', t('frontend.home.blog_cta', 'View All Tax Tips')) }}
             </a>
         </div>
     </div>
 </section>
 
-<!-- CTA Section -->
-{{-- <section class="bg-[#FFE7D5] text-white py-8 max-w-5xl mx-auto rounded-xl shadow-xl mb-16">
-    <div class="container mx-auto px-2 text-center">
-        <h2 class="text-3xl font-bold mb-4 text-[#0481AE]">Ready to Transform Your Business?</h2>
-        <p class="text-xl mb-8 max-w-2xl mx-auto text-[#0481AE]">
-            Let's discuss how we can help you achieve your business goals
-        </p>
-        <a href="{{ route('contact') }}" class="inline-block bg-[#0481AE] text-white px-16 py-2 rounded-xl font-semibold hover:bg-[#036494] transition shadow-md">
-            Contact Us Today
-        </a>
+<!-- FAQ Section -->
+<section class="py-12 md:py-20 bg-gray-50">
+    <div class="container mx-auto px-4 max-w-4xl">
+        <div class="text-center mb-8 md:mb-12" data-animate="fade-up">
+            <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-3 md:mb-4">Common Questions About Our Services</h2>
+            <p class="text-base md:text-lg text-gray-600">Quick answers to help you make an informed decision</p>
+        </div>
+        
+        <div class="space-y-4" data-animate-stagger="100">
+            <div class="bg-white rounded-lg shadow-md p-5 md:p-6" data-animate="fade-up">
+                <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-2 flex items-start">
+                    <i class="fas fa-question-circle text-[#0481AE] mr-3 mt-1"></i>
+                    How much do your services cost?
+                </h3>
+                <p class="text-sm md:text-base text-gray-700 ml-8 md:ml-9">We offer transparent, flat-fee pricing based on your needs. During your free consultation, we'll provide a clear quote with no hidden fees. Most clients find our proactive approach saves them significantly more than our fees through tax optimization.</p>
+            </div>
+            
+            <div class="bg-white rounded-lg shadow-md p-5 md:p-6" data-animate="fade-up">
+                <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-2 flex items-start">
+                    <i class="fas fa-question-circle text-[#0481AE] mr-3 mt-1"></i>
+                    Is my financial data secure?
+                </h3>
+                <p class="text-sm md:text-base text-gray-700 ml-8 md:ml-9">Absolutely. We maintain SOC 2 compliance, use bank-level encryption, and follow strict confidentiality protocols. Your data is protected with the same security standards as major financial institutions.</p>
+            </div>
+            
+            <div class="bg-white rounded-lg shadow-md p-5 md:p-6" data-animate="fade-up">
+                <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-2 flex items-start">
+                    <i class="fas fa-question-circle text-[#0481AE] mr-3 mt-1"></i>
+                    How quickly can you help with urgent tax issues?
+                </h3>
+                <p class="text-sm md:text-base text-gray-700 ml-8 md:ml-9">We respond to all inquiries within 24 hours, and for urgent matters, we can typically schedule a consultation within 1-2 business days. Our team is equipped to handle time-sensitive situations efficiently.</p>
+            </div>
+            
+            <div class="bg-white rounded-lg shadow-md p-5 md:p-6" data-animate="fade-up">
+                <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-2 flex items-start">
+                    <i class="fas fa-question-circle text-[#0481AE] mr-3 mt-1"></i>
+                    What makes you different from automated accounting software?
+                </h3>
+                <p class="text-sm md:text-base text-gray-700 ml-8 md:ml-9">While software can handle basic bookkeeping, our CPAs provide strategic guidance, identify tax-saving opportunities, ensure regulatory compliance, and represent you during audits—value that no software can replicate.</p>
+            </div>
+        </div>
     </div>
-</section> --}}
+</section>
+
+<!-- CTA Section -->
+<section class="bg-gradient-to-br from-[#0481AE] to-[#035f7f] text-white py-12 md:py-16">
+    <div class="container mx-auto px-4 text-center max-w-4xl">
+        <div data-animate="fade-up">
+            <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 md:mb-6">Ready to Optimize Your Finances?</h2>
+            <p class="text-base md:text-xl mb-6 md:mb-8 max-w-2xl mx-auto text-blue-50">
+                Schedule your free 30-minute consultation today. No obligation—just expert guidance tailored to your situation.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <a href="{{ route('contact') }}" class="w-full sm:w-auto inline-block bg-white text-[#0481AE] px-8 md:px-12 py-3 md:py-4 rounded-xl font-semibold hover:bg-gray-100 transition shadow-lg text-base md:text-lg">
+                    <i class="far fa-calendar-check mr-2"></i>Book Free Consultation
+                </a>
+                <a href="tel:+1234567890" class="w-full sm:w-auto inline-block border-2 border-white text-white px-8 md:px-12 py-3 md:py-4 rounded-xl font-semibold hover:bg-white/10 transition text-base md:text-lg">
+                    <i class="fas fa-phone mr-2"></i>Call Us Now
+                </a>
+            </div>
+            <p class="text-xs md:text-sm text-blue-100 mt-4 md:mt-6">✓ Free assessment  ✓ No credit card required  ✓ Same-day response guarantee</p>
+        </div>
+    </div>
+</section>
 @endsection
