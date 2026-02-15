@@ -8,6 +8,7 @@ use App\Models\TeamMember;
 use App\Models\BlogPost;
 use App\Models\WhyChooseItem;
 use App\Models\BusinessSolution;
+use App\Models\Faq;
 
 class HomeController extends Controller
 {
@@ -18,7 +19,8 @@ class HomeController extends Controller
         $posts = BlogPost::published()->latest()->take(3)->get();
         $whyChooseItems = WhyChooseItem::active()->ordered()->get();
         $businessSolutions = BusinessSolution::active()->ordered()->get();
+        $faqs = Faq::published()->ordered()->get();
         
-        return view('frontend.home', compact('services', 'team', 'posts', 'whyChooseItems', 'businessSolutions'));
+        return view('frontend.home', compact('services', 'team', 'posts', 'whyChooseItems', 'businessSolutions', 'faqs'));
     }
 }

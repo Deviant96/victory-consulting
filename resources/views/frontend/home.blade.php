@@ -275,6 +275,7 @@
 </section>
 
 <!-- FAQ Section -->
+@if($faqs->isNotEmpty())
 <section class="py-12 md:py-20 bg-gray-50">
     <div class="container mx-auto px-4 max-w-4xl">
         <div class="text-center mb-8 md:mb-12" data-animate="fade-up">
@@ -283,40 +284,19 @@
         </div>
         
         <div class="space-y-4" data-animate-stagger="100">
+            @foreach($faqs as $faq)
             <div class="bg-white rounded-lg shadow-md p-5 md:p-6" data-animate="fade-up">
                 <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-2 flex items-start">
                     <i class="fas fa-question-circle text-[#0481AE] mr-3 mt-1"></i>
-                    How much do your services cost?
+                    {{ $faq->question }}
                 </h3>
-                <p class="text-sm md:text-base text-gray-700 ml-8 md:ml-9">We offer transparent, flat-fee pricing based on your needs. During your free consultation, we'll provide a clear quote with no hidden fees. Most clients find our proactive approach saves them significantly more than our fees through tax optimization.</p>
+                <p class="text-sm md:text-base text-gray-700 ml-8 md:ml-9">{{ $faq->answer }}</p>
             </div>
-            
-            <div class="bg-white rounded-lg shadow-md p-5 md:p-6" data-animate="fade-up">
-                <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-2 flex items-start">
-                    <i class="fas fa-question-circle text-[#0481AE] mr-3 mt-1"></i>
-                    Is my financial data secure?
-                </h3>
-                <p class="text-sm md:text-base text-gray-700 ml-8 md:ml-9">Absolutely. We maintain SOC 2 compliance, use bank-level encryption, and follow strict confidentiality protocols. Your data is protected with the same security standards as major financial institutions.</p>
-            </div>
-            
-            <div class="bg-white rounded-lg shadow-md p-5 md:p-6" data-animate="fade-up">
-                <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-2 flex items-start">
-                    <i class="fas fa-question-circle text-[#0481AE] mr-3 mt-1"></i>
-                    How quickly can you help with urgent tax issues?
-                </h3>
-                <p class="text-sm md:text-base text-gray-700 ml-8 md:ml-9">We respond to all inquiries within 24 hours, and for urgent matters, we can typically schedule a consultation within 1-2 business days. Our team is equipped to handle time-sensitive situations efficiently.</p>
-            </div>
-            
-            <div class="bg-white rounded-lg shadow-md p-5 md:p-6" data-animate="fade-up">
-                <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-2 flex items-start">
-                    <i class="fas fa-question-circle text-[#0481AE] mr-3 mt-1"></i>
-                    What makes you different from automated accounting software?
-                </h3>
-                <p class="text-sm md:text-base text-gray-700 ml-8 md:ml-9">While software can handle basic bookkeeping, our CPAs provide strategic guidance, identify tax-saving opportunities, ensure regulatory compliance, and represent you during audits—value that no software can replicate.</p>
-            </div>
+            @endforeach
         </div>
     </div>
 </section>
+@endif
 
 <!-- CTA Section -->
 <section class="bg-gradient-to-br from-[#0481AE] to-[#035f7f] text-white py-12 md:py-16">
