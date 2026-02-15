@@ -1,7 +1,7 @@
 <footer class="bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 text-gray-300">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <div class="max-w-full md:max-w-7xl md:mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <!-- Logo Section -->
-        <div class="flex justify-center mb-12">
+        <div class="flex justify-start md:justify-center mb-12">
             @if(settings('branding.logo'))
                 <img src="{{ asset('storage/' . settings('branding.logo')) }}" alt="{{ settings('site.name') }}" class="h-12 w-auto">
             @else
@@ -10,7 +10,7 @@
         </div>
 
         <!-- Navigation Menu -->
-        <div class="flex justify-center flex-wrap gap-8 mb-12">
+        <div class="flex justify-start md:justify-center flex-col md:flex-row flex-wrap gap-4 md:gap-8 mb-12">
             <a href="{{ route('home') }}" class="text-gray-300 hover:text-white transition-colors">Home</a>
             <a href="{{ route('services.index') }}" class="text-gray-300 hover:text-white transition-colors">Services</a>
             <a href="{{ route('industries.index') }}" class="text-gray-300 hover:text-white transition-colors">Industries</a>
@@ -19,7 +19,7 @@
         </div>
 
         <!-- Social Media Icons -->
-        <div class="flex justify-center space-x-6 mb-8">
+        <div class="flex justify-start md:justify-center space-x-6 mb-8">
             @if(settings('social.facebook'))
                 <a href="{{ settings('social.facebook') }}" 
                    target="_blank"
@@ -69,10 +69,12 @@
         <div class="border-t border-gray-700 my-8"></div>
 
         <!-- Bottom Bar -->
-        <div class="flex flex-col md:flex-row md:justify-between md:items-center gap-4 text-gray-400 text-sm">
-            <p>&copy; {{ date('Y') }} {{ settings('site.name', 'Victory Business Consulting') }}. All rights reserved.</p>
+        <div class="flex flex-col md:flex-row md:justify-between md:items-center gap-4 md:gap-4 text-gray-400 text-sm">
+            <p class="order-2 md:order-1">&copy; {{ date('Y') }} {{ settings('site.name', 'Victory Business Consulting') }}. All rights reserved.</p>
+
+            <small class="text-gray-500 order-3 md:order-2">Designed by <a href="https://groovdev.id" class="hover:text-white transition-colors">GroovDev</a></small>
             
-            <div class="flex space-x-6">
+            <div class="flex space-x-6 order-1 md:order-3">
                 <a href="" class="text-gray-400 hover:text-white transition-colors">Privacy Policy</a>
                 <a href="" class="text-gray-400 hover:text-white transition-colors">Terms & Conditions</a>
             </div>
