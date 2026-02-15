@@ -2,39 +2,36 @@
 
 @section('content')
 <!-- Hero Section -->
-<section class="relative min-h-[500px] md:min-h-[700px] flex items-center justify-center text-white overflow-hidden">
-    <div class="absolute inset-0 bg-black/25 z-[2] bg-gradient-to-br from-[#0481ae00] to-[#03607f9f]"></div>
+<section class="relative min-h-[560px] md:min-h-[720px] flex items-center justify-center text-white overflow-hidden">
     @if(settings('hero.background_image'))
-    <div class="absolute inset-0 z-0 floating-soft">  
-        <img src="{{ asset('storage/' . settings('hero.background_image')) }}"   alt="Hero Background" class="w-full h-full object-cover">
+    <div class="absolute inset-0 z-0 floating-soft">
+        <img src="{{ asset('storage/' . settings('hero.background_image')) }}" alt="{{ t('frontend.home.hero_bg_alt', 'Hero background') }}" class="w-full h-full object-cover">
     </div>
     @endif
-    <div class="container mx-auto px-4 max-w-6xl relative z-10 py-12 md:py-24" data-animate="fade-up">
-        <div class="max-w-4xl mx-auto text-center md:text-{{ settings('hero.text_alignment', 'center') }}">
-            <!-- Trust Badges -->
-            <div class="flex flex-wrap justify-center gap-3 md:gap-4 mb-4 md:mb-6">
-                <span class="bg-white/20 backdrop-blur-sm px-3 md:px-4 py-1 md:py-2 rounded-full text-xs md:text-sm font-semibold border border-white/30">
-                    <i class="fas fa-certificate mr-1 md:mr-2"></i>Certified CPAs
-                </span>
-                <span class="bg-white/20 backdrop-blur-sm px-3 md:px-4 py-1 md:py-2 rounded-full text-xs md:text-sm font-semibold border border-white/30">
-                    <i class="fas fa-shield-alt mr-1 md:mr-2"></i>SOC 2 Compliant
-                </span>
-                <span class="bg-white/20 backdrop-blur-sm px-3 md:px-4 py-1 md:py-2 rounded-full text-xs md:text-sm font-semibold border border-white/30">
-                    <i class="fas fa-award mr-1 md:mr-2"></i>15+ Years Experience
-                </span>
-            </div>
-            
-            <h1 class="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold mb-4 md:mb-6 leading-tight">{{ settings('site.name', 'Victory Financial & Accounting Consulting') }}</h1>
-            <p class="text-base sm:text-lg md:text-xl lg:text-2xl mb-6 md:mb-10 text-[#cce7f0] px-2">{{ settings('site.tagline', 'Strategic tax planning and accounting solutions that reduce liability, ensure compliance, and drive financial clarity') }}</p>
-            <div class="flex flex-col md:flex-row gap-3 md:gap-4 justify-center md:{{ settings('hero.text_alignment') === 'center' ? 'justify-center' : (settings('hero.text_alignment') === 'right' ? 'justify-end' : 'justify-start') }} px-4 md:px-0">
-                <a href="{{ route('contact') }}" class="w-full md:w-auto text-center bg-white text-[#0481AE] px-8 md:px-12 lg:px-16 py-3 md:py-4 rounded-xl font-semibold hover:bg-[#cce7f0] transition shadow-md text-base md:text-lg">
-                    <i class="far fa-calendar-check mr-2"></i>{{ t('frontend.home.hero_primary_cta', 'Schedule Free Consultation') }}
+    <!-- Overlay and design accents -->
+    <div class="absolute inset-0 z-[1] bg-gradient-to-br from-[#01131c]/70 via-[#035f7f]/60 to-[#0481AE]/70"></div>
+    <div aria-hidden="true" class="absolute inset-0 z-[1]">
+        <div class="absolute -top-20 -left-24 w-72 h-72 md:w-[22rem] md:h-[22rem] bg-[#cce7f0]/40 rounded-full blur-[80px] animate-pulse"></div>
+        <div class="absolute -bottom-24 -right-24 w-72 h-72 md:w-[22rem] md:h-[22rem] bg-[#ffffff]/20 rounded-full blur-[80px] animate-pulse"></div>
+    </div>
+
+    <div class="container mx-auto px-4 max-w-7xl relative z-10 py-12 md:py-24" data-animate="fade-up">
+        <div class="max-w-5xl mx-auto text-center md:text-{{ settings('hero.text_alignment', 'center') }}">
+            <h1 class="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight mb-4 md:mb-6 leading-tight">
+                <span class="bg-clip-text text-transparent bg-gradient-to-br from-white to-[#cce7f0]">{{ settings('site.name', 'Victory Business Consulting') }}</span>
+            </h1>
+            <p class="text-base sm:text-lg md:text-xl lg:text-2xl mb-6 md:mb-10 text-[#eaf6fb] px-2">
+                {{ settings('site.tagline', 'Empowering businesses to achieve sustainable growth and operational excellence') }}
+            </p>
+            <div class="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center items-center pt-2">
+                <a href="{{ route('contact') }}" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white text-[#035f7f] px-8 md:px-10 lg:px-12 py-3 md:py-3.5 rounded-xl font-semibold shadow-xl hover:bg-[#cce7f0] hover:shadow-2xl transition">
+                    {{ t('frontend.home.hero_primary_cta', 'Start Your Journey') }}
+                    <span aria-hidden="true">→</span>
                 </a>
-                <a href="{{ route('services.index') }}" class="w-full md:w-auto text-center border-2 border-white text-white px-8 md:px-12 lg:px-16 py-3 md:py-4 rounded-xl font-semibold hover:bg-white hover:text-[#035f7f] transition shadow-md text-base md:text-lg">
+                <a href="{{ route('services.index') }}" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 border-2 border-white/70 text-white px-8 md:px-10 lg:px-12 py-3 md:py-3.5 rounded-xl font-semibold backdrop-blur hover:bg-white/10 transition">
                     {{ t('frontend.home.hero_secondary_cta', 'Explore Services') }}
                 </a>
             </div>
-            <p class="text-xs md:text-sm text-white/80 mt-4 md:mt-6">✓ No obligation assessment  ✓ Same-day response  ✓ Confidential consultation</p>
         </div>
     </div>
 </section>
