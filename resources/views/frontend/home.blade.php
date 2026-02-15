@@ -101,59 +101,46 @@
 
 <!-- Why Choose Us Section -->
 @if($whyChooseItems->isNotEmpty())
-<section class="relative pt-12 md:pt-20 pb-2 mb-20 md:mb-32 text-white overflow-x-clip" style="background: linear-gradient(to bottom, rgba(185, 206, 213, 0.72) 0%, rgba(185, 206, 213, 0.72) 15%, rgba(4, 129, 174, 1) 75%);">
-    <div class="container mx-auto px-4 max-w-6xl relative z-10">
-        <div class="text-center mb-8 md:mb-16" data-animate="fade-up">
-            <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-[#035f7f] mb-3 md:mb-4 px-2">{{ settings('home.why_choose_title', t('frontend.home.why_choose_heading', 'Why Finance Leaders Trust ' . settings('site.name', 'Victory Financial Consulting'))) }}</h2>
-            <p class="text-base md:text-lg lg:text-xl text-[#035f7f] max-w-3xl mx-auto px-4">
-                {{ settings('home.why_choose_description', t('frontend.home.why_choose_subheading', 'We go beyond traditional accounting—delivering proactive strategies, personalized service, and the expertise you need to minimize taxes and maximize financial performance')) }}
-            </p>
-        </div>
+<section class="relative py-14 md:py-24 bg-white overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-b from-[#f7fbff] via-white to-[#f0f7fb]"></div>
+    <div class="absolute -left-24 top-10 h-72 w-72 bg-[#0481AE]/10 rounded-full blur-3xl"></div>
+    <div class="absolute right-0 bottom-0 h-56 w-56 bg-[#0fb5d2]/10 rounded-full blur-3xl"></div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8 mb-8 md:mb-12" data-animate-stagger="120">
-            @foreach($whyChooseItems as $item)
-            <div class="bg-white/95 backdrop-blur rounded-xl md:rounded-2xl p-5 md:p-8 shadow-lg hover:shadow-2xl transition-all transform hover:-translate-y-2" data-animate="fade-up">
-                <div class="flex items-start gap-3 md:gap-4 mb-3 md:mb-4">
-                    @if($item->icon)
-                    <div class="flex-shrink-0 w-10 h-10 md:w-14 md:h-14 bg-gradient-to-br from-[#0481AE] to-[#035f7f] rounded-lg md:rounded-xl flex items-center justify-center text-white text-lg md:text-2xl shadow-md">
-                        <i class="{{ $item->icon }}"></i>
-                    </div>
-                    @endif
-                    <h3 class="text-lg sm:text-xl md:text-2xl font-bold text-[#035f7f] leading-tight">{{ $item->title }}</h3>
+    <div class="relative container mx-auto px-4 max-w-6xl">
+        <div class="grid md:grid-cols-12 gap-10 md:gap-14 items-start">
+            <div class="md:col-span-5 space-y-4" data-animate="fade-right">
+                <div class="inline-flex items-center gap-2 bg-[#0481AE]/10 text-[#035f7f] px-4 py-2 rounded-full text-xs md:text-sm font-semibold uppercase tracking-[0.08em]">
+                    <span class="h-2 w-2 rounded-full bg-[#0481AE]"></span>
+                    {{ t('frontend.home.why_badge', 'Why partner with us') }}
                 </div>
-                <p class="text-sm md:text-base text-gray-700 leading-relaxed">{{ $item->description }}</p>
+                <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-[#035f7f] leading-tight">{{ settings('home.why_choose_title', t('frontend.home.why_choose_heading', 'Why Choose ' . settings('site.name', 'Victory Business Consulting'))) }}</h2>
+                <p class="text-base md:text-lg text-gray-700">{{ settings('home.why_choose_description', t('frontend.home.why_choose_subheading', 'Discover what sets us apart and makes us the ideal partner for your business growth')) }}</p>
             </div>
-            @endforeach
-        </div>
-        
-        <!-- Trust Indicators -->
-        <div class="bg-white/90 backdrop-blur rounded-xl md:rounded-2xl p-6 md:p-8 shadow-lg mb-8 md:mb-16" data-animate="fade-up">
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 text-center">
-                <div>
-                    <div class="text-2xl md:text-4xl font-bold text-[#0481AE] mb-1 md:mb-2">500+</div>
-                    <div class="text-xs md:text-sm text-gray-600">Clients Served</div>
+
+            <div class="md:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-5 md:gap-6" data-animate-stagger="120">
+                @foreach($whyChooseItems as $item)
+                <div class="group relative bg-white border border-[#0481AE]/15 rounded-2xl p-5 md:p-6 shadow-sm hover:shadow-2xl transition-all">
+                    <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition bg-gradient-to-br from-[#0481AE]/5 via-transparent to-[#0fb5d2]/10"></div>
+                    <div class="relative z-10">
+                        <div class="flex items-start gap-3 md:gap-4 mb-3">
+                            @if($item->icon)
+                            <div class="flex-shrink-0 w-11 h-11 md:w-12 md:h-12 rounded-xl bg-gradient-to-br from-[#0481AE] to-[#035f7f] text-white flex items-center justify-center text-lg">
+                                <i class="{{ $item->icon }}"></i>
+                            </div>
+                            @else
+                            <div class="flex-shrink-0 w-11 h-11 md:w-12 md:h-12 rounded-xl bg-[#0481AE]/15 text-[#035f7f] flex items-center justify-center text-lg font-bold">•</div>
+                            @endif
+                            <div>
+                                <h3 class="text-lg md:text-xl font-bold text-[#035f7f] leading-tight">{{ $item->title }}</h3>
+                                <p class="text-sm md:text-base text-gray-700 mt-2">{{ $item->description }}</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div>
-                    <div class="text-2xl md:text-4xl font-bold text-[#0481AE] mb-1 md:mb-2">$2M+</div>
-                    <div class="text-xs md:text-sm text-gray-600">Tax Savings Generated</div>
-                </div>
-                <div>
-                    <div class="text-2xl md:text-4xl font-bold text-[#0481AE] mb-1 md:mb-2">100%</div>
-                    <div class="text-xs md:text-sm text-gray-600">Compliance Rate</div>
-                </div>
-                <div>
-                    <div class="text-2xl md:text-4xl font-bold text-[#0481AE] mb-1 md:mb-2">24hr</div>
-                    <div class="text-xs md:text-sm text-gray-600">Response Time</div>
-                </div>
+                @endforeach
             </div>
         </div>
     </div>
-    
-    <!-- Half-rounded separator at bottom -->
-    <div class="absolute -bottom-8 md:-bottom-[4rem] bg-[#0481AE] left-[-2.5%] right-0 h-12 md:h-32 z-[3] w-[105%]" style="border-radius: 0 0 50% 50% / 0 0 100% 100%;"></div>
-    
-    <!-- Half-rounded separator at bottom -->
-    <div class="absolute -bottom-12 md:-bottom-[6rem] bg-[#EAF1EF] left-[-5%] right-0 h-16 md:h-40 w-[110%] z-[2]" style="border-radius: 0 0 50% 50% / 0 0 100% 100%;"></div>
 </section>
 @endif
 
