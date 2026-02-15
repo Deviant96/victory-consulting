@@ -37,47 +37,64 @@
 </section>
 
 <!-- Services Section -->
-<section class="py-12 md:py-20 bg-gray-50">
-    <div class="container mx-auto px-4 max-w-6xl">
-        <div class="text-center mb-8 md:mb-12" data-animate="fade-up">
-            <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-3 md:mb-4">{{ settings('home.services_title', t('frontend.home.services_heading', 'Expert Accounting & Tax Services')) }}</h2>
-            <p class="text-base md:text-xl text-gray-600 max-w-3xl mx-auto px-2">
-                {{ settings('home.services_description', t('frontend.home.services_subheading', 'Proactive financial strategies that reduce tax liability, ensure compliance, and provide the clarity you need to make confident business decisions')) }}
-            </p>
+<section class="relative py-12 md:py-24 bg-gradient-to-b from-[#f4fbff] via-white to-[#f7fbff] overflow-hidden">
+    <div class="absolute -left-32 -top-16 h-64 w-64 bg-[#0481AE]/10 rounded-full blur-3xl"></div>
+    <div class="absolute -right-24 top-10 h-48 w-48 bg-[#0fb5d2]/10 rounded-full blur-3xl"></div>
+
+    <div class="relative container mx-auto px-4 max-w-6xl">
+        <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 md:gap-8 mb-8 md:mb-12" data-animate="fade-up">
+            <div>
+                <div class="inline-flex items-center gap-2 bg-[#0481AE]/10 text-[#035f7f] px-4 py-2 rounded-full text-xs md:text-sm font-semibold uppercase tracking-[0.08em]">
+                    <span class="h-2 w-2 rounded-full bg-[#0481AE]"></span>
+                    {{ t('frontend.home.services_badge', 'What we deliver') }}
+                </div>
+                <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mt-3">{{ settings('home.services_title', t('frontend.home.services_heading', 'Our Services')) }}</h2>
+                <p class="text-base md:text-lg text-gray-600 max-w-3xl mt-2">{{ settings('home.services_description', t('frontend.home.services_subheading', 'Comprehensive business solutions tailored to your unique challenges')) }}</p>
+            </div>
+            <div class="flex gap-3 md:gap-4 flex-wrap">
+                <span class="inline-flex items-center gap-2 bg-white border border-[#0481AE]/30 text-[#035f7f] px-3 py-2 rounded-lg text-xs md:text-sm shadow-sm">
+                    <span class="h-2 w-2 rounded-full bg-emerald-400"></span>
+                    {{ t('frontend.home.services_pill_one', 'Outcome-first roadmaps') }}
+                </span>
+                <span class="inline-flex items-center gap-2 bg-white border border-[#0481AE]/30 text-[#035f7f] px-3 py-2 rounded-lg text-xs md:text-sm shadow-sm">
+                    <span class="h-2 w-2 rounded-full bg-amber-400"></span>
+                    {{ t('frontend.home.services_pill_two', 'Cross-functional delivery') }}
+                </span>
+            </div>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8" data-animate-stagger="120">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-7" data-animate-stagger="120">
             @foreach($services as $service)
-            <a href="{{ route('services.show', $service->slug) }}" class="bg-white rounded-lg shadow-md hover:shadow-xl transition p-5 md:p-6 border-[#0481AE] border-2 flex flex-col group" data-animate="fade-up">
+            <a href="{{ route('services.show', $service->slug) }}" class="group relative bg-white rounded-2xl border border-[#0481AE]/15 shadow-sm hover:shadow-xl transition-all overflow-hidden" data-animate="fade-up">
+                <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition bg-gradient-to-br from-[#0481AE]/5 via-transparent to-[#0fb5d2]/10"></div>
                 @if($service->image)
-                <div class="relative overflow-hidden rounded-lg mb-3 md:mb-4">
-                    <img src="{{ asset('storage/' . $service->image) }}" alt="{{ $service->title }}" class="w-full h-40 md:h-48 object-cover">
-                    <div class="absolute top-3 right-3 bg-[#0481AE] text-white px-3 py-1 rounded-full text-xs font-semibold">
-                        <i class="fas fa-check-circle mr-1"></i>Proven
-                    </div>
+                <div class="h-40 md:h-44 overflow-hidden">
+                    <img src="{{ asset('storage/' . $service->image) }}" alt="{{ $service->title }}" class="w-full h-full object-cover transition duration-500 group-hover:scale-105">
                 </div>
                 @endif
-                <h3 class="text-lg sm:text-xl md:text-2xl font-bold text-gray-900 mb-2 md:mb-3 flex-1 group-hover:text-[#0481AE] transition">{{ $service->title }}</h3>
-                <div class="flex-grow flex flex-col justify-between">
-                    <p class="text-sm md:text-base text-gray-600 mb-3 md:mb-4 line-clamp-3">{{ $service->summary }}</p>
-                    <div class="flex items-center justify-between">
-                        <span class="text-[#0481AE] font-semibold group-hover:text-[#035f7f]">
-                            {{ t('frontend.common.learn_more', 'Learn More') }} →
+                <div class="p-5 md:p-6 relative z-10 flex flex-col h-full">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="inline-flex items-center gap-2 text-[11px] md:text-xs font-semibold text-[#035f7f] bg-[#0481AE]/10 px-3 py-1 rounded-full">
+                            {{ t('frontend.home.services_tag', 'Core offering') }}
                         </span>
-                        <span class="text-xs text-gray-500">
-                            <i class="far fa-clock mr-1"></i>Fast turnaround
-                        </span>
+                        <span class="text-[11px] md:text-xs text-gray-500">{{ t('frontend.home.services_read_time', '2 min read') }}</span>
                     </div>
+                    <h3 class="text-lg sm:text-xl font-bold text-gray-900 leading-snug mb-2">{{ $service->title }}</h3>
+                    <p class="text-sm md:text-base text-gray-600 line-clamp-3 flex-1">{{ $service->summary }}</p>
+                    <span class="mt-4 inline-flex items-center gap-2 text-[#0481AE] font-semibold group-hover:translate-x-1 transition">
+                        {{ t('frontend.common.learn_more', 'Learn More') }}
+                        <span aria-hidden="true">→</span>
+                    </span>
                 </div>
             </a>
             @endforeach
         </div>
 
-        <div class="text-center mt-8 md:mt-12">
-            <a href="{{ route('contact') }}" class="inline-block bg-[#0481AE] text-white px-8 md:px-12 py-3 md:py-4 rounded-lg font-semibold hover:bg-[#035f7f] transition shadow-lg text-base md:text-lg">
-                <i class="far fa-calendar-check mr-2"></i>Book Your Free Assessment
+        <div class="flex justify-center mt-10">
+            <a href="{{ route('services.index') }}" class="inline-flex items-center gap-2 bg-[#0481AE] text-white px-6 md:px-8 py-3 rounded-xl font-semibold shadow-lg hover:bg-[#035f7f] transition">
+                {{ t('frontend.home.services_cta', 'Explore all services') }}
+                <span aria-hidden="true">→</span>
             </a>
-            <p class="text-sm text-gray-600 mt-3">30-minute consultation • No obligation • Get clarity on your options</p>
         </div>
     </div>
 </section>
