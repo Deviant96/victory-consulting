@@ -17,10 +17,6 @@
 
     <div class="container mx-auto px-4 relative">
         <div class="max-w-7xl mx-auto" data-animate="fade-up">
-            <span class="inline-flex items-center gap-2 rounded-full bg-[#0481AE]/10 text-[#036494] px-3 py-1 text-xs sm:text-sm font-semibold mb-4">
-                {{ t('frontend.blog.heading', 'Our Blog') }}
-            </span>
-
             <div class="grid lg:grid-cols-12 gap-6 lg:gap-10 items-end">
                 <div class="lg:col-span-8">
                     <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight text-slate-900 mb-4">
@@ -192,7 +188,7 @@
                 </main>
 
                 <!-- Sidebar -->
-                <aside class="xl:col-span-4 order-1 xl:order-2 space-y-4 lg:space-y-6 xl:sticky xl:top-4 self-start">
+                <aside class="xl:col-span-4 order-1 xl:order-2 space-y-4 lg:space-y-6 xl:sticky xl:top-16 self-start">
                     @if(settings('blog.enable_filters', '1') == '1')
                     <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-3.5 sm:p-5 lg:p-6" data-animate="fade-right">
                         <div class="flex items-center justify-between mb-4 sm:mb-5">
