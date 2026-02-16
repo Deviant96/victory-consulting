@@ -72,13 +72,22 @@
 </section>
 
 <!-- CTA Section -->
-<section class="bg-[#FFE7D5] text-white py-10 px-12 max-w-5xl mx-auto md:rounded-xl md:shadow-xl md:mb-16" data-animate="fade-up">
-    <div class="container mx-auto px-2 text-center">
-        <h2 class="text-3xl text-[#0481AE] mb-8">
-            {{ settings('services.cta_heading', t('frontend.services.cta_heading', 'We can tailor our services to meet your specific business needs')) }}</h2>
-        <a href="{{ route('contact') }}" class="inline-block bg-[#0481AE] text-white px-16 py-2 rounded-xl font-semibold hover:bg-[#036494] transition shadow-md">
-            {{ settings('services.cta_button', t('frontend.services.cta_button', 'Book Now')) }}
-        </a>
+<section class="bg-gradient-to-br from-[#0481AE] to-[#035f7f] text-white py-12 md:py-24">
+    <div class="container mx-auto px-4 text-center max-w-4xl">
+        <div data-animate="fade-up">
+            <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 md:mb-6">{{ settings('services.cta_heading', t('frontend.services.cta_heading', 'We can tailor our services to meet your specific business needs')) }}</h2>
+            <p class="text-base md:text-xl mb-6 md:mb-8 max-w-2xl mx-auto text-blue-50">
+                {{ settings('services.cta_description', t('frontend.services.cta_description', 'Contact us today for a free consultation and discover how we can help your business thrive.')) }}
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <a href="{{ route('contact') }}" class="inline-flex items-center justify-center w-full sm:w-auto bg-white text-[#0481AE] px-8 md:px-12 py-3 md:py-4 rounded-xl font-semibold hover:bg-gray-100 transition shadow-lg text-base md:text-lg">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                    </svg>
+                    {{ settings('services.cta_button', t('frontend.services.cta_button', 'Book Now')) }}
+                </a>
+            </div>
+        </div>
     </div>
 </section>
 @endsection

@@ -13,7 +13,7 @@
 <div class="bg-white rounded-xl shadow p-6">
     <h1 class="text-3xl font-bold text-gray-900 mb-6">Add Why Choose Us Item</h1>
 
-    <form action="{{ route('admin.why-choose-items.store') }}" method="POST">
+    <form action="{{ route('admin.why-choose-items.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
 
         <div class="mb-6">
@@ -34,12 +34,15 @@
 
         <div class="grid md:grid-cols-2 gap-6 mb-6">
             <div>
-                <label for="icon" class="block text-sm font-medium text-gray-700 mb-2">Icon</label>
-                <input type="text" name="icon" id="icon" value="{{ old('icon') }}" placeholder="e.g., fa-check, heroicon-check" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-blue-500 focus:border-blue-500 @error('icon') border-red-500 @enderror">
+                <label for="icon" class="block text-sm font-medium text-gray-700 mb-2">Icon (JPG, PNG, SVG)</label>
+                <input type="file" name="icon" id="icon" accept=".jpg,.jpeg,.png,.svg" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-blue-500 focus:border-blue-500 @error('icon') border-red-500 @enderror">
                 @error('icon')
                 <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                 @enderror
-                <p class="text-gray-500 text-sm mt-1">Icon class name or SVG identifier</p>
+                <p class="text-gray-500 text-sm mt-1">Upload a square icon for best results</p>
+                <div id="icon-preview-wrapper" class="mt-3 hidden">
+                    <img id="icon-preview" alt="Icon preview" class="h-16 w-16 rounded-xl object-cover border border-gray-200" />
+                </div>
             </div>
 
             <div>
@@ -79,3 +82,7 @@
     </form>
 </div>
 @endsection
+
+@push('scripts')
+@include('admin.components.image-upload-preview-script')
+@endpush
