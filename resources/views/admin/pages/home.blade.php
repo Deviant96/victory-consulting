@@ -162,9 +162,46 @@
                 />
             </div>
 
-             <div class="mt-4">
+            <div class="mt-6">
+                <label for="business_solutions_image" class="block text-sm font-medium text-gray-700 mb-2">Section Image</label>
+                @if(isset($settings['home.business_solutions_image']) && optional($settings['home.business_solutions_image'])->value)
+                <div class="mb-3">
+                    <img id="current-business-solutions-image" src="{{ asset('storage/' . $settings['home.business_solutions_image']->value) }}" alt="Current Business Solutions Image" class="w-full max-w-2xl h-56 object-cover rounded-lg shadow-md">
+                    <p class="text-sm text-gray-500 mt-1">Current section image</p>
+                </div>
+                @endif
+
+                <div id="business-solutions-preview-container" class="hidden mb-3">
+                    <div class="relative">
+                        <img id="business-solutions-preview" src="" alt="New Business Solutions Image Preview" class="w-full max-w-2xl h-56 object-cover rounded-lg shadow-md border-4 border-blue-500">
+                        <div class="absolute top-2 right-2 bg-blue-500 text-white px-3 py-1 rounded-full text-xs font-semibold shadow-lg flex items-center gap-1">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                            New Image Selected
+                        </div>
+                        <button type="button" id="clear-business-solutions-btn" class="absolute bottom-2 right-2 bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg text-sm font-semibold shadow-lg flex items-center gap-2 transition transform hover:scale-105">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                            </svg>
+                            Clear
+                        </button>
+                    </div>
+                    <p class="text-sm text-blue-600 font-semibold mt-1 flex items-center gap-1">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        Preview of new image - click "Save Home Settings" to upload
+                    </p>
+                </div>
+
+                <input type="file" name="business_solutions_image" id="business_solutions_image" accept="image/*" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-blue-500 focus:border-blue-500 transition">
+                <p class="text-gray-500 text-sm mt-1">Recommended: 1200x900px or larger, max 4MB.</p>
+            </div>
+
+            <div class="mt-4">
                  <p class="text-sm text-gray-500">
-                     The individual solutions are managed in the <a href="{{ route('admin.business-solutions.index') }}" class="text-blue-600 hover:underline">Business Solutions Management</a> page.
+                     This section now uses a text + image layout on the homepage.
                  </p>
             </div>
         </div>
@@ -223,64 +260,77 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    const heroInput = document.getElementById('hero_image');
-    const heroPreviewContainer = document.getElementById('hero-preview-container');
-    const heroPreview = document.getElementById('hero-preview');
-    const clearHeroBtn = document.getElementById('clear-hero-btn');
-    
-    heroInput.addEventListener('change', function(e) {
-        const file = e.target.files[0];
-        
-        if (file) {
-            // Check file size (4MB = 4 * 1024 * 1024 bytes)
-            if (file.size > 4 * 1024 * 1024) {
-                alert('File size must be less than 4MB');
-                heroInput.value = '';
-                heroPreviewContainer.classList.add('hidden');
-                return;
-            }
-            
-            // Check file type
-            if (!file.type.startsWith('image/')) {
-                alert('Please select an image file');
-                heroInput.value = '';
-                heroPreviewContainer.classList.add('hidden');
-                return;
-            }
-            
-            const reader = new FileReader();
-            
-            reader.onload = function(e) {
-                heroPreview.src = e.target.result;
-                heroPreviewContainer.classList.remove('hidden');
-                
-                // Add a smooth fade-in animation
-                heroPreviewContainer.style.opacity = '0';
-                setTimeout(() => {
-                    heroPreviewContainer.style.transition = 'opacity 0.3s ease-in-out';
-                    heroPreviewContainer.style.opacity = '1';
-                }, 10);
-                
-                // Scroll to preview
-                heroPreviewContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-            };
-            
-            reader.readAsDataURL(file);
-        } else {
-            heroPreviewContainer.classList.add('hidden');
+    function setupImagePreview(inputId, previewContainerId, previewImageId, clearButtonId) {
+        const input = document.getElementById(inputId);
+        const previewContainer = document.getElementById(previewContainerId);
+        const previewImage = document.getElementById(previewImageId);
+        const clearButton = document.getElementById(clearButtonId);
+
+        if (!input || !previewContainer || !previewImage || !clearButton) {
+            return;
         }
-    });
-    
-    // Clear button functionality
-    clearHeroBtn.addEventListener('click', function() {
-        heroInput.value = '';
-        heroPreviewContainer.style.transition = 'opacity 0.2s ease-in-out';
-        heroPreviewContainer.style.opacity = '0';
-        setTimeout(() => {
-            heroPreviewContainer.classList.add('hidden');
-            heroPreview.src = '';
-        }, 200);
-    });
+
+        input.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+
+            if (file) {
+                // Check file size (4MB = 4 * 1024 * 1024 bytes)
+                if (file.size > 4 * 1024 * 1024) {
+                    alert('File size must be less than 4MB');
+                    input.value = '';
+                    previewContainer.classList.add('hidden');
+                    return;
+                }
+
+                // Check file type
+                if (!file.type.startsWith('image/')) {
+                    alert('Please select an image file');
+                    input.value = '';
+                    previewContainer.classList.add('hidden');
+                    return;
+                }
+
+                const reader = new FileReader();
+
+                reader.onload = function(event) {
+                    previewImage.src = event.target.result;
+                    previewContainer.classList.remove('hidden');
+
+                    // Add a smooth fade-in animation
+                    previewContainer.style.opacity = '0';
+                    setTimeout(() => {
+                        previewContainer.style.transition = 'opacity 0.3s ease-in-out';
+                        previewContainer.style.opacity = '1';
+                    }, 10);
+
+                    // Scroll to preview
+                    previewContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                };
+
+                reader.readAsDataURL(file);
+            } else {
+                previewContainer.classList.add('hidden');
+            }
+        });
+
+        clearButton.addEventListener('click', function() {
+            input.value = '';
+            previewContainer.style.transition = 'opacity 0.2s ease-in-out';
+            previewContainer.style.opacity = '0';
+            setTimeout(() => {
+                previewContainer.classList.add('hidden');
+                previewImage.src = '';
+            }, 200);
+        });
+    }
+
+    setupImagePreview('hero_image', 'hero-preview-container', 'hero-preview', 'clear-hero-btn');
+    setupImagePreview(
+        'business_solutions_image',
+        'business-solutions-preview-container',
+        'business-solutions-preview',
+        'clear-business-solutions-btn'
+    );
 });
 </script>
 @endsection

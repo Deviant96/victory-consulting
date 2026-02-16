@@ -25,6 +25,7 @@ class PageController extends Controller
             'home.why_choose_description',
             'home.business_solutions_title',
             'home.business_solutions_description',
+            'home.business_solutions_image',
             'home.blog_title',
             'home.blog_description',
             'home.blog_button_text',
@@ -48,6 +49,7 @@ class PageController extends Controller
             'home.blog_description' => 'nullable|string',
             'home.blog_button_text' => 'nullable|string|max:100',
             'hero_image' => 'nullable|image|max:2048',
+            'business_solutions_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:4096',
             'hero.text_alignment' => 'nullable|string|in:left,center,right',
         ]);
 
@@ -66,6 +68,15 @@ class PageController extends Controller
 
         if ($request->has('hero.text_alignment')) {
              Setting::set('hero.text_alignment', $request->input('hero.text_alignment'));
+        }
+
+        if ($request->hasFile('business_solutions_image')) {
+            $oldImage = Setting::get('home.business_solutions_image');
+            if ($oldImage) {
+                Storage::disk('public')->delete($oldImage);
+            }
+            $path = $request->file('business_solutions_image')->store('home', 'public');
+            Setting::set('home.business_solutions_image', $path);
         }
 
         // Translatable fields
@@ -203,8 +214,8 @@ class PageController extends Controller
             $setting = Setting::firstOrCreate(['key' => 'hero.industry_image']);
             
             // Delete old image if exists
-            if ($setting->value && \Storage::disk('public')->exists($setting->value)) {
-                \Storage::disk('public')->delete($setting->value);
+            if ($setting->value && Storage::disk('public')->exists($setting->value)) {
+                Storage::disk('public')->delete($setting->value);
             }
             
             $setting->value = $imagePath;

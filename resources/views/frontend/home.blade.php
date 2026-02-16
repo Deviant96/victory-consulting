@@ -156,54 +156,44 @@
 @endif
 
 <!-- Business Solutions Section -->
-@if($businessSolutions->isNotEmpty())
 <section class="relative py-14 md:py-24 bg-[#0b1f2a] text-white overflow-hidden">
     <div class="absolute inset-0 bg-gradient-to-br from-[#0b1f2a] via-[#0c2d3c] to-[#035f7f]"></div>
     <div class="absolute -left-24 top-0 h-72 w-72 bg-white/5 rounded-full blur-3xl"></div>
     <div class="absolute right-[-6rem] bottom-[-4rem] h-80 w-80 bg-[#0fb5d2]/15 rounded-full blur-3xl"></div>
 
     <div class="relative container mx-auto px-4 max-w-6xl">
-        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6 md:gap-10 mb-10 md:mb-14" data-animate="fade-up">
-            <div>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center" data-animate="fade-up">
+            <div class="order-2 md:order-1">
                 <div class="inline-flex items-center gap-2 bg-white/10 text-white px-4 py-2 rounded-full text-xs md:text-sm font-semibold uppercase tracking-[0.08em]">
                     <span class="h-2 w-2 rounded-full bg-emerald-300"></span>
                     {{ t('frontend.home.solutions_badge', 'Industries and use cases') }}
                 </div>
                 <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold leading-tight mt-3">{{ settings('home.business_solutions_title', t('frontend.home.solutions_heading', 'Whatever Your Business, We Can Handle It')) }}</h2>
-                <p class="text-base md:text-lg text-white/80 max-w-3xl mt-2">{{ settings('home.business_solutions_description', t('frontend.home.solutions_subheading', 'From startups to enterprises, we provide tailored solutions for every industry and challenge')) }}</p>
-            </div>
-            <div class="flex flex-wrap flex-none">
-                <a href="{{ route('contact') }}" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white text-[#035f7f] px-8 md:px-10 lg:px-12 py-3 md:py-3.5 rounded-xl font-semibold shadow-xl hover:bg-[#cce7f0] hover:shadow-2xl transition">
+                <p class="text-base md:text-lg text-white/80 max-w-3xl mt-4">{{ settings('home.business_solutions_description', t('frontend.home.solutions_subheading', 'From startups to enterprises, we provide tailored solutions for every industry and challenge')) }}</p>
+
+                <a href="{{ route('contact') }}" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white text-[#035f7f] px-8 md:px-10 lg:px-12 py-3 md:py-3.5 rounded-xl font-semibold shadow-xl hover:bg-[#cce7f0] hover:shadow-2xl transition mt-6 md:mt-16">
                     {{ t('frontend.home.business_solutions_cta', 'Explore Industries') }}
                     <span aria-hidden="true">→</span>
                 </a>
             </div>
-        </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6" data-animate-stagger="120">
-            @foreach($businessSolutions as $solution)
-            <div class="group relative bg-white/5 border border-white/10 rounded-2xl p-5 md:p-6 backdrop-blur shadow-lg hover:shadow-2xl transition-all" data-animate="fade-up">
-                <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition bg-white/5"></div>
-                <div class="relative z-10 flex flex-col h-full text-white">
-                    <div class="flex items-center justify-between mb-3">
-                        <span class="inline-flex items-center gap-2 text-[11px] md:text-xs font-semibold bg-white/10 px-3 py-1 rounded-full">{{ t('frontend.home.solutions_tag', 'Solution area') }}</span>
-                        <span class="text-[11px] md:text-xs text-white/70">{{ t('frontend.home.solutions_time', 'Fast start') }}</span>
+            <div class="relative order-1 md:order-2" data-animate="fade-left">
+                <div class="absolute inset-0 rounded-3xl bg-white/10 blur-2xl"></div>
+                <div class="relative overflow-hidden rounded-3xl border border-white/20 bg-white/5 shadow-2xl backdrop-blur">
+                    @if(settings('home.business_solutions_image'))
+                    <img src="{{ asset('storage/' . settings('home.business_solutions_image')) }}" alt="{{ t('frontend.home.business_solutions_image_alt', 'Business solutions section image') }}" class="w-full h-[260px] sm:h-[320px] md:h-[380px] object-cover">
+                    @else
+                    <div class="h-[260px] sm:h-[320px] md:h-[380px] flex items-center justify-center p-8 text-center bg-gradient-to-br from-white/10 via-white/5 to-transparent">
+                        <p class="text-white/85 text-sm md:text-base font-medium">
+                            {{ t('frontend.home.business_solutions_image_placeholder', 'Set a section image from Home Page Settings in Admin.') }}
+                        </p>
                     </div>
-                    <h3 class="text-lg sm:text-xl font-bold leading-snug mb-2">{{ $solution->title }}</h3>
-                    @if($solution->description)
-                    <p class="text-sm md:text-base text-white/80 flex-1">{{ $solution->description }}</p>
                     @endif
-                    {{-- <span class="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-white group-hover:translate-x-1 transition">
-                        {{ t('frontend.home.solutions_cta', 'Plan with us') }}
-                        <span aria-hidden="true">→</span>
-                    </span> --}}
                 </div>
             </div>
-            @endforeach
         </div>
     </div>
 </section>
-@endif
 
 <!-- Team Section -->
 {{-- <section class="py-16 bg-white">
