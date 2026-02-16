@@ -323,22 +323,18 @@
 @endif
 
 <!-- CTA Section -->
-<section class="bg-gradient-to-br from-[#0481AE] to-[#035f7f] text-white py-12 md:py-16">
+<section class="bg-gradient-to-br from-[#0481AE] to-[#035f7f] text-white py-12 md:py-24">
     <div class="container mx-auto px-4 text-center max-w-4xl">
         <div data-animate="fade-up">
-            <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 md:mb-6">Ready to Optimize Your Finances?</h2>
+            <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 md:mb-6">{{ t('frontend.home.cta_heading', 'Ready to Optimize Your Finances?') }}</h2>
             <p class="text-base md:text-xl mb-6 md:mb-8 max-w-2xl mx-auto text-blue-50">
-                Schedule your free 30-minute consultation today. No obligation—just expert guidance tailored to your situation.
+                {{ t('frontend.home.cta_description', 'Contact us today for a free consultation and discover how we can help your business thrive.') }}
             </p>
             <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
                 <a href="{{ route('contact') }}" class="w-full sm:w-auto inline-block bg-white text-[#0481AE] px-8 md:px-12 py-3 md:py-4 rounded-xl font-semibold hover:bg-gray-100 transition shadow-lg text-base md:text-lg">
-                    <i class="far fa-calendar-check mr-2"></i>Book Free Consultation
-                </a>
-                <a href="tel:+1234567890" class="w-full sm:w-auto inline-block border-2 border-white text-white px-8 md:px-12 py-3 md:py-4 rounded-xl font-semibold hover:bg-white/10 transition text-base md:text-lg">
-                    <i class="fas fa-phone mr-2"></i>Call Us Now
+                    <i class="far fa-calendar-check mr-2"></i>{{ t('frontend.home.cta_primary', 'Book Free Consultation') }}
                 </a>
             </div>
-            <p class="text-xs md:text-sm text-blue-100 mt-4 md:mt-6">✓ Free assessment  ✓ No credit card required  ✓ Same-day response guarantee</p>
         </div>
     </div>
 </section>
