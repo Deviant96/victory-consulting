@@ -236,16 +236,32 @@
 </section> --}}
 
 <!-- Blog Section -->
-<section class="py-12 md:py-16 lg:py-20 bg-[#faf4f0] text-white">
-    <div class="container mx-auto px-4 max-w-6xl">
-        <div class="mb-4 md:mb-14 items-center md:justify-normal md:flex-col md:items-start md:col-span-1 text-left md:text-center" data-animate="fade-right">
-            <div>
-                <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-3 md:mb-4 px-2">{{ settings('home.blog_title', t('frontend.home.blog_heading', 'Tax Tips & Financial Insights')) }}</h2>
-                <p class="text-base md:text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto px-4">{{ settings('home.blog_description', t('frontend.home.blog_subheading', 'Timely updates on tax deadlines, regulatory changes, and actionable strategies to optimize your finances')) }}</p>
+<section class="relative py-14 md:py-20 bg-gradient-to-b from-[#fff8f1] via-white to-[#f7efe9] overflow-hidden">
+    <div class="absolute -left-24 top-6 h-64 w-64 bg-[#f3c7a0]/30 rounded-full blur-3xl"></div>
+    <div class="absolute right-[-3rem] bottom-0 h-72 w-72 bg-[#0481AE]/15 rounded-full blur-3xl"></div>
+
+    <div class="relative container mx-auto px-4 max-w-6xl">
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 md:gap-8 mb-8 md:mb-12" data-animate="fade-up">
+            <div class="space-y-3">
+                <div class="inline-flex items-center gap-2 bg-[#0481AE]/10 text-[#035f7f] px-4 py-2 rounded-full text-xs md:text-sm font-semibold uppercase tracking-[0.08em]">
+                    <span class="h-2 w-2 rounded-full bg-[#f59e0b]"></span>
+                    {{ t('frontend.home.blog_badge', 'Insights & playbooks') }}
+                </div>
+                <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900">{{ settings('home.blog_title', t('frontend.home.blog_heading', 'Latest Insights')) }}</h2>
+                <p class="text-base md:text-lg text-gray-700 max-w-3xl">{{ settings('home.blog_description', t('frontend.home.blog_subheading', 'Expert perspectives on business strategy and growth.')) }}</p>
+            </div>
+            <div class="flex gap-3 flex-wrap">
+                <a href="{{ route('blog.index') }}" class="inline-flex items-center gap-2 bg-[#0481AE] text-white px-5 py-3 rounded-xl font-semibold shadow-lg hover:bg-[#035f7f] transition">
+                    {{ settings('home.blog_button_text', t('frontend.home.blog_cta', 'Read More')) }}
+                    <span aria-hidden="true">→</span>
+                </a>
+                <a href="{{ route('services.index') }}" class="inline-flex items-center gap-2 text-[#035f7f] border border-[#0481AE]/30 bg-white px-5 py-3 rounded-xl font-semibold hover:border-[#035f7f] transition">
+                    {{ t('frontend.home.blog_secondary', 'See how we implement') }}
+                </a>
             </div>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8" data-animate-stagger="140">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-7" data-animate-stagger="140">
             @foreach($posts as $post)
             <a href="{{ route('blog.show', $post->slug) }}" class="group bg-white rounded-lg shadow-md hover:shadow-2xl transition overflow-hidden flex flex-row md:flex md:flex-col h-full relative border-l-4 md:border-l-0 md:border-t-4 border-[#0481AE]" data-animate="fade-up">
                 @if($post->featured_image)
@@ -278,12 +294,6 @@
                 </div>
             </a>
             @endforeach
-        </div>
-
-        <div class="text-center md:mt-12 flex-shrink-0">
-            <a href="{{ route('blog.index') }}" class="inline-block text-sm md:text-base md:bg-[#0481AE] text-black md:text-white underline md:no-underline p-0 md:px-8 md:py-3 md:rounded-lg md:font-semibold md:hover:bg-[#035f7f] transition whitespace-nowrap">
-                <i class="fas fa-book-open mr-2 hidden md:inline"></i>{{ settings('home.blog_button_text', t('frontend.home.blog_cta', 'View All Tax Tips')) }}
-            </a>
         </div>
     </div>
 </section>
