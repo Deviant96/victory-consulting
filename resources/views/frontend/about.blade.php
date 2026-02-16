@@ -312,7 +312,7 @@
         <div class="rounded-3xl border border-white/10 bg-gradient-to-br from-[#0481AE] to-[#035f7f] p-8 md:p-12 text-center shadow-2xl" data-animate="fade-up">
             <h2 class="text-2xl md:text-4xl font-bold mb-4">{{ settings('about.cta_heading', t('frontend.about.cta_heading', 'Ready to Transform Your Business?')) }}</h2>
             <p class="text-blue-50 text-base md:text-xl max-w-2xl mx-auto mb-7">
-                {{ settings('about.cta_description', settings('about.cta_subheading', t('frontend.about.cta_description', 'Contact us today for a free consultation and discover how we can help your business thrive.'))) }}
+                {{ settings('about.cta_description', t('frontend.about.cta_description', 'Contact us today for a free consultation and discover how we can help your business thrive.')) }}
             </p>
             <a href="{{ route('contact') }}" class="inline-flex items-center justify-center bg-white text-[#035f7f] px-8 md:px-11 py-3.5 rounded-xl font-semibold hover:bg-slate-100 transition shadow-lg text-base md:text-lg">
                 <i class="far fa-calendar-check mr-2"></i>{{ settings('about.cta_primary_button', t('frontend.about.cta_primary', 'Book Free Consultation')) }}
