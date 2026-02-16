@@ -46,7 +46,7 @@
             @error('photo')
             <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
             @enderror
-            <p class="text-gray-500 text-sm mt-1">Recommended: Square image, at least 400x400px</p>
+            <p class="text-gray-500 text-sm mt-1">Recommended: formal headshot with neutral background (square image, at least 400x400px)</p>
         </div>
 
         <div class="mb-6">

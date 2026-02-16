@@ -265,9 +265,9 @@
             <p class="mt-3 text-slate-600 max-w-3xl mx-auto">{{ t('frontend.team.subheading', 'Dedicated professionals committed to helping your business succeed') }}</p>
         </div>
 
-        <div class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" data-animate-stagger="100">
+        <div class="flex flex-wrap justify-center gap-6" data-animate-stagger="100">
             @foreach($teamMembers as $member)
-            <article class="group rounded-2xl border border-slate-200 bg-white p-4 hover:shadow-xl transition-all duration-300" data-animate="fade-up">
+            <article class="group w-full sm:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)] xl:w-[calc(25%-1.125rem)] max-w-sm rounded-2xl border border-slate-200 bg-white p-4 hover:shadow-xl transition-all duration-300" data-animate="fade-up">
                 <div class="relative overflow-hidden rounded-xl mb-4 aspect-[4/5] bg-slate-100">
                     @if($member->photo)
                     <img src="{{ asset('storage/' . $member->photo) }}"
@@ -275,12 +275,9 @@
                          class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
                     @else
                     <div class="w-full h-full bg-gradient-to-br from-slate-200 to-slate-300 flex items-center justify-center text-center p-4">
-                        <div>
-                            <svg class="w-12 h-12 text-slate-500 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
-                            </svg>
-                            <p class="text-xs font-medium text-slate-600">{{ t('frontend.team.photo_placeholder', 'Recommended: formal headshot with neutral background') }}</p>
-                        </div>
+                        <svg class="w-12 h-12 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                        </svg>
                     </div>
                     @endif
                 </div>
@@ -315,7 +312,7 @@
                 {{ settings('about.cta_description', t('frontend.about.cta_description', 'Contact us today for a free consultation and discover how we can help your business thrive.')) }}
             </p>
             <a href="{{ route('contact') }}" class="inline-flex items-center justify-center bg-white text-[#035f7f] px-8 md:px-11 py-3.5 rounded-xl font-semibold hover:bg-slate-100 transition shadow-lg text-base md:text-lg">
-                <i class="far fa-calendar-check mr-2"></i>{{ settings('about.cta_primary_button', t('frontend.about.cta_primary', 'Book Free Consultation')) }}
+                {{ settings('about.cta_primary_button', t('frontend.about.cta_primary', 'Book Free Consultation')) }}
             </a>
         </div>
     </div>
