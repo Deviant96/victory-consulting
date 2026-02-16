@@ -291,9 +291,8 @@
         </div>
 
         <div class="text-center mt-10" data-animate="fade-up" data-animate-delay="120">
-            <a href="{{ route('team') }}"
-               class="inline-flex items-center px-7 py-3.5 bg-slate-900 text-white rounded-xl hover:bg-slate-800 transition font-semibold shadow-lg">
-                {{ t('frontend.team.view_full', 'View Full Team') }}
+            <a href="{{ route('team') }}" class="inline-flex items-center gap-2 bg-[#0481AE] text-white px-6 md:px-8 py-3 rounded-xl font-semibold shadow-lg hover:bg-[#035f7f] transition">
+                {{ t('frontend.home.services_cta', 'Explore all services') }}
                 <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
                 </svg>
