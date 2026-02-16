@@ -197,20 +197,22 @@
     </div>
 </section>
 
-<!-- Newsletter CTA -->
-<section class="bg-[#FFE7D5] text-white py-10 px-12 max-w-5xl mx-auto md:rounded-xl md:shadow-xl md:mb-16" data-animate="fade-up">
-    <div class="container mx-auto px-2 text-center">
-        <h2 class="text-3xl font-bold mb-4 text-[#0481AE]">{{ settings('blog.cta_title', t('frontend.blog.newsletter_heading', 'Stay Updated')) }}</h2>
-        <p class="text-xl mb-8 max-w-2xl mx-auto text-[#0481AE]">
-            {{ settings('blog.cta_description', t('frontend.blog.newsletter_subheading', 'Subscribe to our newsletter for the latest insights and business strategies')) }}
-        </p>
-        <form action="#" method="POST" class="max-w-md mx-auto flex flex-col md:flex-row gap-4">
-            @csrf
-            <input type="email" name="email" placeholder="{{ t('frontend.blog.newsletter_placeholder', 'Enter your email') }}" required class="flex-1 px-4 py-3 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#0481AE]">
-            <button type="submit" class="bg-white text-[#0481AE] px-8 py-3 rounded-lg font-semibold hover:bg-[#E6F0F6] transition">
-                {{ settings('blog.cta_button', t('frontend.blog.newsletter_cta', 'Subscribe')) }}
-            </button>
-        </form>
+<!-- CTA Section -->
+<section class="bg-gradient-to-br from-[#0481AE] to-[#035f7f] text-white py-12 md:py-24">
+    <div class="container mx-auto px-4 text-center max-w-4xl">
+        <div data-animate="fade-up">
+            <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 md:mb-6">{{ settings('blog.cta_title', t('frontend.blog.newsletter_heading', 'Stay Updated')) }}</h2>
+            <p class="text-base md:text-xl mb-6 md:mb-8 max-w-2xl mx-auto text-blue-50">
+                {{ settings('blog.cta_description', t('frontend.blog.newsletter_subheading', 'Subscribe to our newsletter for the latest insights and business strategies')) }}
+            </p>
+            <form action="#" method="POST" class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                @csrf
+                <input type="email" name="email" placeholder="{{ t('frontend.blog.newsletter_placeholder', 'Enter your email') }}" required class="w-full sm:w-auto px-4 py-3 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#0481AE]">
+                <button type="submit" class="bg-white text-[#0481AE] px-8 py-3 rounded-lg font-semibold hover:bg-[#E6F0F6] transition">
+                    {{ settings('blog.cta_button', t('frontend.blog.newsletter_cta', 'Subscribe')) }}
+                </button>
+            </form>
+        </div>
     </div>
 </section>
 @endsection

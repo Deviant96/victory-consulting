@@ -238,19 +238,18 @@
 @endif
 
 <!-- CTA Section -->
-<section class="bg-[#FFE7D5] py-10 px-12 max-w-5xl mx-auto md:rounded-xl md:shadow-xl md:mb-16" data-animate="fade-up">
-    <div class="container mx-auto px-4 max-w-4xl text-center">
-        <h2 class="text-4xl md:text-5xl font-bold mb-6">{{ settings('about.cta_heading', t('frontend.about.cta_heading', 'Ready to Transform Your Business?')) }}</h2>
-        <p class="text-xl mb-10 opacity-90">
-            {{ settings('about.cta_subheading', t('frontend.about.cta_subheading', 'Join hundreds of satisfied clients who have experienced growth and success with our consulting services.')) }}
-        </p>
-        <div class="flex flex-col sm:flex-row gap-4 justify-center">
-            <a href="{{ route('contact') }}" class="inline-block bg-[#0481AE] text-white px-16 py-2 rounded-xl font-semibold hover:bg-[#036494] transition shadow-md">
-                {{ settings('about.cta_primary_button', t('frontend.about.cta_primary', 'Get in Touch')) }}
-            </a>
-            <a href="{{ route('services.index') }}" class="inline-block text-[#0481AE] px-16 py-2 rounded-xl font-semibold border-2 border-[#0481AE] transition shadow-md">
-                {{ settings('about.cta_secondary_button', t('frontend.about.cta_secondary', 'Explore Services')) }}
-            </a>
+<section class="bg-gradient-to-br from-[#0481AE] to-[#035f7f] text-white py-12 md:py-24">
+    <div class="container mx-auto px-4 text-center max-w-4xl">
+        <div data-animate="fade-up">
+            <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 md:mb-6">{{ settings('about.cta_heading', t('frontend.about.cta_heading', 'Ready to Transform Your Business?')) }}</h2>
+            <p class="text-base md:text-xl mb-6 md:mb-8 max-w-2xl mx-auto text-blue-50">
+                {{ settings('about.cta_description', t('frontend.about.cta_description', 'Contact us today for a free consultation and discover how we can help your business thrive.')) }}
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <a href="{{ route('contact') }}" class="w-full sm:w-auto inline-block bg-white text-[#0481AE] px-8 md:px-12 py-3 md:py-4 rounded-xl font-semibold hover:bg-gray-100 transition shadow-lg text-base md:text-lg">
+                    <i class="far fa-calendar-check mr-2"></i>{{ settings('about.cta_primary_button', t('frontend.about.cta_primary', 'Book Free Consultation')) }}
+                </a>
+            </div>
         </div>
     </div>
 </section>
