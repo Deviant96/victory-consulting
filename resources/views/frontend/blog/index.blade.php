@@ -4,8 +4,25 @@
 
 @section('content')
 @php
-    $featuredPost = $posts->first();
-    $secondaryPosts = $posts->getCollection()->slice(1);
+    // Determine featured and secondary posts in a way that doesn't
+    // implicitly change the featured post on every paginated page.
+
+    // If a featured post was not explicitly provided (e.g., by the controller)
+    // and we're on the first page, use the first post on that page as featured.
+    if (!isset($featuredPost) && method_exists($posts, 'currentPage') && $posts->currentPage() === 1) {
+        $featuredPost = $posts->first();
+    }
+
+    // Build the secondary posts collection:
+    // - If we have a featured post, exclude it from the current page's collection.
+    // - Otherwise, use the full current page collection.
+    if (isset($featuredPost)) {
+        $secondaryPosts = $posts->getCollection()->filter(function ($post) use ($featuredPost) {
+            return $post->id !== $featuredPost->id;
+        });
+    } else {
+        $secondaryPosts = $posts->getCollection();
+    }
 @endphp
 
 <!-- Editorial Header -->
