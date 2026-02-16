@@ -103,6 +103,16 @@
                 return;
             }
 
+            // Validate file type before reading
+            const validTypes = ['image/jpeg', 'image/png', 'image/svg+xml'];
+            if (!validTypes.includes(file.type)) {
+                alert('Please select a valid image file (JPG, PNG, or SVG)');
+                input.value = '';
+                previewWrapper.classList.add('hidden');
+                preview.src = '';
+                return;
+            }
+
             const reader = new FileReader();
             reader.onload = (event) => {
                 preview.src = event.target.result;
