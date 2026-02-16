@@ -84,8 +84,14 @@
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" data-animate-stagger="120">
             @foreach($whyChooseItems as $item)
             <div class="bg-gray-50 rounded-xl p-8 hover:shadow-xl transition-shadow duration-300 border-2 border-transparent hover:border-[#0481AE] flex items-center justify-center flex-col text-center" data-animate="fade-up">
-                @if($item->icon)
-                <div class="text-5xl mb-4">{{ $item->icon }}</div>
+                @if($item->icon_is_image)
+                <div class="w-16 h-16 rounded-2xl overflow-hidden border border-[#0481AE]/20 mb-4 bg-white flex items-center justify-center">
+                    <img src="{{ $item->icon_url }}" alt="{{ $item->title }} icon" class="w-full h-full object-cover" />
+                </div>
+                @elseif($item->icon)
+                <div class="text-5xl mb-4">
+                    <i class="{{ $item->icon }}"></i>
+                </div>
                 @else
                 <div class="w-16 h-16 bg-gradient-to-br from-[#0481AE] to-[#035f7f] rounded-full flex items-center justify-center mb-8">
                     <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">

@@ -8,6 +8,7 @@ use App\Models\Language;
 use App\Traits\HandlesContentTranslations;
 use App\Traits\LogsAdminActivity;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class WhyChooseItemController extends Controller
 {
@@ -58,7 +59,7 @@ class WhyChooseItemController extends Controller
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
-            'icon' => 'nullable|string|max:255',
+            'icon' => 'nullable|file|mimes:jpg,jpeg,png,svg|max:2048',
             'order' => 'required|integer|min:0',
             'translations' => ['sometimes', 'array'],
             'translations.*' => ['sometimes', 'array'],
@@ -67,6 +68,10 @@ class WhyChooseItemController extends Controller
         ]);
 
         $validated['is_active'] = $request->boolean('is_active');
+
+        if ($request->hasFile('icon')) {
+            $validated['icon'] = $request->file('icon')->store('why-choose-icons', 'public');
+        }
 
         $item = WhyChooseItem::create($validated);
 
@@ -96,7 +101,7 @@ class WhyChooseItemController extends Controller
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
-            'icon' => 'nullable|string|max:255',
+            'icon' => 'nullable|file|mimes:jpg,jpeg,png,svg|max:2048',
             'order' => 'required|integer|min:0',
             'translations' => ['sometimes', 'array'],
             'translations.*' => ['sometimes', 'array'],
@@ -105,6 +110,13 @@ class WhyChooseItemController extends Controller
         ]);
 
         $validated['is_active'] = $request->boolean('is_active');
+
+        if ($request->hasFile('icon')) {
+            if ($whyChooseItem->icon_is_image && $whyChooseItem->icon) {
+                Storage::disk('public')->delete($whyChooseItem->icon);
+            }
+            $validated['icon'] = $request->file('icon')->store('why-choose-icons', 'public');
+        }
 
         $whyChooseItem->update($validated);
 
@@ -120,6 +132,9 @@ class WhyChooseItemController extends Controller
      */
     public function destroy(WhyChooseItem $whyChooseItem)
     {
+        if ($whyChooseItem->icon_is_image && $whyChooseItem->icon) {
+            Storage::disk('public')->delete($whyChooseItem->icon);
+        }
         $this->logAdminActivity('deleted why choose item', $whyChooseItem, "Deleted Why Choose Item: {$whyChooseItem->title}");
         $whyChooseItem->delete();
 

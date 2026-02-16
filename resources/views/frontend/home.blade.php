@@ -123,7 +123,11 @@
                     <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition bg-gradient-to-br from-[#0481AE]/5 via-transparent to-[#0fb5d2]/10"></div>
                     <div class="relative z-10">
                         <div class="flex items-start gap-3 md:gap-4 mb-3">
-                            @if($item->icon)
+                            @if($item->icon_is_image)
+                            <div class="flex-shrink-0 w-11 h-11 md:w-12 md:h-12 rounded-xl bg-white text-white flex items-center justify-center overflow-hidden border border-[#0481AE]/20">
+                                <img src="{{ $item->icon_url }}" alt="{{ $item->title }} icon" class="h-full w-full object-cover" />
+                            </div>
+                            @elseif($item->icon)
                             <div class="flex-shrink-0 w-11 h-11 md:w-12 md:h-12 rounded-xl bg-gradient-to-br from-[#0481AE] to-[#035f7f] text-white flex items-center justify-center text-lg">
                                 <i class="{{ $item->icon }}"></i>
                             </div>

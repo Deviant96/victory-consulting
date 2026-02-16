@@ -86,7 +86,13 @@
                     @include('admin.components.language-indicators', ['languages' => $languages, 'model' => $item])
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {{ $item->icon ?? '-' }}
+                    @if($item->icon_is_image)
+                        <img src="{{ $item->icon_url }}" alt="{{ $item->title }} icon" class="h-8 w-8 rounded-lg object-cover border border-gray-200" />
+                    @elseif($item->icon)
+                        <span class="text-gray-700">{{ $item->icon }}</span>
+                    @else
+                        -
+                    @endif
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">
                     @if($item->is_active)

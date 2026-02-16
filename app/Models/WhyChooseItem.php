@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use App\Traits\HasTranslations;
 
 class WhyChooseItem extends Model
@@ -26,6 +28,35 @@ class WhyChooseItem extends Model
         'is_active' => 'boolean',
         'order' => 'integer',
     ];
+
+    public function getIconIsImageAttribute(): bool
+    {
+        if (!$this->icon) {
+            return false;
+        }
+
+        $path = parse_url($this->icon, PHP_URL_PATH) ?? $this->icon;
+        $extension = strtolower(pathinfo($path, PATHINFO_EXTENSION));
+
+        return in_array($extension, ['jpg', 'jpeg', 'png', 'svg'], true);
+    }
+
+    public function getIconUrlAttribute(): ?string
+    {
+        if (!$this->icon) {
+            return null;
+        }
+
+        if (Str::startsWith($this->icon, ['http://', 'https://'])) {
+            return $this->icon;
+        }
+
+        if (Str::startsWith($this->icon, ['/storage/', 'storage/'])) {
+            return asset(ltrim($this->icon, '/'));
+        }
+
+        return Storage::disk('public')->url($this->icon);
+    }
 
     /**
      * Scope a query to only include active items.
