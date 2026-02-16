@@ -221,9 +221,15 @@ class SettingController extends Controller
         $languages = \App\Models\Language::active()->get();
         
         $settingKeys = [
+            'about.hero_tagline',
             'about.header_title',
             'about.header_description',
+            'about.hero_image',
+            'about.principles_heading',
+            'about.principles_subheading',
+            'about.story_heading',
             'about.content',
+            'about.story_image',
             'about.wisdom1_title',
             'about.wisdom1_description',
             'about.wisdom1_image',
@@ -237,6 +243,7 @@ class SettingController extends Controller
             'about.mission_content',
             'about.mission_image',
             'about.cta_heading',
+            'about.cta_description',
             'about.cta_subheading',
             'about.cta_primary_button',
             'about.cta_secondary_button',
@@ -250,9 +257,15 @@ class SettingController extends Controller
     public function updateAbout(Request $request)
     {
         $validated = $request->validate([
+            'about.hero_tagline' => 'nullable|string|max:255',
             'about.header_title' => 'required|string|max:255',
             'about.header_description' => 'nullable|string',
+            'hero_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:4096',
+            'about.principles_heading' => 'nullable|string|max:255',
+            'about.principles_subheading' => 'nullable|string',
+            'about.story_heading' => 'nullable|string|max:255',
             'about.content' => 'required|string',
+            'story_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:4096',
             'about.wisdom1_title' => 'nullable|string|max:255',
             'about.wisdom1_description' => 'nullable|string',
             'wisdom1_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp,svg|max:2048',
@@ -266,6 +279,7 @@ class SettingController extends Controller
             'about.mission_content' => 'nullable|string',
             'mission_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
             'about.cta_heading' => 'nullable|string|max:255',
+            'about.cta_description' => 'nullable|string',
             'about.cta_subheading' => 'nullable|string',
             'about.cta_primary_button' => 'nullable|string|max:100',
             'about.cta_secondary_button' => 'nullable|string|max:100',
@@ -273,6 +287,34 @@ class SettingController extends Controller
 
         $about = $request->input('about', []);
         $translations = $request->input('translations', []);
+
+        // Backward compatibility for CTA description naming
+        if (!isset($about['cta_description']) && isset($about['cta_subheading'])) {
+            $about['cta_description'] = $about['cta_subheading'];
+        }
+        if (!isset($about['cta_subheading']) && isset($about['cta_description'])) {
+            $about['cta_subheading'] = $about['cta_description'];
+        }
+
+        // Handle hero image upload
+        if ($request->hasFile('hero_image')) {
+            $oldImage = Setting::get('about.hero_image');
+            if ($oldImage) {
+                Storage::disk('public')->delete($oldImage);
+            }
+            $path = $request->file('hero_image')->store('about', 'public');
+            Setting::set('about.hero_image', $path);
+        }
+
+        // Handle story image upload
+        if ($request->hasFile('story_image')) {
+            $oldImage = Setting::get('about.story_image');
+            if ($oldImage) {
+                Storage::disk('public')->delete($oldImage);
+            }
+            $path = $request->file('story_image')->store('about', 'public');
+            Setting::set('about.story_image', $path);
+        }
         
         // Handle wisdom1 image upload
         if ($request->hasFile('wisdom1_image')) {
@@ -316,8 +358,12 @@ class SettingController extends Controller
 
         // Translatable fields
         $translatableFields = [
+            'hero_tagline',
             'header_title',
             'header_description',
+            'principles_heading',
+            'principles_subheading',
+            'story_heading',
             'content',
             'wisdom1_title',
             'wisdom1_description',
@@ -328,6 +374,7 @@ class SettingController extends Controller
             'mission_title',
             'mission_content',
             'cta_heading',
+            'cta_description',
             'cta_subheading',
             'cta_primary_button',
             'cta_secondary_button',

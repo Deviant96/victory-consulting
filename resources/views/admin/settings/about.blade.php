@@ -23,6 +23,17 @@
         <!-- Header Section -->
         <div class="p-6 border-b border-gray-200">
             <h2 class="text-xl font-semibold text-gray-900 mb-4">{{ t('Page Header', 'Page Header') }}</h2>
+
+            <div class="mb-6">
+                <label for="hero_tagline" class="block text-sm font-medium text-gray-700 mb-2">{{ t('Hero Tagline', 'Hero Tagline') }}</label>
+                <input type="text" name="about[hero_tagline]" id="hero_tagline"
+                       value="{{ old('about.hero_tagline', optional($settings->get('about.hero_tagline'))->value ?? 'Trusted Finance & Business Advisory') }}"
+                       class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-blue-500 focus:border-blue-500">
+                @error('about.hero_tagline')
+                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                @enderror
+                <p class="text-gray-500 text-sm mt-1">{{ t('Small label shown above the main About heading', 'Small label shown above the main About heading') }}</p>
+            </div>
             
             <div class="mb-6">
                 <label for="header_title" class="block text-sm font-medium text-gray-700 mb-2">{{ t('Header Title', 'Header Title') }} *</label>
@@ -44,6 +55,23 @@
                 @enderror
                 <p class="text-gray-500 text-sm mt-1">{{ t('Brief introduction shown in the header', 'Brief introduction shown in the header') }}</p>
             </div>
+
+            <div class="mb-1">
+                <label for="hero_image" class="block text-sm font-medium text-gray-700 mb-2">{{ t('Hero Image', 'Hero Image') }}</label>
+                @if(optional($settings->get('about.hero_image'))->value)
+                <div class="mb-3">
+                    <img src="{{ asset('storage/' . $settings->get('about.hero_image')->value) }}"
+                         alt="Hero Image"
+                         class="w-72 h-40 object-cover rounded-lg border border-gray-200">
+                </div>
+                @endif
+                <input type="file" name="hero_image" id="hero_image" accept="image/*"
+                       class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-blue-500 focus:border-blue-500">
+                @error('hero_image')
+                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                @enderror
+                <p class="text-gray-500 text-sm mt-1">{{ t('Recommended: executive consultation meeting in a modern office boardroom', 'Recommended: executive consultation meeting in a modern office boardroom') }}</p>
+            </div>
         </div>
 
         <!-- Founder's Wisdom Section -->
@@ -54,6 +82,26 @@
                 </svg>
                 {{ t('Founders Wisdom', "Founder's Wisdom") }}
             </h2>
+
+            <div class="grid md:grid-cols-2 gap-6 mb-6">
+                <div>
+                    <label for="principles_heading" class="block text-sm font-medium text-gray-700 mb-2">{{ t('Principles Section Heading', 'Principles Section Heading') }}</label>
+                    <input type="text" name="about[principles_heading]" id="principles_heading"
+                           value="{{ old('about.principles_heading', optional($settings->get('about.principles_heading'))->value ?? "Founder's Principles") }}"
+                           class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-blue-500 focus:border-blue-500 bg-white">
+                    @error('about.principles_heading')
+                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                    @enderror
+                </div>
+                <div>
+                    <label for="principles_subheading" class="block text-sm font-medium text-gray-700 mb-2">{{ t('Principles Section Subheading', 'Principles Section Subheading') }}</label>
+                    <textarea name="about[principles_subheading]" id="principles_subheading" rows="2"
+                              class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-blue-500 focus:border-blue-500 bg-white">{{ old('about.principles_subheading', optional($settings->get('about.principles_subheading'))->value ?? 'The values that shape our consulting quality and long-term client partnerships.') }}</textarea>
+                    @error('about.principles_subheading')
+                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                    @enderror
+                </div>
+            </div>
             
             <div class="grid md:grid-cols-2 gap-6">
                 <!-- Wisdom 1 (Map of Indonesia) -->
@@ -153,6 +201,16 @@
         <!-- Main About Content -->
         <div class="p-6 border-b border-gray-200">
             <h2 class="text-xl font-semibold text-gray-900 mb-4">{{ t('Main About Content', 'Main About Content') }}</h2>
+
+            <div class="mb-6">
+                <label for="story_heading" class="block text-sm font-medium text-gray-700 mb-2">{{ t('Story Heading', 'Story Heading') }}</label>
+                <input type="text" name="about[story_heading]" id="story_heading"
+                       value="{{ old('about.story_heading', optional($settings->get('about.story_heading'))->value ?? 'Our Story') }}"
+                       class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-blue-500 focus:border-blue-500">
+                @error('about.story_heading')
+                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                @enderror
+            </div>
             
             <div class="mb-6">
                 <label for="about_content" class="block text-sm font-medium text-gray-700 mb-2">{{ t('About Us Content', 'About Us Content') }} *</label>
@@ -165,6 +223,23 @@
                 <p class="text-gray-500 text-sm mt-1">
                     {{ t('Write your complete About Us content here', 'Write your complete About Us content here. Use line breaks to separate paragraphs. This will be displayed as the main content on your About Us page.') }}
                 </p>
+            </div>
+
+            <div class="mb-1">
+                <label for="story_image" class="block text-sm font-medium text-gray-700 mb-2">{{ t('Story Image', 'Story Image') }}</label>
+                @if(optional($settings->get('about.story_image'))->value)
+                <div class="mb-3">
+                    <img src="{{ asset('storage/' . $settings->get('about.story_image')->value) }}"
+                         alt="Story Image"
+                         class="w-72 h-40 object-cover rounded-lg border border-gray-200">
+                </div>
+                @endif
+                <input type="file" name="story_image" id="story_image" accept="image/*"
+                       class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-blue-500 focus:border-blue-500">
+                @error('story_image')
+                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                @enderror
+                <p class="text-gray-500 text-sm mt-1">{{ t('Recommended: team reviewing financial reports, dashboards, or strategic planning documents', 'Recommended: team reviewing financial reports, dashboards, or strategic planning documents') }}</p>
             </div>
         </div>
 
@@ -281,10 +356,10 @@
             </div>
 
             <div class="mb-6">
-                <label for="cta_subheading" class="block text-sm font-medium text-gray-700 mb-2">{{ t('CTA Subheading', 'CTA Subheading') }}</label>
-                <textarea name="about[cta_subheading]" id="cta_subheading" rows="2" 
-                          class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-blue-500 focus:border-blue-500 bg-white">{{ old('about.cta_subheading', optional($settings->get('about.cta_subheading'))->value ?? 'Join hundreds of satisfied clients who have experienced growth and success with our consulting services.') }}</textarea>
-                @error('about.cta_subheading')
+                <label for="cta_description" class="block text-sm font-medium text-gray-700 mb-2">{{ t('CTA Description', 'CTA Description') }}</label>
+                <textarea name="about[cta_description]" id="cta_description" rows="2"
+                          class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-blue-500 focus:border-blue-500 bg-white">{{ old('about.cta_description', optional($settings->get('about.cta_description'))->value ?? optional($settings->get('about.cta_subheading'))->value ?? 'Contact us today for a free consultation and discover how we can help your business thrive.') }}</textarea>
+                @error('about.cta_description')
                 <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                 @enderror
             </div>
@@ -318,6 +393,10 @@
             'fields' => [
                 'header_title' => 'Header Title',
                 'header_description' => 'Header Description',
+                'hero_tagline' => 'Hero Tagline',
+                'principles_heading' => 'Principles Section Heading',
+                'principles_subheading' => 'Principles Section Subheading',
+                'story_heading' => 'Story Heading',
                 'content' => 'About Us Content',
                 'wisdom1_title' => 'Wisdom 1 Title',
                 'wisdom1_description' => 'Wisdom 1 Description',
@@ -328,7 +407,7 @@
                 'mission_title' => 'Mission Title',
                 'mission_content' => 'Mission Content',
                 'cta_heading' => 'CTA Heading',
-                'cta_subheading' => 'CTA Subheading',
+                'cta_description' => 'CTA Description',
                 'cta_primary_button' => 'Primary Button Text',
                 'cta_secondary_button' => 'Secondary Button Text',
             ],
