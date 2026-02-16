@@ -16,7 +16,14 @@
     </div>
 
     <div class="container mx-auto px-4 max-w-7xl relative z-10 py-12 md:py-24" data-animate="fade-up">
-        <div class="max-w-5xl mx-auto text-center md:text-{{ settings('hero.text_alignment', 'center') }}">
+        @php
+            $heroTextAlignment = settings('hero.text_alignment', 'center');
+            $allowedHeroAlignments = ['left', 'center', 'right'];
+            if (!in_array($heroTextAlignment, $allowedHeroAlignments, true)) {
+                $heroTextAlignment = 'center';
+            }
+        @endphp
+        <div class="max-w-5xl mx-auto text-center md:text-{{ $heroTextAlignment }}">
             <h1 class="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight mb-4 md:mb-6 leading-tight">
                 <span class="bg-clip-text text-transparent bg-gradient-to-br from-white to-[#cce7f0]">{{ settings('site.name', 'Victory Business Consulting') }}</span>
             </h1>
