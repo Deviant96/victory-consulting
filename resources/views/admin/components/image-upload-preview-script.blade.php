@@ -1,10 +1,8 @@
-@props(['inputId' => 'icon', 'previewWrapperId' => 'icon-preview-wrapper', 'previewId' => 'icon-preview'])
-
 <script>
     document.addEventListener('DOMContentLoaded', () => {
-        const input = document.getElementById('{{ $inputId }}');
-        const previewWrapper = document.getElementById('{{ $previewWrapperId }}');
-        const preview = document.getElementById('{{ $previewId }}');
+        const input = document.getElementById('icon');
+        const previewWrapper = document.getElementById('icon-preview-wrapper');
+        const preview = document.getElementById('icon-preview');
 
         if (!input || !previewWrapper || !preview) {
             return;
