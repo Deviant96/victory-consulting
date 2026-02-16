@@ -70,9 +70,10 @@
 
         <!-- Bottom Bar -->
         <div class="flex flex-col md:flex-row md:justify-between md:items-center gap-4 md:gap-4 text-gray-400 text-sm">
-            <p class="order-2 md:order-1">&copy; {{ date('Y') }} {{ settings('site.name', 'Victory Business Consulting') }}. All rights reserved.</p>
-
-            <small class="text-gray-500 order-3 md:order-2">Designed by <a href="https://groovdev.id" class="hover:text-white transition-colors">GroovDev</a></small>
+            <p class="order-2 md:order-1">
+                &copy; {{ date('Y') }} {{ settings('site.name', 'Victory Business Consulting') }}. All rights reserved.
+                 <small class="text-gray-500 order-3 md:order-2">Designed by <a href="https://groovdev.id" class="hover:text-white transition-colors">GroovDev</a></small>
+            </p>
             
             <div class="flex space-x-6 order-1 md:order-3">
                 <a href="" class="text-gray-400 hover:text-white transition-colors">Privacy Policy</a>
