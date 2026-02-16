@@ -146,36 +146,49 @@
 
 <!-- Business Solutions Section -->
 @if($businessSolutions->isNotEmpty())
-<section class="py-12 md:py-20 bg-white">
-    <div class="container mx-auto px-4 max-w-6xl">
-        <div class="text-center mb-8 md:mb-16" data-animate="fade-up">
-            <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-3 md:mb-4 px-2">{{ settings('home.business_solutions_title', t('frontend.home.solutions_heading', 'Industry-Specific Financial Expertise')) }}</h2>
-            <p class="text-base md:text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto px-4">
-                {{ settings('home.business_solutions_description', t('frontend.home.solutions_subheading', 'We understand the unique tax implications, compliance requirements, and financial challenges specific to your industry')) }}
-            </p>
+<section class="relative py-14 md:py-24 bg-[#0b1f2a] text-white overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-br from-[#0b1f2a] via-[#0c2d3c] to-[#035f7f]"></div>
+    <div class="absolute -left-24 top-0 h-72 w-72 bg-white/5 rounded-full blur-3xl"></div>
+    <div class="absolute right-[-6rem] bottom-[-4rem] h-80 w-80 bg-[#0fb5d2]/15 rounded-full blur-3xl"></div>
+
+    <div class="relative container mx-auto px-4 max-w-6xl">
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6 md:gap-10 mb-10 md:mb-14" data-animate="fade-up">
+            <div>
+                <div class="inline-flex items-center gap-2 bg-white/10 text-white px-4 py-2 rounded-full text-xs md:text-sm font-semibold uppercase tracking-[0.08em]">
+                    <span class="h-2 w-2 rounded-full bg-emerald-300"></span>
+                    {{ t('frontend.home.solutions_badge', 'Industries and use cases') }}
+                </div>
+                <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold leading-tight mt-3">{{ settings('home.business_solutions_title', t('frontend.home.solutions_heading', 'Whatever Your Business, We Can Handle It')) }}</h2>
+                <p class="text-base md:text-lg text-white/80 max-w-3xl mt-2">{{ settings('home.business_solutions_description', t('frontend.home.solutions_subheading', 'From startups to enterprises, we provide tailored solutions for every industry and challenge')) }}</p>
+            </div>
+            <div class="flex flex-wrap flex-none">
+                <a href="{{ route('contact') }}" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white text-[#035f7f] px-8 md:px-10 lg:px-12 py-3 md:py-3.5 rounded-xl font-semibold shadow-xl hover:bg-[#cce7f0] hover:shadow-2xl transition">
+                    {{ t('frontend.home.business_solutions_cta', 'Explore Industries') }}
+                    <span aria-hidden="true">→</span>
+                </a>
+            </div>
         </div>
 
-        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-6" data-animate-stagger="120">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6" data-animate-stagger="120">
             @foreach($businessSolutions as $solution)
-            <div class="bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg md:rounded-xl p-4 md:p-6 shadow hover:shadow-xl transition-all transform hover:-translate-y-1 border-[#0481AE] border-2 group" data-animate="fade-up">
-                <div class="text-center">
-                    <div class="text-2xl md:text-3xl mb-2 md:mb-3 group-hover:scale-110 transition-transform">
-                        <i class="fas fa-briefcase text-[#0481AE]"></i>
+            <div class="group relative bg-white/5 border border-white/10 rounded-2xl p-5 md:p-6 backdrop-blur shadow-lg hover:shadow-2xl transition-all" data-animate="fade-up">
+                <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition bg-white/5"></div>
+                <div class="relative z-10 flex flex-col h-full text-white">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="inline-flex items-center gap-2 text-[11px] md:text-xs font-semibold bg-white/10 px-3 py-1 rounded-full">{{ t('frontend.home.solutions_tag', 'Solution area') }}</span>
+                        <span class="text-[11px] md:text-xs text-white/70">{{ t('frontend.home.solutions_time', 'Fast start') }}</span>
                     </div>
-                    <h3 class="text-sm sm:text-base md:text-lg font-bold text-[#0481AE] mb-1 md:mb-2">{{ $solution->title }}</h3>
+                    <h3 class="text-lg sm:text-xl font-bold leading-snug mb-2">{{ $solution->title }}</h3>
                     @if($solution->description)
-                    <p class="text-gray-600 text-xs md:text-sm line-clamp-2">{{ $solution->description }}</p>
+                    <p class="text-sm md:text-base text-white/80 flex-1">{{ $solution->description }}</p>
                     @endif
+                    {{-- <span class="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-white group-hover:translate-x-1 transition">
+                        {{ t('frontend.home.solutions_cta', 'Plan with us') }}
+                        <span aria-hidden="true">→</span>
+                    </span> --}}
                 </div>
             </div>
             @endforeach
-        </div>
-        
-        <div class="text-center mt-8 md:mt-12">
-            <a href="{{ route('contact') }}" class="inline-block bg-[#0481AE] text-white px-8 md:px-12 py-3 md:py-4 rounded-lg font-semibold hover:bg-[#035f7f] transition shadow-lg text-base md:text-lg">
-                <i class="fas fa-user-tie mr-2"></i>Discuss Your Industry Needs
-            </a>
-            <p class="text-sm text-gray-600 mt-3">Free consultation to explore how we can optimize your finances</p>
         </div>
     </div>
 </section>
