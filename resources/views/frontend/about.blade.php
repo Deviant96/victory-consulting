@@ -188,12 +188,12 @@
 
 <!-- Vision and Mission -->
 @if(settings('about.vision_content') || settings('about.mission_content'))
-<section class="py-14 md:py-20 bg-slate-50">
+<section class="py-14 md:py-0 bg-slate-50">
     <div class="container mx-auto px-4 max-w-7xl">
         <div class="grid md:grid-cols-2 gap-8" data-animate-stagger="120">
             @if(settings('about.vision_content'))
-            <article class="rounded-2xl overflow-hidden border border-slate-200 bg-white shadow-sm" data-animate="fade-up">
-                <div class="p-7 md:p-8">
+            <article class="flex flex-col gap-5 md:block rounded-2xl overflow-hidden md:mt-64 relative" data-animate="fade-up">
+                <div class="flex flex-col items-start md:items-end p-0 md:p-8 md:mb-16 order-last md:order-first">
                     <div class="flex items-center gap-3 mb-4">
                         <div class="w-10 h-10 rounded-lg bg-[#0481AE]/10 text-[#0481AE] flex items-center justify-center">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -201,16 +201,19 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
                             </svg>
                         </div>
-                        <h2 class="text-2xl md:text-3xl font-bold text-slate-900">{{ settings('about.vision_title', t('frontend.about.vision_title', 'Our Vision')) }}</h2>
+                        <h2 class="text-2xl md:text-5xl font-bold text-slate-900">{{ settings('about.vision_title', t('frontend.about.vision_title', 'Our Vision')) }}</h2>
                     </div>
                     <div class="prose max-w-none text-slate-700">
                         {!! nl2br(e(settings('about.vision_content'))) !!}
                     </div>
                 </div>
                 @if(settings('about.vision_image'))
-                <img src="{{ asset('storage/' . settings('about.vision_image')) }}"
-                     alt="{{ settings('about.vision_title', t('frontend.about.vision_title', 'Our Vision')) }}"
-                     class="w-full h-56 object-cover">
+                <div class="relative order-first md:order-last">
+                    <img src="{{ asset('storage/' . settings('about.vision_image')) }}"
+                        alt="{{ settings('about.vision_title', t('frontend.about.vision_title', 'Our Vision')) }}"
+                        class="w-full object-contain max-h-[400px] md:max-h-[600px] z-10 relative">
+                    <div class="absolute bottom-0 right-[20%] w-full h-[70%] bg-orange-400"></div>
+                </div>
                 @else
                 <div class="h-56 bg-gradient-to-r from-slate-900 to-[#035f7f] text-white flex items-center justify-center text-center p-6">
                     <div>
@@ -223,24 +226,14 @@
             @endif
 
             @if(settings('about.mission_content'))
-            <article class="rounded-2xl overflow-hidden border border-slate-200 bg-white shadow-sm" data-animate="fade-up" data-animate-delay="120">
-                <div class="p-7 md:p-8">
-                    <div class="flex items-center gap-3 mb-4">
-                        <div class="w-10 h-10 rounded-lg bg-[#0481AE]/10 text-[#0481AE] flex items-center justify-center">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                            </svg>
-                        </div>
-                        <h2 class="text-2xl md:text-3xl font-bold text-slate-900">{{ settings('about.mission_title', t('frontend.about.mission_title', 'Our Mission')) }}</h2>
-                    </div>
-                    <div class="prose max-w-none text-slate-700">
-                        {!! nl2br(e(settings('about.mission_content'))) !!}
-                    </div>
-                </div>
+            <article class="flex flex-col gap-5 rounded-2xl overflow-hidden md:mb-64 relative" data-animate="fade-up" data-animate-delay="120">
                 @if(settings('about.mission_image'))
-                <img src="{{ asset('storage/' . settings('about.mission_image')) }}"
-                     alt="{{ settings('about.mission_title', t('frontend.about.mission_title', 'Our Mission')) }}"
-                     class="w-full h-56 object-cover">
+                <div class="relative order-first">
+                    <img src="{{ asset('storage/' . settings('about.mission_image')) }}"
+                        alt="{{ settings('about.mission_title', t('frontend.about.mission_title', 'Our Mission')) }}"
+                        class="w-full object-contain max-h-[400px] md:max-h-[600px] z-10 relative">
+                    <div class="absolute bottom-0 left-[20%] w-full h-[70%] bg-orange-400"></div>
+                </div>
                 @else
                 <div class="h-56 bg-gradient-to-r from-[#035f7f] to-slate-900 text-white flex items-center justify-center text-center p-6">
                     <div>
@@ -249,6 +242,19 @@
                     </div>
                 </div>
                 @endif
+                <div class="flex flex-col items-start-end p-0 md:p-8 md:mt-32 order-last">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 rounded-lg bg-[#0481AE]/10 text-[#0481AE] flex items-center justify-center">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </div>
+                        <h2 class="text-2xl md:text-5xl font-bold text-slate-900">{{ settings('about.mission_title', t('frontend.about.mission_title', 'Our Mission')) }}</h2>
+                    </div>
+                    <div class="prose max-w-none text-slate-700">
+                        {!! nl2br(e(settings('about.mission_content'))) !!}
+                    </div>
+                </div>
             </article>
             @endif
         </div>
