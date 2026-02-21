@@ -22,6 +22,19 @@
             if (!in_array($heroTextAlignment, $allowedHeroAlignments, true)) {
                 $heroTextAlignment = 'center';
             }
+
+            $heroPrimaryButtonText = settings('hero.primary_button_text', t('frontend.home.hero_primary_cta', 'Start Your Journey'));
+            $heroPrimaryButtonUrl = trim((string) settings('hero.primary_button_url', ''));
+            if ($heroPrimaryButtonUrl === '') {
+                $heroPrimaryButtonUrl = route('contact');
+            }
+
+            $heroSecondaryEnabled = filter_var(settings('hero.secondary_button_enabled', true), FILTER_VALIDATE_BOOL);
+            $heroSecondaryButtonText = settings('hero.secondary_button_text', t('frontend.home.hero_secondary_cta', 'Explore Services'));
+            $heroSecondaryButtonUrl = trim((string) settings('hero.secondary_button_url', ''));
+            if ($heroSecondaryButtonUrl === '') {
+                $heroSecondaryButtonUrl = route('services.index');
+            }
         @endphp
         <div class="max-w-5xl mx-auto text-center md:text-{{ $heroTextAlignment }}">
             <h1 class="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight mb-4 md:mb-6 leading-tight">
@@ -31,13 +44,15 @@
                 {{ settings('site.tagline', 'Empowering businesses to achieve sustainable growth and operational excellence') }}
             </p>
             <div class="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center items-center pt-2">
-                <a href="{{ route('contact') }}" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white text-[#035f7f] px-8 md:px-10 lg:px-12 py-3 md:py-3.5 rounded-xl font-semibold shadow-xl hover:bg-[#cce7f0] hover:shadow-2xl transition">
-                    {{ t('frontend.home.hero_primary_cta', 'Start Your Journey') }}
+                <a href="{{ $heroPrimaryButtonUrl }}" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white text-[#035f7f] px-8 md:px-10 lg:px-12 py-3 md:py-3.5 rounded-xl font-semibold shadow-xl hover:bg-[#cce7f0] hover:shadow-2xl transition">
+                    {{ $heroPrimaryButtonText }}
                     <span aria-hidden="true">→</span>
                 </a>
-                <a href="{{ route('services.index') }}" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 border-2 border-white/70 text-white px-8 md:px-10 lg:px-12 py-3 md:py-3.5 rounded-xl font-semibold backdrop-blur hover:bg-white/10 transition">
-                    {{ t('frontend.home.hero_secondary_cta', 'Explore Services') }}
+                @if($heroSecondaryEnabled)
+                <a href="{{ $heroSecondaryButtonUrl }}" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 border-2 border-white/70 text-white px-8 md:px-10 lg:px-12 py-3 md:py-3.5 rounded-xl font-semibold backdrop-blur hover:bg-white/10 transition">
+                    {{ $heroSecondaryButtonText }}
                 </a>
+                @endif
             </div>
         </div>
     </div>

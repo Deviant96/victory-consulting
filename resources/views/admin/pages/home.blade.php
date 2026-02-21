@@ -69,10 +69,83 @@
              <div class="mb-6">
                 <label for="text_alignment" class="block text-sm font-medium text-gray-700 mb-2">Text Alignment</label>
                 <select name="hero[text_alignment]" id="text_alignment" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-blue-500 focus:border-blue-500">
-                    <option value="left" {{ (old('hero.text_alignment', optional($settings['hero.text_alignment'])->value ?? 'center') === 'left') ? 'selected' : '' }}>Left</option>
-                    <option value="center" {{ (old('hero.text_alignment', optional($settings['hero.text_alignment'])->value ?? 'center') === 'center') ? 'selected' : '' }}>Center</option>
-                    <option value="right" {{ (old('hero.text_alignment', optional($settings['hero.text_alignment'])->value ?? 'center') === 'right') ? 'selected' : '' }}>Right</option>
+                    <option value="left" {{ (old('hero.text_alignment', optional($settings->get('hero.text_alignment'))->value ?? 'center') === 'left') ? 'selected' : '' }}>Left</option>
+                    <option value="center" {{ (old('hero.text_alignment', optional($settings->get('hero.text_alignment'))->value ?? 'center') === 'center') ? 'selected' : '' }}>Center</option>
+                    <option value="right" {{ (old('hero.text_alignment', optional($settings->get('hero.text_alignment'))->value ?? 'center') === 'right') ? 'selected' : '' }}>Right</option>
                 </select>
+            </div>
+
+            <div class="mb-6 pb-6 border-b border-gray-100">
+                <h3 class="text-lg font-semibold text-gray-900 mb-4">Primary Button</h3>
+
+                <x-admin.settings-field-with-translation
+                    name="hero[primary_button_text]"
+                    label="Button Text"
+                    value="Start Your Journey"
+                    :settings="$settings"
+                    :languages="$languages"
+                />
+
+                <div class="mt-6">
+                    <label for="hero_primary_button_url" class="block text-sm font-medium text-gray-700 mb-2">Button URL</label>
+                    <input
+                        type="text"
+                        name="hero[primary_button_url]"
+                        id="hero_primary_button_url"
+                        value="{{ old('hero.primary_button_url', optional($settings->get('hero.primary_button_url'))->value ?? route('contact')) }}"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-blue-500 focus:border-blue-500"
+                        placeholder="https://example.com or /contact"
+                    >
+                    <p class="text-gray-500 text-sm mt-1">Use a full URL or an internal path.</p>
+                </div>
+            </div>
+
+            <div
+                class="mb-2"
+                x-data="{
+                    secondaryEnabled: {{ old('hero.secondary_button_enabled', optional($settings->get('hero.secondary_button_enabled'))->value ?? '1') == '1' ? 'true' : 'false' }}
+                }"
+            >
+                <h3 class="text-lg font-semibold text-gray-900 mb-4">Secondary Button</h3>
+
+                <div class="flex items-center gap-3 bg-blue-50 p-4 rounded-lg mb-4">
+                    <input type="hidden" name="hero[secondary_button_enabled]" value="0">
+                    <input
+                        type="checkbox"
+                        name="hero[secondary_button_enabled]"
+                        id="hero_secondary_button_enabled"
+                        value="1"
+                        {{ old('hero.secondary_button_enabled', optional($settings->get('hero.secondary_button_enabled'))->value ?? '1') == '1' ? 'checked' : '' }}
+                        x-model="secondaryEnabled"
+                        class="w-5 h-5 text-blue-600 rounded focus:ring-blue-500"
+                    >
+                    <label for="hero_secondary_button_enabled" class="text-sm font-medium text-gray-700 cursor-pointer">
+                        Enable secondary hero button
+                    </label>
+                </div>
+
+                <div x-show="secondaryEnabled" x-collapse>
+                    <x-admin.settings-field-with-translation
+                        name="hero[secondary_button_text]"
+                        label="Button Text"
+                        value="Explore Services"
+                        :settings="$settings"
+                        :languages="$languages"
+                    />
+
+                    <div class="mt-6">
+                        <label for="hero_secondary_button_url" class="block text-sm font-medium text-gray-700 mb-2">Button URL</label>
+                        <input
+                            type="text"
+                            name="hero[secondary_button_url]"
+                            id="hero_secondary_button_url"
+                            value="{{ old('hero.secondary_button_url', optional($settings->get('hero.secondary_button_url'))->value ?? route('services.index')) }}"
+                            class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-blue-500 focus:border-blue-500"
+                            placeholder="https://example.com or /services"
+                        >
+                        <p class="text-gray-500 text-sm mt-1">Displayed only when secondary button is enabled.</p>
+                    </div>
+                </div>
             </div>
         </div>
 
