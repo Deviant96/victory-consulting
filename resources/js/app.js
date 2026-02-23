@@ -4,28 +4,8 @@ import Alpine from 'alpinejs';
 
 document.addEventListener('alpine:init', () => {
     Alpine.data('adminLayout', () => ({
-        sidebarOpen: false,
         init() {
-            this.syncSidebarWithViewport();
-            window.addEventListener('resize', () => this.syncSidebarWithViewport());
-            this.$watch('sidebarOpen', (open) => {
-                const shouldLock = open && window.innerWidth < 1024;
-                document.body.classList.toggle('overflow-hidden', shouldLock);
-            });
-        },
-        syncSidebarWithViewport() {
-            this.sidebarOpen = window.innerWidth >= 1024 ? true : this.sidebarOpen;
-            if (window.innerWidth >= 1024) {
-                document.body.classList.remove('overflow-hidden');
-            }
-        },
-        toggleSidebar() {
-            this.sidebarOpen = !this.sidebarOpen;
-        },
-        closeSidebar() {
-            if (window.innerWidth < 1024) {
-                this.sidebarOpen = false;
-            }
+            document.body.classList.remove('overflow-hidden');
         },
     }));
 
@@ -123,7 +103,7 @@ document.addEventListener('alpine:init', () => {
             if (!this.index) {
                 return {
                     services: [],
-                    team: [],
+                    // team: [],
                     articles: [],
                     contacts: [],
                 };
@@ -133,7 +113,7 @@ document.addEventListener('alpine:init', () => {
 
             return {
                 services: this.filterCollection(this.index.services, term),
-                team: this.filterCollection(this.index.team, term),
+                // team: this.filterCollection(this.index.team, term),
                 articles: this.filterCollection(this.index.articles, term),
                 contacts: this.filterCollection(this.index.contacts, term),
             };
@@ -144,7 +124,7 @@ document.addEventListener('alpine:init', () => {
 
             return [
                 { key: 'services', label: 'Services', items: results.services ?? [] },
-                { key: 'team', label: 'Team', items: results.team ?? [] },
+                // { key: 'team', label: 'Team', items: results.team ?? [] },
                 { key: 'articles', label: 'Articles', items: results.articles ?? [] },
                 { key: 'contacts', label: 'Contact info', items: results.contacts ?? [] },
             ];

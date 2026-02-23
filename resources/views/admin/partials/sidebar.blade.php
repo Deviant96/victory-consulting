@@ -1,3 +1,4 @@
+@php return; @endphp
 <aside x-cloak :class="['fixed inset-y-0 left-0 z-40 w-72 transform bg-slate-900 text-gray-100 transition-all duration-300 lg:relative lg:translate-x-0 lg:shadow-none', sidebarOpen ? 'translate-x-0 shadow-2xl' : '-translate-x-full lg:translate-x-0']">
     <div class="flex flex-col min-h-full">
         <!-- Logo -->

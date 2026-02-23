@@ -81,8 +81,6 @@ class SettingController extends Controller
     public function branding()
     {
         $settings = Setting::whereIn('key', [
-            'branding.logo',
-            'branding.favicon',
             'site.name',
             'site.tagline',
         ])->pluck('value', 'key');
@@ -93,33 +91,9 @@ class SettingController extends Controller
     public function updateBranding(Request $request)
     {
         $validated = $request->validate([
-            'logo' => 'nullable|image|max:2048',
-            'favicon' => 'nullable|image|max:1024',
             'site_name' => 'required|string|max:255',
             'tagline' => 'nullable|string',
         ]);
-
-        if ($request->hasFile('logo')) {
-            // Delete old logo if exists
-            $oldLogo = Setting::get('branding.logo');
-            if ($oldLogo && Storage::disk('public')->exists($oldLogo)) {
-                Storage::disk('public')->delete($oldLogo);
-            }
-            
-            $path = $request->file('logo')->store('branding', 'public');
-            Setting::set('branding.logo', $path);
-        }
-
-        if ($request->hasFile('favicon')) {
-            // Delete old favicon if exists
-            $oldFavicon = Setting::get('branding.favicon');
-            if ($oldFavicon && Storage::disk('public')->exists($oldFavicon)) {
-                Storage::disk('public')->delete($oldFavicon);
-            }
-            
-            $path = $request->file('favicon')->store('branding', 'public');
-            Setting::set('branding.favicon', $path);
-        }
 
         if (isset($validated['site_name'])) {
             Setting::set('site.name', $validated['site_name']);
@@ -132,6 +106,95 @@ class SettingController extends Controller
         $this->logAdminActivity('updated settings', null, 'Updated branding settings');
 
         return redirect()->route('admin.settings.branding')->with('success', 'Branding settings updated successfully.');
+    }
+
+    public function appearance()
+    {
+        $settings = Setting::whereIn('key', [
+            'appearance.primary_color',
+            'appearance.secondary_color',
+            'appearance.primary_button_style',
+            'appearance.secondary_button_style',
+            'appearance.primary_button_use_theme',
+            'appearance.secondary_button_use_theme',
+            'appearance.primary_button_bg',
+            'appearance.primary_button_text',
+            'appearance.secondary_button_bg',
+            'appearance.secondary_button_text',
+            'appearance.cta_button_style',
+            'appearance.cta_button_use_theme',
+            'appearance.cta_button_theme_source',
+            'appearance.cta_button_bg',
+            'appearance.cta_button_text',
+            'appearance.header_sticky',
+            'appearance.logo',
+            'appearance.favicon',
+            'appearance.cta_background_mode',
+            'appearance.cta_background_custom',
+        ])->pluck('value', 'key');
+
+        return view('admin.website.appearance', compact('settings'));
+    }
+
+    public function updateAppearance(Request $request)
+    {
+        $validated = $request->validate([
+            'appearance.primary_color' => ['required', 'regex:/^#[0-9A-Fa-f]{6}$/'],
+            'appearance.secondary_color' => ['required', 'regex:/^#[0-9A-Fa-f]{6}$/'],
+            'appearance.primary_button_style' => 'required|in:solid,outline',
+            'appearance.secondary_button_style' => 'required|in:solid,outline',
+            'appearance.primary_button_use_theme' => 'nullable',
+            'appearance.secondary_button_use_theme' => 'nullable',
+            'appearance.primary_button_bg' => ['nullable', 'regex:/^#[0-9A-Fa-f]{6}$/'],
+            'appearance.primary_button_text' => ['nullable', 'regex:/^#[0-9A-Fa-f]{6}$/'],
+            'appearance.secondary_button_bg' => ['nullable', 'regex:/^#[0-9A-Fa-f]{6}$/'],
+            'appearance.secondary_button_text' => ['nullable', 'regex:/^#[0-9A-Fa-f]{6}$/'],
+            'appearance.cta_button_style' => 'required|in:solid,outline',
+            'appearance.cta_button_use_theme' => 'nullable',
+            'appearance.cta_button_theme_source' => 'required|in:primary,secondary',
+            'appearance.cta_button_bg' => ['nullable', 'regex:/^#[0-9A-Fa-f]{6}$/'],
+            'appearance.cta_button_text' => ['nullable', 'regex:/^#[0-9A-Fa-f]{6}$/'],
+            'appearance.header_sticky' => 'nullable',
+            'appearance.cta_background_mode' => 'required|in:primary,secondary,custom',
+            'appearance.cta_background_custom' => ['nullable', 'regex:/^#[0-9A-Fa-f]{6}$/'],
+            'logo' => 'nullable|image|max:2048',
+            'favicon' => 'nullable|image|max:1024',
+        ]);
+
+        $appearance = $request->input('appearance', []);
+
+        $appearance['primary_button_use_theme'] = $request->boolean('appearance.primary_button_use_theme');
+        $appearance['secondary_button_use_theme'] = $request->boolean('appearance.secondary_button_use_theme');
+        $appearance['cta_button_use_theme'] = $request->boolean('appearance.cta_button_use_theme');
+        $appearance['header_sticky'] = $request->boolean('appearance.header_sticky');
+
+        foreach ($appearance as $key => $value) {
+            Setting::set("appearance.{$key}", $value);
+        }
+
+        if ($request->hasFile('logo')) {
+            $oldLogo = Setting::get('appearance.logo') ?: Setting::get('branding.logo');
+            if ($oldLogo && Storage::disk('public')->exists($oldLogo)) {
+                Storage::disk('public')->delete($oldLogo);
+            }
+
+            $path = $request->file('logo')->store('branding', 'public');
+            Setting::set('appearance.logo', $path);
+        }
+
+        if ($request->hasFile('favicon')) {
+            $oldFavicon = Setting::get('appearance.favicon') ?: Setting::get('branding.favicon');
+            if ($oldFavicon && Storage::disk('public')->exists($oldFavicon)) {
+                Storage::disk('public')->delete($oldFavicon);
+            }
+
+            $path = $request->file('favicon')->store('branding', 'public');
+            Setting::set('appearance.favicon', $path);
+        }
+
+        $this->logAdminActivity('updated settings', null, 'Updated website appearance settings');
+
+        return redirect()->route('admin.website.appearance')->with('success', 'Appearance settings updated successfully.');
     }
 
     public function booking()
@@ -166,54 +229,6 @@ class SettingController extends Controller
         return redirect()
             ->route('admin.settings.booking')
             ->with('success', 'Booking notification settings updated successfully.');
-    }
-
-    public function hero()
-    {
-        $settings = Setting::whereIn('key', [
-            'hero.background_image',
-            'hero.text_alignment',
-            'hero.industry_image',
-        ])->pluck('value', 'key');
-
-        return view('admin.settings.hero', compact('settings'));
-    }
-
-    public function updateHero(Request $request)
-    {
-        $validated = $request->validate([
-            'background_image' => 'nullable|image|max:4096',
-            'industry_image' => 'nullable|image|max:4096',
-            'text_alignment' => 'required|in:left,center,right',
-        ]);
-
-        if ($request->hasFile('background_image')) {
-            // Delete old background image if exists
-            $oldImage = Setting::get('hero.background_image');
-            if ($oldImage && Storage::disk('public')->exists($oldImage)) {
-                Storage::disk('public')->delete($oldImage);
-            }
-            
-            $path = $request->file('background_image')->store('hero', 'public');
-            Setting::set('hero.background_image', $path);
-        }
-
-        if ($request->hasFile('industry_image')) {
-            // Delete old industry image if exists
-            $oldImage = Setting::get('hero.industry_image');
-            if ($oldImage && Storage::disk('public')->exists($oldImage)) {
-                Storage::disk('public')->delete($oldImage);
-            }
-            
-            $path = $request->file('industry_image')->store('hero', 'public');
-            Setting::set('hero.industry_image', $path);
-        }
-
-        Setting::set('hero.text_alignment', $validated['text_alignment']);
-
-        $this->logAdminActivity('updated settings', null, 'Updated hero section settings');
-
-        return redirect()->route('admin.settings.hero')->with('success', 'Hero section settings updated successfully.');
     }
 
     public function about()

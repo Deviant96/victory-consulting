@@ -1,11 +1,15 @@
-<nav class="bg-white border-b border-gray-200 sticky top-0 z-50" x-data="{ mobileMenuOpen: false }">
+@php
+    $resolvedLogo = settings('appearance.logo') ?: settings('branding.logo');
+@endphp
+
+<nav class="bg-white border-b border-gray-200 {{ ($stickyHeader ?? true) ? 'sticky top-0 z-50' : 'relative z-10' }}" x-data="{ mobileMenuOpen: false }">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between items-center h-16">
             <!-- Logo -->
             <div class="flex-shrink-0">
                 <a href="{{ route('home') }}" class="flex items-center">
-                    @if(settings('branding.logo'))
-                        <img src="{{ asset('storage/' . settings('branding.logo')) }}" 
+                    @if($resolvedLogo)
+                        <img src="{{ asset('storage/' . $resolvedLogo) }}" 
                              alt="{{ settings('site.name', 'Victory') }}"
                              class="h-10 w-auto">
                     @else
@@ -129,7 +133,7 @@
                             </div>
                             <div class="flex-1">
                                 <p class="text-sm font-semibold text-gray-900" x-text='query ? `{{ t("frontend.search.searching_for", "Searching for") }} "${query}"` : "{{ t("frontend.search.title", "Search our site") }}"'></p>
-                                <p class="text-xs text-gray-500">{{ t('frontend.search.subtitle', 'Services, team, articles, and contact info') }}</p>
+                                <p class="text-xs text-gray-500">{{ t('frontend.search.subtitle', 'Services, articles, and contact info') }}</p>
                             </div>
                             <span class="text-[11px] text-gray-400 border border-gray-200 rounded px-2 py-1">Esc</span>
                         </div>

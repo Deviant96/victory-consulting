@@ -1,13 +1,18 @@
 <header class="sticky top-0 z-20 bg-white border-b border-gray-200 h-16 flex items-center px-4 sm:px-6 justify-between shadow-sm">
-    <!-- Left side - Breadcrumbs or Page title -->
+    @php
+        $sectionContext = match (true) {
+            request()->routeIs('admin.hub', 'admin.dashboard') => 'Hub',
+            request()->routeIs('admin.overview') => 'Overview',
+            request()->routeIs('admin.bookings.*', 'admin.whatsapp-agents.*', 'admin.settings.booking') => 'Client Inquiries',
+            request()->routeIs('admin.settings.contact', 'admin.settings.social', 'admin.settings.branding', 'admin.settings.hero', 'admin.settings.about', 'admin.languages.*', 'admin.translations.*', 'admin.logs.*') => 'Settings',
+            default => 'Website',
+        };
+    @endphp
+
+    <!-- Left side - section and page title -->
     <div class="flex items-center gap-3">
-        <button class="lg:hidden p-2 rounded-xl text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition" @click="sidebarOpen = true">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-            </svg>
-        </button>
         <div>
-            <p class="text-xs uppercase tracking-[0.2em] text-gray-500">Control panel</p>
+            <p class="text-xs uppercase tracking-[0.2em] text-gray-500">{{ $sectionContext }}</p>
             <h2 class="text-lg font-semibold text-gray-900 leading-tight">
                 @yield('page-title', 'Dashboard')
             </h2>

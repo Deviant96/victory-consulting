@@ -206,116 +206,7 @@
 
              <div class="mt-4">
                  <p class="text-sm text-gray-500">
-                     The individual items are managed in the <a href="{{ route('admin.why-choose-items.index') }}" class="text-blue-600 hover:underline">Why Choose Us Management</a> page.
-                 </p>
-            </div>
-        </div>
-
-        <!-- Business Solutions Section -->
-        <div class="mb-8 pb-8 border-b border-gray-200">
-            <h2 class="text-xl font-bold text-gray-900 mb-4">Business Solutions Section</h2>
-            
-            <x-admin.settings-field-with-translation
-                name="home[business_solutions_title]"
-                label="Section Title"
-                value="Whatever Your Business, We Can Handle It"
-                :settings="$settings"
-                :languages="$languages"
-            />
-
-            <div class="mt-6">
-                <x-admin.settings-field-with-translation
-                    name="home[business_solutions_description]"
-                    label="Description"
-                    type="textarea"
-                    rows="3"
-                    value="From startups to enterprises, we provide tailored solutions for every industry and challenge"
-                    :settings="$settings"
-                    :languages="$languages"
-                />
-            </div>
-
-            <div class="mt-6">
-                <label for="business_solutions_image" class="block text-sm font-medium text-gray-700 mb-2">Section Image</label>
-                @if(isset($settings['home.business_solutions_image']) && optional($settings['home.business_solutions_image'])->value)
-                <div class="mb-3">
-                    <img id="current-business-solutions-image" src="{{ asset('storage/' . $settings['home.business_solutions_image']->value) }}" alt="Current Business Solutions Image" class="w-full max-w-2xl h-56 object-cover rounded-lg shadow-md">
-                    <p class="text-sm text-gray-500 mt-1">Current section image</p>
-                </div>
-                @endif
-
-                <div id="business-solutions-preview-container" class="hidden mb-3">
-                    <div class="relative">
-                        <img id="business-solutions-preview" src="" alt="New Business Solutions Image Preview" class="w-full max-w-2xl h-56 object-cover rounded-lg shadow-md border-4 border-blue-500">
-                        <div class="absolute top-2 right-2 bg-blue-500 text-white px-3 py-1 rounded-full text-xs font-semibold shadow-lg flex items-center gap-1">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                            </svg>
-                            New Image Selected
-                        </div>
-                        <button type="button" id="clear-business-solutions-btn" class="absolute bottom-2 right-2 bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg text-sm font-semibold shadow-lg flex items-center gap-2 transition transform hover:scale-105">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
-                            </svg>
-                            Clear
-                        </button>
-                    </div>
-                    <p class="text-sm text-blue-600 font-semibold mt-1 flex items-center gap-1">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                        </svg>
-                        Preview of new image - click "Save Home Settings" to upload
-                    </p>
-                </div>
-
-                <input type="file" name="business_solutions_image" id="business_solutions_image" accept="image/*" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-blue-500 focus:border-blue-500 transition">
-                <p class="text-gray-500 text-sm mt-1">Recommended: 1200x900px or larger, max 4MB.</p>
-            </div>
-
-            <div class="mt-4">
-                 <p class="text-sm text-gray-500">
-                     This section now uses a text + image layout on the homepage.
-                 </p>
-            </div>
-        </div>
-
-        <!-- Blog Section -->
-        <div class="mb-8">
-            <h2 class="text-xl font-bold text-gray-900 mb-4">Blog Section</h2>
-            
-            <x-admin.settings-field-with-translation
-                name="home[blog_title]"
-                label="Section Title"
-                value="Latest Insights"
-                :settings="$settings"
-                :languages="$languages"
-            />
-
-            <div class="mt-6">
-                <x-admin.settings-field-with-translation
-                    name="home[blog_description]"
-                    label="Description"
-                    type="textarea"
-                    rows="2"
-                    value="Expert perspectives on business strategy and growth."
-                    :settings="$settings"
-                    :languages="$languages"
-                />
-            </div>
-
-            <div class="mt-6">
-                <x-admin.settings-field-with-translation
-                    name="home[blog_button_text]"
-                    label="Button Text"
-                    value="Read More Articles"
-                    :settings="$settings"
-                    :languages="$languages"
-                />
-            </div>
-
-             <div class="mt-4">
-                 <p class="text-sm text-gray-500">
-                     The blog articles are managed in the <a href="{{ route('admin.articles.index') }}" class="text-blue-600 hover:underline">Articles Management</a> page.
+                     Keep this section concise and focused on trust and outcomes.
                  </p>
             </div>
         </div>
@@ -398,12 +289,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     setupImagePreview('hero_image', 'hero-preview-container', 'hero-preview', 'clear-hero-btn');
-    setupImagePreview(
-        'business_solutions_image',
-        'business-solutions-preview-container',
-        'business-solutions-preview',
-        'clear-business-solutions-btn'
-    );
 });
 </script>
 @endsection

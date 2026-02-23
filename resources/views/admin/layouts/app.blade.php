@@ -26,67 +26,64 @@
     @stack('styles')
 </head>
 <body class="font-sans antialiased admin-shell" x-data="adminLayout()">
-    <div class="flex min-h-screen">
-        <!-- Mobile Backdrop -->
-        <div x-cloak x-show="sidebarOpen && window.innerWidth < 1024" x-transition.opacity class="fixed inset-0 bg-black/40 z-30 lg:hidden" @click="closeSidebar()"></div>
+    <div class="min-h-screen bg-slate-50/70">
+        @include('admin.partials.header')
 
-        <!-- Sidebar -->
-        @include('admin.partials.sidebar')
+        @include('admin.partials.search-modal')
 
-        <!-- Main Content -->
-        <div class="flex-1 flex flex-col lg:ml-0">
-            <!-- Header -->
-            @include('admin.partials.header')
+        <main class="py-8">
+            <div class="admin-container space-y-6">
+                @if (isset($header))
+                    <div class="mb-2">
+                        <h1 class="text-3xl font-bold text-slate-900">
+                            {{ $header }}
+                        </h1>
+                    </div>
+                @endif
 
-            <!-- Search Modal -->
-            @include('admin.partials.search-modal')
-
-            <!-- Page Content -->
-            <main class="flex-1 py-8">
-                <div class="admin-container space-y-6">
-                    <!-- Page Heading -->
-                    @if (isset($header))
-                        <div class="mb-2">
-                            <h1 class="text-3xl font-bold text-slate-900">
-                                {{ $header }}
-                            </h1>
-                        </div>
-                    @endif
-
-                    <!-- Flash Messages -->
-                    @if (session()->has('success') || session()->has('error'))
-                        <div class="space-y-3">
-                            @foreach (['success' => 'green', 'error' => 'red'] as $type => $color)
-                                @if (session($type))
-                                    <div
-                                        x-data="{ show: true }"
-                                        x-init="setTimeout(() => show = false, 4000)"
-                                        x-show="show"
-                                        x-transition.opacity.scale.duration.300ms
-                                        class="flex items-start gap-3 bg-{{$color}}-50 border border-{{$color}}-200 text-{{$color}}-800 px-4 py-3 rounded-xl shadow-sm"
-                                    >
-                                        <div class="mt-0.5">
-                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                            </svg>
-                                        </div>
-                                        <p class="flex-1 text-sm">{{ session($type) }}</p>
-                                        <button type="button" @click="show = false" class="text-{{$color}}-700 hover:text-{{$color}}-900 transition-colors">
-                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                                            </svg>
-                                        </button>
+                @if (session()->has('success') || session()->has('error'))
+                    <div class="space-y-3">
+                        @foreach (['success' => 'green', 'error' => 'red'] as $type => $color)
+                            @if (session($type))
+                                <div
+                                    x-data="{ show: true }"
+                                    x-init="setTimeout(() => show = false, 4000)"
+                                    x-show="show"
+                                    x-transition.opacity.scale.duration.300ms
+                                    class="flex items-start gap-3 bg-{{$color}}-50 border border-{{$color}}-200 text-{{$color}}-800 px-4 py-3 rounded-xl shadow-sm"
+                                >
+                                    <div class="mt-0.5">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                        </svg>
                                     </div>
-                                @endif
-                            @endforeach
-                        </div>
-                    @endif
+                                    <p class="flex-1 text-sm">{{ session($type) }}</p>
+                                    <button type="button" @click="show = false" class="text-{{$color}}-700 hover:text-{{$color}}-900 transition-colors">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                        </svg>
+                                    </button>
+                                </div>
+                            @endif
+                        @endforeach
+                    </div>
+                @endif
 
-                    <!-- Main Content -->
-                    @yield('content')
-                </div>
-            </main>
-        </div>
+                @php
+                    $sectionLayout = match (true) {
+                        request()->routeIs('admin.hub', 'admin.dashboard') => 'admin.layouts.hub-layout',
+                        request()->routeIs('admin.overview') => 'admin.layouts.overview-layout',
+                        request()->routeIs('admin.bookings.*', 'admin.whatsapp-agents.*', 'admin.settings.booking') => 'admin.layouts.inquiries-layout',
+                        request()->routeIs('admin.settings.contact', 'admin.settings.social', 'admin.settings.branding', 'admin.settings.hero', 'admin.settings.about', 'admin.languages.*', 'admin.translations.*', 'admin.logs.*') => 'admin.layouts.settings-layout',
+                        default => 'admin.layouts.website-layout',
+                    };
+
+                    $content = trim($__env->yieldContent('content'));
+                @endphp
+
+                @include($sectionLayout, ['content' => $content])
+            </div>
+        </main>
     </div>
 
     @stack('scripts')

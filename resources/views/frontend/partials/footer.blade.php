@@ -1,9 +1,12 @@
 <footer class="bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 text-gray-300">
     <div class="max-w-full md:max-w-7xl md:mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <!-- Logo Section -->
+        @php
+            $resolvedLogo = settings('appearance.logo') ?: settings('branding.logo');
+        @endphp
         <div class="flex justify-start md:justify-center mb-12">
-            @if(settings('branding.logo'))
-                <img src="{{ asset('storage/' . settings('branding.logo')) }}" alt="{{ settings('site.name') }}" class="h-12 w-auto">
+            @if($resolvedLogo)
+                <img src="{{ asset('storage/' . $resolvedLogo) }}" alt="{{ settings('site.name') }}" class="h-12 w-auto">
             @else
                 <div class="text-2xl font-bold text-white">{{ settings('site.name', 'Victory Business Consulting') }}</div>
             @endif
