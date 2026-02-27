@@ -45,11 +45,23 @@
                 <div class="grid md:grid-cols-2 gap-5">
                     <div class="rounded-xl border border-gray-200 p-4 bg-gray-50">
                         <label class="block text-sm font-medium text-gray-700 mb-2">Primary Color</label>
-                        <input type="color" name="appearance[primary_color]" x-model="primaryColor" value="{{ $currentPrimary }}" class="h-12 w-full rounded-lg border border-gray-300">
+                        <div class="flex items-center gap-3">
+                            <div class="relative flex-none">
+                                <input type="color" name="appearance[primary_color]" x-model="primaryColor" value="{{ $currentPrimary }}" class="h-10 w-10 rounded-lg border-0 p-0 overflow-hidden cursor-pointer shadow-sm">
+                                <div class="absolute inset-0 rounded-lg border border-black/10 pointer-events-none"></div>
+                            </div>
+                            <input type="text" x-model="primaryColor" class="flex-1 text-sm font-mono border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 uppercase" maxlength="7">
+                        </div>
                     </div>
                     <div class="rounded-xl border border-gray-200 p-4 bg-gray-50">
                         <label class="block text-sm font-medium text-gray-700 mb-2">Secondary Color</label>
-                        <input type="color" name="appearance[secondary_color]" x-model="secondaryColor" value="{{ $currentSecondary }}" class="h-12 w-full rounded-lg border border-gray-300">
+                        <div class="flex items-center gap-3">
+                            <div class="relative flex-none">
+                                <input type="color" name="appearance[secondary_color]" x-model="secondaryColor" value="{{ $currentSecondary }}" class="h-10 w-10 rounded-lg border-0 p-0 overflow-hidden cursor-pointer shadow-sm">
+                                <div class="absolute inset-0 rounded-lg border border-black/10 pointer-events-none"></div>
+                            </div>
+                            <input type="text" x-model="secondaryColor" class="flex-1 text-sm font-mono border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 uppercase" maxlength="7">
+                        </div>
                     </div>
                 </div>
             </div>
@@ -62,73 +74,131 @@
 
                 <div class="grid md:grid-cols-2 gap-6">
                     <div class="space-y-4 rounded-xl border border-gray-200 p-4 bg-gray-50/70">
-                        <h3 class="text-sm font-semibold text-gray-900">Primary Button</h3>
-                        <label class="flex items-center gap-2 text-sm text-gray-700">
-                            <input type="hidden" name="appearance[primary_button_use_theme]" value="0">
-                            <input type="checkbox" name="appearance[primary_button_use_theme]" value="1" x-model="usePrimary">
-                            Use primary color
-                        </label>
-                        <select name="appearance[primary_button_style]" x-model="primaryButtonStyle" class="w-full px-4 py-2 border border-gray-300 rounded-xl">
+                        <div class="flex items-center justify-between">
+                            <h3 class="text-sm font-semibold text-gray-900">Primary Button</h3>
+                            <label class="relative inline-flex items-center cursor-pointer">
+                                <input type="checkbox" name="appearance[primary_button_use_theme]" value="1" x-model="usePrimary" class="sr-only peer">
+                                <div class="w-9 h-5 bg-gray-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-indigo-500 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-indigo-600"></div>
+                                <span class="ml-2 text-xs text-gray-500">Use theme</span>
+                            </label>
+                            <input type="hidden" name="appearance[primary_button_use_theme]" value="0" x-if="!usePrimary">
+                        </div>
+
+                        <select name="appearance[primary_button_style]" x-model="primaryButtonStyle" class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500">
                             <option value="solid" {{ old('appearance.primary_button_style', $settings['appearance.primary_button_style'] ?? 'solid') === 'solid' ? 'selected' : '' }}>Solid</option>
                             <option value="outline" {{ old('appearance.primary_button_style', $settings['appearance.primary_button_style'] ?? 'solid') === 'outline' ? 'selected' : '' }}>Outline</option>
                         </select>
-                        <div class="grid grid-cols-2 gap-3">
+                        <div class="grid grid-cols-2 gap-3" x-show="!usePrimary" x-transition>
                             <div>
                                 <label class="block text-xs text-gray-500 mb-1">Background</label>
-                                <input type="color" name="appearance[primary_button_bg]" x-model="primaryButtonBg" value="{{ old('appearance.primary_button_bg', $settings['appearance.primary_button_bg'] ?? '#0481AE') }}" class="h-10 w-full rounded-lg border border-gray-300 disabled:opacity-50" :disabled="usePrimary">
+                                <div class="flex items-center gap-2">
+                                    <div class="relative flex-none">
+                                        <input type="color" name="appearance[primary_button_bg]" x-model="primaryButtonBg" value="{{ old('appearance.primary_button_bg', $settings['appearance.primary_button_bg'] ?? '#0481AE') }}" class="h-8 w-8 rounded border-0 p-0 overflow-hidden cursor-pointer">
+                                        <div class="absolute inset-0 rounded border border-black/10 pointer-events-none"></div>
+                                    </div>
+                                    <input type="text" x-model="primaryButtonBg" class="w-full text-xs font-mono border-gray-300 rounded focus:ring-indigo-500 focus:border-indigo-500 p-1 uppercase" maxlength="7">
+                                </div>
                             </div>
                             <div>
                                 <label class="block text-xs text-gray-500 mb-1">Text</label>
-                                <input type="color" name="appearance[primary_button_text]" x-model="primaryButtonText" value="{{ old('appearance.primary_button_text', $settings['appearance.primary_button_text'] ?? '#ffffff') }}" class="h-10 w-full rounded-lg border border-gray-300">
+                                <div class="flex items-center gap-2">
+                                    <div class="relative flex-none">
+                                        <input type="color" name="appearance[primary_button_text]" x-model="primaryButtonText" value="{{ old('appearance.primary_button_text', $settings['appearance.primary_button_text'] ?? '#ffffff') }}" class="h-8 w-8 rounded border-0 p-0 overflow-hidden cursor-pointer">
+                                        <div class="absolute inset-0 rounded border border-black/10 pointer-events-none"></div>
+                                    </div>
+                                    <input type="text" x-model="primaryButtonText" class="w-full text-xs font-mono border-gray-300 rounded focus:ring-indigo-500 focus:border-indigo-500 p-1 uppercase" maxlength="7">
+                                </div>
                             </div>
                         </div>
                     </div>
 
                     <div class="space-y-4 rounded-xl border border-gray-200 p-4 bg-gray-50/70">
-                        <h3 class="text-sm font-semibold text-gray-900">Secondary Button</h3>
-                        <label class="flex items-center gap-2 text-sm text-gray-700">
-                            <input type="hidden" name="appearance[secondary_button_use_theme]" value="0">
-                            <input type="checkbox" name="appearance[secondary_button_use_theme]" value="1" x-model="useSecondary">
-                            Use secondary color
-                        </label>
-                        <select name="appearance[secondary_button_style]" x-model="secondaryButtonStyle" class="w-full px-4 py-2 border border-gray-300 rounded-xl">
+                        <div class="flex items-center justify-between">
+                            <h3 class="text-sm font-semibold text-gray-900">Secondary Button</h3>
+                            <label class="relative inline-flex items-center cursor-pointer">
+                                <input type="checkbox" name="appearance[secondary_button_use_theme]" value="1" x-model="useSecondary" class="sr-only peer">
+                                <div class="w-9 h-5 bg-gray-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-indigo-500 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-indigo-600"></div>
+                                <span class="ml-2 text-xs text-gray-500">Use theme</span>
+                            </label>
+                            <input type="hidden" name="appearance[secondary_button_use_theme]" value="0" x-if="!useSecondary">
+                        </div>
+
+                        <select name="appearance[secondary_button_style]" x-model="secondaryButtonStyle" class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500">
                             <option value="solid" {{ old('appearance.secondary_button_style', $settings['appearance.secondary_button_style'] ?? 'outline') === 'solid' ? 'selected' : '' }}>Solid</option>
                             <option value="outline" {{ old('appearance.secondary_button_style', $settings['appearance.secondary_button_style'] ?? 'outline') === 'outline' ? 'selected' : '' }}>Outline</option>
                         </select>
-                        <div class="grid grid-cols-2 gap-3">
-                            <div>
+                        <div class="grid grid-cols-2 gap-3" x-show="!useSecondary" x-transition>
+                             <div>
                                 <label class="block text-xs text-gray-500 mb-1">Background</label>
-                                <input type="color" name="appearance[secondary_button_bg]" x-model="secondaryButtonBg" value="{{ old('appearance.secondary_button_bg', $settings['appearance.secondary_button_bg'] ?? '#035f7f') }}" class="h-10 w-full rounded-lg border border-gray-300 disabled:opacity-50" :disabled="useSecondary">
+                                <div class="flex items-center gap-2">
+                                    <div class="relative flex-none">
+                                        <input type="color" name="appearance[secondary_button_bg]" x-model="secondaryButtonBg" value="{{ old('appearance.secondary_button_bg', $settings['appearance.secondary_button_bg'] ?? '#035f7f') }}" class="h-8 w-8 rounded border-0 p-0 overflow-hidden cursor-pointer">
+                                        <div class="absolute inset-0 rounded border border-black/10 pointer-events-none"></div>
+                                    </div>
+                                    <input type="text" x-model="secondaryButtonBg" class="w-full text-xs font-mono border-gray-300 rounded focus:ring-indigo-500 focus:border-indigo-500 p-1 uppercase" maxlength="7">
+                                </div>
                             </div>
                             <div>
                                 <label class="block text-xs text-gray-500 mb-1">Text</label>
-                                <input type="color" name="appearance[secondary_button_text]" x-model="secondaryButtonText" value="{{ old('appearance.secondary_button_text', $settings['appearance.secondary_button_text'] ?? '#ffffff') }}" class="h-10 w-full rounded-lg border border-gray-300">
+                                <div class="flex items-center gap-2">
+                                    <div class="relative flex-none">
+                                        <input type="color" name="appearance[secondary_button_text]" x-model="secondaryButtonText" value="{{ old('appearance.secondary_button_text', $settings['appearance.secondary_button_text'] ?? '#ffffff') }}" class="h-8 w-8 rounded border-0 p-0 overflow-hidden cursor-pointer">
+                                        <div class="absolute inset-0 rounded border border-black/10 pointer-events-none"></div>
+                                    </div>
+                                    <input type="text" x-model="secondaryButtonText" class="w-full text-xs font-mono border-gray-300 rounded focus:ring-indigo-500 focus:border-indigo-500 p-1 uppercase" maxlength="7">
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="space-y-4 rounded-xl border border-gray-200 p-4 bg-gray-50/70">
-                    <h3 class="text-sm font-semibold text-gray-900">CTA Button</h3>
-                    <label class="flex items-center gap-2 text-sm text-gray-700">
-                        <input type="hidden" name="appearance[cta_button_use_theme]" value="0">
-                        <input type="checkbox" name="appearance[cta_button_use_theme]" value="1" x-model="useCtaButtonTheme">
-                        Use theme color
-                    </label>
-                    <div class="grid md:grid-cols-3 gap-3">
-                        <select name="appearance[cta_button_theme_source]" class="w-full px-4 py-2 border border-gray-300 rounded-xl" :disabled="!useCtaButtonTheme">
-                            <option value="primary" {{ old('appearance.cta_button_theme_source', $settings['appearance.cta_button_theme_source'] ?? 'primary') === 'primary' ? 'selected' : '' }}>Primary</option>
-                            <option value="secondary" {{ old('appearance.cta_button_theme_source', $settings['appearance.cta_button_theme_source'] ?? 'primary') === 'secondary' ? 'selected' : '' }}>Secondary</option>
-                        </select>
-                        <select name="appearance[cta_button_style]" class="w-full px-4 py-2 border border-gray-300 rounded-xl">
-                            <option value="solid" {{ old('appearance.cta_button_style', $settings['appearance.cta_button_style'] ?? 'solid') === 'solid' ? 'selected' : '' }}>Solid</option>
-                            <option value="outline" {{ old('appearance.cta_button_style', $settings['appearance.cta_button_style'] ?? 'solid') === 'outline' ? 'selected' : '' }}>Outline</option>
-                        </select>
-                        <input type="color" name="appearance[cta_button_bg]" value="{{ old('appearance.cta_button_bg', $settings['appearance.cta_button_bg'] ?? '#ffffff') }}" class="h-10 w-full rounded-lg border border-gray-300 disabled:opacity-50" :disabled="useCtaButtonTheme">
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-sm font-semibold text-gray-900">CTA Button</h3>
+                        <label class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" name="appearance[cta_button_use_theme]" value="1" x-model="useCtaButtonTheme" class="sr-only peer">
+                            <div class="w-9 h-5 bg-gray-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-indigo-500 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-indigo-600"></div>
+                            <span class="ml-2 text-xs text-gray-500">Use theme</span>
+                        </label>
+                        <input type="hidden" name="appearance[cta_button_use_theme]" value="0" x-if="!useCtaButtonTheme">
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-3">
+                         <div x-show="useCtaButtonTheme" x-transition>
+                             <label class="block text-xs text-gray-500 mb-1">Theme Source</label>
+                            <select name="appearance[cta_button_theme_source]" class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500">
+                                <option value="primary" {{ old('appearance.cta_button_theme_source', $settings['appearance.cta_button_theme_source'] ?? 'primary') === 'primary' ? 'selected' : '' }}>Primary</option>
+                                <option value="secondary" {{ old('appearance.cta_button_theme_source', $settings['appearance.cta_button_theme_source'] ?? 'primary') === 'secondary' ? 'selected' : '' }}>Secondary</option>
+                            </select>
+                        </div>
+                        <div x-show="!useCtaButtonTheme" x-transition x-data="{ ctaBg: '{{ old('appearance.cta_button_bg', $settings['appearance.cta_button_bg'] ?? '#ffffff') }}' }">
+                             <label class="block text-xs text-gray-500 mb-1">Custom Background</label>
+                             <div class="flex items-center gap-2">
+                                <div class="relative flex-none">
+                                    <input type="color" name="appearance[cta_button_bg]" x-model="ctaBg" class="h-8 w-8 rounded border-0 p-0 overflow-hidden cursor-pointer">
+                                    <div class="absolute inset-0 rounded border border-black/10 pointer-events-none"></div>
+                                </div>
+                                <input type="text" x-model="ctaBg" class="w-full text-xs font-mono border-gray-300 rounded focus:ring-indigo-500 focus:border-indigo-500 p-1 uppercase" maxlength="7">
+                             </div>
+                        </div>
+
+                         <div>
+                             <label class="block text-xs text-gray-500 mb-1">Style</label>
+                            <select name="appearance[cta_button_style]" class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500">
+                                <option value="solid" {{ old('appearance.cta_button_style', $settings['appearance.cta_button_style'] ?? 'solid') === 'solid' ? 'selected' : '' }}>Solid</option>
+                                <option value="outline" {{ old('appearance.cta_button_style', $settings['appearance.cta_button_style'] ?? 'solid') === 'outline' ? 'selected' : '' }}>Outline</option>
+                            </select>
+                         </div>
                     </div>
                     <div class="max-w-xs">
                         <label class="block text-xs text-gray-500 mb-1">Text</label>
-                        <input type="color" name="appearance[cta_button_text]" value="{{ old('appearance.cta_button_text', $settings['appearance.cta_button_text'] ?? '#0481AE') }}" class="h-10 w-full rounded-lg border border-gray-300">
+                        <div class="flex items-center gap-2" x-data="{ ctaText: '{{ old('appearance.cta_button_text', $settings['appearance.cta_button_text'] ?? '#0481AE') }}' }">
+                             <div class="relative flex-none">
+                                <input type="color" name="appearance[cta_button_text]" x-model="ctaText" class="h-8 w-8 rounded border-0 p-0 overflow-hidden cursor-pointer">
+                                <div class="absolute inset-0 rounded border border-black/10 pointer-events-none"></div>
+                            </div>
+                            <input type="text" x-model="ctaText" class="w-full text-xs font-mono border-gray-300 rounded focus:ring-indigo-500 focus:border-indigo-500 p-1 uppercase" maxlength="7">
+                        </div>
                     </div>
                 </div>
             </div>
@@ -139,27 +209,88 @@
                     <p class="text-sm text-gray-500 mt-1">Brand assets and navigation behavior.</p>
                 </div>
 
-                <label class="flex items-center gap-2 text-sm text-gray-700">
-                    <input type="hidden" name="appearance[header_sticky]" value="0">
-                    <input type="checkbox" name="appearance[header_sticky]" value="1" x-model="headerSticky" {{ old('appearance.header_sticky', $settings['appearance.header_sticky'] ?? '1') == '1' ? 'checked' : '' }}>
-                    Keep header sticky on scroll
-                </label>
+                <div class="flex items-center justify-between">
+                    <label class="block text-sm font-medium text-gray-700">Sticky Header</label>
+                    <label class="relative inline-flex items-center cursor-pointer">
+                        <input type="hidden" name="appearance[header_sticky]" value="0">
+                        <input type="checkbox" name="appearance[header_sticky]" value="1" x-model="headerSticky" class="sr-only peer">
+                        <div class="w-9 h-5 bg-gray-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-indigo-500 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-indigo-600"></div>
+                    </label>
+                </div>
 
                 <div class="grid md:grid-cols-2 gap-6">
-                    <div>
-                        <label for="appearance_logo" class="block text-sm font-medium text-gray-700 mb-2">Logo</label>
-                        @if($currentLogo)
-                            <img src="{{ asset('storage/' . $currentLogo) }}" alt="Current Logo" class="h-14 object-contain mb-2 rounded bg-gray-50 border border-gray-200 p-1">
-                        @endif
-                        <input type="file" name="logo" id="appearance_logo" accept="image/*" class="w-full px-4 py-2 border border-gray-300 rounded-xl">
+                    <!-- Logo Upload -->
+                    <div x-data="{
+                        preview: '{{ $currentLogo ? asset('storage/' . $currentLogo) : '' }}',
+                        fileName: null,
+                        handleFileChange(event) {
+                            const file = event.target.files[0];
+                            if (file) {
+                                this.fileName = file.name;
+                                const reader = new FileReader();
+                                reader.onload = (e) => { this.preview = e.target.result; };
+                                reader.readAsDataURL(file);
+                            }
+                        }
+                    }">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Logo</label>
+                        <div class="relative group">
+                            <label for="appearance_logo" class="flex flex-col items-center justify-center w-full h-40 border-2 border-gray-300 border-dashed rounded-xl cursor-pointer bg-gray-50 hover:bg-gray-100 transition-colors">
+                                <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                                    <template x-if="preview">
+                                        <div class="relative">
+                                            <img :src="preview" class="h-20 object-contain mb-2">
+                                            <p class="text-xs text-gray-500" x-text="fileName ? 'New: ' + fileName : 'Current Logo'"></p>
+                                        </div>
+                                    </template>
+                                    <template x-if="!preview">
+                                        <div class="text-center">
+                                            <svg class="w-8 h-8 mb-3 text-gray-400 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+                                            <p class="mb-2 text-sm text-gray-500"><span class="font-semibold">Click to upload</span></p>
+                                            <p class="text-xs text-gray-500">SVG, PNG, JPG (MAX. 2MB)</p>
+                                        </div>
+                                    </template>
+                                </div>
+                                <input type="file" name="logo" id="appearance_logo" accept="image/*" class="hidden" @change="handleFileChange">
+                            </label>
+                        </div>
                     </div>
 
-                    <div>
-                        <label for="appearance_favicon" class="block text-sm font-medium text-gray-700 mb-2">Favicon</label>
-                        @if($currentFavicon)
-                            <img src="{{ asset('storage/' . $currentFavicon) }}" alt="Current Favicon" class="h-8 w-8 object-contain mb-2 rounded bg-gray-50 border border-gray-200 p-1">
-                        @endif
-                        <input type="file" name="favicon" id="appearance_favicon" accept="image/*" class="w-full px-4 py-2 border border-gray-300 rounded-xl">
+                    <!-- Favicon Upload -->
+                    <div x-data="{
+                        preview: '{{ $currentFavicon ? asset('storage/' . $currentFavicon) : '' }}',
+                        fileName: null,
+                        handleFileChange(event) {
+                            const file = event.target.files[0];
+                            if (file) {
+                                this.fileName = file.name;
+                                const reader = new FileReader();
+                                reader.onload = (e) => { this.preview = e.target.result; };
+                                reader.readAsDataURL(file);
+                            }
+                        }
+                    }">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Favicon</label>
+                        <div class="relative group">
+                             <label for="appearance_favicon" class="flex flex-col items-center justify-center w-full h-40 border-2 border-gray-300 border-dashed rounded-xl cursor-pointer bg-gray-50 hover:bg-gray-100 transition-colors">
+                                <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                                     <template x-if="preview">
+                                        <div class="relative">
+                                            <img :src="preview" class="h-10 w-10 object-contain mb-2 mx-auto">
+                                            <p class="text-xs text-center text-gray-500" x-text="fileName ? 'New: ' + fileName : 'Current'"></p>
+                                        </div>
+                                    </template>
+                                    <template x-if="!preview">
+                                        <div class="text-center">
+                                            <svg class="w-8 h-8 mb-3 text-gray-400 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+                                            <p class="mb-2 text-sm text-gray-500"><span class="font-semibold">Click to upload</span></p>
+                                            <p class="text-xs text-gray-500">ICO, PNG (32x32)</p>
+                                        </div>
+                                    </template>
+                                </div>
+                                <input type="file" name="favicon" id="appearance_favicon" accept="image/*" class="hidden" @change="handleFileChange">
+                            </label>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -174,9 +305,15 @@
                     <option value="secondary">Use secondary color</option>
                     <option value="custom">Use custom color</option>
                 </select>
-                <div class="max-w-xs">
+                <div class="max-w-xs transition-opacity duration-200" :class="ctaBackgroundMode === 'custom' ? 'opacity-100' : 'opacity-50'">
                     <label class="block text-xs text-gray-500 mb-1">Custom color</label>
-                    <input type="color" name="appearance[cta_background_custom]" x-model="ctaCustomColor" value="{{ $currentCtaCustom }}" class="h-10 w-full rounded-lg border border-gray-300 disabled:opacity-50" :disabled="ctaBackgroundMode !== 'custom'">
+                    <div class="flex items-center gap-2">
+                        <div class="relative flex-none">
+                            <input type="color" name="appearance[cta_background_custom]" x-model="ctaCustomColor" value="{{ $currentCtaCustom }}" class="h-8 w-8 rounded border-0 p-0 overflow-hidden cursor-pointer disabled:cursor-not-allowed" :disabled="ctaBackgroundMode !== 'custom'">
+                            <div class="absolute inset-0 rounded border border-black/10 pointer-events-none"></div>
+                        </div>
+                        <input type="text" x-model="ctaCustomColor" class="w-full text-xs font-mono border-gray-300 rounded focus:ring-indigo-500 focus:border-indigo-500 p-1 uppercase disabled:bg-gray-100" maxlength="7" :disabled="ctaBackgroundMode !== 'custom'">
+                    </div>
                 </div>
             </div>
         </div>
