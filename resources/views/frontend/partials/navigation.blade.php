@@ -2,9 +2,21 @@
     $resolvedLogo = settings('appearance.logo') ?: settings('branding.logo');
 @endphp
 
-<nav class="bg-white border-b border-gray-200 {{ ($stickyHeader ?? true) ? 'sticky top-0 z-50' : 'relative z-10' }}" x-data="{ mobileMenuOpen: false }">
+
+<nav 
+    x-data="{ 
+        mobileMenuOpen: false, 
+        scrolled: false,
+        sticky: {{ ($stickyHeader ?? true) ? 'true' : 'false' }}
+    }" 
+    @scroll.window="scrolled = (window.pageYOffset > 20)"
+    :class="{ 
+        'bg-white shadow-md border-gray-200': scrolled || !sticky, 
+        'bg-transparent border-transparent': !scrolled && sticky 
+    }"
+    class="transition-all duration-300 border-b {{ ($stickyHeader ?? true) ? 'fixed top-0 w-full z-50' : 'relative z-10' }}">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between items-center h-16">
+        <div class="flex justify-between items-center h-20">
             <!-- Logo -->
             <div class="flex-shrink-0">
                 <a href="{{ route('home') }}" class="flex items-center">
@@ -13,7 +25,8 @@
                              alt="{{ settings('site.name', 'Victory') }}"
                              class="h-10 w-auto">
                     @else
-                        <span class="text-2xl font-bold text-gray-900">
+                        <span class="text-2xl font-bold transition-colors duration-300"
+                              :class="{ 'text-gray-900': scrolled || !sticky, 'text-white': !scrolled && sticky }">
                             {{ settings('site.name', 'Victory') }}
                         </span>
                     @endif
@@ -21,20 +34,23 @@
             </div>
 
             <!-- Desktop Navigation -->
-            <div class="hidden md:flex items-center space-x-8">
+            <div class="hidden md:flex items-center space-x-10">
                 <a href="{{ route('home') }}"
-                   class="text-gray-700 hover:text-[#0481AE] transition-colors {{ request()->routeIs('home') ? 'text-[#0481AE] font-semibold' : '' }}">
+                   class="text-lg transition-colors duration-300 hover:text-[#0481AE] {{ request()->routeIs('home') ? 'font-semibold' : '' }}"
+                   :class="{ 'text-gray-700': scrolled || !sticky, 'text-white': !scrolled && sticky, 'text-[#0481AE]': (scrolled || !sticky) && {{ request()->routeIs('home') ? 'true' : 'false' }} }">
                     {{ t('frontend.navigation.home', 'Home') }}
                 </a>
                 <a href="{{ route('about') }}"
-                   class="text-gray-700 hover:text-[#0481AE] transition-colors {{ request()->routeIs('about') ? 'text-[#0481AE] font-semibold' : '' }}">
+                   class="text-lg transition-colors duration-300 hover:text-[#0481AE] {{ request()->routeIs('about') ? 'font-semibold' : '' }}"
+                   :class="{ 'text-gray-700': scrolled || !sticky, 'text-white': !scrolled && sticky, 'text-[#0481AE]': (scrolled || !sticky) && {{ request()->routeIs('about') ? 'true' : 'false' }} }">
                     About
                 </a>
                 
                 <!-- Services Dropdown -->
                 <div class="relative" x-data="{ open: false }" @mouseenter="open = true" @mouseleave="open = false">
                     <a href="{{ route('services.index') }}"
-                       class="flex items-center text-gray-700 hover:text-[#0481AE] transition-colors {{ request()->routeIs('services.*') ? 'text-[#0481AE] font-semibold' : '' }}">
+                       class="flex items-center text-lg transition-colors duration-300 hover:text-[#0481AE] {{ request()->routeIs('services.*') ? 'font-semibold' : '' }}"
+                       :class="{ 'text-gray-700': scrolled || !sticky, 'text-white': !scrolled && sticky, 'text-[#0481AE]': (scrolled || !sticky) && {{ request()->routeIs('services.*') ? 'true' : 'false' }} }">
                         {{ t('frontend.navigation.services', 'Services') }}
                         <svg class="ml-1 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
@@ -62,20 +78,23 @@
                 <!-- Industries Dropdown -->
                 <div class="relative" x-data="{ open: false }" @mouseenter="open = true" @mouseleave="open = false">
                     <a href="{{ route('industries.index') }}"
-                       class="flex items-center text-gray-700 hover:text-[#0481AE] transition-colors {{ request()->routeIs('industries.*') ? 'text-[#0481AE] font-semibold' : '' }}">
+                       class="flex items-center text-lg transition-colors duration-300 hover:text-[#0481AE] {{ request()->routeIs('industries.*') ? 'font-semibold' : '' }}"
+                       :class="{ 'text-gray-700': scrolled || !sticky, 'text-white': !scrolled && sticky, 'text-[#0481AE]': (scrolled || !sticky) && {{ request()->routeIs('industries.*') ? 'true' : 'false' }} }">
                         {{ t('frontend.navigation.industries', 'Industries') }}
                     </a>
                 </div>
                 {{-- <a href="{{ route('team') }}" 
-                   class="text-gray-700 hover:text-[#0481AE] transition-colors {{ request()->routeIs('team') ? 'text-[#0481AE] font-semibold' : '' }}">
+                   class="text-lg transition-colors duration-300 hover:text-[#0481AE] {{ request()->routeIs('team') ? 'font-semibold' : '' }}">
                     Team
                 </a> --}}
                 <a href="{{ route('blog.index') }}" 
-                   class="text-gray-700 hover:text-[#0481AE] transition-colors {{ request()->routeIs('blog.*') ? 'text-[#0481AE] font-semibold' : '' }}">
+                   class="text-lg transition-colors duration-300 hover:text-[#0481AE] {{ request()->routeIs('blog.*') ? 'font-semibold' : '' }}"
+                   :class="{ 'text-gray-700': scrolled || !sticky, 'text-white': !scrolled && sticky, 'text-[#0481AE]': (scrolled || !sticky) && {{ request()->routeIs('blog.*') ? 'true' : 'false' }} }">
                     {{ t('frontend.navigation.blog', 'Blog') }}
                 </a>
                 <a href="{{ route('contact') }}"
-                   class="text-gray-700 hover:text-[#0481AE] transition-colors {{ request()->routeIs('contact') ? 'text-[#0481AE] font-semibold' : '' }}">
+                   class="text-lg transition-colors duration-300 hover:text-[#0481AE] {{ request()->routeIs('contact') ? 'font-semibold' : '' }}"
+                   :class="{ 'text-gray-700': scrolled || !sticky, 'text-white': !scrolled && sticky, 'text-[#0481AE]': (scrolled || !sticky) && {{ request()->routeIs('contact') ? 'true' : 'false' }} }">
                     {{ t('frontend.navigation.contact', 'Contact') }}
                 </a>
             </div>
@@ -83,10 +102,16 @@
             <!-- Search + Locale -->
             <div class="hidden md:flex items-center space-x-3" x-data="frontendSearch()" @keydown.escape.window="close()">
                 <div class="relative">
-                    <div class="flex items-center bg-gray-50 border border-gray-200 rounded-full transition-all duration-200 overflow-hidden"
-                         :class="open ? 'w-80 pl-4 pr-2 py-2 shadow-sm ring-1 ring-blue-100' : 'w-10 justify-center py-2'">
+                    <div class="flex items-center rounded-full transition-all duration-200 overflow-hidden"
+                         :class="{
+                             'w-80 pl-4 pr-2 py-2 shadow-sm ring-1 ring-blue-100 bg-white border border-gray-200': open,
+                             'w-10 justify-center py-2': !open,
+                             'bg-gray-50 border border-gray-200': !open && (scrolled || !sticky),
+                             'bg-white/10 border border-white/20 hover:bg-white/20': !open && !scrolled && sticky
+                         }">
                         <button type="button"
-                                class="text-gray-600 hover:text-[#0481AE] focus:outline-none"
+                                class="focus:outline-none transition-colors duration-300"
+                                :class="{ 'text-gray-600': open || scrolled || !sticky, 'text-white': !open && !scrolled && sticky, 'hover:text-[#0481AE]': scrolled || open || !sticky }"
                                 @click="toggle()"
                                 :aria-expanded="open">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -179,13 +204,14 @@
                     </div>
                 </div>
 
-                <x-language-switcher />
+                <x-language-switcher transparent />
             </div>
 
             <!-- Mobile Menu Button -->
             <div class="md:hidden">
                 <button @click="mobileMenuOpen = !mobileMenuOpen" 
-                        class="text-gray-700 hover:text-gray-900 focus:outline-none">
+                        class="focus:outline-none transition-colors duration-300"
+                        :class="{ 'text-gray-700 hover:text-gray-900': scrolled || mobileMenuOpen, 'text-white hover:text-gray-200': !scrolled && !mobileMenuOpen }">
                     <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path x-show="!mobileMenuOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
                         <path x-show="mobileMenuOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
