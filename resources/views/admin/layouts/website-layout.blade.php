@@ -58,6 +58,7 @@
                         </div>
                         <div class="space-y-1 px-2">
                             <a href="{{ route('admin.pages.home') }}" class="flex items-center px-3 py-2 rounded-lg text-sm {{ request()->routeIs('admin.pages.home') ? 'bg-blue-50 text-blue-700 font-semibold' : 'text-gray-700 hover:bg-gray-50' }}">Homepage</a>
+                            <a href="{{ route('admin.pages.about') }}" class="flex items-center px-3 py-2 rounded-lg text-sm {{ request()->routeIs('admin.pages.about') ? 'bg-blue-50 text-blue-700 font-semibold' : 'text-gray-700 hover:bg-gray-50' }}">About Us</a>
                             <a href="{{ route('admin.pages.industry') }}" class="flex items-center px-3 py-2 rounded-lg text-sm {{ request()->routeIs('admin.pages.industry') ? 'bg-blue-50 text-blue-700 font-semibold' : 'text-gray-700 hover:bg-gray-50' }}">Industries</a>
                             <a href="{{ route('admin.pages.services') }}" class="flex items-center px-3 py-2 rounded-lg text-sm {{ request()->routeIs('admin.pages.services') ? 'bg-blue-50 text-blue-700 font-semibold' : 'text-gray-700 hover:bg-gray-50' }}">Services</a>
                             <a href="{{ route('admin.pages.blog') }}" class="flex items-center px-3 py-2 rounded-lg text-sm {{ request()->routeIs('admin.pages.blog') ? 'bg-blue-50 text-blue-700 font-semibold' : 'text-gray-700 hover:bg-gray-50' }}">Blog</a>

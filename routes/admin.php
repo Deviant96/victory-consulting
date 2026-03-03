@@ -105,6 +105,9 @@ Route::prefix('website')->group(function () {
 
         Route::get('/contact', [PageController::class, 'contact'])->name('contact');
         Route::post('/contact', [PageController::class, 'updateContact'])->name('contact.update');
+        
+        Route::get('/about', [SettingController::class, 'about'])->name('about');
+        Route::post('/about', [SettingController::class, 'updateAbout'])->name('about.update');
     });
 });
 
@@ -135,9 +138,6 @@ Route::prefix('settings')->group(function () {
 
     Route::get('/hero', [SettingController::class, 'hero'])->name('settings.hero');
     Route::post('/hero', [SettingController::class, 'updateHero'])->name('settings.hero.update');
-
-    Route::get('/about', [SettingController::class, 'about'])->name('settings.about');
-    Route::post('/about', [SettingController::class, 'updateAbout'])->name('settings.about.update');
 
     Route::resource('languages', LanguageController::class)->names('languages');
 

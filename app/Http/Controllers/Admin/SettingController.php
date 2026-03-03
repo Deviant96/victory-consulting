@@ -415,6 +415,6 @@ class SettingController extends Controller
 
         $this->logAdminActivity('updated settings', null, 'Updated About Us page content');
 
-        return redirect()->route('admin.settings.about')->with('success', 'About Us page updated successfully.');
+        return redirect()->route('admin.pages.about')->with('success', 'About Us page updated successfully.');
     }
 }

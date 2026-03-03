@@ -4,7 +4,7 @@
             request()->routeIs('admin.hub', 'admin.dashboard') => 'Hub',
             request()->routeIs('admin.overview') => 'Overview',
             request()->routeIs('admin.bookings.*', 'admin.whatsapp-agents.*', 'admin.settings.booking') => 'Client Inquiries',
-            request()->routeIs('admin.settings.contact', 'admin.settings.social', 'admin.settings.branding', 'admin.settings.hero', 'admin.settings.about', 'admin.languages.*', 'admin.translations.*', 'admin.logs.*') => 'Settings',
+            request()->routeIs('admin.settings.contact', 'admin.settings.social', 'admin.settings.branding', 'admin.settings.hero', 'admin.languages.*', 'admin.translations.*', 'admin.logs.*') => 'Settings',
             default => 'Website',
         };
     @endphp
