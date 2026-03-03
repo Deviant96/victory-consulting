@@ -361,7 +361,9 @@ class PageController extends Controller
         
         $settings = Setting::whereIn('key', $settingKeys)->get()->keyBy('key');
 
-        return view('admin.pages.contact', compact('settings', 'languages'));
+        $lastSaved = $settings->sortByDesc('updated_at')->first()?->updated_at;
+
+        return view('admin.pages.contact', compact('settings', 'languages', 'lastSaved'));
     }
 
     public function updateContact(Request $request)

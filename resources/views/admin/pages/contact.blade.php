@@ -64,7 +64,11 @@
                     </div>
 
                     <div class="pt-4 flex items-center justify-between border-t border-gray-100 mt-6">
-                        <p class="text-sm text-gray-500 italic">Last saved: {{ now()->format('M d, Y') }} (Changes apply immediately)</p>
+                        @if($lastSaved)
+                        <p class="text-sm text-gray-500 italic">Last saved: {{ $lastSaved->format('M d, Y') }} (Changes apply immediately)</p>
+                        @else
+                        <p class="text-sm text-gray-500 italic">Not saved yet</p>
+                        @endif
                         <button type="submit" class="inline-flex items-center px-6 py-3 bg-blue-600 border border-transparent rounded-xl font-semibold text-sm text-white uppercase tracking-widest hover:bg-blue-700 focus:bg-blue-700 active:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150 shadow-md">
                             <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
                             Save Changes
