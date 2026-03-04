@@ -111,6 +111,9 @@ Route::prefix('website')->group(function () {
     });
 });
 
+// Legacy /admin/bookings redirect for service worker notification fallback
+Route::redirect('/bookings', '/admin/inquiries/bookings');
+
 // Client Inquiries section
 Route::prefix('inquiries')->group(function () {
     Route::redirect('/', '/admin/inquiries/bookings');
