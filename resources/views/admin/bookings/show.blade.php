@@ -45,7 +45,7 @@
             <div class="bg-white border border-gray-200 rounded-xl p-6 space-y-4">
                 <div class="flex items-center justify-between">
                     <h2 class="text-lg font-semibold text-gray-900">Admin notes</h2>
-                    <a href="{{ route('admin.bookings.index') }}" class="text-sm text-gray-600 hover:text-gray-800">Back to bookings</a>
+                    <a href="{{ route('admin.bookings.index') }}" class="text-sm text-gray-600 hover:text-gray-800">Back to inquiries</a>
                 </div>
 
                 <form method="POST" action="{{ route('admin.bookings.update', $booking) }}" class="space-y-4">
@@ -94,7 +94,7 @@
 
             <div class="bg-blue-50 border border-blue-100 rounded-xl p-5">
                 <h3 class="text-sm font-semibold text-blue-900 mb-2">Notification settings</h3>
-                <p class="text-sm text-blue-800">Need to change who gets alerted? Update email and push preferences in the booking settings.</p>
+                <p class="text-sm text-blue-800">Need to change who gets alerted? Update email and push preferences in inquiry notifications.</p>
                 <a href="{{ route('admin.settings.booking') }}" class="mt-3 inline-flex items-center text-sm font-semibold text-blue-700 hover:text-blue-800">Adjust notifications</a>
             </div>
         </div>

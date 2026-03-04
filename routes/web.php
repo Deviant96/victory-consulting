@@ -57,7 +57,7 @@ Route::post('/bookings', [FrontendBookingController::class, 'store'])->name('boo
 
 // Auth Routes
 Route::get('/dashboard', function () {
-    return redirect()->route('admin.dashboard');
+    return redirect()->route('admin.hub');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {

@@ -19,6 +19,11 @@ class PageController extends Controller
         $settingKeys = [
             'hero.background_image',
             'hero.text_alignment',
+            'hero.primary_button_text',
+            'hero.primary_button_url',
+            'hero.secondary_button_enabled',
+            'hero.secondary_button_text',
+            'hero.secondary_button_url',
             'home.services_title',
             'home.services_description',
             'home.why_choose_title',
@@ -51,8 +56,14 @@ class PageController extends Controller
             'hero_image' => 'nullable|image|max:2048',
             'business_solutions_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:4096',
             'hero.text_alignment' => 'nullable|string|in:left,center,right',
+            'hero.primary_button_text' => 'nullable|string|max:100',
+            'hero.primary_button_url' => 'nullable|string|max:2048',
+            'hero.secondary_button_enabled' => 'nullable|boolean',
+            'hero.secondary_button_text' => 'nullable|string|max:100',
+            'hero.secondary_button_url' => 'nullable|string|max:2048',
         ]);
 
+        $heroSettings = $request->input('hero', []);
         $homeSettings = $request->input('home', []);
         $translations = $request->input('translations', []);
         
@@ -64,10 +75,6 @@ class PageController extends Controller
             }
             $path = $request->file('hero_image')->store('hero', 'public');
             Setting::set('hero.background_image', $path);
-        }
-
-        if ($request->has('hero.text_alignment')) {
-             Setting::set('hero.text_alignment', $request->input('hero.text_alignment'));
         }
 
         if ($request->hasFile('business_solutions_image')) {
@@ -91,6 +98,27 @@ class PageController extends Controller
             'blog_description',
             'blog_button_text',
         ];
+
+        $translatableHeroFields = [
+            'primary_button_text',
+            'secondary_button_text',
+        ];
+
+        foreach ($heroSettings as $key => $value) {
+            $settingKey = "hero.{$key}";
+            $setting = Setting::firstOrCreate(['key' => $settingKey]);
+            $setting->value = $value;
+            $setting->save();
+
+            if (in_array($key, $translatableHeroFields, true)) {
+                foreach ($translations as $locale => $fields) {
+                    $translatedValue = $fields[$key] ?? null;
+                    if ($translatedValue) {
+                        $setting->setTranslation($key, $locale, $translatedValue);
+                    }
+                }
+            }
+        }
 
         // Save all settings and their translations
         foreach ($homeSettings as $key => $value) {
@@ -333,7 +361,9 @@ class PageController extends Controller
         
         $settings = Setting::whereIn('key', $settingKeys)->get()->keyBy('key');
 
-        return view('admin.pages.contact', compact('settings', 'languages'));
+        $lastSaved = $settings->sortByDesc('updated_at')->first()?->updated_at;
+
+        return view('admin.pages.contact', compact('settings', 'languages', 'lastSaved'));
     }
 
     public function updateContact(Request $request)

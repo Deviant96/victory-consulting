@@ -1,3 +1,4 @@
+@php return; @endphp
 <aside x-cloak :class="['fixed inset-y-0 left-0 z-40 w-72 transform bg-slate-900 text-gray-100 transition-all duration-300 lg:relative lg:translate-x-0 lg:shadow-none', sidebarOpen ? 'translate-x-0 shadow-2xl' : '-translate-x-full lg:translate-x-0']">
     <div class="flex flex-col min-h-full">
         <!-- Logo -->
@@ -60,8 +61,8 @@
                         <span>Home</span>
                     </a>
 
-                    <a href="{{ route('admin.settings.about') }}"
-                       class="sidebar-link {{ request()->routeIs('admin.settings.about') ? 'active' : 'text-slate-200' }}">
+                    <a href="{{ route('admin.pages.about') }}"
+                       class="sidebar-link {{ request()->routeIs('admin.pages.about') ? 'active' : 'text-slate-200' }}">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                         </svg>
