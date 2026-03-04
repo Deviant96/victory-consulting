@@ -231,6 +231,52 @@ class SettingController extends Controller
             ->with('success', 'Booking notification settings updated successfully.');
     }
 
+    public function hero()
+    {
+        $settings = Setting::whereIn('key', [
+            'hero.background_image',
+            'hero.text_alignment',
+            'hero.industry_image',
+        ])->pluck('value', 'key');
+
+        return view('admin.settings.hero', compact('settings'));
+    }
+
+    public function updateHero(Request $request)
+    {
+        $validated = $request->validate([
+            'background_image' => 'nullable|image|max:4096',
+            'industry_image' => 'nullable|image|max:4096',
+            'text_alignment' => 'required|in:left,center,right',
+        ]);
+
+        if ($request->hasFile('background_image')) {
+            $oldImage = Setting::get('hero.background_image');
+            if ($oldImage && Storage::disk('public')->exists($oldImage)) {
+                Storage::disk('public')->delete($oldImage);
+            }
+
+            $path = $request->file('background_image')->store('hero', 'public');
+            Setting::set('hero.background_image', $path);
+        }
+
+        if ($request->hasFile('industry_image')) {
+            $oldImage = Setting::get('hero.industry_image');
+            if ($oldImage && Storage::disk('public')->exists($oldImage)) {
+                Storage::disk('public')->delete($oldImage);
+            }
+
+            $path = $request->file('industry_image')->store('hero', 'public');
+            Setting::set('hero.industry_image', $path);
+        }
+
+        Setting::set('hero.text_alignment', $validated['text_alignment']);
+
+        $this->logAdminActivity('updated settings', null, 'Updated hero section settings');
+
+        return redirect()->route('admin.settings.hero')->with('success', 'Hero section settings updated successfully.');
+    }
+
     public function about()
     {
         $languages = \App\Models\Language::active()->get();
