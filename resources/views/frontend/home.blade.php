@@ -146,7 +146,7 @@
                     <div class="relative z-10">
                         <div class="flex items-start gap-3 md:gap-4 mb-3">
                             @if($item->icon_is_image)
-                            <div class="flex-shrink-0 w-11 h-11 md:w-12 md:h-12 rounded-xl bg-white text-white flex items-center justify-center overflow-hidden border border-[#0481AE]/20">
+                            <div class="flex-shrink-0 w-11 h-11 md:w-12 md:h-12 rounded-xl bg-white text-white flex items-center justify-center overflow-hidden">
                                 <img src="{{ $item->icon_url }}" alt="{{ $item->title }} icon" class="h-full w-full object-cover" />
                             </div>
                             @elseif($item->icon)
