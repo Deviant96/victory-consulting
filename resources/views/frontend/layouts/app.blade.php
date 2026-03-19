@@ -108,10 +108,13 @@
     </style>
 
     <!-- Navigation -->
-    @include('frontend.partials.navigation', ['stickyHeader' => $stickyHeader])
+    @include('frontend.partials.navigation', [
+        'stickyHeader' => $stickyHeader ?? true, 
+        'forceSolid' => View::hasSection('force-solid')
+    ])
 
     <!-- Main Content -->
-    <main>
+    <main @if(View::hasSection('force-solid')) class="pt-20" @endif>
         @yield('content')
     </main>
 

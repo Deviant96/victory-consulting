@@ -7,12 +7,13 @@
     x-data="{ 
         mobileMenuOpen: false, 
         scrolled: false,
-        sticky: {{ ($stickyHeader ?? true) ? 'true' : 'false' }}
+        sticky: {{ ($stickyHeader ?? true) ? 'true' : 'false' }},
+        forceSolid: {{ ($forceSolid ?? false) ? 'true' : 'false' }}
     }" 
     @scroll.window="scrolled = (window.pageYOffset > 20)"
     :class="{ 
-        'bg-white shadow-md border-gray-200': scrolled || !sticky, 
-        'bg-transparent border-transparent': !scrolled && sticky 
+        'bg-white shadow-md border-gray-200': scrolled || !sticky || forceSolid, 
+        'bg-transparent border-transparent': !scrolled && sticky && !forceSolid 
     }"
     class="transition-all duration-300 border-b {{ ($stickyHeader ?? true) ? 'fixed top-0 w-full z-50' : 'relative z-10' }}">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -26,7 +27,7 @@
                              class="h-10 w-auto">
                     @else
                         <span class="text-2xl font-bold transition-colors duration-300"
-                              :class="{ 'text-gray-900': scrolled || !sticky, 'text-white': !scrolled && sticky }">
+                              :class="{ 'text-gray-900': scrolled || !sticky || forceSolid, 'text-white': !scrolled && sticky && !forceSolid }">
                             {{ settings('site.name', 'Victory') }}
                         </span>
                     @endif
@@ -37,12 +38,12 @@
             <div class="hidden md:flex items-center space-x-10">
                 <a href="{{ route('home') }}"
                    class="text-lg transition-colors duration-300 hover:text-[#0481AE] {{ request()->routeIs('home') ? 'font-semibold' : '' }}"
-                   :class="{ 'text-gray-700': scrolled || !sticky, 'text-white': !scrolled && sticky, 'text-[#0481AE]': (scrolled || !sticky) && {{ request()->routeIs('home') ? 'true' : 'false' }} }">
+                   :class="{ 'text-gray-700': scrolled || !sticky || forceSolid, 'text-white': !scrolled && sticky && !forceSolid, 'text-[#0481AE]': (scrolled || !sticky || forceSolid) && {{ request()->routeIs('home') ? 'true' : 'false' }} }">
                     {{ t('frontend.navigation.home', 'Home') }}
                 </a>
                 <a href="{{ route('about') }}"
                    class="text-lg transition-colors duration-300 hover:text-[#0481AE] {{ request()->routeIs('about') ? 'font-semibold' : '' }}"
-                   :class="{ 'text-gray-700': scrolled || !sticky, 'text-white': !scrolled && sticky, 'text-[#0481AE]': (scrolled || !sticky) && {{ request()->routeIs('about') ? 'true' : 'false' }} }">
+                   :class="{ 'text-gray-700': scrolled || !sticky || forceSolid, 'text-white': !scrolled && sticky && !forceSolid, 'text-[#0481AE]': (scrolled || !sticky || forceSolid) && {{ request()->routeIs('about') ? 'true' : 'false' }} }">
                     About
                 </a>
                 
@@ -50,7 +51,7 @@
                 <div class="relative" x-data="{ open: false }" @mouseenter="open = true" @mouseleave="open = false">
                     <a href="{{ route('services.index') }}"
                        class="flex items-center text-lg transition-colors duration-300 hover:text-[#0481AE] {{ request()->routeIs('services.*') ? 'font-semibold' : '' }}"
-                       :class="{ 'text-gray-700': scrolled || !sticky, 'text-white': !scrolled && sticky, 'text-[#0481AE]': (scrolled || !sticky) && {{ request()->routeIs('services.*') ? 'true' : 'false' }} }">
+                       :class="{ 'text-gray-700': scrolled || !sticky || forceSolid, 'text-white': !scrolled && sticky && !forceSolid, 'text-[#0481AE]': (scrolled || !sticky || forceSolid) && {{ request()->routeIs('services.*') ? 'true' : 'false' }} }">
                         {{ t('frontend.navigation.services', 'Services') }}
                         <svg class="ml-1 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
@@ -79,7 +80,7 @@
                 <div class="relative" x-data="{ open: false }" @mouseenter="open = true" @mouseleave="open = false">
                     <a href="{{ route('industries.index') }}"
                        class="flex items-center text-lg transition-colors duration-300 hover:text-[#0481AE] {{ request()->routeIs('industries.*') ? 'font-semibold' : '' }}"
-                       :class="{ 'text-gray-700': scrolled || !sticky, 'text-white': !scrolled && sticky, 'text-[#0481AE]': (scrolled || !sticky) && {{ request()->routeIs('industries.*') ? 'true' : 'false' }} }">
+                       :class="{ 'text-gray-700': scrolled || !sticky || forceSolid, 'text-white': !scrolled && sticky && !forceSolid, 'text-[#0481AE]': (scrolled || !sticky || forceSolid) && {{ request()->routeIs('industries.*') ? 'true' : 'false' }} }">
                         {{ t('frontend.navigation.industries', 'Industries') }}
                     </a>
                 </div>
@@ -89,12 +90,12 @@
                 </a> --}}
                 <a href="{{ route('blog.index') }}" 
                    class="text-lg transition-colors duration-300 hover:text-[#0481AE] {{ request()->routeIs('blog.*') ? 'font-semibold' : '' }}"
-                   :class="{ 'text-gray-700': scrolled || !sticky, 'text-white': !scrolled && sticky, 'text-[#0481AE]': (scrolled || !sticky) && {{ request()->routeIs('blog.*') ? 'true' : 'false' }} }">
+                   :class="{ 'text-gray-700': scrolled || !sticky || forceSolid, 'text-white': !scrolled && sticky && !forceSolid, 'text-[#0481AE]': (scrolled || !sticky || forceSolid) && {{ request()->routeIs('blog.*') ? 'true' : 'false' }} }">
                     {{ t('frontend.navigation.blog', 'Blog') }}
                 </a>
                 <a href="{{ route('contact') }}"
                    class="text-lg transition-colors duration-300 hover:text-[#0481AE] {{ request()->routeIs('contact') ? 'font-semibold' : '' }}"
-                   :class="{ 'text-gray-700': scrolled || !sticky, 'text-white': !scrolled && sticky, 'text-[#0481AE]': (scrolled || !sticky) && {{ request()->routeIs('contact') ? 'true' : 'false' }} }">
+                   :class="{ 'text-gray-700': scrolled || !sticky || forceSolid, 'text-white': !scrolled && sticky && !forceSolid, 'text-[#0481AE]': (scrolled || !sticky || forceSolid) && {{ request()->routeIs('contact') ? 'true' : 'false' }} }">
                     {{ t('frontend.navigation.contact', 'Contact') }}
                 </a>
             </div>
@@ -106,12 +107,12 @@
                          :class="{
                              'w-80 pl-4 pr-2 py-2 shadow-sm ring-1 ring-blue-100 bg-white border border-gray-200': open,
                              'w-10 justify-center py-2': !open,
-                             'bg-gray-50 border border-gray-200': !open && (scrolled || !sticky),
-                             'bg-white/10 border border-white/20 hover:bg-white/20': !open && !scrolled && sticky
+                             'bg-gray-50 border border-gray-200': !open && (scrolled || !sticky || forceSolid),
+                             'bg-white/10 border border-white/20 hover:bg-white/20': !open && !scrolled && sticky && !forceSolid
                          }">
                         <button type="button"
                                 class="focus:outline-none transition-colors duration-300"
-                                :class="{ 'text-gray-600': open || scrolled || !sticky, 'text-white': !open && !scrolled && sticky, 'hover:text-[#0481AE]': scrolled || open || !sticky }"
+                                :class="{ 'text-gray-600': open || scrolled || !sticky || forceSolid, 'text-white': !open && !scrolled && sticky && !forceSolid, 'hover:text-[#0481AE]': scrolled || open || !sticky || forceSolid }"
                                 @click="toggle()"
                                 :aria-expanded="open">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -204,14 +205,14 @@
                     </div>
                 </div>
 
-                <x-language-switcher transparent />
+                <x-language-switcher :transparent="!($forceSolid ?? false)" />
             </div>
 
             <!-- Mobile Menu Button -->
             <div class="md:hidden">
                 <button @click="mobileMenuOpen = !mobileMenuOpen" 
                         class="focus:outline-none transition-colors duration-300"
-                        :class="{ 'text-gray-700 hover:text-gray-900': scrolled || mobileMenuOpen, 'text-white hover:text-gray-200': !scrolled && !mobileMenuOpen }">
+                        :class="{ 'text-gray-700 hover:text-gray-900': scrolled || mobileMenuOpen || !sticky || forceSolid, 'text-white hover:text-gray-200': !scrolled && !mobileMenuOpen && sticky && !forceSolid }">
                     <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path x-show="!mobileMenuOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
                         <path x-show="mobileMenuOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>

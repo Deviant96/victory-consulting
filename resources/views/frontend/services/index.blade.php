@@ -1,5 +1,7 @@
 @extends('frontend.layouts.app')
 
+@section('force-solid', true)
+
 @section('title', t('frontend.services.meta_title', 'Our Services') . ' - ' . settings('site.name'))
 
 @section('content')

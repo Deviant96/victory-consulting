@@ -1,5 +1,7 @@
 @extends('frontend.layouts.app')
 
+@section('force-solid', true)
+
 @section('title', $post->title . ' - ' . settings('site.name'))
 @section('description', $post->excerpt)
 

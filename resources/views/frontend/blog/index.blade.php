@@ -1,5 +1,7 @@
 @extends('frontend.layouts.app')
 
+@section('force-solid', true)
+
 @section('title', t('frontend.blog.meta_title', 'Blog') . ' - ' . settings('site.name'))
 
 @section('content')
