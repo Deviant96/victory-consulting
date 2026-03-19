@@ -23,6 +23,13 @@
     </div>
 </section>
 
+<style>
+    /* Fix for list item that contain paragraphs */
+    li p {
+        margin: 0 !important;
+    }
+</style>
+
 <!-- Article -->
 <article class="py-20 bg-white">
     <div class="container mx-auto px-4">
