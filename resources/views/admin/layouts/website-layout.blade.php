@@ -81,7 +81,7 @@
             </div>
         </aside>
 
-        <div class="lg:col-span-{{ $hasSubmenu ? '9' : '11' }} space-y-6">
+        <div class="lg:col-span-{{ $hasSubmenu ? '9' : '11' }} space-y-6" style="grid-column: span {{ $hasSubmenu ? '9' : '11' }};">
             {!! $content !!}
         </div>
     </div>
