@@ -108,23 +108,6 @@
                     </div>
                 </a>
 
-                <!-- Website Management Module -->
-                <a href="{{ route('admin.pages.home') }}" class="group relative bg-white border border-gray-200 rounded-2xl p-6 shadow-sm hover:shadow-lg hover:border-purple-300 transition-all duration-300 flex flex-col h-full">
-                    <div class="absolute top-0 right-0 p-6 opacity-5 group-hover:opacity-10 transition-opacity pointer-events-none">
-                        <svg class="w-24 h-24 text-purple-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M4.083 9h1.946c.089-1.546.383-2.97.837-4.118A6.002 6.002 0 004.083 9zM10 2a8 8 0 100 16 8 8 0 000-16zm0 2c-.076 0-.232.032-.465.262-.238.236-.497.623-.737 1.138-.479 1.03-.836 2.379-.922 3.861h4.248c-.086-1.482-.443-2.831-.922-3.861-.24-.515-.499-.902-.737-1.138C10.232 4.032 10.076 4 10 4zm9.917 5h-1.946c-.089-1.546-.383-2.97-.837-4.118A6.002 6.002 0 0119.917 9zM10 18a8.006 8.006 0 01-5.917-2.656c.926-.262 2.657-.65 3.967-.834.341 1.696.96 2.932 1.95 2.932s1.609-1.236 1.95-2.932c1.31.184 3.04.572 3.967.834A8.006 8.006 0 0110 18z" clip-rule="evenodd"/></svg>
-                    </div>
-                    <div class="w-12 h-12 bg-purple-50 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
-                        <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
-                        </svg>
-                    </div>
-                    <h3 class="text-lg font-bold text-gray-900 group-hover:text-purple-600 transition-colors">Website Content</h3>
-                    <p class="mt-2 text-sm text-gray-500 leading-relaxed">Manage pages, services, industries, blog posts, team members, and FAQs.</p>
-                    <div class="mt-auto pt-4 flex items-center text-sm font-semibold text-purple-600 opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300">
-                        Manage Content <span class="ml-2">&rarr;</span>
-                    </div>
-                </a>
-
                 <!-- Inquiries Module -->
                 <a href="{{ route('admin.bookings.index') }}" class="group relative bg-white border border-gray-200 rounded-2xl p-6 shadow-sm hover:shadow-lg hover:border-orange-300 transition-all duration-300 flex flex-col h-full">
                      <div class="absolute top-0 right-0 p-6 opacity-5 group-hover:opacity-10 transition-opacity pointer-events-none">
@@ -147,6 +130,23 @@
                     <p class="mt-2 text-sm text-gray-500 leading-relaxed">View bookings, manage notification settings, and configure WhatsApp agents.</p>
                     <div class="mt-auto pt-4 flex items-center text-sm font-semibold text-orange-600 opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300">
                         View Inquiries <span class="ml-2">&rarr;</span>
+                    </div>
+                </a>
+
+                <!-- Website Management Module -->
+                <a href="{{ route('admin.pages.home') }}" class="group relative bg-white border border-gray-200 rounded-2xl p-6 shadow-sm hover:shadow-lg hover:border-purple-300 transition-all duration-300 flex flex-col h-full">
+                    <div class="absolute top-0 right-0 p-6 opacity-5 group-hover:opacity-10 transition-opacity pointer-events-none">
+                        <svg class="w-24 h-24 text-purple-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M4.083 9h1.946c.089-1.546.383-2.97.837-4.118A6.002 6.002 0 004.083 9zM10 2a8 8 0 100 16 8 8 0 000-16zm0 2c-.076 0-.232.032-.465.262-.238.236-.497.623-.737 1.138-.479 1.03-.836 2.379-.922 3.861h4.248c-.086-1.482-.443-2.831-.922-3.861-.24-.515-.499-.902-.737-1.138C10.232 4.032 10.076 4 10 4zm9.917 5h-1.946c-.089-1.546-.383-2.97-.837-4.118A6.002 6.002 0 0119.917 9zM10 18a8.006 8.006 0 01-5.917-2.656c.926-.262 2.657-.65 3.967-.834.341 1.696.96 2.932 1.95 2.932s1.609-1.236 1.95-2.932c1.31.184 3.04.572 3.967.834A8.006 8.006 0 0110 18z" clip-rule="evenodd"/></svg>
+                    </div>
+                    <div class="w-12 h-12 bg-purple-50 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                        <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-900 group-hover:text-purple-600 transition-colors">Website Content</h3>
+                    <p class="mt-2 text-sm text-gray-500 leading-relaxed">Manage pages, services, industries, blog posts, team members, and FAQs.</p>
+                    <div class="mt-auto pt-4 flex items-center text-sm font-semibold text-purple-600 opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300">
+                        Manage Content <span class="ml-2">&rarr;</span>
                     </div>
                 </a>
 
