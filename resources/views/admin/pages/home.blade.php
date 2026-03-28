@@ -203,6 +203,94 @@
                     </div>
                 </div>
 
+                <!-- Business Solutions Section -->
+                <div class="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
+                    <div class="bg-gray-50 px-6 py-4 border-b border-gray-200">
+                        <h2 class="text-lg font-medium text-gray-900">Business Solutions Section</h2>
+                    </div>
+                    <div class="p-6 space-y-6">
+                        <x-admin.settings-field-with-translation
+                            name="home[business_solutions_title]"
+                            label="Section Title"
+                            value="Whatever Your Business, We Can Handle It"
+                            :settings="$settings"
+                            :languages="$languages"
+                        />
+
+                        <x-admin.settings-field-with-translation
+                            name="home[business_solutions_description]"
+                            label="Description"
+                            type="textarea"
+                            rows="2"
+                            value="From startups to enterprises, we provide tailored solutions for every industry and challenge"
+                            :settings="$settings"
+                            :languages="$languages"
+                        />
+
+                        <div class="space-y-4">
+                            <label class="block text-sm font-medium text-gray-700">Section Image</label>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                @if(optional($settings->get('home.business_solutions_image'))->value)
+                                    <div class="relative group rounded-xl overflow-hidden border border-gray-200 shadow-sm">
+                                        <img src="{{ asset('storage/' . $settings->get('home.business_solutions_image')->value) }}" alt="Current Business Solutions" class="w-full h-40 object-cover">
+                                        <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                                            <span class="text-white font-medium text-sm">Current Image</span>
+                                        </div>
+                                    </div>
+                                @else
+                                    <div class="w-full h-40 bg-gray-100 rounded-xl border-dashed border-2 border-gray-300 flex items-center justify-center text-gray-400">
+                                        No image set
+                                    </div>
+                                @endif
+
+                                <div id="business-solutions-preview-container" class="hidden relative group rounded-xl overflow-hidden border-2 border-blue-500 shadow-md transition-all duration-300">
+                                    <img id="business-solutions-preview" src="" alt="New Preview" class="w-full h-40 object-cover">
+                                    <div class="absolute inset-0 bg-black/40 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                                        <span class="text-white font-medium text-sm mb-2">New Selection</span>
+                                        <button type="button" id="clear-business-solutions-btn" class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-lg text-xs font-semibold shadow transition">
+                                            Clear Selection
+                                        </button>
+                                    </div>
+                                    <div class="absolute top-2 right-2 bg-blue-500 text-white px-2 py-0.5 rounded text-xs font-semibold shadow">New</div>
+                                </div>
+                            </div>
+
+                            <div class="relative">
+                                <input type="file" name="business_solutions_image" id="business_solutions_image" accept="image/*" class="block w-full text-sm text-gray-500
+                                    file:mr-4 file:py-2.5 file:px-4
+                                    file:rounded-xl file:border-0
+                                    file:text-sm file:font-semibold
+                                    file:bg-blue-50 file:text-blue-700
+                                    hover:file:bg-blue-100
+                                    transition cursor-pointer
+                                "/>
+                            </div>
+                            <p class="text-xs text-gray-500">Recommended: 1200x800px or larger, max 4MB.</p>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <x-admin.settings-field-with-translation
+                                name="home[business_solutions_button_text]"
+                                label="Button Text"
+                                value="Explore Industries"
+                                :settings="$settings"
+                                :languages="$languages"
+                            />
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Button URL</label>
+                                <input
+                                    type="text"
+                                    name="home[business_solutions_button_url]"
+                                    value="{{ old('home.business_solutions_button_url', optional($settings->get('home.business_solutions_button_url'))->value ?? route('industries.index')) }}"
+                                    class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-blue-500 focus:border-blue-500 transition-shadow"
+                                    placeholder="/industries"
+                                >
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Why Choose Us -->
                 <div class="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
                     <div class="bg-gray-50 px-6 py-4 border-b border-gray-200">
@@ -357,6 +445,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     setupImagePreview('hero_image', 'hero-preview-container', 'hero-preview', 'clear-hero-btn');
+    setupImagePreview('business_solutions_image', 'business-solutions-preview-container', 'business-solutions-preview', 'clear-business-solutions-btn');
 });
 </script>
 @endsection
