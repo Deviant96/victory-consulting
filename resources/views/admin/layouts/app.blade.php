@@ -26,7 +26,7 @@
     @stack('styles')
 </head>
 <body class="font-sans antialiased admin-shell" x-data="adminLayout()">
-    <div class="min-h-screen bg-slate-50/70">
+    <div class="min-h-screen bg-slate-200">
         @include('admin.partials.header')
 
         @include('admin.partials.search-modal')
