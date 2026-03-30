@@ -9,6 +9,9 @@
     // Determine featured and secondary posts in a way that doesn't
     // implicitly change the featured post on every paginated page.
 
+    // Ensure the variable exists on all pages (including paginated pages).
+    $featuredPost = $featuredPost ?? null;
+
     // If a featured post was not explicitly provided (e.g., by the controller)
     // and we're on the first page, use the first post on that page as featured.
     if (!isset($featuredPost) && method_exists($posts, 'currentPage') && $posts->currentPage() === 1) {
