@@ -65,56 +65,6 @@
     </div>
 </section>
 
-<!-- Founder's Principles -->
-<section class="py-12 md:py-16 bg-white">
-    <div class="container mx-auto px-4 max-w-6xl">
-        <div class="text-center mb-10" data-animate="fade-up">
-            <h2 class="text-3xl md:text-4xl font-bold text-slate-900">{{ settings('about.principles_heading', t('frontend.about.principles_heading', "Founder's Principles")) }}</h2>
-            <p class="mt-3 text-slate-600 max-w-2xl mx-auto">{{ settings('about.principles_subheading', t('frontend.about.principles_subheading', 'The values that shape our consulting quality and long-term client partnerships.')) }}</p>
-        </div>
-
-        <div class="grid md:grid-cols-2 gap-6 md:gap-8" data-animate-stagger="120">
-            <div class="rounded-2xl border border-slate-200 bg-slate-50 p-6 md:p-8" data-animate="fade-up">
-                <div class="flex items-start gap-4">
-                    @if(settings('about.wisdom1_image'))
-                        <img src="{{ asset('storage/' . settings('about.wisdom1_image')) }}" alt="Wisdom 1" class="w-16 h-16 rounded-xl object-cover border border-slate-200 bg-white">
-                    @else
-                        <div class="w-16 h-16 rounded-xl bg-white border border-slate-200 flex items-center justify-center">
-                            <svg class="w-7 h-7 text-[#0481AE]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-4l-3 3-3-3z"></path>
-                            </svg>
-                        </div>
-                    @endif
-                    <div>
-                        <h3 class="text-xl font-bold text-slate-900">{{ settings('about.wisdom1_title', t('frontend.about.wisdom_service_title', 'Melayani Sepenuh Hati')) }}</h3>
-                        <p class="mt-2 text-slate-600 leading-relaxed">{{ settings('about.wisdom1_description', t('frontend.about.wisdom_service_description', 'Klien dari Seluruh Indonesia')) }}</p>
-                        <p class="mt-3 text-xs uppercase tracking-widest text-slate-400">{{ t('frontend.about.wisdom_service_caption', "Founder's Wisdom 1") }}</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="rounded-2xl border border-slate-200 bg-slate-50 p-6 md:p-8" data-animate="fade-up" data-animate-delay="120">
-                <div class="flex items-start gap-4">
-                    @if(settings('about.wisdom2_image'))
-                        <img src="{{ asset('storage/' . settings('about.wisdom2_image')) }}" alt="Wisdom 2" class="w-16 h-16 rounded-xl object-cover border border-slate-200 bg-white">
-                    @else
-                        <div class="w-16 h-16 rounded-xl bg-white border border-slate-200 flex items-center justify-center">
-                            <svg class="w-7 h-7 text-[#0481AE]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-                            </svg>
-                        </div>
-                    @endif
-                    <div>
-                        <h3 class="text-xl font-bold text-slate-900">{{ settings('about.wisdom2_title', t('frontend.about.wisdom_growth_title', 'Membantu Bisnis Tumbuh')) }}</h3>
-                        <p class="mt-2 text-slate-600 leading-relaxed">{{ settings('about.wisdom2_description', t('frontend.about.wisdom_growth_description', 'dan UMKM Berkembang')) }}</p>
-                        <p class="mt-3 text-xs uppercase tracking-widest text-slate-400">{{ t('frontend.about.wisdom_growth_caption', "Founder's Wisdom 2") }}</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
 <!-- Company Narrative -->
 <section class="py-12 md:py-16 bg-slate-50">
     <div class="container mx-auto px-4 max-w-6xl" data-animate="fade-up">
