@@ -22,11 +22,11 @@
 
                 <div class="mt-8 grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
                     <div class="rounded-2xl border border-white/15 bg-white/5 px-3 py-4">
-                        <p class="text-2xl md:text-3xl font-bold">10+</p>
+                        <p class="text-2xl md:text-3xl font-bold">5+</p>
                         <p class="text-xs text-slate-300 mt-1">{{ t('frontend.about.metric_experience', 'Years Experience') }}</p>
                     </div>
                     <div class="rounded-2xl border border-white/15 bg-white/5 px-3 py-4">
-                        <p class="text-2xl md:text-3xl font-bold">500+</p>
+                        <p class="text-2xl md:text-3xl font-bold">70+</p>
                         <p class="text-xs text-slate-300 mt-1">{{ t('frontend.about.metric_clients', 'Clients Assisted') }}</p>
                     </div>
                     <div class="rounded-2xl border border-white/15 bg-white/5 px-3 py-4">
