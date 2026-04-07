@@ -18,6 +18,7 @@ use App\Http\Controllers\Admin\TranslationController;
 use App\Http\Controllers\Admin\AboutSectionController;
 use App\Http\Controllers\Admin\VisionController;
 use App\Http\Controllers\Admin\MissionController;
+use App\Http\Controllers\Admin\EmailController;
 use App\Http\Controllers\Admin\PageController;
 use App\Models\BlogPost;
 use App\Models\Booking;
@@ -150,4 +151,15 @@ Route::prefix('settings')->group(function () {
     Route::resource('translations', TranslationController::class)->except(['show'])->names('translations');
 
     Route::get('/logs', [AdminLogController::class, 'index'])->name('logs.index');
+});
+
+// Email Dashboard (Titan Email via IMAP)
+Route::prefix('email')->name('email.')->group(function () {
+    Route::get('/inbox',                  [EmailController::class, 'inbox'])->name('inbox');
+    Route::get('/sent',                   [EmailController::class, 'sent'])->name('sent');
+    Route::get('/drafts',                 [EmailController::class, 'drafts'])->name('drafts');
+    Route::get('/message/{uid}/{folder}', [EmailController::class, 'show'])
+        ->where('uid', '[0-9]+')
+        ->where('folder', 'inbox|sent|drafts')
+        ->name('show');
 });

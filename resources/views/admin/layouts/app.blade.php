@@ -73,6 +73,7 @@
                     $sectionLayout = match (true) {
                         request()->routeIs('admin.hub', 'admin.dashboard') => 'admin.layouts.hub-layout',
                         request()->routeIs('admin.overview') => 'admin.layouts.overview-layout',
+                        request()->routeIs('admin.email.*') => 'admin.layouts.email-layout',
                         request()->routeIs('admin.bookings.*', 'admin.whatsapp-agents.*', 'admin.settings.booking') => 'admin.layouts.inquiries-layout',
                         request()->routeIs('admin.settings.contact', 'admin.settings.social', 'admin.settings.branding', 'admin.settings.hero', 'admin.languages.*', 'admin.translations.*', 'admin.logs.*') => 'admin.layouts.settings-layout',
                         default => 'admin.layouts.website-layout',

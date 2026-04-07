@@ -103,6 +103,46 @@
                 </div>
             </div>
 
+            <!-- Email Section -->
+            <div class="space-y-2">
+                <p class="px-6 text-xs font-semibold text-slate-500 uppercase tracking-wider">Email</p>
+                <div class="space-y-1 px-2">
+                    <a href="{{ route('admin.email.inbox') }}"
+                       class="sidebar-link {{ request()->routeIs('admin.email.inbox') ? 'active' : 'text-slate-200' }}">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"></path>
+                        </svg>
+                        <span>Inbox</span>
+                    </a>
+
+                    <a href="{{ route('admin.email.sent') }}"
+                       class="sidebar-link {{ request()->routeIs('admin.email.sent') ? 'active' : 'text-slate-200' }}">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+                        </svg>
+                        <span>Sent</span>
+                    </a>
+
+                    <a href="{{ route('admin.email.drafts') }}"
+                       class="sidebar-link {{ request()->routeIs('admin.email.drafts') ? 'active' : 'text-slate-200' }}">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                        </svg>
+                        <span>Drafts</span>
+                    </a>
+
+                    <a href="{{ env('TITAN_WEBMAIL_URL', 'https://mail.titan.email') }}"
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       class="sidebar-link text-blue-400 hover:text-blue-300">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                        </svg>
+                        <span>Open Titan Email ↗</span>
+                    </a>
+                </div>
+            </div>
+
             <!-- Content Management Section -->
             <div class="space-y-2">
                 <p class="px-6 text-xs font-semibold text-slate-500 uppercase tracking-wider">Content Management</p>
