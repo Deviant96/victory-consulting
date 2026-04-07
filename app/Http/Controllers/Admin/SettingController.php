@@ -27,7 +27,6 @@ class SettingController extends Controller
     public function updateContact(Request $request)
     {
         $validated = $request->validate([
-            'site.name' => 'required|string|max:255',
             'site.email' => 'required|email',
             'site.phone' => 'nullable|string',
             'site.address' => 'nullable|string',
