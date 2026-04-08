@@ -5,7 +5,7 @@
             <h1 class="text-2xl font-semibold text-gray-900">Email Dashboard</h1>
         </div>
         <div class="flex items-center gap-3">
-            <a href="{{ env('TITAN_WEBMAIL_URL', 'https://mail.titan.email') }}"
+            <a href="{{ config('imap.webmail_url', 'https://mail.titan.email') }}"
                target="_blank"
                rel="noopener noreferrer"
                class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-blue-600 text-white text-sm font-medium hover:bg-blue-700 active:scale-95 transition-all duration-150 shadow-sm">
@@ -51,7 +51,7 @@
 
                 <div class="border-t border-gray-100 my-2"></div>
 
-                <a href="{{ env('TITAN_WEBMAIL_URL', 'https://mail.titan.email') }}"
+                <a href="{{ config('imap.webmail_url', 'https://mail.titan.email') }}"
                    target="_blank"
                    rel="noopener noreferrer"
                    class="flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-blue-600 hover:bg-blue-50 font-medium">
@@ -64,7 +64,7 @@
         </aside>
 
         <div class="lg:col-span-9 space-y-6">
-            {echo "CONTROLLER_CREATED" $content !!}
+            {!! $content !!}
         </div>
     </div>
 </section>

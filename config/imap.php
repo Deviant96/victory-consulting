@@ -69,4 +69,5 @@ return [
         'message'    => \Webklex\PHPIMAP\Support\Masks\MessageMask::class,
         'attachment' => \Webklex\PHPIMAP\Support\Masks\AttachmentMask::class,
     ],
+    'webmail_url' => env('TITAN_WEBMAIL_URL', 'https://mail.titan.email'),
 ];

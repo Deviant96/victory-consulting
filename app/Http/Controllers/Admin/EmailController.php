@@ -23,7 +23,7 @@ class EmailController extends Controller
     {
         $messages = collect();
         $error = null;
-        $titanUrl = env('TITAN_WEBMAIL_URL', 'https://mail.titan.email');
+        $titanUrl = config('imap.webmail_url', 'https://mail.titan.email');
         $page = max(1, (int) $request->query('page', 1));
         $perPage = 20;
         $total = 0;
@@ -48,7 +48,7 @@ class EmailController extends Controller
     {
         $messages = collect();
         $error = null;
-        $titanUrl = env('TITAN_WEBMAIL_URL', 'https://mail.titan.email');
+        $titanUrl = config('imap.webmail_url', 'https://mail.titan.email');
         $page = max(1, (int) $request->query('page', 1));
         $perPage = 20;
         $total = 0;
@@ -74,7 +74,7 @@ class EmailController extends Controller
     {
         $messages = collect();
         $error = null;
-        $titanUrl = env('TITAN_WEBMAIL_URL', 'https://mail.titan.email');
+        $titanUrl = config('imap.webmail_url', 'https://mail.titan.email');
         $page = max(1, (int) $request->query('page', 1));
         $perPage = 20;
         $total = 0;
@@ -100,7 +100,7 @@ class EmailController extends Controller
     {
         $message = null;
         $error = null;
-        $titanUrl = env('TITAN_WEBMAIL_URL', 'https://mail.titan.email');
+        $titanUrl = config('imap.webmail_url', 'https://mail.titan.email');
         $folderName = match($folder) {
             'sent'   => config('imap.options.common_folders.sent', 'Sent'),
             'drafts' => config('imap.options.common_folders.draft', 'Drafts'),

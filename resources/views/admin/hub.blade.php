@@ -167,6 +167,35 @@
                         Open Settings <span class="ml-2">&rarr;</span>
                     </div>
                 </a>
+
+                <!-- Email Dashboard Module -->
+                <a href="{{ route('admin.email.inbox') }}" class="group relative bg-white border border-gray-200 rounded-2xl p-6 shadow-sm hover:shadow-lg hover:border-teal-300 transition-all duration-300 flex flex-col h-full">
+                    <div class="absolute top-0 right-0 p-6 opacity-5 group-hover:opacity-10 transition-opacity pointer-events-none">
+                        <svg class="w-24 h-24 text-teal-600" fill="currentColor" viewBox="0 0 20 20"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/></svg>
+                    </div>
+                    <div class="w-12 h-12 bg-teal-50 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                        <svg class="w-6 h-6 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-900 group-hover:text-teal-600 transition-colors">Email Dashboard</h3>
+                    <p class="mt-2 text-sm text-gray-500 leading-relaxed">Read your Titan Email inbox, sent messages, and drafts directly from the admin panel.</p>
+                    <div class="mt-auto pt-4 flex items-center justify-between">
+                        <div class="flex items-center text-sm font-semibold text-teal-600 opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300">
+                            Open Inbox <span class="ml-2">&rarr;</span>
+                        </div>
+                        <a href="{{ config('imap.webmail_url', 'https://mail.titan.email') }}"
+                           target="_blank"
+                           rel="noopener noreferrer"
+                           onclick="event.stopPropagation();"
+                           class="inline-flex items-center gap-1 text-xs px-2.5 py-1 bg-teal-50 text-teal-700 rounded-lg hover:bg-teal-100 transition font-medium opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300">
+                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                            </svg>
+                            Titan ↗
+                        </a>
+                    </div>
+                </a>
             </div>
         </div>
 

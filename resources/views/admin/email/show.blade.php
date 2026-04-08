@@ -78,7 +78,12 @@
             <div class="px-6 py-6">
                 @if($body)
                     <div class="prose prose-sm max-w-none text-gray-800 leading-relaxed email-body">
-                        {echo "DRAFTS_CREATED" $body !!}
+                        <iframe
+                            srcdoc="{{ $body }}"
+                            sandbox="allow-same-origin"
+                            class="w-full border-0 min-h-[300px]"
+                            onload="this.style.height = this.contentDocument.body.scrollHeight + 'px';"
+                        ></iframe>
                     </div>
                 @else
                     <p class="text-gray-400 text-sm italic">This message has no body content.</p>

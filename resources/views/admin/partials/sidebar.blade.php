@@ -131,7 +131,7 @@
                         <span>Drafts</span>
                     </a>
 
-                    <a href="{{ env('TITAN_WEBMAIL_URL', 'https://mail.titan.email') }}"
+                    <a href="{{ config('imap.webmail_url', 'https://mail.titan.email') }}"
                        target="_blank"
                        rel="noopener noreferrer"
                        class="sidebar-link text-blue-400 hover:text-blue-300">
