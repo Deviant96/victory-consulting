@@ -9,6 +9,7 @@ use App\Http\Controllers\Frontend\AboutController;
 use App\Http\Controllers\Frontend\BookingController as FrontendBookingController;
 use App\Http\Controllers\Frontend\SearchController;
 use App\Http\Controllers\Frontend\IndustryController;
+use App\Http\Controllers\Frontend\NewsletterSubscriptionController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\PushSubscriptionController;
 use App\Http\Controllers\LocaleController;
@@ -49,6 +50,7 @@ Route::get('/team', [TeamController::class, 'index'])->name('team');
 // Blog
 Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
 Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('blog.show');
+Route::post('/blog/newsletter-subscribe', [NewsletterSubscriptionController::class, 'store'])->name('blog.newsletter.subscribe');
 
 // Contact
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
