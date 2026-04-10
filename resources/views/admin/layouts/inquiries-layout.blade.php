@@ -16,6 +16,7 @@
         <aside class="lg:col-span-3">
             <nav class="bg-white border border-gray-200 rounded-2xl shadow-sm p-3 space-y-1">
                 <a href="{{ route('admin.bookings.index') }}" class="block px-3 py-2 rounded-lg text-sm {{ request()->routeIs('admin.bookings.*') ? 'bg-blue-50 text-blue-700 font-semibold' : 'text-gray-700 hover:bg-gray-50' }}">All Inquiries</a>
+                <a href="{{ route('admin.newsletter-subscribers.index') }}" class="block px-3 py-2 rounded-lg text-sm {{ request()->routeIs('admin.newsletter-subscribers.*') ? 'bg-blue-50 text-blue-700 font-semibold' : 'text-gray-700 hover:bg-gray-50' }}">Newsletter Subscribers</a>
                 <a href="{{ route('admin.settings.booking') }}" class="block px-3 py-2 rounded-lg text-sm {{ request()->routeIs('admin.settings.booking') ? 'bg-blue-50 text-blue-700 font-semibold' : 'text-gray-700 hover:bg-gray-50' }}">Notification Settings</a>
                 <a href="{{ route('admin.whatsapp-agents.index') }}" class="block px-3 py-2 rounded-lg text-sm {{ request()->routeIs('admin.whatsapp-agents.*') ? 'bg-blue-50 text-blue-700 font-semibold' : 'text-gray-700 hover:bg-gray-50' }}">WhatsApp Agents</a>
             </nav>

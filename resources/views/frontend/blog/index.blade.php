@@ -309,17 +309,26 @@
 </section>
 
 <!-- CTA Section -->
-<section class="bg-gradient-to-br from-[#0481AE] to-[#035f7f] text-white py-12 md:py-24">
+<section id="newsletter-signup" class="bg-gradient-to-br from-[#0481AE] to-[#035f7f] text-white py-12 md:py-24 scroll-mt-24">
     <div class="container mx-auto px-4 text-center max-w-4xl">
         <div data-animate="fade-up">
             <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 md:mb-6">{{ settings('blog.cta_title', t('frontend.blog.newsletter_heading', 'Stay Updated')) }}</h2>
             <p class="text-base md:text-xl mb-6 md:mb-8 max-w-2xl mx-auto text-blue-50">
                 {{ settings('blog.cta_description', t('frontend.blog.newsletter_subheading', 'Subscribe to our newsletter for the latest insights and business strategies')) }}
             </p>
-            <form action="#" method="POST" class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+
+            @php($hasNewsletterError = $errors->newsletter->has('email'))
+            @php($newsletterFeedback = session('newsletter_success') ?? ($hasNewsletterError ? $errors->newsletter->first('email') : null))
+            <div id="newsletter-feedback" class="max-w-xl mx-auto mb-4 rounded-xl px-4 py-3 {{ $newsletterFeedback ? '' : 'hidden' }} {{ session('newsletter_success') ? 'bg-emerald-500/20 border border-emerald-300/40 text-emerald-50' : ($hasNewsletterError ? 'bg-red-500/20 border border-red-300/40 text-red-100' : '') }}" role="status" aria-live="polite">
+                {{ $newsletterFeedback }}
+            </div>
+
+            <form id="newsletter-form" action="{{ route('blog.newsletter.subscribe') }}" method="POST" class="flex flex-col sm:flex-row gap-4 justify-center items-center">
                 @csrf
-                <input type="email" name="email" placeholder="{{ t('frontend.blog.newsletter_placeholder', 'Enter your email') }}" required class="w-full sm:w-auto px-4 py-3 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#0481AE]">
-                <button type="submit" class="bg-white text-[#0481AE] px-8 py-3 rounded-lg font-semibold hover:bg-[#E6F0F6] transition">
+                <div class="w-full sm:w-auto">
+                    <input id="newsletter-email" type="email" name="email" value="{{ old('email') }}" placeholder="{{ t('frontend.blog.newsletter_placeholder', 'Enter your email') }}" required class="w-full sm:w-[22rem] px-4 py-3 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#0481AE] @if($hasNewsletterError) ring-2 ring-red-300 @endif" aria-describedby="newsletter-feedback">
+                </div>
+                <button id="newsletter-submit" type="submit" class="bg-white text-[#0481AE] px-8 py-3 rounded-lg font-semibold hover:bg-[#E6F0F6] transition">
                     {{ settings('blog.cta_button', t('frontend.blog.newsletter_cta', 'Subscribe')) }}
                 </button>
             </form>
@@ -327,3 +336,86 @@
     </div>
 </section>
 @endsection
+
+@push('scripts')
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const form = document.getElementById('newsletter-form');
+    if (!form || !window.fetch) {
+        return;
+    }
+
+    const feedback = document.getElementById('newsletter-feedback');
+    const emailInput = document.getElementById('newsletter-email');
+    const submitButton = document.getElementById('newsletter-submit');
+    const defaultButtonText = submitButton ? submitButton.textContent : '';
+
+    // Reuse one feedback region so success and error updates are announced accessibly.
+    const setFeedback = function (message, isError) {
+        if (!feedback) {
+            return;
+        }
+
+        feedback.textContent = message || '';
+        feedback.classList.remove('hidden', 'bg-emerald-500/20', 'border-emerald-300/40', 'text-emerald-50', 'bg-red-500/20', 'border-red-300/40', 'text-red-100', 'border');
+
+        if (!message) {
+            feedback.classList.add('hidden');
+            return;
+        }
+
+        feedback.classList.add('border');
+        if (isError) {
+            feedback.classList.add('bg-red-500/20', 'border-red-300/40', 'text-red-100');
+        } else {
+            feedback.classList.add('bg-emerald-500/20', 'border-emerald-300/40', 'text-emerald-50');
+        }
+    };
+
+    form.addEventListener('submit', async function (event) {
+        event.preventDefault();
+
+        setFeedback('', false);
+        emailInput.classList.remove('ring-red-300');
+
+        if (submitButton) {
+            submitButton.disabled = true;
+            submitButton.textContent = 'Submitting...';
+            submitButton.classList.add('opacity-70', 'cursor-not-allowed');
+        }
+
+        try {
+            const response = await fetch(form.action, {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                body: new FormData(form)
+            });
+
+            const payload = await response.json().catch(() => ({}));
+
+            if (!response.ok) {
+                const message = payload?.errors?.email?.[0] || payload?.message || 'Unable to subscribe right now. Please try again.';
+                setFeedback(message, true);
+                emailInput.classList.add('ring-red-300');
+                return;
+            }
+
+            setFeedback(payload?.message || 'Subscribed successfully.', false);
+            form.reset();
+        } catch (error) {
+            setFeedback('Network issue detected. Please try again in a moment.', true);
+            emailInput.classList.add('ring-red-300');
+        } finally {
+            if (submitButton) {
+                submitButton.disabled = false;
+                submitButton.textContent = defaultButtonText;
+                submitButton.classList.remove('opacity-70', 'cursor-not-allowed');
+            }
+        }
+    });
+});
+</script>
+@endpush

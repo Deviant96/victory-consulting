@@ -19,6 +19,7 @@ use App\Http\Controllers\Admin\AboutSectionController;
 use App\Http\Controllers\Admin\VisionController;
 use App\Http\Controllers\Admin\MissionController;
 use App\Http\Controllers\Admin\EmailController;
+use App\Http\Controllers\Admin\NewsletterSubscriptionController;
 use App\Http\Controllers\Admin\PageController;
 use App\Models\BlogPost;
 use App\Models\Booking;
@@ -124,6 +125,9 @@ Route::prefix('inquiries')->group(function () {
         ->names('bookings');
 
     Route::resource('whatsapp-agents', WhatsAppAgentController::class)->names('whatsapp-agents');
+
+    Route::get('/newsletter-subscribers', [NewsletterSubscriptionController::class, 'index'])->name('newsletter-subscribers.index');
+    Route::get('/newsletter-subscribers/export', [NewsletterSubscriptionController::class, 'export'])->name('newsletter-subscribers.export');
 
     Route::get('/notification-settings', [SettingController::class, 'booking'])->name('settings.booking');
     Route::post('/notification-settings', [SettingController::class, 'updateBooking'])->name('settings.booking.update');
