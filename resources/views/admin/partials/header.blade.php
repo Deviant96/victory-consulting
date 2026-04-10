@@ -21,17 +21,6 @@
 
     <!-- Right side - User actions -->
     <div class="flex items-center space-x-3">
-        <button @click="$dispatch('open-search')" class="hidden md:flex items-center px-3 py-2 rounded-xl bg-gray-100 border border-gray-200 text-sm text-gray-600 hover:bg-gray-200 hover:border-gray-300 transition cursor-pointer">
-            <svg class="w-4 h-4 text-gray-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 105.5 5.5a7.5 7.5 0 0011.15 11.15z" />
-            </svg>
-            Quick search
-            <kbd class="ml-2 px-1.5 py-0.5 text-xs bg-white border border-gray-300 rounded">Ctrl+K</kbd>
-        </button>
-
-        <!-- Language Switcher -->
-        <x-language-switcher />
-
         <!-- Notifications -->
         @php
             $notifications = $adminNotifications ?? collect();
