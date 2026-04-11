@@ -128,6 +128,7 @@ Route::prefix('inquiries')->group(function () {
 
     Route::get('/newsletter-subscribers', [NewsletterSubscriptionController::class, 'index'])->name('newsletter-subscribers.index');
     Route::get('/newsletter-subscribers/export', [NewsletterSubscriptionController::class, 'export'])->name('newsletter-subscribers.export');
+    Route::delete('/newsletter-subscribers/{newsletterSubscriber}', [NewsletterSubscriptionController::class, 'destroy'])->name('newsletter-subscribers.destroy');
 
     Route::get('/notification-settings', [SettingController::class, 'booking'])->name('settings.booking');
     Route::post('/notification-settings', [SettingController::class, 'updateBooking'])->name('settings.booking.update');
