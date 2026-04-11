@@ -232,7 +232,6 @@
                     
                     <div class="grid md:grid-cols-2 gap-6">
                         <x-admin.settings-field-with-translation name="about[cta_primary_button]" label="Primary Button" value="Get in Touch" :settings="$settings" :languages="$languages"/>
-                        <x-admin.settings-field-with-translation name="about[cta_secondary_button]" label="Secondary Button" value="Explore Services" :settings="$settings" :languages="$languages"/>
                     </div>
                 </div>
             </div>
