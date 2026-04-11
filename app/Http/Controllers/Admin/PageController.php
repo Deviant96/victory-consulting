@@ -219,8 +219,7 @@ class PageController extends Controller
             'industry.page_description',
             'industry.cta_title',
             'industry.cta_description',
-            'industry.cta_primary_button',
-            'industry.cta_secondary_button',
+            'industry.cta_button',
             'hero.industry_image',
         ];
         
@@ -236,8 +235,7 @@ class PageController extends Controller
             'industry.page_description' => 'nullable|string',
             'industry.cta_title' => 'nullable|string|max:255',
             'industry.cta_description' => 'nullable|string',
-            'industry.cta_primary_button' => 'nullable|string|max:100',
-            'industry.cta_secondary_button' => 'nullable|string|max:100',
+            'industry.cta_button' => 'nullable|string|max:100',
             'industry_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:4096',
         ]);
 
@@ -267,8 +265,7 @@ class PageController extends Controller
             'page_description',
             'cta_title',
             'cta_description',
-            'cta_primary_button',
-            'cta_secondary_button',
+            'cta_button',
         ];
 
         // Save all settings and their translations
