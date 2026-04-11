@@ -136,7 +136,7 @@
                 <div class="p-6 space-y-6">
                     <x-admin.settings-field-with-translation
                         name="industry[cta_title]"
-                        label="CTA Heading"
+                        label="Heading"
                         value="Ready to transform your business?"
                         :settings="$settings"
                         :languages="$languages"
@@ -144,7 +144,7 @@
 
                     <x-admin.settings-field-with-translation
                         name="industry[cta_description]"
-                        label="CTA Description"
+                        label="Description"
                         type="textarea"
                         rows="2"
                         value="Contact us today to discuss how we can help you achieve your goals."

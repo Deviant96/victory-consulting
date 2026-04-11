@@ -84,7 +84,7 @@
                 <div class="p-6 space-y-6">
                     <x-admin.settings-field-with-translation
                         name="blog[cta_title]"
-                        label="CTA Title"
+                        label="Heading"
                         value="Stay Updated"
                         :settings="$settings"
                         :languages="$languages"
@@ -92,7 +92,7 @@
 
                     <x-admin.settings-field-with-translation
                         name="blog[cta_description]"
-                        label="CTA Description"
+                        label="Description"
                         type="textarea"
                         rows="2"
                         value="Subscribe to our newsletter for the latest insights and business strategies"

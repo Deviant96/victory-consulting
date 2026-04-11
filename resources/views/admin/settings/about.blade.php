@@ -231,7 +231,7 @@
                     <x-admin.settings-field-with-translation name="about[cta_description]" label="Description" type="textarea" rows="2" value="" :settings="$settings" :languages="$languages"/>
                     
                     <div class="grid md:grid-cols-2 gap-6">
-                        <x-admin.settings-field-with-translation name="about[cta_primary_button]" label="Primary Button" value="Get in Touch" :settings="$settings" :languages="$languages"/>
+                        <x-admin.settings-field-with-translation name="about[cta_primary_button]" label="Button Text" value="Get in Touch" :settings="$settings" :languages="$languages"/>
                     </div>
                 </div>
             </div>

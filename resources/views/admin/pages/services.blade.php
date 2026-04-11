@@ -86,7 +86,7 @@
                         <div>
                             <x-admin.settings-field-with-translation
                                 name="services[cta_heading]"
-                                label="CTA Heading"
+                                label="Heading"
                                 value="We can tailor our services to meet your specific business needs"
                                 :settings="$settings"
                                 :languages="$languages"
