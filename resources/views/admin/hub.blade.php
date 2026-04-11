@@ -252,7 +252,7 @@
                                 </div>
                                 <div>
                                     <p class="text-sm font-medium text-gray-900 line-clamp-1">{{ $post->title }}</p>
-                                    <p class="text-xs text-gray-500">{{ $post->created_at->format('M d, Y') }} &bull; {{ $post->is_published ? 'Published' : 'Draft' }}</p>
+                                    <p class="text-xs text-gray-500">{{ $post->created_at->format('M d, Y') }} &bull; {{ $post->published ? 'Published' : 'Draft' }}</p>
                                 </div>
                             </div>
                             <a href="{{ route('admin.articles.edit', $post) }}" class="text-gray-400 hover:text-blue-600">
