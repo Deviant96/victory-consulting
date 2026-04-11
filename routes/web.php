@@ -50,12 +50,12 @@ Route::get('/team', [TeamController::class, 'index'])->name('team');
 // Blog
 Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
 Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('blog.show');
-Route::post('/blog/newsletter-subscribe', [NewsletterSubscriptionController::class, 'store'])->name('blog.newsletter.subscribe');
+Route::post('/blog/newsletter-subscribe', [NewsletterSubscriptionController::class, 'store'])->middleware('throttle:3,1')->name('blog.newsletter.subscribe');
 
 // Contact
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
-Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
-Route::post('/bookings', [FrontendBookingController::class, 'store'])->name('bookings.store');
+Route::post('/contact', [ContactController::class, 'store'])->middleware('throttle:5,1')->name('contact.store');
+Route::post('/bookings', [FrontendBookingController::class, 'store'])->middleware('throttle:5,1')->name('bookings.store');
 
 // Auth Routes
 Route::get('/dashboard', function () {

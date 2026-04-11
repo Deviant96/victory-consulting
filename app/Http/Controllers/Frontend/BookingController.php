@@ -14,6 +14,17 @@ class BookingController extends Controller
 {
     public function store(Request $request)
     {
+        // Anti-spam: reject honeypot-filled submissions silently
+        if ($request->filled('website')) {
+            return redirect()->back()->with('success', 'Your consultation request has been submitted. We will confirm the details shortly.');
+        }
+
+        // Anti-spam: reject submissions faster than 3 seconds (bot behaviour)
+        $loadedAt = (int) $request->input('_form_loaded_at', 0);
+        if ($loadedAt > 0 && now()->timestamp - $loadedAt < 3) {
+            return redirect()->back()->with('success', 'Your consultation request has been submitted. We will confirm the details shortly.');
+        }
+
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email',

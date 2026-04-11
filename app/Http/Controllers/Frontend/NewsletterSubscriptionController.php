@@ -13,6 +13,23 @@ class NewsletterSubscriptionController extends Controller
 {
     public function store(Request $request): RedirectResponse|JsonResponse
     {
+        // Anti-spam: reject honeypot-filled submissions silently
+        if ($request->filled('website')) {
+            if ($request->expectsJson()) {
+                return response()->json(['message' => t('frontend.blog.newsletter_success', 'Thanks for subscribing. Please check your inbox for updates.')]);
+            }
+            return redirect()->to($this->newsletterRedirectUrl($request))->with('newsletter_success', t('frontend.blog.newsletter_success', 'Thanks for subscribing. Please check your inbox for updates.'));
+        }
+
+        // Anti-spam: reject submissions faster than 3 seconds (bot behaviour)
+        $loadedAt = (int) $request->input('_form_loaded_at', 0);
+        if ($loadedAt > 0 && now()->timestamp - $loadedAt < 3) {
+            if ($request->expectsJson()) {
+                return response()->json(['message' => t('frontend.blog.newsletter_success', 'Thanks for subscribing. Please check your inbox for updates.')]);
+            }
+            return redirect()->to($this->newsletterRedirectUrl($request))->with('newsletter_success', t('frontend.blog.newsletter_success', 'Thanks for subscribing. Please check your inbox for updates.'));
+        }
+
         $validator = Validator::make($request->all(), [
             'email' => ['required', 'email', 'max:255'],
         ], [

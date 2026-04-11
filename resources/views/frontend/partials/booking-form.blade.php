@@ -18,6 +18,13 @@
 
     <form action="{{ route('bookings.store') }}" method="POST" class="space-y-5">
         @csrf
+        {{-- Anti-spam: honeypot (hidden from real users) --}}
+        <div style="position:absolute;left:-9999px;opacity:0;pointer-events:none;" aria-hidden="true">
+            <label for="website_url">Website</label>
+            <input type="text" name="website" id="website_url" tabindex="-1" autocomplete="off" value="">
+        </div>
+        {{-- Anti-spam: form render timestamp --}}
+        <input type="hidden" name="_form_loaded_at" value="{{ now()->timestamp }}">
         <div class="grid md:grid-cols-2 gap-4">
             <div>
                 <label for="name" class="block text-sm font-medium text-gray-700 mb-1">{{ t('frontend.booking.name_label', 'Full name *') }}</label>

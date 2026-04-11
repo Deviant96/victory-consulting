@@ -325,6 +325,13 @@
 
             <form id="newsletter-form" action="{{ route('blog.newsletter.subscribe') }}" method="POST" class="flex flex-col sm:flex-row gap-4 justify-center items-center">
                 @csrf
+                {{-- Anti-spam: honeypot (hidden from real users) --}}
+                <div style="position:absolute;left:-9999px;opacity:0;pointer-events:none;" aria-hidden="true">
+                    <label for="nl_website_url">Website</label>
+                    <input type="text" name="website" id="nl_website_url" tabindex="-1" autocomplete="off" value="">
+                </div>
+                {{-- Anti-spam: form render timestamp --}}
+                <input type="hidden" name="_form_loaded_at" value="{{ now()->timestamp }}">
                 <div class="w-full sm:w-auto">
                     <input id="newsletter-email" type="email" name="email" value="{{ old('email') }}" placeholder="{{ t('frontend.blog.newsletter_placeholder', 'Enter your email') }}" required class="w-full sm:w-[22rem] px-4 py-3 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#0481AE] @if($hasNewsletterError) ring-2 ring-red-300 @endif" aria-describedby="newsletter-feedback">
                 </div>
