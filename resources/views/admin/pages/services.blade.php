@@ -94,6 +94,16 @@
                             <p class="mt-1 text-xs text-gray-500">Encourage users to take action after viewing your services.</p>
                         </div>
 
+                        <x-admin.settings-field-with-translation 
+                            name="services[cta_description]" 
+                            label="Description" 
+                            type="textarea" 
+                            rows="2" 
+                            value=""
+                            :settings="$settings" 
+                            :languages="$languages"
+                        />
+
                         <div>
                             <x-admin.settings-field-with-translation
                                 name="services[cta_button]"

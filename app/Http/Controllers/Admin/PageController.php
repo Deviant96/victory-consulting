@@ -156,6 +156,7 @@ class PageController extends Controller
             'services.page_title',
             'services.page_description',
             'services.cta_heading',
+            'services.cta_description',
             'services.cta_button',
         ];
         
@@ -170,6 +171,7 @@ class PageController extends Controller
             'services.page_title' => 'nullable|string',
             'services.page_description' => 'nullable|string',
             'services.cta_heading' => 'nullable|string|max:255',
+            'services.cta_description' => 'nullable|string',
             'services.cta_button' => 'nullable|string|max:100',
         ]);
 
@@ -181,6 +183,7 @@ class PageController extends Controller
             'page_title',
             'page_description',
             'cta_heading',
+            'cta_description',
             'cta_button',
         ];
 
