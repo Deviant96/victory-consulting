@@ -4,13 +4,14 @@
 
 @section('content')
 <!-- Hero Section -->
-<section class="relative overflow-hidden bg-slate-950 text-white">
-    <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(4,129,174,0.35),transparent_55%)]"></div>
-    <div class="absolute inset-0 bg-[linear-gradient(120deg,rgba(2,6,23,0.96),rgba(15,23,42,0.88))]"></div>
+<section class="relative overflow-hidden bg-[#053a57] text-white">
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(103,232,249,0.26),transparent_42%)]"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_30%_18%,rgba(59,130,246,0.28),transparent_36%)]"></div>
+    <div class="absolute inset-0 bg-[linear-gradient(135deg,rgba(10,88,129,0.84)_0%,rgba(4,44,68,0.92)_48%,rgba(2,18,34,0.98)_100%)]"></div>
     <div class="container relative z-10 mx-auto px-4 py-16 md:py-24 max-w-7xl">
         <div class="grid lg:grid-cols-12 gap-10 items-center" data-animate-stagger="120">
             <div class="lg:col-span-7" data-animate="fade-up">
-                <span class="inline-flex items-center rounded-full border border-white/20 bg-white/5 px-4 py-1.5 text-xs md:text-sm font-medium tracking-wide uppercase">
+                <span class="inline-flex items-center rounded-full bg-white/8 px-4 py-1.5 text-xs md:text-sm font-medium tracking-wide uppercase shadow-lg shadow-slate-950/15 backdrop-blur-sm">
                     {{ settings('about.hero_tagline', t('frontend.about.hero_tagline', 'Trusted Finance & Business Advisory')) }}
                 </span>
                 <h1 class="mt-5 text-4xl md:text-5xl xl:text-6xl font-bold leading-tight">
@@ -21,19 +22,19 @@
                 </p>
 
                 <div class="mt-8 grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
-                    <div class="rounded-2xl border border-white/15 bg-white/5 px-3 py-4">
+                    <div class="rounded-2xl bg-white/8 px-3 py-4 shadow-lg shadow-slate-950/10 backdrop-blur-sm">
                         <p class="text-2xl md:text-3xl font-bold">5+</p>
                         <p class="text-xs text-slate-300 mt-1">{{ t('frontend.about.metric_experience', 'Years Experience') }}</p>
                     </div>
-                    <div class="rounded-2xl border border-white/15 bg-white/5 px-3 py-4">
+                    <div class="rounded-2xl bg-white/8 px-3 py-4 shadow-lg shadow-slate-950/10 backdrop-blur-sm">
                         <p class="text-2xl md:text-3xl font-bold">70+</p>
                         <p class="text-xs text-slate-300 mt-1">{{ t('frontend.about.metric_clients', 'Clients Assisted') }}</p>
                     </div>
-                    <div class="rounded-2xl border border-white/15 bg-white/5 px-3 py-4">
+                    <div class="rounded-2xl bg-white/8 px-3 py-4 shadow-lg shadow-slate-950/10 backdrop-blur-sm">
                         <p class="text-2xl md:text-3xl font-bold">98%</p>
                         <p class="text-xs text-slate-300 mt-1">{{ t('frontend.about.metric_retention', 'Client Retention') }}</p>
                     </div>
-                    <div class="rounded-2xl border border-white/15 bg-white/5 px-3 py-4">
+                    <div class="rounded-2xl bg-white/8 px-3 py-4 shadow-lg shadow-slate-950/10 backdrop-blur-sm">
                         <p class="text-2xl md:text-3xl font-bold">24/7</p>
                         <p class="text-xs text-slate-300 mt-1">{{ t('frontend.about.metric_support', 'Strategic Support') }}</p>
                     </div>
@@ -41,13 +42,13 @@
             </div>
 
             <div class="lg:col-span-5" data-animate="fade-up" data-animate-delay="120">
-                <div class="rounded-3xl border border-white/15 bg-white/10 backdrop-blur-md p-4 md:p-6 shadow-2xl">
+                <div class="rounded-[2rem] bg-white/8 backdrop-blur-md p-4 md:p-6 shadow-2xl shadow-slate-950/25">
                     @if(settings('about.hero_image'))
                         <img src="{{ asset('storage/' . settings('about.hero_image')) }}"
                              alt="{{ t('frontend.about.hero_alt', 'Executive consultation meeting') }}"
                              class="w-full h-[280px] md:h-[360px] object-cover rounded-2xl">
                     @else
-                        <div class="w-full h-[280px] md:h-[360px] rounded-2xl bg-gradient-to-br from-slate-800 to-slate-900 border border-white/10 flex items-center justify-center text-center p-6">
+                        <div class="w-full h-[280px] md:h-[360px] rounded-2xl bg-gradient-to-br from-[#0c5f88] to-[#06263d] flex items-center justify-center text-center p-6">
                             <div>
                                 <svg class="w-14 h-14 text-white/60 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M3 7h18M6 7V5a2 2 0 012-2h8a2 2 0 012 2v2m-1 4l-3 3-2-2-4 4m-5 4h18"></path>
@@ -62,6 +63,11 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div class="pointer-events-none absolute inset-x-0 bottom-0 leading-none overflow-hidden">
+        <svg viewBox="0 0 1440 56" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" class="block w-full h-12 md:h-16">
+            <path d="M0,0 C360,56 1080,56 1440,0 L1440,56 L0,56 Z" fill="#f8fafc"/>
+        </svg>
     </div>
 </section>
 
