@@ -11,7 +11,8 @@
     <div class="container relative z-10 mx-auto px-4 py-16 md:py-24 max-w-7xl">
         <div class="grid lg:grid-cols-12 gap-10 items-center" data-animate-stagger="120">
             <div class="lg:col-span-7" data-animate="fade-up">
-                <span class="inline-flex items-center rounded-full bg-white/8 px-4 py-1.5 text-xs md:text-sm font-medium tracking-wide uppercase shadow-lg shadow-slate-950/15 backdrop-blur-sm">
+                <span class="relative inline-flex items-center rounded-full bg-white/8 py-1.5 text-xs md:text-sm font-medium tracking-wide uppercase shadow-lg shadow-slate-950/15 backdrop-blur-sm">
+                    <span class="absolute -translate-x-[130%] w-12 h-1.5 mr-2 rounded-full bg-[#e2925d]"></span>
                     {{ settings('about.hero_tagline', t('frontend.about.hero_tagline', 'Trusted Finance & Business Advisory')) }}
                 </span>
                 <h1 class="mt-5 text-4xl md:text-5xl xl:text-6xl font-bold leading-tight">
