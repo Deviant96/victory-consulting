@@ -64,7 +64,7 @@
         <a href="{{ route('admin.business-solutions.create') }}" class="text-blue-600 hover:text-blue-700 mt-2 inline-block">Add your first solution</a>
     </div>
     @else
-    <table class="min-w-full divide-y divide-gray-200">
+    <table class="min-w-full divide-y divide-gray-200" data-table-prefs-key="business-solutions-list">
         <thead class="bg-gray-50">
             <tr>
                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-16">Order</th>

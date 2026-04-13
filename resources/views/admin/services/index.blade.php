@@ -67,7 +67,7 @@
     </div>
     <div class="admin-card-body" x-show="!collapsed" x-transition>
         <div class="overflow-x-auto">
-            <table class="w-full">
+            <table class="w-full" data-table-prefs-key="services-list">
                 <thead class="bg-gray-50 border-y border-gray-200">
                     <tr>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">

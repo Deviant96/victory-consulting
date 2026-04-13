@@ -64,7 +64,7 @@
         <a href="{{ route('admin.team.create') }}" class="text-blue-600 hover:text-blue-700 mt-2 inline-block">Add your first team member</a>
     </div>
     @else
-    <table class="min-w-full divide-y divide-gray-200">
+    <table class="min-w-full divide-y divide-gray-200" data-table-prefs-key="team-list">
         <thead class="bg-gray-50">
             <tr>
                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Photo</th>
