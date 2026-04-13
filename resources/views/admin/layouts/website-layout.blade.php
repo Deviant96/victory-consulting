@@ -18,7 +18,7 @@
     @endphp
 
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-        <aside class="{{ $hasSubmenu ? 'lg:col-span-3' : 'lg:col-span-1' }}">
+        <aside id="website-sidebar" class="{{ $hasSubmenu ? 'lg:col-span-3' : 'lg:col-span-1' }} transition-all duration-300 ease-in-out">
             <div class="flex h-full bg-white border border-gray-200 rounded-2xl shadow-sm overflow-hidden">
                 <!-- Icon Rail -->
                 <div class="flex flex-col items-center py-4 px-2 bg-gray-50 {{ $hasSubmenu ? 'border-r' : '' }} border-gray-200 w-16 space-y-4">
@@ -52,11 +52,26 @@
                             <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25M12 18.75V21M4.72 4.72l1.59 1.59M17.69 17.69l1.59 1.59M3 12h2.25M18.75 12H21M4.72 19.28l1.59-1.59M17.69 6.31l1.59-1.59M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" />
                         </svg>
                     </a>
+
+                    @if($hasSubmenu)
+                    <button
+                        type="button"
+                        id="submenu-toggle"
+                        class="mt-auto p-2 rounded-xl text-gray-500 hover:bg-gray-200 hover:text-gray-900 transition-colors"
+                        title="Collapse submenu"
+                        aria-expanded="true"
+                        aria-controls="website-submenu-panel"
+                    >
+                        <svg id="submenu-toggle-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-5 h-5 transition-transform duration-300 ease-in-out">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 18l-6-6 6-6" />
+                        </svg>
+                    </button>
+                    @endif
                 </div>
 
                 @if($hasSubmenu)
                 <!-- Submenu Panel -->
-                <div class="flex-1 py-3 bg-white">
+                <div id="website-submenu-panel" class="shrink-0 py-3 bg-white overflow-hidden transition-all duration-300 ease-in-out" style="width: 15rem; opacity: 1;">
                     @if(request()->routeIs('admin.pages.*'))
                         <div class="px-3 pb-2 mb-2 border-b border-gray-100">
                             <h2 class="text-sm font-semibold text-gray-900">Pages</h2>
@@ -86,8 +101,49 @@
             </div>
         </aside>
 
-        <div class="lg:col-span-{{ $hasSubmenu ? '9' : '11' }} space-y-6" style="grid-column: span {{ $hasSubmenu ? '9' : '11' }};">
+        <div id="website-content" class="lg:col-span-{{ $hasSubmenu ? '9' : '11' }} space-y-6 transition-all duration-300 ease-in-out">
             {!! $content !!}
         </div>
     </div>
 </section>
+
+@if($hasSubmenu)
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const storageKey = 'admin.website.submenuCollapsed';
+        const sidebar = document.getElementById('website-sidebar');
+        const content = document.getElementById('website-content');
+        const submenu = document.getElementById('website-submenu-panel');
+        const toggleBtn = document.getElementById('submenu-toggle');
+        const toggleIcon = document.getElementById('submenu-toggle-icon');
+
+        if (!sidebar || !content || !submenu || !toggleBtn || !toggleIcon) {
+            return;
+        }
+
+        const applyState = (collapsed) => {
+            submenu.style.width = collapsed ? '0px' : '15rem';
+            submenu.style.opacity = collapsed ? '0' : '1';
+            submenu.classList.toggle('pointer-events-none', collapsed);
+
+            sidebar.classList.toggle('lg:col-span-3', !collapsed);
+            sidebar.classList.toggle('lg:col-span-1', collapsed);
+            content.classList.toggle('lg:col-span-9', !collapsed);
+            content.classList.toggle('lg:col-span-11', collapsed);
+
+            toggleIcon.classList.toggle('rotate-180', collapsed);
+            toggleBtn.setAttribute('aria-expanded', String(!collapsed));
+            toggleBtn.setAttribute('title', collapsed ? 'Expand submenu' : 'Collapse submenu');
+        };
+
+        let collapsed = localStorage.getItem(storageKey) === '1';
+        applyState(collapsed);
+
+        toggleBtn.addEventListener('click', function () {
+            collapsed = !collapsed;
+            localStorage.setItem(storageKey, collapsed ? '1' : '0');
+            applyState(collapsed);
+        });
+    });
+</script>
+@endif
