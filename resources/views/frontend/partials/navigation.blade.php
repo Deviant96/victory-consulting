@@ -44,7 +44,7 @@
                 <a href="{{ route('about') }}"
                    class="text-lg transition-colors duration-300 hover:text-[#0481AE] {{ request()->routeIs('about') ? 'font-semibold' : '' }}"
                    :class="{ 'text-gray-700': scrolled || !sticky || forceSolid, 'text-white': !scrolled && sticky && !forceSolid, 'text-[#0481AE]': (scrolled || !sticky || forceSolid) && {{ request()->routeIs('about') ? 'true' : 'false' }} }">
-                    About
+                    {{ t('frontend.navigation.about', 'About') }}
                 </a>
                 
                 <!-- Services Dropdown -->
