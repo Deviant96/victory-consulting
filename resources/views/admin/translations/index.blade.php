@@ -102,22 +102,28 @@
 
         <div class="bg-white border border-gray-200 shadow-sm rounded-xl p-4">
             <div class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
-                <div class="flex gap-3 items-center">
+                <form method="GET" action="{{ route('admin.translations.index') }}" class="flex flex-col gap-3 sm:flex-row sm:items-center">
                     <div class="relative">
-                        <input type="search" x-model.debounce.300ms="filters.search" @input="applyFilters" placeholder="Search key or value" class="w-72 rounded-lg border-gray-300 pl-9 focus:border-indigo-500 focus:ring-indigo-500">
+                        <input type="search" name="search" value="{{ $search ?? '' }}" placeholder="Search key, group, or any translation value" class="w-72 rounded-lg border-gray-300 pl-9 focus:border-indigo-500 focus:ring-indigo-500">
                         <svg class="w-4 h-4 text-gray-400 absolute left-3 top-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 104.5 4.5a7.5 7.5 0 0012.15 12.15z" />
                         </svg>
                     </div>
                     <div>
-                        <select x-model="filters.group" @change="applyFilters" class="rounded-lg border-gray-300 focus:border-indigo-500 focus:ring-indigo-500">
+                        <select name="group" class="rounded-lg border-gray-300 focus:border-indigo-500 focus:ring-indigo-500">
                             <option value="all">All groups</option>
-                            <template x-for="group in groups" :key="group">
-                                <option :value="group" x-text="group"></option>
-                            </template>
+                            @foreach ($groups as $group)
+                                <option value="{{ $group }}" {{ ($selectedGroup ?? 'all') === $group ? 'selected' : '' }}>{{ $group }}</option>
+                            @endforeach
                         </select>
                     </div>
-                </div>
+                    <div class="flex items-center gap-2">
+                        <button type="submit" class="inline-flex items-center px-3 py-2 rounded-lg bg-indigo-600 text-white hover:bg-indigo-700 transition">Filter</button>
+                        @if (!empty($search) || (($selectedGroup ?? 'all') !== 'all'))
+                            <a href="{{ route('admin.translations.index') }}" class="inline-flex items-center px-3 py-2 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-50 transition">Clear</a>
+                        @endif
+                    </div>
+                </form>
                 <div class="text-xs text-gray-500" x-show="lastNotice" x-text="lastNotice"></div>
             </div>
 

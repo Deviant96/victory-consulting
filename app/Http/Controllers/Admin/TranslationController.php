@@ -16,12 +16,29 @@ use Illuminate\Support\Facades\DB;
 
 class TranslationController extends Controller
 {
-    public function index(): View
+    public function index(Request $request): View
     {
-        $translationKeys = TranslationKey::with(['values'])
+        $search = trim((string) $request->input('search', ''));
+        $selectedGroup = (string) $request->input('group', 'all');
+
+        $translationKeys = TranslationKey::query()
+            ->with(['values'])
+            ->when($selectedGroup !== '' && $selectedGroup !== 'all', function ($query) use ($selectedGroup) {
+                $query->where('group', $selectedGroup);
+            })
+            ->when($search !== '', function ($query) use ($search) {
+                $query->where(function ($q) use ($search) {
+                    $q->where('key', 'like', "%{$search}%")
+                        ->orWhere('group', 'like', "%{$search}%")
+                        ->orWhereHas('values', function ($valueQuery) use ($search) {
+                            $valueQuery->where('value', 'like', "%{$search}%");
+                        });
+                });
+            })
             ->orderBy('group')
             ->orderBy('key')
-            ->paginate(15);
+            ->paginate(15)
+            ->withQueryString();
 
         $groups = TranslationKey::select('group')
             ->distinct()
@@ -39,7 +56,7 @@ class TranslationController extends Controller
             return $translationKey;
         });
 
-        return view('admin.translations.index', compact('translationKeys', 'languages', 'fallbackLocale', 'groups'));
+        return view('admin.translations.index', compact('translationKeys', 'languages', 'fallbackLocale', 'groups', 'search', 'selectedGroup'));
     }
 
     public function create(): View
