@@ -100,10 +100,12 @@ class TranslationController extends Controller
 
     protected function syncTranslations(TranslationKey $translationKey, array $translations): void
     {
-        $languages = Language::pluck('code')->all();
+        $validLanguageCodes = Language::pluck('code')->flip();
 
-        foreach ($languages as $languageCode) {
-            $value = $translations[$languageCode] ?? null;
+        foreach ($translations as $languageCode => $value) {
+            if (! $validLanguageCodes->has($languageCode)) {
+                continue;
+            }
 
             if ($value === null || $value === '') {
                 TranslationValue::where('translation_key_id', $translationKey->id)
