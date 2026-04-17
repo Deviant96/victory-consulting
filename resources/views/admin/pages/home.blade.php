@@ -177,7 +177,7 @@
                 <!-- Services Section -->
                 <div class="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
                     <div class="bg-gray-50 px-6 py-4 border-b border-gray-200">
-                        <h2 class="text-lg font-medium text-gray-900">Services Intro Loop</h2>
+                        <h2 class="text-lg font-medium text-gray-900">Services Intro</h2>
                     </div>
                     <div class="p-6 space-y-6">
                          <x-admin.settings-field-with-translation
@@ -206,7 +206,7 @@
                 <!-- Business Solutions Section -->
                 <div class="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
                     <div class="bg-gray-50 px-6 py-4 border-b border-gray-200">
-                        <h2 class="text-lg font-medium text-gray-900">Business Solutions Section</h2>
+                        <h2 class="text-lg font-medium text-gray-900">Industry Intro</h2>
                     </div>
                     <div class="p-6 space-y-6">
                         <x-admin.settings-field-with-translation
@@ -294,7 +294,7 @@
                 <!-- Why Choose Us -->
                 <div class="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
                     <div class="bg-gray-50 px-6 py-4 border-b border-gray-200">
-                        <h2 class="text-lg font-medium text-gray-900">Why Choose Us</h2>
+                        <h2 class="text-lg font-medium text-gray-900">About Intro</h2>
                     </div>
                     <div class="p-6 space-y-6">
                         <x-admin.settings-field-with-translation

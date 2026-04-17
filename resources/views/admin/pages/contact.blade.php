@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
     
-@section('title', 'Contact Page Content')
+@section('title', 'Contact Page Setting')
 @section('page-title', 'Contact Page')
 
 @section('content')
@@ -8,7 +8,7 @@
     <!-- Header Section -->
     <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-gray-200 pb-6">
         <div>
-            <h1 class="text-2xl font-bold text-gray-900">Contact Page Content</h1>
+            <h1 class="text-2xl font-bold text-gray-900">Contact Page Setting</h1>
             <p class="text-sm text-gray-500 mt-1">Customize the headline and introductory text that visitors see on your "Contact Us" page.</p>
         </div>
         <div class="flex items-center gap-3">
@@ -28,7 +28,7 @@
         <div class="lg:col-span-2">
             <div class="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
                 <div class="bg-gray-50 px-6 py-4 border-b border-gray-200 flex justify-between items-center">
-                    <h2 class="text-lg font-medium text-gray-900">Page Header Content</h2>
+                    <h2 class="text-lg font-medium text-gray-900">Header Content</h2>
                     <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
                         Visible on website
                     </span>
@@ -41,7 +41,7 @@
                     <div class="bg-white p-4 rounded-xl border border-gray-100 shadow-sm hover:border-blue-200 transition-colors">
                          <x-admin.settings-field-with-translation
                             name="contact[page_title]"
-                            label="Page Headline"
+                            label="Page Title"
                             value="Contact Us"
                             :settings="$settings"
                             :languages="$languages"
